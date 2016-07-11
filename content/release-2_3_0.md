@@ -17,15 +17,5 @@ We are proud to announce CPACS 2.3 A major release with a lot of features and va
     Extended the mass breakdown.
     Updated the symmetry definition, please take a look at the documentation point 5 adn 6.
 
-![Photo]({attach}images/release-23/dummy.png)
-
-txt 
-![Photo]({attach}images/release-23/dummy.png)
-
-### Topic
-
-txt
-
-![Photo]({attach}images/release-23/dummy.png)
 
 
