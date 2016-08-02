@@ -26,7 +26,7 @@ AUTHOR_FEED_RSS = None
 
 # Blogroll
 LINKS = (('Air Transportation Systems', 'http://www.dlr.de/ly'),
-         ('Impressum', 'http://www.dlr.de/dlr/desktopdefault.aspx/tabid-10067/149_read-17/'),)
+         ('Impressum', 'http://www.dlr.de/lk/desktopdefault.aspx/tabid-4444/'),)
 
 # Social widget
 SOCIAL = ()
