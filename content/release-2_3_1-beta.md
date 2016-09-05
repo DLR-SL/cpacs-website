@@ -4,7 +4,7 @@ Category: Releases
 Author: CPACS
 
 CPACS 2.3.1 is a beta release, all parameters may be subject to change.
-Please see [GitHub](https://github.com/DLR-LY/CPACS) for the full changelog.
+Please see [GitHub](https://github.com/DLR-LY/CPACS/releases) for the full changelog.
 
 ### CPACS 2.3.1-beta is now available
 	Added a branch for the definition of design studies.
