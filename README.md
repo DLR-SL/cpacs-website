@@ -10,7 +10,7 @@ Based on [Pelican](http://blog.getpelican.com/) and a modifed Polar theme by [Co
 
 * Install Pelican and supporting libraries
 
-  ```
+```
 pip install pelican
 pip install markdown
 pip install fabric
@@ -19,7 +19,7 @@ pip install ghp-import
 
  * Clone rce-website
 
-  ```
+```
 git clone https://github.com/dlr-ly/cpacs-website
 ```
 
@@ -27,7 +27,7 @@ git clone https://github.com/dlr-ly/cpacs-website
 
  * Set proper port for local testing, which works on your machine in `fabfile.py`
 
-  ```
+```
 # Port for `serve`
 PORT = 8001
 ```
@@ -35,17 +35,17 @@ PORT = 8001
 ## Build 
 
  * Generate website 
-  ```
+```
 fab build
 ```
 
  * Start local server for testing (http://localhost:8001/)
-  ```
+```
 fab serve
 ```
 
  * Convenience target for rebuild and starting local server
-  ```
+```
 fab reserve
 ```
 
