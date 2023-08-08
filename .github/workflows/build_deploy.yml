@@ -44,18 +44,11 @@ jobs:
         chmod -c -R +rX "." | while read line; do
           echo "::warning title=Invalid file permissions automatically fixed::$line"
         done
-
-    - name: Copy output to root directory
-      run: |
-        mv -v output/* .
-        rm -rf output/* || true
-        rm -rf .[^.]* || true
-        rm -rf *
         
     - name: Upload Artifacts
       uses: actions/upload-pages-artifact@v2
       with:
-        path: .
+        path: output
 
     - name: Deploy to CPACS website
       id: deployment
