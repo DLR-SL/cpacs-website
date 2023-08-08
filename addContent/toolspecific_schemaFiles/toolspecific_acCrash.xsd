@@ -1,0 +1,727 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+            xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5" 
+            xmlns:html="http://www.w3.org/1999/xhtml" 
+            xmlns:sd="http://schemas.xsddoc.codeplex.com/schemaDoc/2009/3" 
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            targetNamespace="http://www.cpacs.de/acCrash"
+            xmlns="http://www.cpacs.de/acCrash"
+            elementFormDefault="qualified">
+ 
+    <!-- Global element -->
+    <xsd:element name="acCrash" type="acCrashToolType"/>
+
+    <!-- Base types -->
+    <xsd:complexType name="complexBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>complexBaseType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Base type for complex nodes (including external data
+                            attributes)</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
+        <xsd:attribute name="externalFileName" type="xsd:string"/>
+        <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="stringBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>stringBaseType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Base type for string nodes (including external data
+                            attributes)</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+                <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
+                <xsd:attribute name="externalFileName" type="xsd:string"/>
+                <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="doubleBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>doubleBaseType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:content>
+                            <ddue:para>Base type for double nodes (including external data
+                                attributes)</ddue:para>
+                            <ddue:para>The double base type can include optional uncertainty
+                                information. The description of uncertainties is placed in
+                                addtional attributes. First, it is described by an attribute
+                                that describes the type of uncertainty function called
+                                functionName. The functionName attribute includes the tag name
+                                of the distribution function which is listened in the table
+                                shown below. Each uncertainty function is further describes by a
+                                set of parameters that are described in the table below.
+                            </ddue:para>
+                            <ddue:mediaLink>
+                                <ddue:image xlink:href="uncertaintyFunctions"/>
+                            </ddue:mediaLink>
+                        </ddue:content>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:double">
+                <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
+                <xsd:attribute name="externalFileName" type="xsd:string"/>
+                <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    
+    <xsd:complexType name="booleanBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>booleanBaseType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Base type for boolean nodes (including external data
+                            attributes)</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:boolean">
+                <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
+                <xsd:attribute name="externalFileName" type="xsd:string"/>
+                <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    
+    <xsd:complexType name="integerBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>integerBaseType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Base type for integer nodes (including external data
+                            attributes)</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:integer">
+                <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
+                <xsd:attribute name="externalFileName" type="xsd:string"/>
+                <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+    
+    <xsd:complexType name="pointType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>pointType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Point type, containing an xyz data triplet.</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="x" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>X-Component</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element minOccurs="0" name="y" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Y-Component</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element minOccurs="0" name="z" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Z-Component</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+                <xsd:attribute name="uID" type="xsd:ID" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    
+        <xsd:complexType name="stringUIDBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>stringUIDBaseType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>This is the base type that links to other components. It should always contain a UID.</ddue:para>
+                        <ddue:para>This node has an additional attribute isLink that will be used if a stringBaseType refers to a uID. TIXI can then
+                            perform automatic validation for the existence of the referenced uID. </ddue:para>
+                        <ddue:para>Furthermore this node contains an additional attribute symmetry. The symmetry attribute may take three values: symm, def, full </ddue:para>
+                        <ddue:para>def: The element refers to the geometric component that has a symmetry attribute and refers only to the defined side of the geometric component.</ddue:para>
+                        <ddue:para>symm: The element refers to the geometric component that has a symmetry attribute and refers only to the symmetric side of the geometric component. (Similar to the previous _symm solution)</ddue:para>
+                        <ddue:para>full: The element refers to the geometric component that has a symmetry attribute and refers to the complete component. (This is the default behaviour)</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:IDREF">
+                <xsd:attribute name="isLink" default="True" type="xsd:string"/>
+                <xsd:attribute name="symmetry">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="def"/>
+                            <xsd:enumeration value="symm"/>
+                            <xsd:enumeration value="full"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <!-- Type of the global tool element; must be an extension of toolBaseType -->
+    <xsd:complexType name="acCrashToolType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>sectmeshPamcrashToolType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>SectmeshPamcrashTool type, containing crash simulation
+                            lool chain data (incl. SECTMESH and PAM-CRASH)</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="analysisType">
+                        <xsd:annotation>
+                            <xsd:documentation>Definition of the analysis type used in
+                                AC-CRASH, restricted to values 'sectionModelling',
+                                'sectionDrop', 'fuselageModelling', 'fuselageCrash'
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringBaseType">
+                                    <xsd:enumeration value="sectionModelling"/>
+                                    <xsd:enumeration value="sectionDrop"/>
+                                    <xsd:enumeration value="fuselageModelling"/>
+                                    <xsd:enumeration value="fuselageCrash"/>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="modelDefinitions" type="crashModelDefinitionType"/>
+                    <xsd:element name="crashJobDefinition" type="crashJobDefinitionType"/>
+                    <xsd:element name="crashJobControl" type="crashJobControlType"/>
+                    <xsd:element minOccurs="0" name="crashElsizeDefinitions" type="crashElsizeDefsType"/>
+                    <xsd:element form="qualified" minOccurs="0" name="bkMassCaseDefinitions" type="bkMassCasesType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="parentElementBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Element with child elements</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>... some explanation ...</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="childElement1" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>A first element of type double
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="childElement2" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>A second element of type double
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+    
+        <xsd:complexType name="crashModelDefinitionType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>crashModelDefinitionsType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>CrashModelDefinitionsType, containing data for mesh
+                            generation</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="generalCrashModelElementSizesUID" type="stringUIDBaseType"/>
+                    <xsd:element minOccurs="0" name="detailedRegions" type="crashDetailedRegionsType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="crashJobDefinitionType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>pamcrashJobDefType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Mandatory PAM-CRASH job definition</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="aircraftModelUID" type="stringUIDBaseType"/>
+                    <xsd:element name="fuselageUID" type="stringUIDBaseType"/>
+                    <xsd:element name="deckUID" type="stringUIDBaseType"/>
+                    <xsd:element name="crashLoadcaseUID" type="stringUIDBaseType"/>
+                    <xsd:element minOccurs="0" name="bkMassCaseUID" type="stringUIDBaseType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="crashJobControlType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>pamcrashJobDefType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Mandatory crash job control data</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="crashSolver">
+                        <xsd:annotation>
+                            <xsd:documentation>Definition of Crash Solver to be used
+                                (currently onl PAM-CRASH implemented)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringBaseType">
+                                    <xsd:enumeration value="Pam-Crash"/>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element minOccurs="0" name="crashSolverVersion" type="stringBaseType"/>
+                    <xsd:element name="crashTerminationTime" type="doubleBaseType"/>
+                    <xsd:element minOccurs="0" name="crashNoOfProcessors" type="integerBaseType"/>
+                    <xsd:element minOccurs="0" name="crashOutputFrequency" type="crashOutputFrequencyDefType"/>
+                    <xsd:element minOccurs="0" name="crashAdditionalOutput" type="crashAdditionalOutputDefType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="crashElsizeDefsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>crashElsizeDefsType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Definition of Element sise blocks for detailed regions
+                        </ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" name="crashElsizeDefinition" type="crashElsizeDefType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="bkMassCasesType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>BK Mass casesType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Definition of mass cases (preliminary BK version)
+                        </ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" name="bkMassCaseDefinition" type="bkMassCaseType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="crashDetailedRegionsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>crashDetailedRegionsType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Definition of detailed regions in crash model
+                        </ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" name="detailedRegion" type="crashDetailedRegionType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="crashOutputFrequencyDefType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>pamcrashOutputFrequencyDefType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Optional PAM-CRASH output frequency definitions
+                        </ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element minOccurs="0" name="crashPlotInterval" type="doubleBaseType"/>
+                    <xsd:element minOccurs="0" name="crashTimeHistoryInterval" type="doubleBaseType"/>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="crashAdditionalOutputDefType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>pamcrashAdditionalOutputDefType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Optional definition of additional PAM-CRASH outputs
+                            (plots, video)</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element minOccurs="0" name="crashOutAccCurves" type="booleanBaseType"/>
+                    <xsd:element minOccurs="0" name="crashOutVideo" type="booleanBaseType"/>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="crashElsizeDefType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>crashElsizeDefType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>CrashElsize definition type, containing the element size
+                            definitions for crash models</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element minOccurs="0" name="name" type="stringBaseType"/>
+                    <xsd:element minOccurs="0" name="elsizeSkin" type="doubleBaseType"/>
+                    <xsd:element minOccurs="0" name="numberOfTransitionAreas" type="integerBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>defines number of bays for skin mesh transition (only
+                                applicable for detailed regions in standard
+                                mesh)</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element minOccurs="0" name="elsizeStringer" type="doubleBaseType"/>
+                    <xsd:element minOccurs="0" name="elsizeFrame" type="doubleBaseType"/>
+                    <xsd:element minOccurs="0" name="elsizePAXCrossbeam" type="doubleBaseType"/>
+                    <xsd:element minOccurs="0" name="elsizeCargoCrossbeam" type="doubleBaseType"/>
+                    <xsd:element minOccurs="0" name="elsizePAXBeamStruts" type="doubleBaseType"/>
+                    <xsd:element minOccurs="0" name="elsizeCargoSupportStruts" type="doubleBaseType"/>
+                    <xsd:element minOccurs="0" name="elsizeLongFloorBeams" type="doubleBaseType"/>
+                    <xsd:element minOccurs="0" name="elsizeFloorPanels" type="doubleBaseType"/>
+                    <xsd:element minOccurs="0" name="elsizePressureBulkheads" type="doubleBaseType"/>
+                    <xsd:element minOccurs="0" name="elsizeWindows" type="doubleBaseType"/>
+                    <xsd:element minOccurs="0" name="elsizePaxDoors" type="doubleBaseType"/>
+                    <xsd:element minOccurs="0" name="elsizeCargoDoors" type="doubleBaseType"/>
+                    <xsd:element minOccurs="0" name="elsizeCenterFuselageArea" type="doubleBaseType"/>
+                    <xsd:element minOccurs="0" name="elsizeIntercostals" type="doubleBaseType"/>
+                </xsd:all>
+                <xsd:attribute name="uID" type="xsd:ID" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="bkMassCaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>BK Mass Case Type</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Definition of a mass case (preliminary BK version)
+                        </ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" name="name" type="stringBaseType"/>
+                    <xsd:element minOccurs="0" name="staticMasses" type="staticMassType"/>
+                </xsd:sequence>
+                <xsd:attribute name="uID" type="xsd:ID" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="crashDetailedRegionType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>crashDetailedRegionsType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>CrashDetailedRegions type, containing definitions of
+                            model regions with detailed mesh representation</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="name" type="stringBaseType"/>
+                    <xsd:element name="startFrameUID" type="stringUIDBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>UID of first frame to define detailed area
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="endFrameUID" type="stringUIDBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>UID of last frame to define detailed area
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="startStringerUID" type="stringUIDBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>UID of start stringer to define detailed area
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="endStringerUID" type="stringUIDBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>UID of end stringer to define detailed area
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="individualCrashModelElementSizesUID" type="stringUIDBaseType"/>
+                </xsd:all>
+                <xsd:attribute name="uID" type="xsd:ID" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="staticMassType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para/>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Nonstructural mass in one section with CoG.</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element maxOccurs="unbounded" name="staticMass" type="massAndCoGType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="massAndCoGType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>massAndCoGType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>MassAndCoG type, containing mass and center of gravity
+                            for a part</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="mass" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Mass</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="coG" type="pointType">
+                        <xsd:annotation>
+                            <xsd:documentation>Center of Gravity of added masses
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element minOccurs="0" name="massInfluenceRegion" type="massInfluenceRegionType"/>
+                </xsd:all>
+                <xsd:attribute name="uID" type="xsd:ID" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="massInfluenceRegionType">
+
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para/>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Definition of Influence region for added masses
+                        </ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:choice>
+                        <xsd:sequence>
+                            <xsd:element minOccurs="0" name="massInfluenceRadius" type="doubleBaseType"/>
+                        </xsd:sequence>
+                        <xsd:sequence>
+                            <xsd:element minOccurs="0" name="delta_x1" type="doubleBaseType"/>
+                            <xsd:element minOccurs="0" name="delta_x2" type="doubleBaseType"/>
+                            <xsd:element minOccurs="0" name="delta_y1" type="doubleBaseType"/>
+                            <xsd:element minOccurs="0" name="delta_y2" type="doubleBaseType"/>
+                            <xsd:element minOccurs="0" name="delta_z1" type="doubleBaseType"/>
+                            <xsd:element minOccurs="0" name="delta_z2" type="doubleBaseType"/>
+                        </xsd:sequence>
+                    </xsd:choice>
+                    <xsd:element maxOccurs="unbounded" minOccurs="0" name="structuralComponent">
+                        <xsd:annotation>
+                            <xsd:documentation>restriction of the nodes to be part of
+                                specific structural components, e.g. all, floor, surface
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringBaseType">
+                                    <xsd:enumeration value="all"/>
+                                    <xsd:enumeration value="surface"/>
+                                    <xsd:enumeration value="floor"/>
+                                    <xsd:enumeration value="cargoFloor"/>
+                                    <xsd:enumeration value="frame"/>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+</xsd:schema>

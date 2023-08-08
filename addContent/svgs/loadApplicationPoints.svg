@@ -1,0 +1,694 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="1991" height="1522" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<rect x="1375" y="14" width="100" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1425" y="25" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">componentUID</text>
+<clipPath id="xsddoc0"><rect x="1375" y="28.8" width="220" height="69.4"/></clipPath>
+<text x="1375" y="45" style="font-family:Arial;font-size:7.2pt;fill:rgb(0,0,0);font-weight:normal;text-anchor:start;dominant-baseline:central;inline-size=110" clip-path="url(#xsddoc0)">UID of a wing, 
+<tspan x="1375" y="56.2">fuselage or </tspan>
+<tspan x="1375" y="67.4">control surface </tspan>
+</text>
+<line x1="1377" y1="16" x2="1385" y2="16" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1377" y1="18" x2="1383" y2="18" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1377" y1="20" x2="1383" y2="20" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1377" y1="22" x2="1383" y2="22" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1850" y="99" width="29" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1864.5" y="110" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">x</text>
+<line x1="1852" y1="101" x2="1860" y2="101" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1852" y1="103" x2="1858" y2="103" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1852" y1="105" x2="1858" y2="105" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1852" y1="107" x2="1858" y2="107" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1850" y="129" width="29" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1;stroke-dasharray:4,1"/>
+<text x="1864.5" y="140" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">y</text>
+<line x1="1852" y1="131" x2="1860" y2="131" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1852" y1="133" x2="1858" y2="133" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1852" y1="135" x2="1858" y2="135" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1852" y1="137" x2="1858" y2="137" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1850" y="159" width="28" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1;stroke-dasharray:4,1"/>
+<text x="1864" y="170" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">z</text>
+<line x1="1852" y1="161" x2="1860" y2="161" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1852" y1="163" x2="1858" y2="163" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1852" y1="165" x2="1858" y2="165" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1852" y1="167" x2="1858" y2="167" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1840" y1="110" x2="1850" y2="110" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1840" y1="140" x2="1850" y2="140" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1840" y1="170" x2="1850" y2="170" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1840" y1="109" x2="1840" y2="170" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1830" y1="109" x2="1840" y2="109" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<path d="M1796 99 L1819 99 L1825 105 L1825 113 L1819 119 L1796 119 L1790 113 L1790 105 Z" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1793" y1="109" x2="1822" y2="109" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<ellipse cx="1802" cy="109" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1807" cy="109" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1812" cy="109" rx="2" ry="2" style="rgb(0,0,0)"/>
+<rect x="1820" y="104" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1822" y1="109" x2="1828" y2="109" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1850" y="189" width="100" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1900" y="200" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">eta</text>
+<clipPath id="xsddoc1"><rect x="1850" y="203.8" width="220" height="106.4"/></clipPath>
+<text x="1850" y="220" style="font-family:Arial;font-size:7.2pt;fill:rgb(0,0,0);font-weight:normal;text-anchor:start;dominant-baseline:central;inline-size=110" clip-path="url(#xsddoc1)">Relative spanwise 
+<tspan x="1850" y="231.2">position. Eta </tspan>
+<tspan x="1850" y="242.4">refers to the </tspan>
+<tspan x="1850" y="253.6">segment or </tspan>
+<tspan x="1850" y="264.8">componentSegment </tspan>
+<tspan x="1850" y="276">depending on </tspan>
+<tspan x="1850" y="287.2">the referenced </tspan>
+<tspan x="1850" y="298.4">uID. </tspan>
+</text>
+<line x1="1852" y1="191" x2="1860" y2="191" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1852" y1="193" x2="1858" y2="193" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1852" y1="195" x2="1858" y2="195" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1852" y1="197" x2="1858" y2="197" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1850" y="311" width="100" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1900" y="322" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">xsi</text>
+<clipPath id="xsddoc2"><rect x="1850" y="325.8" width="220" height="106.4"/></clipPath>
+<text x="1850" y="342" style="font-family:Arial;font-size:7.2pt;fill:rgb(0,0,0);font-weight:normal;text-anchor:start;dominant-baseline:central;inline-size=110" clip-path="url(#xsddoc2)">Relative chordwise 
+<tspan x="1850" y="353.2">position. Xsi </tspan>
+<tspan x="1850" y="364.4">refers to the </tspan>
+<tspan x="1850" y="375.6">segment or </tspan>
+<tspan x="1850" y="386.8">componentSegment </tspan>
+<tspan x="1850" y="398">depending on </tspan>
+<tspan x="1850" y="409.2">the referenced </tspan>
+<tspan x="1850" y="420.4">uID. </tspan>
+</text>
+<line x1="1852" y1="313" x2="1860" y2="313" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1852" y1="315" x2="1858" y2="315" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1852" y1="317" x2="1858" y2="317" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1852" y1="319" x2="1858" y2="319" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1850" y="433" width="100" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1;stroke-dasharray:4,1"/>
+<text x="1900" y="444" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">relHeight</text>
+<clipPath id="xsddoc3"><rect x="1850" y="447.8" width="220" height="94.4"/></clipPath>
+<text x="1850" y="464" style="font-family:Arial;font-size:7.2pt;fill:rgb(0,0,0);font-weight:normal;text-anchor:start;dominant-baseline:central;inline-size=110" clip-path="url(#xsddoc3)">Relative height 
+<tspan x="1850" y="475.2">position. relHeight </tspan>
+<tspan x="1850" y="486.4">is relative to </tspan>
+<tspan x="1850" y="497.6">the local airfoil </tspan>
+<tspan x="1850" y="508.8">thickness. </tspan>
+</text>
+<line x1="1852" y1="435" x2="1860" y2="435" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1852" y1="437" x2="1858" y2="437" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1852" y1="439" x2="1858" y2="439" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1852" y1="441" x2="1858" y2="441" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1850" y="543" width="100" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1900" y="554" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">referenceUID</text>
+<clipPath id="xsddoc4"><rect x="1850" y="557.8" width="220" height="181.4"/></clipPath>
+<text x="1850" y="574" style="font-family:Arial;font-size:7.2pt;fill:rgb(0,0,0);font-weight:normal;text-anchor:start;dominant-baseline:central;inline-size=110" clip-path="url(#xsddoc4)">This reference 
+<tspan x="1850" y="585.2">uID determines </tspan>
+<tspan x="1850" y="596.4">the reference </tspan>
+<tspan x="1850" y="607.6">coordinate system. </tspan>
+<tspan x="1850" y="618.8">If it points to </tspan>
+<tspan x="1850" y="630">a segment, </tspan>
+<tspan x="1850" y="641.2">then the eta-xsi </tspan>
+<tspan x="1850" y="652.4">values are considered </tspan>
+<tspan x="1850" y="663.6">to be in segment </tspan>
+<tspan x="1850" y="674.8">eta-xsi coordinates; </tspan>
+<tspan x="1850" y="686">if it points to </tspan>
+<tspan x="1850" y="697.2">a componentSegment, </tspan>
+<tspan x="1850" y="708.4">then componentSegment </tspan>
+<tspan x="1850" y="719.6">eta-xsi coordinates </tspan>
+<tspan x="1850" y="730.8">are used. </tspan>
+</text>
+<line x1="1852" y1="545" x2="1860" y2="545" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1852" y1="547" x2="1858" y2="547" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1852" y1="549" x2="1858" y2="549" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1852" y1="551" x2="1858" y2="551" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1840" y1="200" x2="1850" y2="200" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1840" y1="322" x2="1850" y2="322" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1840" y1="444" x2="1850" y2="444" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1840" y1="554" x2="1850" y2="554" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1840" y1="199" x2="1840" y2="554" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1830" y1="199" x2="1840" y2="199" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<path d="M1796 189 L1819 189 L1825 195 L1825 203 L1819 209 L1796 209 L1790 203 L1790 195 Z" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1793" y1="199" x2="1822" y2="199" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<ellipse cx="1802" cy="199" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1807" cy="199" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1812" cy="199" rx="2" ry="2" style="rgb(0,0,0)"/>
+<rect x="1820" y="194" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1822" y1="199" x2="1828" y2="199" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1780" y1="109" x2="1790" y2="109" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1780" y1="199" x2="1790" y2="199" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1780" y1="109" x2="1780" y2="199" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1770" y1="110" x2="1780" y2="110" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<path d="M1736 100 L1759 100 L1765 106 L1765 114 L1759 120 L1736 120 L1730 114 L1730 106 Z" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1735" y1="110" x2="1739" y2="110" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1739" y1="110" x2="1743" y2="106" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1751" y1="106" x2="1755" y2="106" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1751" y1="110" x2="1759" y2="110" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1751" y1="114" x2="1755" y2="114" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1755" y1="106" x2="1755" y2="114" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<ellipse cx="1747" cy="106" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1747" cy="110" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1747" cy="114" rx="2" ry="2" style="rgb(0,0,0)"/>
+<rect x="1760" y="105" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1762" y1="110" x2="1768" y2="110" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1710" y1="110" x2="1730" y2="110" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<rect x="1583" y="102" width="125" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<rect x="1580" y="99" width="125" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1642.5" y="110" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">loadReferencePoint</text>
+<text x="1730" y="104" style="font-family:Arial;font-size:7.2pt;fill:rgb(0,0,0);text-anchor:end;dominant-baseline:central">2..∞</text>
+<rect x="1700" y="105" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1702" y1="110" x2="1708" y2="110" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1560" y1="110" x2="1580" y2="110" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<path d="M1526 100 L1549 100 L1555 106 L1555 114 L1549 120 L1526 120 L1520 114 L1520 106 Z" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1523" y1="110" x2="1552" y2="110" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<ellipse cx="1532" cy="110" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1537" cy="110" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1542" cy="110" rx="2" ry="2" style="rgb(0,0,0)"/>
+<rect x="1550" y="105" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1552" y1="110" x2="1558" y2="110" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1510" y1="110" x2="1520" y2="110" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1510" y1="110" x2="1510" y2="110" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1500" y1="110" x2="1510" y2="110" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<rect x="1375" y="99" width="120" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1;stroke-dasharray:4,1"/>
+<text x="1435" y="110" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">loadReferenceLine</text>
+<clipPath id="xsddoc5"><rect x="1375" y="113.8" width="270" height="69.4"/></clipPath>
+<text x="1375" y="130" style="font-family:Arial;font-size:7.2pt;fill:rgb(0,0,0);font-weight:normal;text-anchor:start;dominant-baseline:central;inline-size=135" clip-path="url(#xsddoc5)">Reference axis 
+<tspan x="1375" y="141.2">(line) for load distribution </tspan>
+</text>
+<rect x="1490" y="105" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1492" y1="110" x2="1498" y2="110" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1597" y="740" width="64" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1629" y="751" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">pointIDs</text>
+<line x1="1599" y1="742" x2="1607" y2="742" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1599" y1="744" x2="1605" y2="744" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1599" y1="746" x2="1605" y2="746" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1599" y1="748" x2="1605" y2="748" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1597" y="770" width="29" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1611.5" y="781" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">x</text>
+<line x1="1599" y1="772" x2="1607" y2="772" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1599" y1="774" x2="1605" y2="774" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1599" y1="776" x2="1605" y2="776" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1599" y1="778" x2="1605" y2="778" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1597" y="800" width="29" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1611.5" y="811" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">y</text>
+<line x1="1599" y1="802" x2="1607" y2="802" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1599" y1="804" x2="1605" y2="804" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1599" y1="806" x2="1605" y2="806" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1599" y1="808" x2="1605" y2="808" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1597" y="830" width="28" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1611" y="841" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">z</text>
+<line x1="1599" y1="832" x2="1607" y2="832" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1599" y1="834" x2="1605" y2="834" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1599" y1="836" x2="1605" y2="836" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1599" y1="838" x2="1605" y2="838" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1587" y1="751" x2="1597" y2="751" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1587" y1="781" x2="1597" y2="781" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1587" y1="811" x2="1597" y2="811" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1587" y1="841" x2="1597" y2="841" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1587" y1="751" x2="1587" y2="841" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1577" y1="751" x2="1587" y2="751" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<path d="M1543 741 L1566 741 L1572 747 L1572 755 L1566 761 L1543 761 L1537 755 L1537 747 Z" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1550" y1="747" x2="1546" y2="747" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1550" y1="751" x2="1542" y2="751" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1550" y1="755" x2="1546" y2="755" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1546" y1="747" x2="1546" y2="755" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1558" y1="747" x2="1562" y2="747" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1558" y1="751" x2="1566" y2="751" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1558" y1="755" x2="1562" y2="755" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1562" y1="747" x2="1562" y2="755" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<ellipse cx="1554" cy="747" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1554" cy="751" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1554" cy="755" rx="2" ry="2" style="rgb(0,0,0)"/>
+<rect x="1567" y="746" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1569" y1="751" x2="1575" y2="751" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1527" y1="751" x2="1537" y2="751" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1527" y1="751" x2="1527" y2="751" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1517" y1="751" x2="1527" y2="751" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<rect x="1375" y="740" width="137" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1;stroke-dasharray:4,1"/>
+<text x="1443.5" y="751" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">loadApplicationPoints</text>
+<clipPath id="xsddoc6"><rect x="1375" y="754.8" width="304" height="69.4"/></clipPath>
+<text x="1375" y="771" style="font-family:Arial;font-size:7.2pt;fill:rgb(0,0,0);font-weight:normal;text-anchor:start;dominant-baseline:central;inline-size=152" clip-path="url(#xsddoc6)">List of points at 
+<tspan x="1375" y="782.2">which load vectors </tspan>
+<tspan x="1375" y="793.4">are applied to </tspan>
+</text>
+<rect x="1507" y="746" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1509" y1="751" x2="1515" y2="751" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1613" y="860" width="45" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1635.5" y="871" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">uIDs</text>
+<line x1="1615" y1="862" x2="1623" y2="862" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1615" y1="864" x2="1621" y2="864" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1615" y1="866" x2="1621" y2="866" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1615" y1="868" x2="1621" y2="868" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1613" y="890" width="29" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1627.5" y="901" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">x</text>
+<line x1="1615" y1="892" x2="1623" y2="892" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1615" y1="894" x2="1621" y2="894" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1615" y1="896" x2="1621" y2="896" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1615" y1="898" x2="1621" y2="898" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1613" y="920" width="29" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1627.5" y="931" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">y</text>
+<line x1="1615" y1="922" x2="1623" y2="922" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1615" y1="924" x2="1621" y2="924" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1615" y1="926" x2="1621" y2="926" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1615" y1="928" x2="1621" y2="928" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1613" y="950" width="28" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1627" y="961" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">z</text>
+<line x1="1615" y1="952" x2="1623" y2="952" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1615" y1="954" x2="1621" y2="954" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1615" y1="956" x2="1621" y2="956" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1615" y1="958" x2="1621" y2="958" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1613" y="980" width="83" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1;stroke-dasharray:4,1"/>
+<text x="1654.5" y="991" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">orientationX</text>
+<line x1="1615" y1="982" x2="1623" y2="982" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1615" y1="984" x2="1621" y2="984" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1615" y1="986" x2="1621" y2="986" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1615" y1="988" x2="1621" y2="988" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1613" y="1010" width="83" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1;stroke-dasharray:4,1"/>
+<text x="1654.5" y="1021" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">orientationY</text>
+<line x1="1615" y1="1012" x2="1623" y2="1012" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1615" y1="1014" x2="1621" y2="1014" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1615" y1="1016" x2="1621" y2="1016" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1615" y1="1018" x2="1621" y2="1018" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1613" y="1040" width="82" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1;stroke-dasharray:4,1"/>
+<text x="1654" y="1051" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">orientationZ</text>
+<line x1="1615" y1="1042" x2="1623" y2="1042" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1615" y1="1044" x2="1621" y2="1044" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1615" y1="1046" x2="1621" y2="1046" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1615" y1="1048" x2="1621" y2="1048" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1603" y1="871" x2="1613" y2="871" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1603" y1="901" x2="1613" y2="901" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1603" y1="931" x2="1613" y2="931" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1603" y1="961" x2="1613" y2="961" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1603" y1="991" x2="1613" y2="991" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1603" y1="1021" x2="1613" y2="1021" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1603" y1="1051" x2="1613" y2="1051" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1603" y1="871" x2="1603" y2="1051" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1593" y1="871" x2="1603" y2="871" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<path d="M1559 861 L1582 861 L1588 867 L1588 875 L1582 881 L1559 881 L1553 875 L1553 867 Z" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1566" y1="867" x2="1562" y2="867" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1566" y1="871" x2="1558" y2="871" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1566" y1="875" x2="1562" y2="875" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1562" y1="867" x2="1562" y2="875" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1574" y1="867" x2="1578" y2="867" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1574" y1="871" x2="1582" y2="871" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1574" y1="875" x2="1578" y2="875" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1578" y1="867" x2="1578" y2="875" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<ellipse cx="1570" cy="867" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1570" cy="871" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1570" cy="875" rx="2" ry="2" style="rgb(0,0,0)"/>
+<rect x="1583" y="866" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1585" y1="871" x2="1591" y2="871" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1543" y1="871" x2="1553" y2="871" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1543" y1="871" x2="1543" y2="871" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1533" y1="871" x2="1543" y2="871" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<rect x="1375" y="860" width="153" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1;stroke-dasharray:4,1"/>
+<text x="1451.5" y="871" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">cutLoadIntegrationPoints</text>
+<clipPath id="xsddoc7"><rect x="1375" y="874.8" width="336" height="69.4"/></clipPath>
+<text x="1375" y="891" style="font-family:Arial;font-size:7.2pt;fill:rgb(0,0,0);font-weight:normal;text-anchor:start;dominant-baseline:central;inline-size=168" clip-path="url(#xsddoc7)">List of points at which 
+<tspan x="1375" y="902.2">cut loads are applied </tspan>
+<tspan x="1375" y="913.4">to </tspan>
+</text>
+<rect x="1523" y="866" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1525" y1="871" x2="1531" y2="871" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1730" y="1070" width="93" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1776.5" y="1081" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">damPoint1UID</text>
+<line x1="1732" y1="1072" x2="1740" y2="1072" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1732" y1="1074" x2="1738" y2="1074" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1732" y1="1076" x2="1738" y2="1076" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1732" y1="1078" x2="1738" y2="1078" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1730" y="1100" width="93" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1776.5" y="1111" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">damPoint2UID</text>
+<line x1="1732" y1="1102" x2="1740" y2="1102" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1732" y1="1104" x2="1738" y2="1104" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1732" y1="1106" x2="1738" y2="1106" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1732" y1="1108" x2="1738" y2="1108" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1881" y="1130" width="100" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1931" y="1141" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">x</text>
+<clipPath id="xsddoc8"><rect x="1881" y="1144.8" width="220" height="56.4"/></clipPath>
+<text x="1881" y="1161" style="font-family:Arial;font-size:7.2pt;fill:rgb(0,0,0);font-weight:normal;text-anchor:start;dominant-baseline:central;inline-size=110" clip-path="url(#xsddoc8)">X-Component 
+</text>
+<line x1="1883" y1="1132" x2="1891" y2="1132" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1883" y1="1134" x2="1889" y2="1134" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1883" y1="1136" x2="1889" y2="1136" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1883" y1="1138" x2="1889" y2="1138" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1881" y="1202" width="100" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1931" y="1213" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">y</text>
+<clipPath id="xsddoc9"><rect x="1881" y="1216.8" width="220" height="56.4"/></clipPath>
+<text x="1881" y="1233" style="font-family:Arial;font-size:7.2pt;fill:rgb(0,0,0);font-weight:normal;text-anchor:start;dominant-baseline:central;inline-size=110" clip-path="url(#xsddoc9)">Y-Component 
+</text>
+<line x1="1883" y1="1204" x2="1891" y2="1204" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1883" y1="1206" x2="1889" y2="1206" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1883" y1="1208" x2="1889" y2="1208" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1883" y1="1210" x2="1889" y2="1210" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1881" y="1274" width="100" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1931" y="1285" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">z</text>
+<clipPath id="xsddoc10"><rect x="1881" y="1288.8" width="220" height="56.4"/></clipPath>
+<text x="1881" y="1305" style="font-family:Arial;font-size:7.2pt;fill:rgb(0,0,0);font-weight:normal;text-anchor:start;dominant-baseline:central;inline-size=110" clip-path="url(#xsddoc10)">Z-Component 
+</text>
+<line x1="1883" y1="1276" x2="1891" y2="1276" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1883" y1="1278" x2="1889" y2="1278" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1883" y1="1280" x2="1889" y2="1280" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1883" y1="1282" x2="1889" y2="1282" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1871" y1="1141" x2="1881" y2="1141" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1871" y1="1213" x2="1881" y2="1213" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1871" y1="1285" x2="1881" y2="1285" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1871" y1="1141" x2="1871" y2="1285" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1861" y1="1141" x2="1871" y2="1141" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<path d="M1827 1131 L1850 1131 L1856 1137 L1856 1145 L1850 1151 L1827 1151 L1821 1145 L1821 1137 Z" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1834" y1="1137" x2="1830" y2="1137" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1834" y1="1141" x2="1826" y2="1141" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1834" y1="1145" x2="1830" y2="1145" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1830" y1="1137" x2="1830" y2="1145" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1842" y1="1137" x2="1846" y2="1137" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1842" y1="1141" x2="1850" y2="1141" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1842" y1="1145" x2="1846" y2="1145" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1846" y1="1137" x2="1846" y2="1145" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<ellipse cx="1838" cy="1137" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1838" cy="1141" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1838" cy="1145" rx="2" ry="2" style="rgb(0,0,0)"/>
+<rect x="1851" y="1136" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1853" y1="1141" x2="1859" y2="1141" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1801" y1="1141" x2="1821" y2="1141" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<rect x="1730" y="1130" width="66" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1;stroke-dasharray:4,1"/>
+<text x="1763" y="1141" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">rotation</text>
+<rect x="1791" y="1136" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1793" y1="1141" x2="1799" y2="1141" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1885" y="1346" width="37" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1903.5" y="1357" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">EA</text>
+<line x1="1887" y1="1348" x2="1895" y2="1348" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1887" y1="1350" x2="1893" y2="1350" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1887" y1="1352" x2="1893" y2="1352" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1887" y1="1354" x2="1893" y2="1354" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1885" y="1376" width="44" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1907" y="1387" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">EIyy</text>
+<line x1="1887" y1="1378" x2="1895" y2="1378" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1887" y1="1380" x2="1893" y2="1380" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1887" y1="1382" x2="1893" y2="1382" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1887" y1="1384" x2="1893" y2="1384" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1885" y="1406" width="43" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1906.5" y="1417" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">EIzz</text>
+<line x1="1887" y1="1408" x2="1895" y2="1408" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1887" y1="1410" x2="1893" y2="1410" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1887" y1="1412" x2="1893" y2="1412" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1887" y1="1414" x2="1893" y2="1414" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1885" y="1436" width="37" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1903.5" y="1447" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">GIt</text>
+<line x1="1887" y1="1438" x2="1895" y2="1438" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1887" y1="1440" x2="1893" y2="1440" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1887" y1="1442" x2="1893" y2="1442" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1887" y1="1444" x2="1893" y2="1444" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1885" y="1466" width="31" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1900.5" y="1477" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">G</text>
+<line x1="1887" y1="1468" x2="1895" y2="1468" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1887" y1="1470" x2="1893" y2="1470" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1887" y1="1472" x2="1893" y2="1472" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1887" y1="1474" x2="1893" y2="1474" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<rect x="1885" y="1496" width="29" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1899.5" y="1507" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">It</text>
+<line x1="1887" y1="1498" x2="1895" y2="1498" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1887" y1="1500" x2="1893" y2="1500" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1887" y1="1502" x2="1893" y2="1502" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1887" y1="1504" x2="1893" y2="1504" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1875" y1="1357" x2="1885" y2="1357" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1875" y1="1387" x2="1885" y2="1387" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1875" y1="1417" x2="1885" y2="1417" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1875" y1="1447" x2="1885" y2="1447" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1875" y1="1477" x2="1885" y2="1477" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1875" y1="1507" x2="1885" y2="1507" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1875" y1="1357" x2="1875" y2="1507" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1865" y1="1357" x2="1875" y2="1357" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<path d="M1831 1347 L1854 1347 L1860 1353 L1860 1361 L1854 1367 L1831 1367 L1825 1361 L1825 1353 Z" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1838" y1="1353" x2="1834" y2="1353" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1838" y1="1357" x2="1830" y2="1357" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1838" y1="1361" x2="1834" y2="1361" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1834" y1="1353" x2="1834" y2="1361" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1846" y1="1353" x2="1850" y2="1353" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1846" y1="1357" x2="1854" y2="1357" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1846" y1="1361" x2="1850" y2="1361" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1850" y1="1353" x2="1850" y2="1361" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<ellipse cx="1842" cy="1353" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1842" cy="1357" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1842" cy="1361" rx="2" ry="2" style="rgb(0,0,0)"/>
+<rect x="1855" y="1352" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1857" y1="1357" x2="1863" y2="1357" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1805" y1="1357" x2="1825" y2="1357" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<rect x="1730" y="1346" width="70" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1;stroke-dasharray:4,1"/>
+<text x="1765" y="1357" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">stiffness</text>
+<rect x="1795" y="1352" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1797" y1="1357" x2="1803" y2="1357" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1720" y1="1081" x2="1730" y2="1081" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1720" y1="1111" x2="1730" y2="1111" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1720" y1="1141" x2="1730" y2="1141" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1720" y1="1357" x2="1730" y2="1357" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1720" y1="1081" x2="1720" y2="1357" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1710" y1="1081" x2="1720" y2="1081" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<path d="M1676 1071 L1699 1071 L1705 1077 L1705 1085 L1699 1091 L1676 1091 L1670 1085 L1670 1077 Z" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1683" y1="1077" x2="1679" y2="1077" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1683" y1="1081" x2="1675" y2="1081" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1683" y1="1085" x2="1679" y2="1085" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1679" y1="1077" x2="1679" y2="1085" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1691" y1="1077" x2="1695" y2="1077" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1691" y1="1081" x2="1699" y2="1081" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1691" y1="1085" x2="1695" y2="1085" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1695" y1="1077" x2="1695" y2="1085" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<ellipse cx="1687" cy="1077" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1687" cy="1081" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1687" cy="1085" rx="2" ry="2" style="rgb(0,0,0)"/>
+<rect x="1700" y="1076" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1702" y1="1081" x2="1708" y2="1081" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1650" y1="1081" x2="1670" y2="1081" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<rect x="1560" y="1073" width="88" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<rect x="1557" y="1070" width="88" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1601" y="1081" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">connectivity</text>
+<text x="1670" y="1075" style="font-family:Arial;font-size:7.2pt;fill:rgb(0,0,0);text-anchor:end;dominant-baseline:central">1..∞</text>
+<rect x="1640" y="1076" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1642" y1="1081" x2="1648" y2="1081" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1537" y1="1081" x2="1557" y2="1081" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<path d="M1503 1071 L1526 1071 L1532 1077 L1532 1085 L1526 1091 L1503 1091 L1497 1085 L1497 1077 Z" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1500" y1="1081" x2="1529" y2="1081" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<ellipse cx="1509" cy="1081" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1514" cy="1081" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1519" cy="1081" rx="2" ry="2" style="rgb(0,0,0)"/>
+<rect x="1527" y="1076" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1529" y1="1081" x2="1535" y2="1081" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1487" y1="1081" x2="1497" y2="1081" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1487" y1="1081" x2="1487" y2="1081" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1477" y1="1081" x2="1487" y2="1081" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<rect x="1375" y="1070" width="97" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1;stroke-dasharray:4,1"/>
+<text x="1423.5" y="1081" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">connectivities</text>
+<clipPath id="xsddoc11"><rect x="1375" y="1084.8" width="224" height="81.4"/></clipPath>
+<text x="1375" y="1101" style="font-family:Arial;font-size:7.2pt;fill:rgb(0,0,0);font-weight:normal;text-anchor:start;dominant-baseline:central;inline-size=112" clip-path="url(#xsddoc11)">Specification 
+<tspan x="1375" y="1112.2">of connectivity </tspan>
+<tspan x="1375" y="1123.4">properties between </tspan>
+<tspan x="1375" y="1134.6">points </tspan>
+</text>
+<rect x="1467" y="1076" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1469" y1="1081" x2="1475" y2="1081" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1365" y1="25" x2="1375" y2="25" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1365" y1="110" x2="1375" y2="110" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1365" y1="751" x2="1375" y2="751" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1365" y1="871" x2="1375" y2="871" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1365" y1="1081" x2="1375" y2="1081" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1365" y1="25" x2="1365" y2="1081" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<line x1="1355" y1="25" x2="1365" y2="25" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<path d="M1321 15 L1344 15 L1350 21 L1350 29 L1344 35 L1321 35 L1315 29 L1315 21 Z" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1328" y1="21" x2="1324" y2="21" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1328" y1="25" x2="1320" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1328" y1="29" x2="1324" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1324" y1="21" x2="1324" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1336" y1="21" x2="1340" y2="21" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1336" y1="25" x2="1344" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1336" y1="29" x2="1340" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1340" y1="21" x2="1340" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<ellipse cx="1332" cy="21" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1332" cy="25" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1332" cy="29" rx="2" ry="2" style="rgb(0,0,0)"/>
+<rect x="1345" y="20" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1347" y1="25" x2="1353" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1295" y1="25" x2="1315" y2="25" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<rect x="1146" y="17" width="147" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<rect x="1143" y="14" width="147" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="1216.5" y="25" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">loadApplicationPointSet</text>
+<text x="1315" y="19" style="font-family:Arial;font-size:7.2pt;fill:rgb(0,0,0);text-anchor:end;dominant-baseline:central">1..∞</text>
+<rect x="1285" y="20" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1287" y1="25" x2="1293" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1123" y1="25" x2="1143" y2="25" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<path d="M1089 15 L1112 15 L1118 21 L1118 29 L1112 35 L1089 35 L1083 29 L1083 21 Z" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1086" y1="25" x2="1115" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<ellipse cx="1095" cy="25" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1100" cy="25" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="1105" cy="25" rx="2" ry="2" style="rgb(0,0,0)"/>
+<rect x="1113" y="20" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1115" y1="25" x2="1121" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="1063" y1="25" x2="1083" y2="25" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<rect x="905" y="14" width="153" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1;stroke-dasharray:4,1"/>
+<text x="981.5" y="25" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">loadApplicationPointSets</text>
+<rect x="1053" y="20" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="1055" y1="25" x2="1061" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="885" y1="25" x2="905" y2="25" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<path d="M851 15 L874 15 L880 21 L880 29 L874 35 L851 35 L845 29 L845 21 Z" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="858" y1="21" x2="854" y2="21" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="858" y1="25" x2="850" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="858" y1="29" x2="854" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="854" y1="21" x2="854" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="866" y1="21" x2="870" y2="21" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="866" y1="25" x2="874" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="866" y1="29" x2="870" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="870" y1="21" x2="870" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<ellipse cx="862" cy="21" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="862" cy="25" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="862" cy="29" rx="2" ry="2" style="rgb(0,0,0)"/>
+<rect x="875" y="20" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="877" y1="25" x2="883" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="825" y1="25" x2="845" y2="25" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<rect x="762" y="14" width="58" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1;stroke-dasharray:4,1"/>
+<text x="791" y="25" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">global</text>
+<rect x="815" y="20" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="817" y1="25" x2="823" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="742" y1="25" x2="762" y2="25" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<path d="M708 15 L731 15 L737 21 L737 29 L731 35 L708 35 L702 29 L702 21 Z" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="715" y1="21" x2="711" y2="21" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="715" y1="25" x2="707" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="715" y1="29" x2="711" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="711" y1="21" x2="711" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="723" y1="21" x2="727" y2="21" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="723" y1="25" x2="731" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="723" y1="29" x2="727" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="727" y1="21" x2="727" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<ellipse cx="719" cy="21" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="719" cy="25" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="719" cy="29" rx="2" ry="2" style="rgb(0,0,0)"/>
+<rect x="732" y="20" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="734" y1="25" x2="740" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="682" y1="25" x2="702" y2="25" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<rect x="606" y="14" width="71" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1;stroke-dasharray:4,1"/>
+<text x="641.5" y="25" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">analyses</text>
+<rect x="672" y="20" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="674" y1="25" x2="680" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="586" y1="25" x2="606" y2="25" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<path d="M552 15 L575 15 L581 21 L581 29 L575 35 L552 35 L546 29 L546 21 Z" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="559" y1="21" x2="555" y2="21" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="559" y1="25" x2="551" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="559" y1="29" x2="555" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="555" y1="21" x2="555" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="567" y1="21" x2="571" y2="21" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="567" y1="25" x2="575" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="567" y1="29" x2="571" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="571" y1="21" x2="571" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<ellipse cx="563" cy="21" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="563" cy="25" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="563" cy="29" rx="2" ry="2" style="rgb(0,0,0)"/>
+<rect x="576" y="20" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="578" y1="25" x2="584" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="526" y1="25" x2="546" y2="25" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<rect x="466" y="17" width="58" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<rect x="463" y="14" width="58" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="492" y="25" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">model</text>
+<text x="546" y="19" style="font-family:Arial;font-size:7.2pt;fill:rgb(0,0,0);text-anchor:end;dominant-baseline:central">1..∞</text>
+<rect x="516" y="20" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="518" y1="25" x2="524" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="443" y1="25" x2="463" y2="25" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<path d="M409 15 L432 15 L438 21 L438 29 L432 35 L409 35 L403 29 L403 21 Z" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="406" y1="25" x2="435" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<ellipse cx="415" cy="25" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="420" cy="25" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="425" cy="25" rx="2" ry="2" style="rgb(0,0,0)"/>
+<rect x="433" y="20" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="435" y1="25" x2="441" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="383" y1="25" x2="403" y2="25" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<rect x="315" y="14" width="63" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1;stroke-dasharray:4,1"/>
+<text x="346.5" y="25" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">aircraft</text>
+<rect x="373" y="20" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="375" y1="25" x2="381" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="295" y1="25" x2="315" y2="25" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<path d="M261 15 L284 15 L290 21 L290 29 L284 35 L261 35 L255 29 L255 21 Z" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="268" y1="21" x2="264" y2="21" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="268" y1="25" x2="260" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="268" y1="29" x2="264" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="264" y1="21" x2="264" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="276" y1="21" x2="280" y2="21" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="276" y1="25" x2="284" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="276" y1="29" x2="280" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="280" y1="21" x2="280" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<ellipse cx="272" cy="21" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="272" cy="25" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="272" cy="29" rx="2" ry="2" style="rgb(0,0,0)"/>
+<rect x="285" y="20" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="287" y1="25" x2="293" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="235" y1="25" x2="255" y2="25" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<rect x="162" y="14" width="68" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1;stroke-dasharray:4,1"/>
+<text x="196" y="25" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">vehicles</text>
+<rect x="225" y="20" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="227" y1="25" x2="233" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="142" y1="25" x2="162" y2="25" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<path d="M108 15 L131 15 L137 21 L137 29 L131 35 L108 35 L102 29 L102 21 Z" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="115" y1="21" x2="111" y2="21" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="115" y1="25" x2="107" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="115" y1="29" x2="111" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="111" y1="21" x2="111" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="123" y1="21" x2="127" y2="21" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="123" y1="25" x2="131" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="123" y1="29" x2="127" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="127" y1="21" x2="127" y2="29" style="stroke:rgb(0,0,0);stroke-width:1"/>
+<ellipse cx="119" cy="21" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="119" cy="25" rx="2" ry="2" style="rgb(0,0,0)"/>
+<ellipse cx="119" cy="29" rx="2" ry="2" style="rgb(0,0,0)"/>
+<rect x="132" y="20" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="134" y1="25" x2="140" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+
+<line x1="82" y1="25" x2="102" y2="25" style="stroke:rgb(0,0,0);stroke-width:1;stroke-linecap:round"/>
+<rect x="20" y="14" width="57" height="22" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<text x="48.5" y="25" style="font-family:Arial;font-size:8pt;fill:rgb(0,0,0);font-weight:bold;text-anchor:middle;dominant-baseline:central">cpacs</text>
+<rect x="72" y="20" width="10" height="10" style="fill:rgb(255,255,255);stroke:rgb(0,0,0);stroke-width:1"/>
+<line x1="74" y1="25" x2="80" y2="25" style="stroke:rgb(0,0,0);stroke-width:1"/>
+</svg>

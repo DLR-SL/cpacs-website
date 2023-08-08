@@ -34,9 +34,15 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+
     - name: Build Pelican website
       run: |
         pelican content
+        
+    - name: Copy additional content to output
+      run: |
+        cp -r addContent/* output/
+
     - name: Fix permissions
       run: |
         chmod -c -R +rX "." | while read line; do
