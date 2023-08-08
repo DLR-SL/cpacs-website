@@ -37,7 +37,7 @@ jobs:
 
     - name: Build Pelican website
       run: |
-        fab build
+        pelican content
 
     - name: Deploy to GitHub Pages
       id: deployment
