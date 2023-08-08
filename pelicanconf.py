@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = u'DLR'
 SITENAME = u'CPACS'
-SITEURL = ''
+SITEURL = 'https://dlr-sl.github.io/cpacs-website'
 
 PATH = 'content'
 
