@@ -10,7 +10,6 @@ import sys
 sys.path.append(os.curdir)
 from pelicanconf import *
 
-#SITEURL = 'http://rcenvironment.de'
 SITEURL = 'http://www.cpacs.de'
 RELATIVE_URLS = False
 
