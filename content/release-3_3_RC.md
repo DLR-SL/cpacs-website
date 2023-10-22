@@ -3,7 +3,7 @@ Date: 2021-04-21 15:00
 Category: Releases
 Author: Marko
 
-<img src="/images/cpacs_logo_v3_3_RC.png"
+<img src="images/cpacs_logo_v3_3_RC.png"
      alt="cpacs_logo_v3_3_RC"
      width="300px">
      

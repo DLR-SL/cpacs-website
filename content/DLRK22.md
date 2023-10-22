@@ -3,7 +3,7 @@ Date: 2022-09-30 12:00
 Category: Conferences
 Author: Marko
 
-<img src="/images/dlrk2022.png"
+<img src="images/dlrk2022.png"
      alt="dlrk2022"
      width="200px">
 

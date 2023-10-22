@@ -3,7 +3,7 @@ Date: 2022-11-11 11:11
 Category: Meetings
 Author: Marko
 
-<img src="/images/developer_meeting.png"
+<img src="images/developer_meeting.png"
      alt="2021 developer meeting"
      width="300px">
      

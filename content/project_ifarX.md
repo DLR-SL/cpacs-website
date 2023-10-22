@@ -3,7 +3,7 @@ Date: 2019-08-30 12:00
 Category: Projects
 Author: CPACS
 
-<img src="/images/project_pictures/ifar_x_groupPicture2019.jpg"
+<img src="images/project_pictures/ifar_x_groupPicture2019.jpg"
      alt="IFAR-X Group Picture 2019 at MAKS airshow in Moscow">
 
 CPACS is used as a key technology in the "[IFAR](https://www.ifar.aero/)-X Challenge". Young engineers and scientists from over 20 countries collaborate in developing a multi-disciplinary aircraft design process with the common goal of integrating green technologies in future aircraft. 

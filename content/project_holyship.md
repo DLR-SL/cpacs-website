@@ -4,7 +4,7 @@ Category: Projects
 Author: CPACS
 Status: draft
 
-<img src="/images/project_pictures/holyShip.png"
+<img src="images/project_pictures/holyShip.png"
      alt="Alesund"
      width="300px">
 

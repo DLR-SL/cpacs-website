@@ -3,7 +3,7 @@ Date: 2021-05-31 16:00
 Category: Meetings
 Author: Marko
 
-<img src="/images/cabin.png"
+<img src="images/cabin.png"
      alt="CPACS Stakeholder meeting on decks definition and floor structures"
      width="300px">
      

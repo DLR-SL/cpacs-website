@@ -3,7 +3,7 @@ Date: 2021-03-03 16:00
 Category: Meetings
 Author: Marko
 
-<img src="/images/landingGears.png"
+<img src="images/landingGears.png"
      alt="landingGears"
      width="500px">
      

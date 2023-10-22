@@ -3,7 +3,7 @@ Date: 2021-11-19 15:00
 Category: Releases
 Author: Marko
 
-<img src="/images/cpacs_logo_v3_4-beta.png"
+<img src="images/cpacs_logo_v3_4-beta.png"
      alt="cpacs_logo_v3_4-beta"
      width="300px">
      

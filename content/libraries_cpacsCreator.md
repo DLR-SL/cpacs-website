@@ -3,7 +3,7 @@ Date: 2019-09-28 12:00
 Category: Related Software
 Author: CPACS
 
-<img src="/images/related_software/cpacscreator-gui.png"
+<img src="images/related_software/cpacscreator-gui.png"
      alt="tbd"
      width="500px">
 

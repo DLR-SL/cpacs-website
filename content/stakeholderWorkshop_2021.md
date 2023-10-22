@@ -3,7 +3,7 @@ Date: 2021-03-01 16:00
 Category: Meetings
 Author: Marko
 
-<img src="/images/2021_stakeholderMeeting.png"
+<img src="images/2021_stakeholderMeeting.png"
      alt="2021_stakeholderMeeting"
      width="500px">
      

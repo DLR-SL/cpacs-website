@@ -3,7 +3,7 @@ Date: 2019-09-24 12:00
 Category: Related Software
 Author: CPACS
 
-<img src="/images/related_software/tigl3.png"
+<img src="images/related_software/tigl3.png"
      alt="tbd"
      width="500px">
 

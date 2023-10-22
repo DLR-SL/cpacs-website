@@ -4,7 +4,7 @@ Category: Projects
 Author: CPACS
 Status: draft
 
-<img src="/images/project_pictures/Triad_helicopter.png"
+<img src="images/project_pictures/Triad_helicopter.png"
      alt="Helicopter from Triad project">
 
 Text to add...

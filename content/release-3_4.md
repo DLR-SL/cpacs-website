@@ -3,7 +3,7 @@ Date: 2022-08-03 12:00
 Category: Releases
 Author: Marko
 
-<img src="/images/cpacs_logo_v3_4.png"
+<img src="images/cpacs_logo_v3_4.png"
      alt="cpacs_logo_v3_4"
      width="150px">
 
