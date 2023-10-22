@@ -3,7 +3,7 @@ Date: 2021-11-18 16:00
 Category: Meetings
 Author: Marko
 
-<img src="/cpacs-website/images/developer_meeting.png"
+<img src="images/developer_meeting.png"
      alt="2021 developer meeting"
      width="300px">
 
