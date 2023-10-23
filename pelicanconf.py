@@ -26,8 +26,8 @@ AUTHOR_FEED_RSS = None
 
 # Blogroll
 LINKS = (('Institute of System Architectures in Aeronautics', 'http://www.dlr.de/sl'),
-         ('Imprint', 'imprint.html'),
-		 ('Privacy', 'privacy.html'))
+         ('Imprint', 'https://dlr-sl.github.io/cpacs-website/pages/imprint.html'),
+		 ('Privacy', 'https://dlr-sl.github.io/cpacs-website/pages/privacy.html'))
 
 # Social widget
 SOCIAL = ()
