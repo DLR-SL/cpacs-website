@@ -2,12 +2,16 @@
                             controlElements</p><p>Within some analyses, it might occur that overlapping control element settings are specified. In this case,
                                 it is assumed that a cumulative setting is built by summing up the individual settings. As the behavior of these settings
                                 is not necessarily linear, a certain order of summation has to be followed:</p><ol><li>The  command inputs for each <em>controlDistributor</em>, coming from the <em>configurationUID</em>, as well as from separate settings have to be summed up to a total <em>commandInput</em>.</li><li>With this total <em>commandInput</em>, each corresponding <em>controlDistributor</em> definition has to be evaluated, in order to get <em>controlParameter</em> settings for a number of <em>controlDevices</em>.</li><li>All <em>controlParameter</em> settings for a <em>controlDevice</em>, coming from the <em>configurationUID</em>, from the <em>controlDistributors</em> and from separate <em>controlDevice</em> settings have to be summed up to get a total <em>controlParameter</em> for each controlDevice.</li><li>With this total <em>controlParameter</em>, each corresponding <em>controlDevice</em> definition has to be evaluated, in order to find out what the control device finally is doing.</li><li>During the summation process (depending on the order of processing within step 1 to 4), <em>commandInputs</em> or <em>controlParameters</em> might exceed the specified limits for that <em>controlDistributor</em> or <em>controlDevices</em>. As an intermediate result, this should be accepted – however, when it comes to evaluation in step 2 and 4, all <em>commandInputs</em> and <em>controlParameters</em> have to be within the specified limits.</li></ol></div><div class="collapsibleAreaRegion" id="seeAlsoSection"><span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('ID5RB')" onkeypress="SectionExpandCollapse_CheckKey('ID5RB', event)" tabindex="0"><img id="ID5RBToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />See Also</span></div><div id="ID5RBSection" class="collapsibleSection"><h4 class="subHeading">Reference</h4><div class="seeAlsoStyle"><a href="1925a652-9805-5db3-aa17-88e7de49b01f.htm">controlDistributorsType</a></div></div></div></div>
+
 <div id="pageFooter" class="pageFooter"><p>
     &copy; 2023 <a href="https://www.DLR.de">Deutsches Zentrum für Luft- und Raumfahrt e.V.</a>&nbsp;&nbsp;&nbsp;
     <a href="https://www.dlr.de/sl">Institute of System Architectures in Aeronautics</a></li>&nbsp;&nbsp;&nbsp;
     <a href="https://www.cpacs.de/pages/imprint.html">Imprint</a></li>&nbsp;&nbsp;&nbsp;
-    <a href="https://www.cpacs.de/pages/privacy.html">Privacy</a></li>
+    <a href="https://www.cpacs.de/pages/privacy.html">Privacy</a></li>&nbsp;&nbsp;&nbsp;
+    <a href="https://www.cpacs.de/pages/terms-of-use.html">Terms of use</a></li>&nbsp;&nbsp;&nbsp;
+    <a href="https://dlr-sl.github.io/cpacs-website/pages/accessibility.html">Accessibility</a></li>
 </p>
+
 <div class="feedbackLink">Send comments on this topic to
         <a id="HT_MailLink" href="mailto:cpacs%40dlr.de?Subject=CPACS%20Documentation">cpacs@dlr.de</a></div>
         <script type="text/javascript">
