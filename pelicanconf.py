@@ -28,8 +28,10 @@ AUTHOR_FEED_RSS = None
 #   Note: the full path is used for Imprint and Privacy, since Pelican omits pages 
 #   when generating the news.. (ToDo: fix this)
 LINKS = (('Institute of System Architectures in Aeronautics', 'http://www.dlr.de/sl'),
-         ('Imprint', 'https://dlr-sl.github.io/cpacs-website/pages/imprint.html'),
-		 ('Privacy', 'https://dlr-sl.github.io/cpacs-website/pages/privacy.html'))
+         ('Imprint', '%s/pages/imprint.html' % SITEURL),
+         ('Privacy', '%s/pages/privacy.html' % SITEURL),
+         ('Terms of use', '%s/pages/terms-of-use.html' % SITEURL),
+         ('Accessibility', '%s/pages/accessibility.html' % SITEURL),)
 
 # Social widget
 SOCIAL = ()
