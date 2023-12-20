@@ -14,4 +14,6 @@ Just in time for Christmas, we present CPACS v3.5. Take a look at [www.cpacs.de]
 -   [Documentation](https://cpacs.de/pages/documentation.html) and
 -   [Online Q&A forum](https://cpacs.de/pages/forum.html) for questions and discussions.
 
-Many thanks to everyone who has contributed to this release!
+With this release, we are able to map complex systems via CPACS and to model tank geometries (e.g. for hydrogen). Many thanks to everyone who has contributed to this release, and especially for the support from the DLR-OAD team! The intensive cooperation with BHL and TUHH was also great, and I am looking forward to a few nice publications on this topic at the upcoming DLRK in Hamburg!
+
+The CPACS team wishes you a Merry Christmas, and then it's full steam ahead towards v3.6!
