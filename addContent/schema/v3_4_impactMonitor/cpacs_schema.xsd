@@ -33248,7 +33248,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             <xsd:documentation>Flight time [s]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="delay" type="doubleBaseType">
+                    <xsd:element name="delay" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>Delay [s]</xsd:documentation>
                         </xsd:annotation>
