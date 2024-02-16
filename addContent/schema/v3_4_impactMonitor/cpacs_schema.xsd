@@ -11575,14 +11575,14 @@ cpacs@dlr.de
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="askPerFlight" minOccurs="0" type="integerBaseType">
+                    <xsd:element name="askPerFlight" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
                                 Available seat kilometers per flight
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="rpkPerFlight" minOccurs="0" type="integerBaseType">
+                    <xsd:element name="rpkPerFlight" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
                                 Revenue passenger kilometers per flight
@@ -11597,7 +11597,7 @@ cpacs@dlr.de
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="payloadPerFlight" minOccurs="0" type="integerBaseType">
+                    <xsd:element name="payloadPerFlight" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
                                 Payload per flight [kg]
