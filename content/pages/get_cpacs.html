@@ -42,7 +42,24 @@
 				</ul>
             </p>
         </div>
-        
+
+        <div class="col-md-9">
+			<p>
+                How to link your XML data to CPACS schema (XSD):
+            </p>
+            <div class="box">
+                <pre>
+                    <code class="language-xml">
+    &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    &lt;cpacs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd"&gt;
+        <!-- Dein XML-Code hier -->
+    &lt;/cpacs&gt;
+                    </code>
+                </pre>
+            </div>
+        </div>
+
         <div class="col-md-9">
             <h2>Tool-Specific Schema Files</h2>
 			<p>
