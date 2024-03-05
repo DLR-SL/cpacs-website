@@ -34,64 +34,99 @@
 
     <div class="col-md-9">
         <h2>CPACS Schema Permalinks</h2>
+        <select id="cpacsVersionSelect">
+            <option value="3.5" selected>CPACS 3.5</option>
+            <option value="3.4">CPACS 3.4</option>
+            <option value="3.3">CPACS 3.3</option>
+            <option value="3.2">CPACS 3.2</option>
+            <option value="3.1">CPACS 3.1</option>
+            <option value="3.0">CPACS 3.0</option>
+            <option value="2.3.1">CPACS 2.3.1</option>
+            <option value="2.3">CPACS 2.3</option>
+            <option value="exact2">Exact-2</option>
+            <option value="impactMonitor">Impact Monitor</option>
+            <option value="alicia">Alicia</option>
+        </select>
         <p>
-            The published schema files can be referenced via the following URLs:
-        <ul>
-            <li>CPACS 3.5: <a
-                    href="https://dlr-sl.github.io/cpacs-website/schema/v3_5_0/cpacs_schema.xsd">https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd</a>
-            </li>
-            <li>CPACS 3.4: <a
-                    href="https://dlr-sl.github.io/cpacs-website/schema/v3_4_0/cpacs_schema.xsd">https://www.cpacs.de/schema/v3_4_0/cpacs_schema.xsd</a>
-            </li>
-            <li>CPACS 3.3: <a
-                    href="https://dlr-sl.github.io/cpacs-website/schema/v3_3_0/cpacs_schema.xsd">https://www.cpacs.de/schema/v3_3_0/cpacs_schema.xsd</a>
-            </li>
-            <li>CPACS 3.2: <a
-                    href="https://dlr-sl.github.io/cpacs-website/schema/v3_2_0/cpacs_schema.xsd">https://www.cpacs.de/schema/v3_2_0/cpacs_schema.xsd</a>
-            </li>
-            <li>CPACS 3.1: <a
-                    href="https://dlr-sl.github.io/cpacs-website/schema/v3_1_0/cpacs_schema.xsd">https://www.cpacs.de/schema/v3_1_0/cpacs_schema.xsd</a>
-            </li>
-            <li>CPACS 3.0: <a
-                    href="https://dlr-sl.github.io/cpacs-website/schema/v3_0_0/cpacs_schema.xsd">https://www.cpacs.de/schema/v3_0_0/cpacs_schema.xsd</a>
-            </li>
-            <li>CPACS 2.3.1: <a
-                    href="https://dlr-sl.github.io/cpacs-website/schema/v2_3_1/cpacs_schema.xsd">https://www.cpacs.de/schema/v2_3_1/cpacs_schema.xsd</a>
-            </li>
-            <li>CPACS 2.3: <a
-                    href="https://dlr-sl.github.io/cpacs-website/schema/v2_3_0/cpacs_schema.xsd">https://www.cpacs.de/schema/v2_3_0/cpacs_schema.xsd</a>
-            </li>
-        </ul>
+            Permalink: <b><span id="schemaUrlDisplay">https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd</span></b>
         </p>
-    </div>
-
-    <div class="col-md-9">
         <p>
-            Project specific schema files:
-        <ul>
-            <li>Exact-2 (based on CPACS 3.5): <a
-                    href="https://dlr-sl.github.io/cpacs-website/schema/v3_5_exact2/cpacs_schema.xsd">https://www.cpacs.de/schema/v3_5_exact2/cpacs_schema.xsd</a>
-            </li>
-            <!-- li>Diabolo v1.1 (based on CPACS 3.3): <a href="https://www.cpacs.de/schema/v3_3_diabolo/cpacs_schema_Diabolo_v1_1.xsd">https://www.cpacs.de/schema/v3_3_diabolo/cpacs_schema_Diabolo_v1_1.xsd</a></li -->
-            <!-- li>Diabolo v1.0 (based on CPACS 3.3): <a href="https://dlr-sl.github.io/cpacs-website/schema/v3_3_diabolo/cpacs_schema_Diabolo_v1_0.xsd">https://www.cpacs.de/schema/v3_3_diabolo/cpacs_schema_Diabolo_v1_0.xsd</a></li -->
-            <li>Impact Monitor (based on CPACS 3.4): <a
-                    href="https://dlr-sl.github.io/cpacs-website/schema/v3_4_impactMonitor/cpacs_schema.xsd">https://www.cpacs.de/schema/v3_4_impactMonitor/cpacs_schema.xsd</a>
-            </li>
-            <li>Alicia (based on CPACS 3.4): <a
-                    href="https://dlr-sl.github.io/cpacs-website/schema/v3_4_alicia/cpacs_schema.xsd">https://www.cpacs.de/schema/v3_4_alicia/cpacs_schema.xsd</a>
-            </li>
-        </ul>
+            Copy the following code into your XML file to link to the corresponding CPACS schema:
         </p>
-    </div>
-
-    <div class="col-md-9">
-        <p>
-            Simply copy the following code into your XML file to link to the corresponding CPACS schema (replace the version if necessary):
-        </p>
-        <pre><code class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+        <pre><code id="codeField" class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;cpacs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd"&gt;</code></pre>
+       xsi:noNamespaceSchemaLocation="https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd"&gt;</code></pre>
+        <a id="downloadLink" href="https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd" download>
+            <button id="downloadButton" class="btn"><i class="fa fa-download"></i> Download Schema (XSD)</button>
+        </a>
     </div>
+
+    <script>
+        var schemaUrl;
+
+        document.getElementById('cpacsVersionSelect').addEventListener('change', function () {
+            var selectedVersion = this.value;
+            var codeField = document.getElementById('codeField');
+            var schemaUrlDisplay = document.getElementById('schemaUrlDisplay');
+            var downloadLink = document.getElementById('downloadLink');
+
+            switch (selectedVersion) {
+                case '3.5':
+                    schemaUrl = 'https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd';
+                    downloadLink.href = schemaUrl;
+                    break;
+                case '3.4':
+                    schemaUrl = 'https://www.cpacs.de/schema/v3_4_0/cpacs_schema.xsd';
+                    downloadLink.href = schemaUrl;
+                    break;
+                case '3.3':
+                    schemaUrl = 'https://www.cpacs.de/schema/v3_3_0/cpacs_schema.xsd';
+                    downloadLink.href = schemaUrl;
+                    break;
+                case '3.2':
+                    schemaUrl = 'https://www.cpacs.de/schema/v3_2_0/cpacs_schema.xsd';
+                    downloadLink.href = schemaUrl;
+                    break;
+                case '3.1':
+                    schemaUrl = 'https://www.cpacs.de/schema/v3_1_0/cpacs_schema.xsd';
+                    downloadLink.href = schemaUrl;
+                    break;
+                case '3.0':
+                    schemaUrl = 'https://www.cpacs.de/schema/v3_0_0/cpacs_schema.xsd';
+                    downloadLink.href = schemaUrl;
+                    break;
+                case '2.3.1':
+                    schemaUrl = 'https://www.cpacs.de/schema/v2_3_1/cpacs_schema.xsd';
+                    downloadLink.href = schemaUrl;
+                    break;
+                case '2.3':
+                    schemaUrl = 'https://www.cpacs.de/schema/v2_3_0/cpacs_schema.xsd';
+                    downloadLink.href = schemaUrl;
+                    break;
+                case 'exact2':
+                    schemaUrl = 'https://www.cpacs.de/schema/v3_5_exact2/cpacs_schema.xsd';
+                    downloadLink.href = schemaUrl;
+                    break;
+                case 'impactMonitor':
+                    schemaUrl = 'https://www.cpacs.de/schema/v3_4_impactMonitor/cpacs_schema.xsd';
+                    downloadLink.href = schemaUrl;
+                    break;
+                case 'alicia':
+                    schemaUrl = 'https://www.cpacs.de/schema/v3_4_alicia/cpacs_schema.xsd';
+                    downloadLink.href = schemaUrl;
+                    break;
+
+            }
+
+            codeField.innerText = '<?xml version="1.0" encoding="UTF-8"?>\n' +
+                '<cpacs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n' +
+                '       xsi:noNamespaceSchemaLocation="' + schemaUrl + '">';
+            codeField.className = "language-xml";
+
+            schemaUrlDisplay.textContent = schemaUrl;
+        });
+    </script>
+
 
     <div class="col-md-9">
         <h2>Tool-Specific Schema Files</h2>
