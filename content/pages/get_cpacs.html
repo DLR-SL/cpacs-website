@@ -9,30 +9,6 @@
 <body>
 
     <div class="col-md-9">
-        <h2>CPACS Complete Packages</h2>
-        <p>The complete CPACS repository with help files and APIs can be downloaded from <a
-                href="https://github.com/DLR-LY/CPACS/releases">GitHub</a>:</p>
-        <p><a href="https://github.com/DLR-LY/CPACS/releases" target="_blank"><img src="images/github_releases.png"
-                    alt="GitHub releases" style="vertical-align:middle;margin:0px 20px"></a> <b>
-                <a href="https://github.com/DLR-LY/CPACS" target="_blank"><img src="images/github_repo.png"
-                        alt="GitHub repository"></a></p>
-    </div>
-
-    <div class="col-md-3">
-        <div class="sidebar ">
-            <aside class="widget widget_news_subs">
-                <h3 class="widget-title">
-                    Open Source
-                </h3>
-                <p>
-                    CPACS is Open Source, published under the <a
-                        href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
-                </p>
-            </aside>
-        </div>
-    </div>
-
-    <div class="col-md-9">
         <h2>CPACS Schema Permalinks</h2>
         <select id="cpacsVersionSelect">
             <option value="3.5" selected>CPACS 3.5</option>
@@ -53,7 +29,7 @@
         <p>
             Copy the following code into your XML file to link to the corresponding CPACS schema:
         </p>
-        <pre><code id="codeField" class="language-xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+        <pre><code class="language-xml" id="codeField">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;cpacs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd"&gt;</code></pre>
         <a id="downloadLink" href="https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd" download>
@@ -126,6 +102,31 @@
             schemaUrlDisplay.textContent = schemaUrl;
         });
     </script>
+
+    <div class="col-md-3">
+        <div class="sidebar ">
+            <aside class="widget widget_news_subs">
+                <h3 class="widget-title">
+                    Open Source
+                </h3>
+                <p>
+                    CPACS is Open Source, published under the <a
+                        href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
+                </p>
+            </aside>
+        </div>
+    </div>
+
+
+    <div class="col-md-9">
+        <h2>GitHub Repository</h2>
+        <p>The complete CPACS repository with help files and APIs can be downloaded from <a
+                href="https://github.com/DLR-LY/CPACS/releases">GitHub</a>:</p>
+        <p><a href="https://github.com/DLR-LY/CPACS/releases" target="_blank"><img src="images/github_releases.png"
+                    alt="GitHub releases" style="vertical-align:middle;margin:0px 20px"></a> <b>
+                <a href="https://github.com/DLR-LY/CPACS" target="_blank"><img src="images/github_repo.png"
+                        alt="GitHub repository"></a></p>
+    </div>
 
 
     <div class="col-md-9">
