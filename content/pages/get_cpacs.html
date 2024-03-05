@@ -11,7 +11,7 @@
     <div class="col-md-9">
         <h2>CPACS Schema Permalinks</h2>
         <select id="cpacsVersionSelect">
-            <option value="3.5" selected>CPACS 3.5</option>
+            <option value="3.5">CPACS 3.5</option>
             <option value="3.4">CPACS 3.4</option>
             <option value="3.3">CPACS 3.3</option>
             <option value="3.2">CPACS 3.2</option>
@@ -32,76 +32,10 @@
         <pre><code class="language-xml" id="codeField">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;cpacs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd"&gt;</code></pre>
-        <a id="downloadLink" href="https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd" download>
+        <a id="downloadLink" download href="../schema/v3_5_0/cpacs_schema.xsd">
             <button id="downloadButton" class="btn"><i class="fa fa-download"></i> Download Schema (XSD)</button>
         </a>
     </div>
-
-    <script>
-        var schemaUrl;
-
-        document.getElementById('cpacsVersionSelect').addEventListener('change', function () {
-            var selectedVersion = this.value;
-            var codeField = document.getElementById('codeField');
-            var schemaUrlDisplay = document.getElementById('schemaUrlDisplay');
-            var downloadLink = document.getElementById('downloadLink');
-
-            switch (selectedVersion) {
-                case '3.5':
-                    schemaUrl = 'https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd';
-                    downloadLink.href = schemaUrl;
-                    break;
-                case '3.4':
-                    schemaUrl = 'https://www.cpacs.de/schema/v3_4_0/cpacs_schema.xsd';
-                    downloadLink.href = schemaUrl;
-                    break;
-                case '3.3':
-                    schemaUrl = 'https://www.cpacs.de/schema/v3_3_0/cpacs_schema.xsd';
-                    downloadLink.href = schemaUrl;
-                    break;
-                case '3.2':
-                    schemaUrl = 'https://www.cpacs.de/schema/v3_2_0/cpacs_schema.xsd';
-                    downloadLink.href = schemaUrl;
-                    break;
-                case '3.1':
-                    schemaUrl = 'https://www.cpacs.de/schema/v3_1_0/cpacs_schema.xsd';
-                    downloadLink.href = schemaUrl;
-                    break;
-                case '3.0':
-                    schemaUrl = 'https://www.cpacs.de/schema/v3_0_0/cpacs_schema.xsd';
-                    downloadLink.href = schemaUrl;
-                    break;
-                case '2.3.1':
-                    schemaUrl = 'https://www.cpacs.de/schema/v2_3_1/cpacs_schema.xsd';
-                    downloadLink.href = schemaUrl;
-                    break;
-                case '2.3':
-                    schemaUrl = 'https://www.cpacs.de/schema/v2_3_0/cpacs_schema.xsd';
-                    downloadLink.href = schemaUrl;
-                    break;
-                case 'exact2':
-                    schemaUrl = 'https://www.cpacs.de/schema/v3_5_exact2/cpacs_schema.xsd';
-                    downloadLink.href = schemaUrl;
-                    break;
-                case 'impactMonitor':
-                    schemaUrl = 'https://www.cpacs.de/schema/v3_4_impactMonitor/cpacs_schema.xsd';
-                    downloadLink.href = schemaUrl;
-                    break;
-                case 'alicia':
-                    schemaUrl = 'https://www.cpacs.de/schema/v3_4_alicia/cpacs_schema.xsd';
-                    downloadLink.href = schemaUrl;
-                    break;
-
-            }
-
-            codeField.innerText = '<?xml version="1.0" encoding="UTF-8"?>\n' +
-                '<cpacs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n' +
-                '       xsi:noNamespaceSchemaLocation="' + schemaUrl + '">';
-            codeField.className = "language-xml";
-
-            schemaUrlDisplay.textContent = schemaUrl;
-        });
-    </script>
 
     <div class="col-md-3">
         <div class="sidebar ">
@@ -145,6 +79,72 @@
         If you need help creating a schema file, do not hesitate to <a href="contact.html">contact the CPACS team</a>.
         <p>
     </div>
+
+    <script>
+        var schemaUrl;
+
+        document.getElementById('cpacsVersionSelect').addEventListener('change', function () {
+            var selectedVersion = this.value;
+            var codeField = document.getElementById('codeField');
+            var schemaUrlDisplay = document.getElementById('schemaUrlDisplay');
+            var downloadLink = document.getElementById('downloadLink');
+
+            switch (selectedVersion) {
+                case '3.5':
+                    schemaUrl = 'https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd';
+                    downloadLink.href = '../schema/v3_5_0/cpacs_schema.xsd';
+                    break;
+                case '3.4':
+                    schemaUrl = 'https://www.cpacs.de/schema/v3_4_0/cpacs_schema.xsd';
+                    downloadLink.href = '../schema/v3_4_0/cpacs_schema.xsd';
+                    break;
+                case '3.3':
+                    schemaUrl = 'https://www.cpacs.de/schema/v3_3_0/cpacs_schema.xsd';
+                    downloadLink.href = '../schema/v3_3_0/cpacs_schema.xsd';
+                    break;
+                case '3.2':
+                    schemaUrl = 'https://www.cpacs.de/schema/v3_2_0/cpacs_schema.xsd';
+                    downloadLink.href = '../schema/v3_2_0/cpacs_schema.xsd';
+                    break;
+                case '3.1':
+                    schemaUrl = 'https://www.cpacs.de/schema/v3_1_0/cpacs_schema.xsd';
+                    downloadLink.href = '../schema/v3_1_0/cpacs_schema.xsd';
+                    break;
+                case '3.0':
+                    schemaUrl = 'https://www.cpacs.de/schema/v3_0_0/cpacs_schema.xsd';
+                    downloadLink.href = '../schema/v3_0_0/cpacs_schema.xsd';
+                    break;
+                case '2.3.1':
+                    schemaUrl = 'https://www.cpacs.de/schema/v2_3_1/cpacs_schema.xsd';
+                    downloadLink.href = '../schema/v2_3_1/cpacs_schema.xsd';
+                    break;
+                case '2.3':
+                    schemaUrl = 'https://www.cpacs.de/schema/v2_3_0/cpacs_schema.xsd';
+                    downloadLink.href = '../schema/v2_3_0/cpacs_schema.xsd';
+                    break;
+                case 'exact2':
+                    schemaUrl = 'https://www.cpacs.de/schema/v3_5_exact2/cpacs_schema.xsd';
+                    downloadLink.href = '../schema/v3_5_exact2/cpacs_schema.xsd';
+                    break;
+                case 'impactMonitor':
+                    schemaUrl = 'https://www.cpacs.de/schema/v3_4_impactMonitor/cpacs_schema.xsd';
+                    downloadLink.href = '../schema/v3_4_impactMonitor/cpacs_schema.xsd';
+                    break;
+                case 'alicia':
+                    schemaUrl = 'https://www.cpacs.de/schema/v3_4_alicia/cpacs_schema.xsd';
+                    downloadLink.href = '../schema/v3_4_alicia/cpacs_schema.xsd';
+                    break;
+
+            }
+
+            codeField.innerText = '<?xml version="1.0" encoding="UTF-8"?>\n' +
+                '<cpacs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n' +
+                '       xsi:noNamespaceSchemaLocation="' + schemaUrl + '">';
+            codeField.className = "language-xml";
+
+            schemaUrlDisplay.textContent = schemaUrl;
+        });
+    </script>
 
 </body>
 
