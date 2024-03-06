@@ -23,6 +23,7 @@
             <option value="exact2">Exact-2</option>
             <option value="impactMonitor">Impact Monitor</option>
             <option value="alicia">Alicia</option>
+            <option value="diabolo">Diabolo</option>
         </select>
         <p>
             Permalink: <b><span id="schemaUrlDisplay">https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd</span></b>
@@ -134,6 +135,10 @@
                 case 'alicia':
                     schemaUrl = 'https://www.cpacs.de/schema/v3_4_alicia/cpacs_schema.xsd';
                     downloadLink.href = '../schema/v3_4_alicia/cpacs_schema.xsd';
+                    break;
+                case 'diabolo':
+                    schemaUrl = 'https://www.cpacs.de/schema/v3_3_diabolo/cpacs_schema.xsd';
+                    downloadLink.href = '../schema/v3_3_diabolo/cpacs_schema.xsd';
                     break;
 
             }
