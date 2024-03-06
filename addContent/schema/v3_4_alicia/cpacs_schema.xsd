@@ -2986,6 +2986,7 @@ cpacs@dlr.de
                     <xsd:element name="departureProcedures" minOccurs="0"/>
                     <xsd:element name="departureSeparations" minOccurs="0"/>
                     <xsd:element name="airspaceOperationRestrictions" minOccurs="0"/>
+                    <xsd:element name="approachProcedures" minOccurs="0" type="approachProceduresType"/>
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
@@ -3640,6 +3641,35 @@ cpacs@dlr.de
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="approachProceduresType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Approach procedures</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="ils" minOccurs="0" maxOccurs="unbounded" type="ilsType"/>
+                    <xsd:element name="rnp" minOccurs="0" maxOccurs="unbounded" type="rnpRnavType">
+                        <xsd:annotation>
+                            <xsd:documentation>RNP approach</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="rnav" minOccurs="0" maxOccurs="unbounded" type="rnpRnavType">
+                        <xsd:annotation>
+                            <xsd:documentation>RNAV approach</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
@@ -14313,52 +14343,6 @@ cpacs@dlr.de
         </xsd:complexContent>
     </xsd:complexType>
 
-    <xsd:complexType name="participantsType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>Participants</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:para/>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:complexContent>
-            <xsd:extension base="complexBaseType">
-                <xsd:sequence>
-                    <xsd:element name="participant" maxOccurs="unbounded" type="participantType"/>
-                </xsd:sequence>
-            </xsd:extension>
-        </xsd:complexContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="participantType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>Participant</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:para/>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:complexContent>
-            <xsd:extension base="complexBaseType">
-                <xsd:all>
-                    <xsd:element name="flightUID" type="stringUIDBaseType"/>
-                    <xsd:element name="position" type="integerBaseType"/>
-                </xsd:all>
-                <xsd:attribute name="uID" type="xsd:ID"/>
-            </xsd:extension>
-        </xsd:complexContent>
-    </xsd:complexType>
-
     <xsd:complexType name="fqCharParametersType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -17508,6 +17492,35 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                 <xsd:pattern value="[A-Za-z0-9]{3,4}"/>
             </xsd:restriction>
         </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="ilsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>ILS approach</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="name" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Name</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="ilsUID" type="stringUIDBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>UID of the ILS defined for the airport runway</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+                <xsd:attribute name="uID" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
     </xsd:complexType>
 
     <xsd:complexType name="integerBaseType">
@@ -22479,6 +22492,13 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
+                    <xsd:element name="approachProcedureUID" type="stringUIDBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                UID of the approach procedure
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
                     <xsd:element name="runwayEndPosition" minOccurs="0" type="pointXYZType">
                         <xsd:annotation>
                             <xsd:documentation>
@@ -25535,6 +25555,52 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="participantsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Participants</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para/>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="participant" maxOccurs="unbounded" type="participantType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="participantType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Participant</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para/>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="flightUID" type="stringUIDBaseType"/>
+                    <xsd:element name="position" type="integerBaseType"/>
+                </xsd:all>
+                <xsd:attribute name="uID" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="paxCrossBeamsAssemblyType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -26594,6 +26660,43 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     <xsd:element name="y" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>Y-Component</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+                <xsd:attribute name="uID" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="pointXYZConstraintType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Point: x,y,z</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Point type, containing an obligatory xyz data triplet.</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="x" type="doubleConstraintBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>X-Component</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="y" type="doubleConstraintBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Y-Component</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="z" type="doubleConstraintBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Z-Component</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:all>
@@ -28649,6 +28752,216 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="rnpRnavCurveType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Curve</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="turnAngle" minOccurs="0" type="doubleConstraintBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Turn angle</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="pathAngle" minOccurs="0" type="doubleConstraintBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Path angle</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="radius" type="doubleConstraintBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Radius</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="centerPoint">
+                            <xsd:complexType>
+                            <xsd:all>
+                                <xsd:element name="latitude" type="doubleConstraintBaseType"/>
+                                <xsd:element name="longitude" type="doubleConstraintBaseType"/>
+                            </xsd:all>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="rnpRnavDirectType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Direct</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="pathAngle" minOccurs="0" type="doubleConstraintBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Path angle</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="pathLength" minOccurs="0" type="doubleConstraintBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Path length</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="rnpRnavSegmentConstraintsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Constraints</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:choice>
+                    <xsd:element name="curve" type="rnpRnavCurveType"/>
+                    <xsd:element name="direct" type="rnpRnavDirectType"/>
+                </xsd:choice>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="rnpRnavSegmentsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Segments</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="segment" maxOccurs="unbounded" type="rnpRnavSegmentType"/>
+                </xsd:sequence>
+                <xsd:attribute name="uID" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="rnpRnavSegmentType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Segment</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="approachPhase">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="initial"/>
+                                <xsd:enumeration value="intermediate"/>
+                                <xsd:enumeration value="final"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="constraints" minOccurs="0" type="rnpRnavSegmentConstraintsType"/>
+                    <xsd:element name="endCondition" minOccurs="0" type="rnpRnavStartEndConditionType">
+                        <xsd:annotation>
+                            <xsd:documentation>End condition</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+                <xsd:attribute name="uID" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="rnpRnavStartEndConditionType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Start/end condition</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:choice>
+                        <xsd:element name="positionXYZ" type="pointXYZConstraintType">
+                            <xsd:annotation>
+                                <xsd:documentation>Global coordinate at the start in xyz coordinates</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="positionGeo" type="geographicPointConstraintType">
+                            <xsd:annotation>
+                                <xsd:documentation>Global coordinate at the start in geographic coordinates (longitude, latitude, altitude)</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="waypoint" type="waypointType"/>
+                    </xsd:choice>
+                </xsd:sequence>
+                <xsd:attribute name="uID" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="rnpRnavType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>RNP/RNAV approach</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="name" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Name</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="runwayUID" type="stringUIDBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>UID of the runway</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="startCondition" type="rnpRnavStartEndConditionType">
+                        <xsd:annotation>
+                            <xsd:documentation>Start condition</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="segments" type="rnpRnavSegmentsType"/>
+                </xsd:all>
+                <xsd:attribute name="uID" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="rotationCurveType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -29633,12 +29946,8 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
             <xsd:appinfo>
                 <sd:schemaDoc>
                     <ddue:summary>
-                        <ddue:para>runwayILSType</ddue:para>
+                        <ddue:para>Runway ILS</ddue:para>
                     </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:para>RunwayILS type, containing ILS data of a runway
-                        </ddue:para>
-                    </ddue:remarks>
                 </sd:schemaDoc>
             </xsd:appinfo>
         </xsd:annotation>
@@ -29651,20 +29960,19 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:sequence minOccurs="0">
-                        <xsd:element name="antennaPositionGS" type="doubleBaseType">
-                            <xsd:annotation>
-                                <xsd:documentation>Position of the glide slope antenna
-                                </xsd:documentation>
-                            </xsd:annotation>
-                        </xsd:element>
-                        <xsd:element name="glidePathAngle" type="doubleBaseType">
-                            <xsd:annotation>
-                                <xsd:documentation>Angle of the glide path</xsd:documentation>
-                            </xsd:annotation>
-                        </xsd:element>
-                    </xsd:sequence>
+                    <xsd:element name="antennaPositionGS" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Position of the glide slope antenna
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="glidePathAngle" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Angle of the glide path</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
                 </xsd:sequence>
+                <xsd:attribute name="uID" type="xsd:ID"/>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
@@ -29802,22 +30110,22 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             <xsd:documentation>Runway heading</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="tORA" type="doubleBaseType">
+                    <xsd:element name="tora" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>Takeoff run available</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="lDA" type="doubleBaseType">
+                    <xsd:element name="lda" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>Landing distance available</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="conditions" type="doubleBaseType">
+                    <xsd:element name="conditions" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>Conditions of the runway</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="iLS" minOccurs="0" type="runwayILSType"/>
+                    <xsd:element name="ils" minOccurs="0" type="runwayILSType"/>
                 </xsd:all>
                 <xsd:attribute name="uID" use="required" type="xsd:ID"/>
             </xsd:extension>
@@ -34436,6 +34744,15 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
     </xsd:complexType>
 
     <xsd:complexType name="waypointType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Waypoint</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
                 <xsd:all>
