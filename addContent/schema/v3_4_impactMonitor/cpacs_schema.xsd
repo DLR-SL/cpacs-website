@@ -5380,7 +5380,7 @@ cpacs@dlr.de
                     </xsd:element>
                     <xsd:element name="metricType">
                         <xsd:annotation>
-                            <xsd:documentation>Metric type (atr | agwp) (Note: Please contact CPACS support to add additional types)</xsd:documentation>
+                            <xsd:documentation>Metric type (atr | agwp | agtp | rf) (Note: Please contact CPACS support to add additional types)</xsd:documentation>
                         </xsd:annotation>
                             <xsd:complexType>
                             <xsd:simpleContent>
@@ -13989,7 +13989,7 @@ cpacs@dlr.de
                             <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringVectorBaseType">
-                                    <xsd:pattern value="(takeOff|climb|cruise|descent|landing|acceleration|ground|range|duration|turn|holding|storeRelease|taxi|warmUp|loiter|massFraction|mass|other)(;(takeOff|climb|cruise|descent|landing|acceleration|ground|range|duration|turn|holding|storeRelease|taxi|warmUp|loiter|massFraction|mass|other))*"/>
+                                    <xsd:pattern value="(takeOff|climb|cruise|descent|landing|acceleration|ground|range|duration|turn|holding|storeRelease|taxi|warmUp|loiter|massFraction|mass|flightPlan|other)(;(takeOff|climb|cruise|descent|landing|acceleration|ground|range|duration|turn|holding|storeRelease|taxi|warmUp|loiter|massFraction|mass|flightPlan|other))*"/>
                                 </xsd:restriction>
                             </xsd:simpleContent>
                         </xsd:complexType>
