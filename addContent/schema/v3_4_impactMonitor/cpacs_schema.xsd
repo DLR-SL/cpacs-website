@@ -22810,7 +22810,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="approachProcedureUID" type="stringUIDBaseType">
+                    <xsd:element name="approachProcedureUID" minOccurs="0" type="stringUIDBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
                                 UID of the approach procedure
@@ -23401,6 +23401,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                     <xsd:enumeration value="loiter"/>
                                     <xsd:enumeration value="massFraction"/>
                                     <xsd:enumeration value="mass"/>
+                                    <xsd:enumeration value="flightPlan"/>
                                     <xsd:enumeration value="other"/>
                                 </xsd:restriction>
                             </xsd:simpleContent>
