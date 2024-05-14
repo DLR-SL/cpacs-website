@@ -36,7 +36,7 @@ cpacs@dlr.de
                             <ddue:definitionTable>
                                 <ddue:definedTerm>Version</ddue:definedTerm>
                                 <ddue:definition>
-                                    <ddue:para>V3.4_ImpactMonitoring</ddue:para>
+                                    <ddue:para>V3.4_ImpactMonitor</ddue:para>
                                 </ddue:definition>
                                 <ddue:definedTerm>Date</ddue:definedTerm>
                                 <ddue:definition>
@@ -2338,6 +2338,486 @@ cpacs@dlr.de
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="afpEnvironmentalImpactsResultsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Results</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="reportingEnvironmentalImpacts">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="EM">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="ENVCOST">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="policyScenario" type="aviationFuelPolicyScenarioType"/>
+                    <xsd:element name="emissionCycle">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="TTW">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="WTW_withILUC">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="WTW">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="pollutant">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="TOTAL">
+                                    <xsd:annotation>
+                                        <xsd:documentation>Total</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="CO2eq">
+                                    <xsd:annotation>
+                                        <xsd:documentation>CO2 equivalent</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="mode" type="aviationFuelPolicyModeType"/>
+                    <xsd:element name="fuel" type="fuelVectorType"/>
+                    <xsd:element name="market" type="marketVectorType"/>
+                    <xsd:element name="year" type="posIntVectorBaseType"/>
+                    <xsd:element name="value" type="aviationFuelPoliciesValueType"/>
+                </xsd:all>
+                <xsd:attribute name="uID" use="required" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="afpEnvironmentalImpactsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Environmental impacts</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="results" maxOccurs="unbounded" type="afpEnvironmentalImpactsResultsType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="afpFeedstockResultsResultsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Results</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="reportingFeedstockResults">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="ENDOG_PINDEX">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="ENVCOST">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="ENDOG_PINDEX_BIOROADFIRST">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="S_FEEDST">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="policyScenario" type="aviationFuelPolicyScenarioType"/>
+                    <xsd:element name="feedstock">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="MSW">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="UCO">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="anfats">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="camelina">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="encrops">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="maize">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="residues">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="sugarbeet">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="sugarcane">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="vegoils">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="wheat">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="market" type="marketVectorType"/>
+                    <xsd:element name="year" type="posIntVectorBaseType"/>
+                    <xsd:element name="value" type="aviationFuelPoliciesValueType"/>
+                </xsd:all>
+                <xsd:attribute name="uID" use="required" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="afpFeedstockResultsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Feedstock Results</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="results" maxOccurs="unbounded" type="afpFeedstockResultsResultsType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="afpModelResultsResultsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Results</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="reportingModelResults">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="D">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="D_withfuelpenalty">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="P">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="S">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="sharebio">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="policyScenario" type="aviationFuelPolicyScenarioType"/>
+                    <xsd:element name="mode" type="aviationFuelPolicyModeType"/>
+                    <xsd:element name="market" type="marketVectorType"/>
+                    <xsd:element name="year" type="posIntVectorBaseType"/>
+                    <xsd:element name="value" type="aviationFuelPoliciesValueType"/>
+                </xsd:all>
+                <xsd:attribute name="uID" use="required" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="afpModelResultsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Model results</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="results" maxOccurs="unbounded" type="afpModelResultsResultsType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="afpPolicyInstrumentsResultsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Results</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="reportingPolicyInstruments">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="ETStax_CO2eq">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="alpha">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="endogtax">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="indirecttax">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="tax">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="totaltax">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="vat">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="policyScenario" type="aviationFuelPolicyScenarioType"/>
+                    <xsd:element name="mode" type="aviationFuelPolicyModeType"/>
+                    <xsd:element name="fuel" type="fuelVectorType"/>
+                    <xsd:element name="market" type="marketVectorType"/>
+                    <xsd:element name="year" type="posIntVectorBaseType"/>
+                    <xsd:element name="value" type="aviationFuelPoliciesValueType"/>
+                </xsd:all>
+                <xsd:attribute name="uID" use="required" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="afpPolicyInstrumentsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Policy instruments</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="results" maxOccurs="unbounded" type="afpPolicyInstrumentsResultsType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="afpWelfareImpactsResultsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Results</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="reportingWelfareImpacts">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="CS">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="GVMTINC">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="GVMTINC_ETS">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="GVMTINC_endogtax">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="GVMTINC_indirecttax">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="PS">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="WELFARE_TTW">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="WELFARE_WTW">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="WELFARE_WTW_ILUC">
+                                    <xsd:annotation>
+                                        <xsd:documentation>?</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="policyScenario" type="aviationFuelPolicyScenarioType"/>
+                    <xsd:element name="mode" type="aviationFuelPolicyModeType"/>
+                    <xsd:element name="fuel" type="fuelVectorType"/>
+                    <xsd:element name="market" type="marketVectorType"/>
+                    <xsd:element name="year" type="posIntVectorBaseType"/>
+                    <xsd:element name="value" type="aviationFuelPoliciesValueType"/>
+                </xsd:all>
+                <xsd:attribute name="uID" use="required" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="afpWelfareImpactsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Welfare Impacts</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="results" maxOccurs="unbounded" type="afpWelfareImpactsResultsType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="aircraftAnalysesGlobalType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -2987,6 +3467,25 @@ cpacs@dlr.de
                     <xsd:element name="departureSeparations" minOccurs="0"/>
                     <xsd:element name="airspaceOperationRestrictions" minOccurs="0"/>
                     <xsd:element name="approachProcedures" minOccurs="0" type="approachProceduresType"/>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="airTransportSystemStudyType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Air transport system impact assessment</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="aviationFuelPolicies" type="aviationFuelPoliciesType"/>
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
@@ -3798,6 +4297,132 @@ cpacs@dlr.de
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
+
+    <xsd:complexType name="aviationFuelPoliciesType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Aviation fuel policies</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="modelResults" minOccurs="0" type="afpModelResultsType"/>
+                    <xsd:element name="welfareImpacts" minOccurs="0" type="afpWelfareImpactsType"/>
+                    <xsd:element name="environmentalImpacts" minOccurs="0" type="afpEnvironmentalImpactsType"/>
+                    <xsd:element name="policyInstruments" minOccurs="0" type="afpPolicyInstrumentsType"/>
+                    <xsd:element name="feedstockResults" minOccurs="0" type="afpFeedstockResultsType"/>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="aviationFuelPoliciesValueType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Value</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="doubleVectorBaseType">
+                <xsd:attribute name="unit" use="required">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="eur/kgoe">
+                                <xsd:annotation>
+                                    <xsd:documentation>Euro per kg?</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:enumeration>
+                            <xsd:enumeration value="eur">
+                                <xsd:annotation>
+                                    <xsd:documentation>Euro</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:enumeration>
+                            <xsd:enumeration value="mtoe">
+                                <xsd:annotation>
+                                    <xsd:documentation>Million tons OE</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:enumeration>
+                            <xsd:enumeration value="kg">
+                                <xsd:annotation>
+                                    <xsd:documentation>Kilogram</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:enumeration>
+                            <xsd:enumeration value="eur/tCO2eq">
+                                <xsd:annotation>
+                                    <xsd:documentation>Euro per tons CO2 equivalent</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:enumeration>
+                            <xsd:enumeration value="eur/toe">
+                                <xsd:annotation>
+                                    <xsd:documentation>??</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:enumeration>
+                            <xsd:enumeration value="number">
+                                <xsd:annotation>
+                                    <xsd:documentation>???</xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:enumeration>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:simpleType name="aviationFuelPolicyModeType">
+        <xsd:annotation>
+            <xsd:documentation>Mode</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="ALL">
+                <xsd:annotation>
+                    <xsd:documentation>All mdes (air, maritime, road)</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="AIR">
+                <xsd:annotation>
+                    <xsd:documentation>Air</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="MAR">
+                <xsd:annotation>
+                    <xsd:documentation>Maritime</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="ROAD">
+                <xsd:annotation>
+                    <xsd:documentation>road</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="aviationFuelPolicyScenarioType">
+        <xsd:annotation>
+            <xsd:documentation>Policy Scenario</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="SCBAU">
+                <xsd:annotation>
+                    <xsd:documentation>SCBAU</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="SCBAU_ETS100in2030">
+                <xsd:annotation>
+                    <xsd:documentation>SCBAU ETA100 in 2030</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
 
     <xsd:complexType name="axleAssembliesType">
         <xsd:annotation>
@@ -11918,7 +12543,7 @@ cpacs@dlr.de
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="seatClass" minOccurs="0" type="seatClassType"/>
-                    <xsd:element name="seatLoadFactor" minOccurs="0" type="integerBaseType">
+                    <xsd:element name="seatLoadFactor" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
                                 Seat load factor
@@ -14039,11 +14664,6 @@ cpacs@dlr.de
                             <xsd:documentation>Current location [m]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="staticPressure" minOccurs="0" type="doubleVectorBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Static pressure [Pa]</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
                     <xsd:element name="trueAirSpeed" minOccurs="0" type="doubleVectorBaseType">
                         <xsd:annotation>
                             <xsd:documentation>True Air Speed [m/s]</xsd:documentation>
@@ -14086,12 +14706,17 @@ cpacs@dlr.de
                     </xsd:element>
                     <xsd:element name="mass" minOccurs="0" type="doubleVectorBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>Mass [kg]</xsd:documentation>
+                            <xsd:documentation>Aircraft mass [kg]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="fuelFlow" minOccurs="0" type="doubleVectorBaseType">
                         <xsd:annotation>
                             <xsd:documentation>Fuel flow [kg/s]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="fuelMass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Fuel mass [kg]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="coFlow" minOccurs="0" type="doubleVectorBaseType">
@@ -14132,6 +14757,17 @@ cpacs@dlr.de
                     <xsd:element name="h2oFlow" minOccurs="0" type="doubleVectorBaseType">
                         <xsd:annotation>
                             <xsd:documentation>H2O Flow [kg/s]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="weather" minOccurs="0" type="weatherType"/>
+                    <xsd:element name="crossWindComponent" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Cross wind component relative to aircraft flight path and motion (true course) (starboard: positive; port: negative) [m/s]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="headWindComponent" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Head wind component relative to aircraft flight path and motion (true course) (bow to stern: positive) [m/s]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="tma" minOccurs="0" type="doubleVectorBaseType">
@@ -15541,6 +16177,57 @@ cpacs@dlr.de
                 <xsd:attribute name="uID" use="required" type="xsd:ID"/>
             </xsd:extension>
         </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="fuelVectorType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Fuel (vector)</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:list class="bullet">
+                            <ddue:listItem>
+                                <ddue:para>
+                                    ALL: all fuels
+                                </ddue:para>
+                            </ddue:listItem>
+                            <ddue:listItem>
+                                <ddue:para>
+                                    BIOROAD_FIRST: ?
+                                </ddue:para>
+                            </ddue:listItem>
+                            <ddue:listItem>
+                                <ddue:para>
+                                    FOSSILEQ: ?
+                                </ddue:para>
+                            </ddue:listItem>
+                            <ddue:listItem>
+                                <ddue:para>
+                                    BIO: ?
+                                </ddue:para>
+                            </ddue:listItem>
+                            <ddue:listItem>
+                                <ddue:para>
+                                    FOSSIL: fossile fules
+                                </ddue:para>
+                            </ddue:listItem>
+                            <ddue:listItem>
+                                <ddue:para>
+                                    BIO_FOODFEED: ?
+                                </ddue:para>
+                            </ddue:listItem>
+                        </ddue:list>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="stringVectorBaseType">
+                <xsd:pattern value="(ALL|BIOROAD_FIRST|FOSSILEQ|BIO|FOSSIL|BIO_FOODFEED|BIO_HEFA_UCO|BIO_HEFA_AF|BIO_HEFA_UCO|BIO_HEFA_CAM|BIO_HEFA_VO|BIO_HVO_UCO|BIO_HVO_AF|BIO_HVO_CAM|BIO_HVO_VO|BIO_SIP_RES|BIO_SIP_SC|BIO_HTL_RES|BIO_FT_RES|BIO_FT_WBEC|BIO_FT_MSW|BIO_CE_RES|BIO_CE_WBEC|BIO_ATJ_RES|BIO_ATJ_SC|BIO_ATJ_SB|BIO_PYR_RES|BIO_COPRO_VO|BIO_COPRO_RES)(;(ALL|BIOROAD_FIRST|FOSSILEQ|BIO|FOSSIL|BIO_FOODFEED|BIO_HEFA_UCO|BIO_HEFA_AF|BIO_HEFA_UCO|BIO_HEFA_CAM|BIO_HEFA_VO|BIO_HVO_UCO|BIO_HVO_AF|BIO_HVO_CAM|BIO_HVO_VO|BIO_SIP_RES|BIO_SIP_SC|BIO_HTL_RES|BIO_FT_RES|BIO_FT_WBEC|BIO_FT_MSW|BIO_CE_RES|BIO_CE_WBEC|BIO_ATJ_RES|BIO_ATJ_SC|BIO_ATJ_SB|BIO_PYR_RES|BIO_COPRO_VO|BIO_COPRO_RES))*"/>
+            </xsd:restriction>
+        </xsd:simpleContent>
     </xsd:complexType>
 
     <xsd:complexType name="fuselageAeroPerformanceType">
@@ -20486,6 +21173,23 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="marketVectorType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Market</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="stringVectorBaseType">
+                <xsd:pattern value="(EU|intraEU|extraEU|nonEU|world)(;(EU|intraEU|extraEU|nonEU|world))*"/>
+            </xsd:restriction>
+        </xsd:simpleContent>
     </xsd:complexType>
 
     <xsd:complexType name="massBreakdownType">
@@ -32752,6 +33456,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                 <xsd:all>
                     <xsd:element name="airportAssessment" minOccurs="0" type="airportAssessmentType"/>
                     <xsd:element name="economicImpactAssessment" minOccurs="0" type="economicImpactAssessmentType"/>
+                    <xsd:element name="airTransportSystem" minOccurs="0" type="airTransportSystemStudyType"/>
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
@@ -35143,6 +35848,54 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             <xsd:documentation>
                                 Longitude
                             </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="weatherType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Weather data along a trajectory</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="relativeHumidity" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Relative humidity [0-100]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="temperature" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Temparature [K]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="dewPoint" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Dew Point [K]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="staticPressure" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Static pressure [Pa]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="windSpeed" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Wind speed [m/s]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="windDirection" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Wind direction (with respect to true north) [deg]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:all>
