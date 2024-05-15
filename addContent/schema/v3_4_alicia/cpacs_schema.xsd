@@ -34612,12 +34612,12 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
                 <xsd:all>
-                    <xsd:element name="fuelMass" type="doubleBaseType">
+                    <xsd:element name="fuelMass" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>Fuel mass [kg]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="time" type="doubleBaseType">
+                    <xsd:element name="time" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>Flight time [s]</xsd:documentation>
                         </xsd:annotation>
@@ -34627,7 +34627,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             <xsd:documentation>Delay [s]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="distance" type="doubleBaseType">
+                    <xsd:element name="distance" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>Distance [m]</xsd:documentation>
                         </xsd:annotation>
@@ -34704,13 +34704,13 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
                 <xsd:all>
-                    <xsd:element name="name" type="stringBaseType"/>
+                    <xsd:element name="name" minOccurs="0" type="stringBaseType"/>
                     <xsd:element name="description" minOccurs="0" type="stringBaseType"/>
                     <xsd:element name="missionUID" minOccurs="0" type="stringUIDBaseType"/>
                     <xsd:element name="global" minOccurs="0" type="trajectoryGlobalType"/>
                     <xsd:element name="flightPoints" minOccurs="0" type="flightPointType"/>
                 </xsd:all>
-                <xsd:attribute name="uID" use="required" type="xsd:ID"/>
+                <xsd:attribute name="uID" type="xsd:ID"/>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
