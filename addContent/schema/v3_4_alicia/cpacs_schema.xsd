@@ -2564,6 +2564,63 @@ cpacs@dlr.de
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="afpFuelConsumptionsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Specification</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="fuelConsumption" maxOccurs="unbounded" type="afpFuelConsumptionType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="afpFuelConsumptionType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Specification</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="fuelType" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Fuel type</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="departureRegion" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Departure region</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="arrivalRegion" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Arrival region</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="consumedFuel" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Consumed fuel [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="afpModelResultsResultsType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -2719,6 +2776,25 @@ cpacs@dlr.de
                 <xsd:sequence>
                     <xsd:element name="results" maxOccurs="unbounded" type="afpPolicyInstrumentsResultsType"/>
                 </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="afpSepcificationType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Specification</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="fuelConsumptions" minOccurs="0" type="afpFuelConsumptionsType"/>
+                </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
@@ -4311,6 +4387,7 @@ cpacs@dlr.de
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
                 <xsd:all>
+                    <xsd:element name="specification" type="afpSepcificationType"/>
                     <xsd:element name="modelResults" minOccurs="0" type="afpModelResultsType"/>
                     <xsd:element name="welfareImpacts" minOccurs="0" type="afpWelfareImpactsType"/>
                     <xsd:element name="environmentalImpacts" minOccurs="0" type="afpEnvironmentalImpactsType"/>
@@ -19813,6 +19890,250 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="lcaCCMetricType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>LCA metrics</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="cc" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Impact Category: Climate Change | Indicator: global warming potential (GWP100) | Unit: [kg CO2-Eq]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="lcaCompleteMetricsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>LCA metrics</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="adp" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Impact Category: Acidification | Indicator: accumulated exceedance (ae) | Unit: [mol H+-Eq]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="cc" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Impact Category: Climate Change | Indicator: global warming potential (GWP100) | Unit: [kg CO2-Eq]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="ecf" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Impact Category: Energy Resources - Non-Renewable | Indicator: abiotic depletion potential (ADP) | Unit: [MJ]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="fep" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Impact Category: Eutrophication: Freshwater | Indicator: fraction of nutrients reaching freshwater end compartment (P) | Unit: [kg PO4-Eq]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="mep" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Impact Category: Eutrophication - Marine | Indicator: fraction of nutrients reaching marine end compartment (N) | Unit: [kg N-Eq]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="tep" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Impact Category: Eutrophication - Terrestrial | Indicator: accumulated exceedance (AE) | Unit: [mol N-Eq]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="hhc" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Impact Category: Human Toxicity - Carcinogenic | Indicator: comparative toxic unit for human (CTUh) | Unit: [CTUh]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="hhnc" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Impact Category: Human Toxicity - Non-Carcinogenic | Indicator: comparative toxic unit for human (CTUh) | Unit: [CTUh]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="ir" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Impact Category: Ionising Radiation | Indicator: human exposure efficiency relative to U235 | Unit: [CTUh]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="lu" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Impact Category: Land Use | Indicator: soil quality index | Unit: [-]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="mm" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Impact Category: Material Resources - Metals/Minerals | Indicator: abiotic depletion potential (ADP) | Unit: [kg Sb-Eq]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="odp" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Impact Category: Ozone Depletion | Indicator: ozone depletion potential (ODP) | Unit: [kg CFC-11-Eq]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="pm" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Impact Category: Particulate Matter Formation | Indicator: impact on human health | Unit: [disease incidence]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="pof" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Impact Category: Photochemical Ozone Formation | Indicator: tropospheric ozone concentration increase | Unit: [kg NMVOC-Eq]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="ws" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Impact Category: Water Use | Indicator: user deprivation potential | Unit: [m3 world eq. deprived]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="lcaEconomicStudiesType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Economic studies</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="economicStudy" maxOccurs="unbounded" type="lcaEconomicStudyType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="lcaEconomicStudyDataType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Life cycle data</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="totalLifeCycle" minOccurs="0" type="lcaCCMetricType">
+                        <xsd:annotation>
+                            <xsd:documentation>Total life cycle results
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="aircraftProduction" minOccurs="0" type="lcaCompleteMetricsType">
+                        <xsd:annotation>
+                            <xsd:documentation>Aircraft production
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="fuelProduction" minOccurs="0" type="lcaCompleteMetricsType">
+                        <xsd:annotation>
+                            <xsd:documentation>Fuel production
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="flightOperation" minOccurs="0" type="lcaCCMetricType">
+                        <xsd:annotation>
+                            <xsd:documentation>Flight operation
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="aircraftMaintenance" minOccurs="0" type="lcaCompleteMetricsType">
+                        <xsd:annotation>
+                            <xsd:documentation>Aircraft maintenance
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="endOfLife" minOccurs="0" type="lcaCompleteMetricsType">
+                        <xsd:annotation>
+                            <xsd:documentation>End of life
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="lcaEconomicStudySpecificationType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Specification</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="flightUIDs" minOccurs="0" type="uIDSequenceType"/>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="lcaEconomicStudyType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Economic study</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="specification" type="lcaEconomicStudySpecificationType"/>
+                    <xsd:element name="lifeCycleData" type="lcaEconomicStudyDataType"/>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="leadingEdgeDevicesType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -19996,6 +20317,25 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="lifeCycleAssessmentType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Life Cycle Assessment</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="economicStudies" minOccurs="0" type="lcaEconomicStudiesType"/>
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
@@ -33457,6 +33797,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     <xsd:element name="airportAssessment" minOccurs="0" type="airportAssessmentType"/>
                     <xsd:element name="economicImpactAssessment" minOccurs="0" type="economicImpactAssessmentType"/>
                     <xsd:element name="airTransportSystem" minOccurs="0" type="airTransportSystemStudyType"/>
+                    <xsd:element name="lifeCycleAssessment" minOccurs="0" type="lifeCycleAssessmentType"/>
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
