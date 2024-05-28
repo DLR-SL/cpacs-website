@@ -36,7 +36,7 @@ cpacs@dlr.de
                             <ddue:definitionTable>
                                 <ddue:definedTerm>Version</ddue:definedTerm>
                                 <ddue:definition>
-                                    <ddue:para>V3.4_ImpactMonitor</ddue:para>
+                                    <ddue:para>V3.4-ImpactMonitor</ddue:para>
                                 </ddue:definition>
                                 <ddue:definedTerm>Date</ddue:definedTerm>
                                 <ddue:definition>
@@ -14749,6 +14749,11 @@ cpacs@dlr.de
                     <xsd:element name="calibratedAirSpeed" minOccurs="0" type="doubleVectorBaseType">
                         <xsd:annotation>
                             <xsd:documentation>Calibrated Air Speed [m/s]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="machNumber" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Mach number [-]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="angleOfAttack" minOccurs="0" type="doubleVectorBaseType">
