@@ -3044,15 +3044,9 @@ cpacs@dlr.de
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
                 <xsd:all>
-                    <xsd:element name="iataType" minOccurs="0" type="iataTypeDisignatorType"/>
-                    <xsd:element name="icaoType" minOccurs="0" type="icaoTypeDisignatorType"/>
-                    <xsd:element name="badaModel" minOccurs="0" type="stringBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>
-                                Bada model designator
-                            </xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
+                    <xsd:element name="aircraftType" minOccurs="0" type="aircraftTypeType"/>
+                    <xsd:element name="propulsionArchitecture" minOccurs="0" type="propulsionArchitectureType"/>
+                    <xsd:element name="lifeCycle" minOccurs="0" type="lifeCycleType"/>
                     <xsd:element name="designRange" minOccurs="0" type="requirementType">
                         <xsd:annotation>
                             <xsd:documentation>
@@ -3158,6 +3152,33 @@ cpacs@dlr.de
                 <xsd:sequence>
                     <xsd:element name="model" maxOccurs="unbounded" type="aircraftModelType"/>
                 </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="aircraftTypeType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Aircraft Type</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="iataType" minOccurs="0" type="iataTypeDisignatorType"/>
+                    <xsd:element name="icaoType" minOccurs="0" type="icaoTypeDisignatorType"/>
+                    <xsd:element name="badaModel" minOccurs="0" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Bada model designator
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
@@ -12685,6 +12706,99 @@ cpacs@dlr.de
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="emissionGridsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Emission grids</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="emissionGrid" maxOccurs="unbounded" type="emissionGridType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="emissionGridType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Emission grid</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="name" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Name</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="description" minOccurs="0" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Description</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="latitude" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Latitude coordinate [0-360]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="longitude" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Longitude coordinate [0-360]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="altitude" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Altitude [m]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="fuelMass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Fuel [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="co2Mass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>CO2 mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="noxMass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>NOx mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="h2oMass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>H20 mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="distance" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Distance [m]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="cellDistributionFactor" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Cell Distribution Factor [-]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+                <xsd:attribute name="uID" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="emissionsType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -12818,6 +12932,25 @@ cpacs@dlr.de
                 <xsd:sequence maxOccurs="unbounded">
                     <xsd:element name="energyCarrier" type="energyCarrierConsumptionType"/>
                 </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="energyCarriersType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Energy Carriers</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="fuels" minOccurs="0" type="fuelsType"/>
+                </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
@@ -13595,6 +13728,74 @@ cpacs@dlr.de
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="engineTypeType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Engine type</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="concept" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Engine concept (turboprop | turbofan | piston | turboshaft | electric)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="turbofan">
+                                    <xsd:annotation>
+                                        <xsd:documentation>Turbofan engine</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="turboprop">
+                                    <xsd:annotation>
+                                        <xsd:documentation>Turboprop engine</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="piston">
+                                    <xsd:annotation>
+                                        <xsd:documentation>Piston engine</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="turboshaft">
+                                    <xsd:annotation>
+                                        <xsd:documentation>Turboshaft engine</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="electric">
+                                    <xsd:annotation>
+                                        <xsd:documentation>Electric engine</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="icaoUID" minOccurs="0" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                ICAO unique identifier (e.g., 01P08CM107; not to confuse with uID in CPACS!)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="model" minOccurs="0" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Engine model number (e.g., CFM56-5B6/3)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="environmentType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -13868,6 +14069,7 @@ cpacs@dlr.de
                     <xsd:element name="economics" minOccurs="0" type="economicsType"/>
                     <xsd:element name="trajectories" minOccurs="0" type="trajectoriesType"/>
                     <xsd:element name="emissions" minOccurs="0" type="emissionsType"/>
+                    <xsd:element name="emissionGrids" minOccurs="0" type="emissionGridsType"/>
                     <xsd:element name="climate" minOccurs="0" type="flightClimateType"/>
                 </xsd:all>
             </xsd:extension>
@@ -14010,10 +14212,10 @@ cpacs@dlr.de
                                 </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="syntheticAviationFuel" minOccurs="0" type="doubleBaseType">
+                    <xsd:element name="sustainableAviationFuel" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
-                                    Synthetic aviation fuel [kg]
+                                    Sustainable aviation fuel [kg]
                                 </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
@@ -15059,6 +15261,11 @@ cpacs@dlr.de
                 <xsd:all>
                     <xsd:element name="vehicleUID" type="stringUIDBaseType"/>
                     <xsd:element name="weight" minOccurs="0" type="flightVehicleWeightType"/>
+                    <xsd:element name="energyCarrierUID" minOccurs="0" type="stringUIDBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Reference to predefined energy carrier to be used for this flight (defined at cpacs/vehicles/energyCarriers)</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
                     <xsd:element name="tailsign" minOccurs="0" type="stringBaseType"/>
                 </xsd:all>
             </xsd:extension>
@@ -15080,7 +15287,7 @@ cpacs@dlr.de
                 <xsd:choice>
                     <xsd:element name="loadFactor" type="doubleBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>Load factor</xsd:documentation>
+                            <xsd:documentation>Payload load factor [-]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="TOW" type="doubleBaseType">
@@ -16149,9 +16356,6 @@ cpacs@dlr.de
                     <ddue:summary>
                         <ddue:para>Fuels</ddue:para>
                     </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:para>fuelType containing data for fuels</ddue:para>
-                    </ddue:remarks>
                 </sd:schemaDoc>
             </xsd:appinfo>
         </xsd:annotation>
@@ -16228,33 +16432,75 @@ cpacs@dlr.de
             <xsd:appinfo>
                 <sd:schemaDoc>
                     <ddue:summary>
-                        <ddue:para>Fuels</ddue:para>
+                        <ddue:para>Fuel</ddue:para>
                     </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:para>fuelType containing data for fuels</ddue:para>
-                        <ddue:para>Can be used as a catalog for different (liquid) fuel
-                            types</ddue:para>
-                    </ddue:remarks>
                 </sd:schemaDoc>
             </xsd:appinfo>
         </xsd:annotation>
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
                 <xsd:all>
-                    <xsd:element name="name" type="stringBaseType"/>
-                    <xsd:element name="description" minOccurs="0" type="stringBaseType"/>
-                    <xsd:element name="lowerHeatingValue" type="doubleBaseType"/>
-                    <xsd:element name="density" type="doubleBaseType">
+                    <xsd:element name="name" type="stringBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>at 15deg C</xsd:documentation>
+                            <xsd:documentation>Name</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="freezingPoint" type="doubleBaseType"/>
-                    <xsd:element name="boilingPoint" type="doubleBaseType"/>
-                    <xsd:element name="flashPoint" type="doubleBaseType"/>
-                    <xsd:element name="autoFlammability" type="doubleBaseType"/>
-                    <xsd:element name="kinematicViscosity" type="doubleBaseType"/>
-                    <xsd:element name="avgSulfurLevel" type="doubleBaseType"/>
+                    <xsd:element name="description" minOccurs="0" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Description</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="type">
+                        <xsd:annotation>
+                            <xsd:documentation>Type of energy carrier</xsd:documentation>
+                        </xsd:annotation>
+                            <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringBaseType">
+                                    <xsd:enumeration value="kerosene"/>
+                                    <xsd:enumeration value="hydrogen"/>
+                                    <xsd:enumeration value="sustainableAviationFuel"/>
+                                    <xsd:enumeration value="ptlSustainableAviationFuel"/>
+                                    <xsd:enumeration value="ammonia"/>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="lowerHeatingValue" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Lower heating value</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="density" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Density at 15deg C</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="co2EmissionIndex" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>CO2 emission index</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="h2oEmissionIndex" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>H2O emission index</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="n2EmissionIndex" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>N2 emission index</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="energySpecificCost" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Energy specific cost</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="freezingPoint" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Freezing point</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
                 </xsd:all>
                 <xsd:attribute name="uID" use="required" type="xsd:ID"/>
             </xsd:extension>
@@ -20341,6 +20587,45 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
             <xsd:extension base="complexBaseType">
                 <xsd:all>
                     <xsd:element name="economicStudies" minOccurs="0" type="lcaEconomicStudiesType"/>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="lifeCycleType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Life cycle</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="entryIntoService" minOccurs="0" type="xsd:gYear">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Entry into service
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="endOfProduction" minOccurs="0" type="xsd:gYear">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                End of production
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="endOfLife" minOccurs="0" type="xsd:gYear">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                End of life
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
@@ -28990,6 +29275,92 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="propulsionArchitectureType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Propulsion Architecture</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="engineType" minOccurs="0" type="engineTypeType"/>
+                    <xsd:element name="powertrainType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Powertrain (combustion | electric | hybridElectric | hydrogenElectric)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="combustion">
+                                    <xsd:annotation>
+                                        <xsd:documentation>Combustion</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="electric">
+                                    <xsd:annotation>
+                                        <xsd:documentation>Electric</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="hybridElectric">
+                                    <xsd:annotation>
+                                        <xsd:documentation>Hybrid-electric (e.g., battery + kerosene)</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="hydrogenElectric">
+                                    <xsd:annotation>
+                                        <xsd:documentation>Hydrogen-electric (e.g., battery + hydrogen, or only fuel cell)</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="energyCarrierType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Type of the energy carrier (kerosene | hydrogen | battery | keroseneBattery | hydrogenBattery)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="kerosene">
+                                    <xsd:annotation>
+                                        <xsd:documentation>Kerosene</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="hydrogen">
+                                    <xsd:annotation>
+                                        <xsd:documentation>Hydrogen</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="battery">
+                                    <xsd:annotation>
+                                        <xsd:documentation>Battery</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="keroseneBattery">
+                                    <xsd:annotation>
+                                        <xsd:documentation>Kerosene and battery</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="hydrogenBattery">
+                                    <xsd:annotation>
+                                        <xsd:documentation>hydrogen and battery</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="propulsionPerformanceDefinitionsType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -31556,6 +31927,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
             <xsd:extension base="complexBaseType">
                 <xsd:all>
                     <xsd:element name="emissions" minOccurs="0" type="emissionsType"/>
+                    <xsd:element name="emissionGrids" minOccurs="0" type="emissionGridsType"/>
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
@@ -34973,9 +35345,9 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             <xsd:documentation>Delay [s]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="distance" minOccurs="0" type="doubleBaseType">
+                    <xsd:element name="flightDistance" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>Distance [m]</xsd:documentation>
+                            <xsd:documentation>Flight distance [m]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="radiativeForcing" minOccurs="0" type="radiativeForcingType">
@@ -35029,6 +35401,12 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             <xsd:documentation>Soot mass [kg]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
+                    <xsd:element name="loadFactor" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Payload load factor [-]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="emissionGrids" minOccurs="0" type="emissionGridsType"/>
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
@@ -35741,7 +36119,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     <xsd:element name="structuralElements" minOccurs="0" type="structuralElementsType"/>
                     <xsd:element name="deckElements" minOccurs="0" type="deckElementsType"/>
                     <xsd:element name="materials" minOccurs="0" type="materialsType"/>
-                    <xsd:element name="fuels" minOccurs="0" type="fuelsType"/>
+                    <xsd:element name="energyCarriers" minOccurs="0" type="energyCarriersType"/>
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
