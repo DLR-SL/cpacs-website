@@ -45,11 +45,11 @@ cpacs@dlr.de
                             <ddue:definitionTable>
                                 <ddue:definedTerm>Version</ddue:definedTerm>
                                 <ddue:definition>
-                                    <ddue:para>V3.5</ddue:para>
+                                    <ddue:para>V3.5-WingMates1.1</ddue:para>
                                 </ddue:definition>
                                 <ddue:definedTerm>Date</ddue:definedTerm>
                                 <ddue:definition>
-                                    <ddue:para>2023-12-19</ddue:para>
+                                    <ddue:para>2024-08-23</ddue:para>
                                 </ddue:definition>
                             </ddue:definitionTable>
                             <ddue:section>
@@ -5646,6 +5646,43 @@ cpacs@dlr.de
                     <xsd:element name="sheetElementUID" type="stringUIDBaseType"/>
                 </xsd:all>
                 <xsd:attribute name="uID" use="required" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="centerOfThrustType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>
+                            Center of thrust
+                        </ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Specification of environmental conditions</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="position" type="pointXYZType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Position relative to engine coordinate system
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="rotation" minOccurs="0" type="pointYZType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Rotation of the initial unit thrust vector around z, and then the resulting y' axis [deg]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
@@ -13489,6 +13526,7 @@ cpacs@dlr.de
                     <xsd:element name="geometry" minOccurs="0" type="engineGeometryType"/>
                     <xsd:element name="nacelle" minOccurs="0" type="engineNacelleType"/>
                     <xsd:element name="rotors" minOccurs="0" type="engineRotorsType"/>
+                    <xsd:element name="centerOfThrust" minOccurs="0" type="centerOfThrustType"/>
                     <xsd:element name="global" minOccurs="0" type="engineGlobalType"/>
                     <xsd:element name="analysis" minOccurs="0" type="engineAnalysisType"/>
                 </xsd:all>
