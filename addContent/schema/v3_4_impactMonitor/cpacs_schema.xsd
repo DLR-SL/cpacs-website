@@ -3178,6 +3178,59 @@ cpacs@dlr.de
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
+                    <xsd:element name="researchDesignator" minOccurs="0" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Research designator (e.g., D250-TPHL2-MHEP-2040)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="airlinerType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Type of the airliner (airTaxi | commuter | regional | narrowBody | wideBody)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="airTaxi">
+                                    <xsd:annotation>
+                                        <xsd:documentation>
+                                            Air Taxi
+                                        </xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="commuter">
+                                    <xsd:annotation>
+                                        <xsd:documentation>
+                                            Commuter
+                                        </xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="regional">
+                                    <xsd:annotation>
+                                        <xsd:documentation>
+                                            Regional
+                                        </xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="narrowBody">
+                                    <xsd:annotation>
+                                        <xsd:documentation>
+                                            Narrow-body
+                                        </xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="wideBody">
+                                    <xsd:annotation>
+                                        <xsd:documentation>
+                                            Wide-body
+                                        </xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
@@ -34840,7 +34893,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:any>
+                    <xsd:any processContents="lax">
                         <xsd:annotation>
                             <xsd:documentation>
                                 Wildcard for the root element of a toolspecific namespace
