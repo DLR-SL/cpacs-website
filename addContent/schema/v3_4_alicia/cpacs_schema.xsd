@@ -15343,7 +15343,7 @@ cpacs@dlr.de
                             <xsd:documentation>Payload load factor [-]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="TOW" type="doubleBaseType">
+                    <xsd:element name="takeOffWeight" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>Take-off weight</xsd:documentation>
                         </xsd:annotation>
