@@ -3300,6 +3300,29 @@ cpacs@dlr.de
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="airframeMaintenanceCostType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Airframe cost</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para/>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="costDescription" type="genericCostType"/>
+                    <xsd:element name="components" minOccurs="0" type="componentCostType"/>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="airlinesType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -5942,6 +5965,32 @@ cpacs@dlr.de
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="chargesCostType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Charges cost</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para/>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="costDescription" type="genericCostType"/>
+                    <xsd:element name="navigation" minOccurs="0" type="genericCostType"/>
+                    <xsd:element name="landing" minOccurs="0" type="genericCostType"/>
+                    <xsd:element name="ground" minOccurs="0" type="genericCostType"/>
+                    <xsd:element name="environmentalFees" minOccurs="0" type="genericCostType"/>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="chordwisePartsType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -6980,6 +7029,28 @@ cpacs@dlr.de
         <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
         <xsd:attribute name="externalFileName" type="xsd:string"/>
         <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="componentCostType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Components cost</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para/>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="component" maxOccurs="unbounded" type="genericCostType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
     </xsd:complexType>
 
     <xsd:complexType name="componentSegmentPathType">
@@ -10182,6 +10253,30 @@ cpacs@dlr.de
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="crewCostType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Crew cost</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para/>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="costDescription" type="genericCostType"/>
+                    <xsd:element name="cockpitCrew" type="genericCostType"/>
+                    <xsd:element name="flightAttendants" type="genericCostType"/>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="crossBeamAssemblyPositionType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -11751,7 +11846,7 @@ cpacs@dlr.de
                                 </xsd:documentation>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element name="airportReference" type="stringUIDBaseType">
+                        <xsd:element name="airportUID" type="stringUIDBaseType">
                             <xsd:annotation>
                                 <xsd:documentation>
                                     Reference to the uID of a CPACS airport (/cpacs/airports/airport)
@@ -11816,6 +11911,34 @@ cpacs@dlr.de
                                 authorised for the ground handling)</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="directOperatingCostType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Direct operating cost</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para/>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="costDescription" type="genericCostType"/>
+                    <xsd:element name="fuel" minOccurs="0" type="genericCostType"/>
+                    <xsd:element name="charges" minOccurs="0" type="chargesCostType"/>
+                    <xsd:element name="maintenance" minOccurs="0" type="maintenanceCostType"/>
+                    <xsd:element name="crew" minOccurs="0" type="crewCostType"/>
+                    <xsd:element name="depreciation" minOccurs="0" type="genericCostType"/>
+                    <xsd:element name="insurance" minOccurs="0" type="genericCostType"/>
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
@@ -14283,6 +14406,13 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>
                                     Electric [Wh]
+                                </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="shaftEnergyFromBattery" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                    Shaft energy from battery [%]
                                 </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
@@ -18909,6 +19039,28 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="indirectOperatingCostType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Indirect operating cost</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para/>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="costDescription" type="genericCostType"/>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="integerBaseType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -21831,6 +21983,30 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="maintenanceCostType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Maintenance cost</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para/>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="costDescription" type="genericCostType"/>
+                    <xsd:element name="airframe" minOccurs="0" type="airframeMaintenanceCostType"/>
+                    <xsd:element name="engine" minOccurs="0" type="genericCostType"/>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="mAirConditioningType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -24452,7 +24628,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                 </xsd:documentation>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element name="airportReference" type="stringUIDBaseType">
+                        <xsd:element name="airportUID" type="stringUIDBaseType">
                             <xsd:annotation>
                                 <xsd:documentation>
                                     Reference to the uID of a CPACS airport (/cpacs/airports/airport)
@@ -24882,7 +25058,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                 </xsd:documentation>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element name="airportReference" type="stringUIDBaseType">
+                        <xsd:element name="airportUID" type="stringUIDBaseType">
                             <xsd:annotation>
                                 <xsd:documentation>
                                     Reference to the uID of a CPACS airport (/cpacs/airports/airport)
@@ -25338,6 +25514,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     </xsd:element>
                     <xsd:element name="recurringCost" minOccurs="0" type="recurringCostType">
                     </xsd:element>
+                    <xsd:element name="totalOperatingCost" minOccurs="0" type="totalOperatingCostType"/>
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
@@ -31981,6 +32158,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                 <xsd:all>
                     <xsd:element name="emissions" minOccurs="0" type="emissionsType"/>
                     <xsd:element name="emissionGrids" minOccurs="0" type="emissionGridsType"/>
+                    <xsd:element name="climate" minOccurs="0" type="flightClimateType"/>
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
@@ -34951,6 +35129,85 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     <xsd:element name="damPoint2UID" type="stringUIDBaseType"/>
                     <xsd:element name="rotation" minOccurs="0" type="pointXYZType"/>
                     <xsd:element name="stiffness" minOccurs="0" type="stiffnessType"/>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="totalOperatingCostSpecificationType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Specification</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="timePeriod">
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:annotation>
+                                    <xsd:documentation>
+                                        Time period
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                                <xsd:enumeration value="day">
+                                    <xsd:annotation>
+                                        <xsd:documentation>Day</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="year">
+                                    <xsd:annotation>
+                                        <xsd:documentation>Year</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                    <xsd:element name="flightCycles" type="integerBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Flight cycles</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="currency" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Currency (3 letter code according to ISO 4217)</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="year" minOccurs="0" type="posIntVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Year</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="totalOperatingCostType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Total operating cost</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para/>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="specification" type="totalOperatingCostSpecificationType"/>
+                    <xsd:element name="costDescription" type="genericCostType"/>
+                    <xsd:element name="directOperatingCost" minOccurs="0" type="directOperatingCostType"/>
+                    <xsd:element name="indirectOperatingCost" minOccurs="0" type="indirectOperatingCostType"/>
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
