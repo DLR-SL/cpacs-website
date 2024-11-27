@@ -3545,7 +3545,7 @@ cpacs@dlr.de
                             <xsd:documentation>IATA 3-letter-code</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="airportICAO" minOccurs="0" type="stringBaseType">
+                    <xsd:element name="icaoCode" minOccurs="0" type="stringBaseType">
                         <xsd:annotation>
                             <xsd:documentation>ICAO 4-letter-code</xsd:documentation>
                         </xsd:annotation>
