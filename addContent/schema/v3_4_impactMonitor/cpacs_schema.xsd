@@ -1032,6 +1032,34 @@ cpacs@dlr.de
         </xsd:all>
     </xsd:complexType>
 
+    <xsd:complexType name="acousticDataType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Acoustic data belonging to an airport assessment</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="description" minOccurs="0" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Description of acoustics data.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="contour" maxOccurs="unbounded" type="assessmentContourType">
+                        <xsd:annotation>
+                            <xsd:documentation>Contour values belonging to the assessment</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="actuatorAttachmentType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -3390,10 +3418,66 @@ cpacs@dlr.de
         </xsd:annotation>
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="name" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Name</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="description" minOccurs="0" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Description</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="specification" type="airportAssessmentSpecificationType"/>
+                    <xsd:element name="acousticData" minOccurs="0" type="acousticDataType"/>
+                    <xsd:element name="emissionData" minOccurs="0" type="emissionDataType"/>
+                    <xsd:element name="riskData" minOccurs="0" type="riskDataType"/>
+                </xsd:all>
+                <xsd:attribute name="uID" use="required" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="airportAssessmentSpecificationType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Airport assessment general specifications</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
                 <xsd:sequence>
-                    <xsd:element name="specification"/>
-                    <xsd:element name="acousticData" minOccurs="0"/>
-                    <xsd:element name="emissionData" minOccurs="0"/>
+                    <xsd:element name="airportUID" minOccurs="0" type="stringUIDBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                    Reference to the uID of a CPACS airport (/cpacs/airports/airport)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="scheduleUID" minOccurs="0" type="stringUIDBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                    Reference to the uID of the schedule (/cpacs/schedules/schedule)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="trajectoryUIDs" minOccurs="0" type="stringVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                    Reference to the uIDs of the trajectories (vector) (/cpacs/flights/flight/analyses/trajectories/trajectory)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="year" minOccurs="0" type="posIntVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Vector of years used for this assessment case.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
                 </xsd:sequence>
             </xsd:extension>
         </xsd:complexContent>
@@ -3521,9 +3605,6 @@ cpacs@dlr.de
                     <ddue:summary>
                         <ddue:para>Airport</ddue:para>
                     </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:para>Data of an airport</ddue:para>
-                    </ddue:remarks>
                 </sd:schemaDoc>
             </xsd:appinfo>
         </xsd:annotation>
@@ -4342,6 +4423,68 @@ cpacs@dlr.de
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="assessmentContourType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Contour data and contour related information for an assessment</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="contourType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Contour Type</xsd:documentation>
+                        </xsd:annotation>
+                            <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringBaseType">
+                                    <xsd:enumeration value="db"/>
+                                    <xsd:enumeration value="risk"/>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="typeValue" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Value of type contourType within the contour</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="description" minOccurs="0" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Description of the contour.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="population" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Population nr of the contour</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="area" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Area of the contour in m2</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="contour" maxOccurs="unbounded" type="contourType">
+                        <xsd:annotation>
+                            <xsd:documentation>Vector of contour outline latitude points in [deg].
+                                First and last value need to match in order to close the contour.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+                <xsd:attribute name="uID" type="xsd:ID">
+                    <xsd:annotation>
+                        <xsd:documentation>UID of the noise contour</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
@@ -7783,6 +7926,47 @@ cpacs@dlr.de
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="contourType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Contour type</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="latitude" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Vector of contour outline latitude points in [deg].
+                                First and last value need to match in order to close the contour.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="longitude" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Vector of contour outline longitude points in [deg].
+                                First and last value need to match in order to close the contour.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="altitude" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Vector of contour altitude in [m].
+                                Must contain the same number of values as the latitude and longitude vectors.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+                <xsd:attribute name="uID" type="xsd:ID">
+                    <xsd:annotation>
+                        <xsd:documentation>UID of the contour</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
@@ -12877,6 +13061,41 @@ cpacs@dlr.de
                 <xsd:all>
                     <xsd:element name="specification" type="eiaCaseSpecificationType"/>
                     <xsd:element name="economicMaps" type="economicMapsType"/>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="emissionDataType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Emission data</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="fuelMass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                    Fuel mass
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="vosMass" minOccurs="0" type="doubleBaseType"/>
+                    <xsd:element name="pm10Mass" minOccurs="0" type="doubleBaseType"/>
+                    <xsd:element name="noxMass" minOccurs="0" type="doubleBaseType"/>
+                    <xsd:element name="pakMass" minOccurs="0" type="doubleBaseType"/>
+                    <xsd:element name="benzMass" minOccurs="0" type="doubleBaseType"/>
+                    <xsd:element name="pbMass" minOccurs="0" type="doubleBaseType"/>
+                    <xsd:element name="co2Mass" minOccurs="0" type="doubleBaseType"/>
+                    <xsd:element name="h2oMass" minOccurs="0" type="doubleBaseType"/>
+                    <xsd:element name="so2Mass" minOccurs="0" type="doubleBaseType"/>
+                    <xsd:element name="hcMass" minOccurs="0" type="doubleBaseType"/>
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
@@ -30644,6 +30863,34 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="riskDataType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Risk data belonging to an airport assessment</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="description" minOccurs="0" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Description of risk data.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="contour" maxOccurs="unbounded" type="assessmentContourType">
+                        <xsd:annotation>
+                            <xsd:documentation>Contour values belonging to the assessment</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
