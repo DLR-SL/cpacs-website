@@ -25,6 +25,7 @@
             <option value="alicia">Alicia</option>
 			<option value="wingMates">WingMates</option>
             <option value="diabolo">Diabolo</option>
+			<option value="arcade">Arcade</option>
         </select>
         <p>
             Permalink: <b><span id="schemaUrlDisplay">https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd</span></b>
@@ -144,6 +145,10 @@
                 case 'diabolo':
                     schemaUrl = 'https://www.cpacs.de/schema/v3_3_diabolo/cpacs_schema.xsd';
                     downloadLink.href = '../schema/v3_3_diabolo/cpacs_schema.xsd';
+                    break;
+				case 'arcade':
+                    schemaUrl = 'https://www.cpacs.de/schema/v3_5_arcade/cpacs_schema.xsd';
+                    downloadLink.href = '../schema/v3_5_arcade/cpacs_schema.xsd';
                     break;
 
             }
