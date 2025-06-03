@@ -63,8 +63,8 @@ Add new articles to `content`.
 
 The required meta data for CPACS release announcements are:
 ```
-Title: Release 2.3.0 
-Date: 2015-11-04 12:00
+Title: Release 3.5.0 
+Date: 2025-04-22 12:00
 Category: Releases
 Author: CPACS
 ```
