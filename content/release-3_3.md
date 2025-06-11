@@ -1,7 +1,7 @@
 Title: CPACS 3.3 published
 Date: 2021-06-03 12:00
 Category: Releases
-Author: marko
+Author: Marko
 
 <img src="images/cpacs_logo_v3_3.png"
      alt="cpacs_logo_v3_3"

@@ -1,7 +1,7 @@
 Title: Working groups on aeroLimitMaps and landingGears
 Date: 2021-03-03 16:00
 Category: Meetings
-Author: marko
+Author: Marko
 
 <img src="images/landingGears.png"
      alt="landingGears"

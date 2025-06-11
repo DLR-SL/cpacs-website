@@ -1,7 +1,7 @@
 Title: Presentation of cpacsLibrary at DLRK 2022
 Date: 2022-09-30 12:00
 Category: Conferences
-Author: marko
+Author: Marko
 
 <img src="images/dlrk2022.png"
      alt="dlrk2022"

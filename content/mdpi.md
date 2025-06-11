@@ -1,7 +1,7 @@
 Title: CPACS Featured at EASN 2024: Two Peer-Reviewed Engineering Proceedings Published
 Date: 2025-04-10 12:00  
 Category: Conferences  
-Author: marko 
+Author: Marko 
 
 <img src="images/easn2024.png" alt="EASN 2024" height="200px">
 

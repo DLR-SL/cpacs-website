@@ -1,7 +1,7 @@
 Title: Successfull CPACS Stakeholder Meeting
 Date: 2021-03-01 16:00
 Category: Meetings
-Author: marko
+Author: Marko
 
 <img src="images/2021_stakeholderMeeting.png"
      alt="2021_stakeholderMeeting"
