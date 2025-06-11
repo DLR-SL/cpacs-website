@@ -1,7 +1,7 @@
 Title: CPACS 3.3-beta
 Date: 2020-11-27 15:00
 Category: Releases
-Author: Marko
+Author: marko
 
 Over the past months, the CPACS community has been working on numerous enhancements (see [Towards CPACS 3.3](https://www.cpacs.de/towards-cpacs-33.html)). We have now combined the work of all the working groups into a beta release in order to provide quick access to all changes in one schema:
 

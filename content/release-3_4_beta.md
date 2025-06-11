@@ -1,7 +1,7 @@
 Title: CPACS 3.4-beta
 Date: 2021-11-19 15:00
 Category: Releases
-Author: Marko
+Author: marko
 
 <img src="images/cpacs_logo_v3_4-beta.png"
      alt="cpacs_logo_v3_4-beta"

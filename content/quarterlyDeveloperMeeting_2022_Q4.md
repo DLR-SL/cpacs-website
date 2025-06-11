@@ -1,7 +1,7 @@
 Title: Quarterly Developer Meeting
 Date: 2022-11-11 11:11
 Category: Meetings
-Author: Marko
+Author: marko
 
 <img src="images/developer_meeting.png"
      alt="2021 developer meeting"

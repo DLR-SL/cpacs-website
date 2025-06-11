@@ -1,7 +1,7 @@
 Title: Towards CPACS 3.3
 Date: 2020-10-10 17:30
 Category: Releases
-Author: Marko
+Author: marko
 
 
 As we are approaching the next CPACS release, I would like to present the major enhancements and adjustments we have been discussing over the last months. It should be emphasized that these are **not yet final decisions and everyone is invited to participate** in the current topics.

@@ -1,7 +1,7 @@
 Title: CPACS 3.5 published
 Date: 2023-12-20 10:00
 Category: Releases
-Author: Marko
+Author: marko
 
 <img src="images/cpacs_logo_v3_5.png"
      alt="cpacs_logo_v3_5"

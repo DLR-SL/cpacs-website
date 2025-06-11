@@ -1,7 +1,7 @@
 Title: CPACS 3.4 published
 Date: 2022-08-03 12:00
 Category: Releases
-Author: Marko
+Author: marko
 
 <img src="images/cpacs_logo_v3_4.png"
      alt="cpacs_logo_v3_4"

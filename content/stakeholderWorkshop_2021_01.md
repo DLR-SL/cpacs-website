@@ -1,7 +1,7 @@
 Title: Invitation to CPACS Stakeholder Meeting
 Date: 2021-01-13 16:00
 Category: Meetings
-Author: Marko
+Author: marko
 
 Over the past months, the CPACS community has been working on [numerous enhancements](https://www.cpacs.de/towards-cpacs-33.html) to advance the common language for aircraft design to its next version. After combining the results of the individual working groups into a [beta release](https://www.cpacs.de/cpacs-33-beta.html), we would now like to continue the [release process](https://github.com/DLR-SL/CPACS/blob/develop/development/development.md) and kindly invite you to two topic-specific stakeholder meetings to: 
 1) introduce and discuss the planned enhancements and modifications and 

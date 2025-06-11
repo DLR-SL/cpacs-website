@@ -1,7 +1,7 @@
 Title: CPACS Stakeholder meeting on decks definition and floor structures
 Date: 2021-05-31 16:00
 Category: Meetings
-Author: Marko
+Author: marko
 
 <img src="images/cabin.png"
      alt="CPACS Stakeholder meeting on decks definition and floor structures"
