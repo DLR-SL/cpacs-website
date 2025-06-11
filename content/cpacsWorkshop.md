@@ -3,7 +3,7 @@ Date: 2025-06-03 12:00
 Category: Meetings  
 Author: Marko 
 
-<img src="images/cpacs_tigl_wokshop_header.png" alt="CPACS_TIGL_Wokshop" height="400px">
+<img src="images/cpacs_tigl_wokshop_header.png" alt="CPACS_TIGL_Wokshop" width="100%">
 
 To celebrate the 20th anniversary of CPACS, we are inviting researchers and engineers from industry, small-and medium-sized companies, research organisations, academia and think-tanks to join our event to: 
 
