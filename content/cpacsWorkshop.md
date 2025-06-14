@@ -13,7 +13,7 @@ To celebrate the 20th anniversary of CPACS, we are inviting researchers and engi
 
 A **pre-workshop for CPACS-newbies** like students and young professionals will take place in the morning, offering in-depth hands-on experience of a digital engineering process using the CPACS Design System. This includes the CPACS data model, TiGL, and the Remote Component Environment (RCE).
 
-If multidisciplinary design-optimisation is at the core of your work – come and **join us on 1-2 October 2025 at the [ZAL](https://zal.aero/en/) in Hamburg**. We will soon provide a registration link.
+If multidisciplinary design-optimisation is at the core of your work – come and **join us on 1-2 October 2025 at the [ZAL](https://zal.aero/en/) in Hamburg**: [Register now](https://dlr.expert/20-years-of-cpacs)
 
 <img src="images/cpacsWorkshopAgenda.png" alt="CPACS_TIGL_Wokshop" width="100%">
 
