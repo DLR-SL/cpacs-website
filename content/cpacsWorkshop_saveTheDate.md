@@ -1,7 +1,8 @@
 Title: SAVE THE DATE: Interactive CPACS & TiGL Workshop
 Date: 2025-06-03 12:00  
 Category: Meetings  
-Author: Marko 
+Author: Marko
+Status: hidden
 
 <img src="images/cpacs_tigl_wokshop_header.png" alt="CPACS_TIGL_Wokshop" width="100%">
 
