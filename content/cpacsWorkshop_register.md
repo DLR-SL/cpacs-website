@@ -8,7 +8,7 @@ Author: Marko
 </a>
 
 <p style="text-align:center;">
-  <a href="https://dlr.expert/20-years-of-cpacs" 
+  <a href="https://dlr.expert/20-years-of-cpacs/front/kontakt.php" 
      style="
        background-color:#3D6CA4; 
        color:white; 
@@ -20,7 +20,7 @@ Author: Marko
      " 
      target="_blank" 
      rel="noopener noreferrer">
-    Register now
+    Register Now
   </a>
 </p>
 
