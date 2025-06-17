@@ -5,6 +5,23 @@ Author: Marko
 
 <img src="images/cpacs_tigl_wokshop_header.png" alt="CPACS_TIGL_Wokshop" width="100%">
 
+<p style="text-align:center;">
+  <a href="https://dlr.expert/20-years-of-cpacs" 
+     style="
+       background-color:#3D6CA4; 
+       color:white; 
+       padding:10px 20px; 
+       text-decoration:none; 
+       border-radius:5px; 
+       font-weight:bold;
+       display:inline-block;
+     " 
+     target="_blank" 
+     rel="noopener noreferrer">
+    Register now
+  </a>
+</p>
+
 To celebrate the 20th anniversary of CPACS, we are inviting researchers and engineers from industry, small-and medium-sized companies, research organisations, academia and think-tanks to join our event to: 
 
 - get **exciting insights** into both, the **history and current developments of CPACS** and the connected [TiGL geometry software](https://dlr-sc.github.io/tigl/)
