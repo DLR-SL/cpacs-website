@@ -3,7 +3,9 @@ Date: 2025-06-17 12:00
 Category: Meetings  
 Author: Marko
 
-<img src="images/cpacs_tigl_wokshop_header.png" alt="CPACS_TIGL_Wokshop" width="100%">
+<a href="register-now-interactive-cpacs-tigl-workshop.html">
+    <img src="images/cpacs_tigl_wokshop_header.png" alt="CPACS_TIGL_Wokshop" width="100%">
+</a>
 
 <p style="text-align:center;">
   <a href="https://dlr.expert/20-years-of-cpacs" 
