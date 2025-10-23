@@ -1026,7 +1026,7 @@ cpacs@dlr.de
             <xsd:element name="airports" minOccurs="0" type="airportsType"/>
             <xsd:element name="flights" minOccurs="0" type="flightsType"/>
             <xsd:element name="schedules" minOccurs="0" type="schedulesType"/>
-            <xsd:element name="airlines" minOccurs="0" type="airlinesType"/>
+            <xsd:element name="fleets" minOccurs="0" type="fleetsType"/>
             <xsd:element name="studies" minOccurs="0" type="studiesType"/>
             <xsd:element name="toolspecific" minOccurs="0" type="toolspecificType"/>
         </xsd:all>
@@ -3347,61 +3347,6 @@ cpacs@dlr.de
                     <xsd:element name="costDescription" type="genericCostType"/>
                     <xsd:element name="components" minOccurs="0" type="componentCostType"/>
                 </xsd:all>
-            </xsd:extension>
-        </xsd:complexContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="airlinesType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>Airlines</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:para>Contains a list of different airlines</ddue:para>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:complexContent>
-            <xsd:extension base="complexBaseType">
-                <xsd:sequence>
-                    <xsd:element name="airline" maxOccurs="unbounded" type="airlineType"/>
-                </xsd:sequence>
-            </xsd:extension>
-        </xsd:complexContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="airlineType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>airlineType</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:para>Describes a specific airline and their fleet</ddue:para>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:complexContent>
-            <xsd:extension base="complexBaseType">
-                <xsd:all>
-                    <xsd:element name="name" type="stringBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Name of the airline</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="description" minOccurs="0" type="stringBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Description of the airline</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="fleet" minOccurs="0" type="fleetType"/>
-                </xsd:all>
-                <xsd:attribute name="uID" use="required" type="xsd:ID"/>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
@@ -6133,6 +6078,15 @@ cpacs@dlr.de
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
+
+    <xsd:simpleType name="checksumAlgorithmType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="md5"/>
+            <xsd:enumeration value="sha1"/>
+            <xsd:enumeration value="sha256"/>
+            <xsd:enumeration value="sha512"/>
+        </xsd:restriction>
+    </xsd:simpleType>
 
     <xsd:complexType name="chordwisePartsType">
         <xsd:annotation>
@@ -13000,7 +12954,6 @@ cpacs@dlr.de
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="seatClass" minOccurs="0" type="seatClassType"/>
                     <xsd:element name="seatLoadFactor" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
@@ -14411,16 +14364,32 @@ cpacs@dlr.de
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="fleetsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Fleets</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="fleet" maxOccurs="unbounded" type="fleetType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="fleetType">
         <xsd:annotation>
             <xsd:appinfo>
                 <sd:schemaDoc>
                     <ddue:summary>
-                        <ddue:para>fleetType</ddue:para>
+                        <ddue:para>Fleet</ddue:para>
                     </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:para>Each fleet can be divided into sub fleet groups</ddue:para>
-                    </ddue:remarks>
                 </sd:schemaDoc>
             </xsd:appinfo>
         </xsd:annotation>
@@ -14437,11 +14406,17 @@ cpacs@dlr.de
                             <xsd:documentation>Description of the fleet</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="subFleets" minOccurs="0" type="subFleetsType">
+                    <xsd:element name="scheduleUID" minOccurs="0" type="stringUIDBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>Description of sub-fleets.</xsd:documentation>
+                            <xsd:documentation>UID of the corresponding schedule</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
+                    <xsd:element name="flights" minOccurs="0" type="uIDSequenceType">
+                        <xsd:annotation>
+                            <xsd:documentation>List of uIDs used in the schedule. This is needed if not all flights within a schedule are to be accounted for.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="vehicleComposition" type="vehicleCompositionType"/>
                 </xsd:all>
                 <xsd:attribute name="uID" use="required" type="xsd:ID"/>
             </xsd:extension>
@@ -18882,6 +18857,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="versionInfos" type="versionInfosType"/>
+                    <xsd:element name="resources" minOccurs="0" type="resourcesType"/>
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
@@ -27087,6 +27063,95 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="netcdfSelectionType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Selection</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="spatial" minOccurs="0" type="netcdfSpatialSelectionType"/>
+                    <xsd:element name="temporal" minOccurs="0" type="netcdfTemporalSelectionType"/>
+                    <xsd:element name="variables" minOccurs="0" type="stringVectorBaseType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="netcdfSpatialSelectionType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Spatial selection</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="lonMin">
+                        <xsd:annotation>
+                            <xsd:documentation>Longitude minimum</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="lonMax">
+                        <xsd:annotation>
+                            <xsd:documentation>Longitude maximum</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="latMin">
+                        <xsd:annotation>
+                            <xsd:documentation>Latitude minimum</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="latMax">
+                        <xsd:annotation>
+                            <xsd:documentation>Latitude maximum</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+                <xsd:attribute name="crs" default="EPSG:4326" use="optional" type="xsd:string"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="netcdfTemporalSelectionType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Temporal selection</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="start" type="dateTimeBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Start date and time</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="end" type="dateTimeBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>End date and time</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+                <xsd:attribute name="crs" default="EPSG:4326" use="optional" type="xsd:string"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="noiseAnalysisType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -27703,6 +27768,84 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="paxCapacityType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Passenger capacity</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:content>
+                            <ddue:para>
+                            Defines the passenger capacity requirements and the seat class bucket used
+                            by CPACS. The <ddue:codeInline>seatClass</ddue:codeInline> integer maps to inclusive seat-count ranges.
+                        </ddue:para>
+                            <ddue:list class="bullet">
+                                <ddue:listItem>
+                                    <ddue:codeInline>1</ddue:codeInline>: seats <strong>01&#8211;19</strong> (e.g., Do228NG)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>2</ddue:codeInline>: seats <strong>20&#8211;50</strong> (e.g., ATR42-500)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>3</ddue:codeInline>: seats <strong>51&#8211;70</strong> (e.g., ATR72-600)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>4</ddue:codeInline>: seats <strong>71&#8211;85</strong> (e.g., Dash Q8-400)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>5</ddue:codeInline>: seats <strong>86&#8211;100</strong> (e.g., Embraer E190-E2)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>6</ddue:codeInline>: seats <strong>101&#8211;125</strong> (e.g., Embraer E195-E2)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>7</ddue:codeInline>: seats <strong>126&#8211;150</strong> (e.g., Airbus A220-300)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>8</ddue:codeInline>: seats <strong>151&#8211;175</strong> (e.g., Airbus A320neo A1)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>9</ddue:codeInline>: seats <strong>176&#8211;235</strong> (e.g., Airbus A321neo A1)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>10</ddue:codeInline>: seats <strong>236&#8211;300</strong> (e.g., D300+M)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>11</ddue:codeInline>: seats <strong>301&#8211;400</strong> (e.g., Airbus A350-900 A1)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>12</ddue:codeInline>: seats <strong>401&#8211;500</strong> (e.g., Boeing 777-300ER)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>13</ddue:codeInline>: seats <strong>501-600</strong>
+                                </ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>14</ddue:codeInline>: seats <strong>601-1000</strong>
+                                </ddue:listItem>
+                            </ddue:list>
+                            <ddue:para>
+                            Notes:
+                            <ddue:list class="bullet">
+                                    <ddue:listItem>Seat ranges are inclusive (e.g., class 5 covers 86 to 100 seats).</ddue:listItem>
+                                    <ddue:listItem>The examples are indicative reference aircraft; they do not constrain modeling.</ddue:listItem>
+                                </ddue:list>
+                            </ddue:para>
+                        </ddue:content>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="paxSeats" minOccurs="0" type="requirementType"/>
+                    <xsd:element name="seatClass" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Seat class
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                                <xsd:minInclusive value="1"/>
+                                <xsd:maxInclusive value="14"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="paxCrossBeamsAssemblyType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -27788,7 +27931,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
                 <xsd:all>
-                    <xsd:element name="paxSeats" minOccurs="0" type="requirementType"/>
+                    <xsd:element name="paxCapacity" minOccurs="0" type="paxCapacityType"/>
                     <xsd:element name="cargoCapacity" minOccurs="0" type="requirementType"/>
                 </xsd:all>
             </xsd:extension>
@@ -30781,11 +30924,164 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
                 <xsd:all>
-                    <xsd:element name="required" type="doubleBaseType"/>
-                    <xsd:element name="actual" type="doubleBaseType"/>
+                    <xsd:element name="required" minOccurs="0" type="doubleBaseType"/>
+                    <xsd:element name="actual" minOccurs="0" type="doubleBaseType"/>
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="resourceBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Base of aircraft data (bada)</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="name" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Name
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="uri" type="xsd:anyURI">
+                        <xsd:annotation>
+                            <xsd:documentation>Unique resource identifier (URI)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="checksum" minOccurs="0">
+                            <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:extension base="xsd:hexBinary">
+                                    <xsd:attribute name="algorithm" use="required" type="checksumAlgorithmType"/>
+                                </xsd:extension>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="byteSize" minOccurs="0" type="integerBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Byte size
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="provenance" minOccurs="0" type="resourceProvenanceType"/>
+                </xsd:sequence>
+                <xsd:attribute name="uID" use="required" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="resourceNetcdfClimateType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>NetCDF for Climate Data</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="resourceBaseType">
+                <xsd:sequence>
+                    <xsd:element name="selection" minOccurs="0" type="netcdfSelectionType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="resourceProvenanceType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Base of aircraft data (bada)</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="source" minOccurs="0" type="xsd:anyURI">
+                        <xsd:annotation>
+                            <xsd:documentation>Source
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="version" minOccurs="0" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Version
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="created" minOccurs="0" type="dateTimeBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Date and time of creation
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="lastModified" minOccurs="0" type="dateTimeBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Date and time of last modification
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="license" minOccurs="0" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>License
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="citation" minOccurs="0" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Citation
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="responsible" minOccurs="0" type="responsiblePartyType"/>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="resourcesType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Resources</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="bada" minOccurs="0" maxOccurs="unbounded" type="resourceBaseType"/>
+                    <xsd:element name="kml" minOccurs="0" maxOccurs="unbounded" type="resourceBaseType"/>
+                    <xsd:element name="netcdfClimate" minOccurs="0" maxOccurs="unbounded" type="resourceNetcdfClimateType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="responsiblePartyType">
+        <xsd:annotation>
+            <xsd:documentation>Responsible party</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="name" minOccurs="0" type="stringBaseType"/>
+            <xsd:element name="organisation" minOccurs="0" type="stringBaseType"/>
+            <xsd:element name="email" minOccurs="0" type="stringBaseType"/>
+        </xsd:sequence>
     </xsd:complexType>
 
     <xsd:complexType name="ribIdentificationType">
@@ -31165,21 +31461,19 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         </xsd:annotation>
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
-                <xsd:sequence>
-                    <xsd:choice>
-                        <xsd:element name="positionXYZ" type="pointXYZConstraintType">
-                            <xsd:annotation>
-                                <xsd:documentation>Global coordinate at the start in xyz coordinates</xsd:documentation>
-                            </xsd:annotation>
-                        </xsd:element>
-                        <xsd:element name="positionGeo" type="geographicPointConstraintType">
-                            <xsd:annotation>
-                                <xsd:documentation>Global coordinate at the start in geographic coordinates (longitude, latitude, altitude)</xsd:documentation>
-                            </xsd:annotation>
-                        </xsd:element>
-                        <xsd:element name="waypoint" type="waypointType"/>
-                    </xsd:choice>
-                </xsd:sequence>
+                <xsd:choice>
+                    <xsd:element name="positionXYZ" type="pointXYZConstraintType">
+                        <xsd:annotation>
+                            <xsd:documentation>Global coordinate at the start in xyz coordinates</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="positionGeo" type="geographicPointConstraintType">
+                        <xsd:annotation>
+                            <xsd:documentation>Global coordinate at the start in geographic coordinates (longitude, latitude, altitude)</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="waypoint" type="waypointType"/>
+                </xsd:choice>
                 <xsd:attribute name="uID" type="xsd:ID"/>
             </xsd:extension>
         </xsd:complexContent>
@@ -32476,44 +32770,6 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     <xsd:element name="analyses" minOccurs="0" type="scheduleAnalysesType"/>
                 </xsd:all>
                 <xsd:attribute name="uID" use="required" type="xsd:ID"/>
-            </xsd:extension>
-        </xsd:complexContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="seatClassType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>Seat class</ddue:para>
-                    </ddue:summary>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:complexContent>
-            <xsd:extension base="complexBaseType">
-                <xsd:all>
-                    <xsd:element name="classType" minOccurs="0">
-                        <xsd:annotation>
-                            <xsd:documentation>
-                                Seat class Type (1..15)
-                            </xsd:documentation>
-                        </xsd:annotation>
-                        <xsd:simpleType>
-                            <xsd:restriction base="xsd:int">
-                                <xsd:minInclusive value="1"/>
-                                <xsd:maxInclusive value="15"/>
-                            </xsd:restriction>
-                        </xsd:simpleType>
-                    </xsd:element>
-                    <xsd:element name="seatNumber" minOccurs="0" type="integerBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>
-                                Seat number
-                            </xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
@@ -34658,65 +34914,6 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         </xsd:complexContent>
     </xsd:complexType>
 
-    <xsd:complexType name="subFleetsType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>subFleetsType</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:para>Contains a list of different sub fleets</ddue:para>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:complexContent>
-            <xsd:extension base="complexBaseType">
-                <xsd:sequence>
-                    <xsd:element name="subFleet" maxOccurs="unbounded" type="subFleetType"/>
-                </xsd:sequence>
-            </xsd:extension>
-        </xsd:complexContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="subFleetType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>subFleetType</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:para>Each fleet can be divided into sub fleet groups</ddue:para>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:complexContent>
-            <xsd:extension base="complexBaseType">
-                <xsd:all>
-                    <xsd:element name="name" type="stringBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Name of fleet</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="description" minOccurs="0" type="stringBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Description of the fleet</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="tailsigns" minOccurs="0" type="stringVectorBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>A ; separated list of all tailsign strings</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                </xsd:all>
-                <xsd:attribute name="uID" use="required" type="xsd:ID"/>
-            </xsd:extension>
-        </xsd:complexContent>
-    </xsd:complexType>
-
     <xsd:complexType name="subLoadType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -36570,6 +36767,29 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="vehicleCompositionType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Vehicle composition</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="vehicle" maxOccurs="unbounded" type="vehicleOfVehicleCompositiontypeType">
+                        <xsd:annotation>
+                            <xsd:documentation>Vehicle</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="vehicleConfigurationsType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -36638,6 +36858,64 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     </xsd:element>
                 </xsd:all>
                 <xsd:attribute name="uID" use="required" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="vehicleOfVehicleCompositiontypeType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Vehicle</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="name" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Name of the aircraft</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="vehicleUID" type="stringUIDBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>UID of the vehicle (cpacs/vehicles/aircraft/model)</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="numberOfVehicles" type="integerBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Number of vehicles</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="averageAge" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Aveage age</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="averageFlightTime" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Aveage flight time</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="averageAnnualFlightCycles" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Aveage annual flight cycles</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="averageAnnualFlightHours" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Aveage annual flight hours</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="tailsign" minOccurs="0" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Tailsign</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
