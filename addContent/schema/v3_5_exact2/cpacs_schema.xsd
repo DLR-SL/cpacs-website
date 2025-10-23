@@ -13801,7 +13801,6 @@ cpacs@dlr.de
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="seatClass" minOccurs="0" type="seatClassType"/>
                     <xsd:element name="seatLoadFactor" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
@@ -29744,6 +29743,84 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="paxCapacityType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Passenger capacity</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:content>
+                            <ddue:para>
+                            Defines the passenger capacity requirements and the seat class bucket used
+                            by CPACS. The <ddue:codeInline>seatClass</ddue:codeInline> integer maps to inclusive seat-count ranges.
+                        </ddue:para>
+                            <ddue:list class="bullet">
+                                <ddue:listItem>
+                                    <ddue:codeInline>1</ddue:codeInline>: seats <strong>01&#8211;19</strong> (e.g., Do228NG)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>2</ddue:codeInline>: seats <strong>20&#8211;50</strong> (e.g., ATR42-500)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>3</ddue:codeInline>: seats <strong>51&#8211;70</strong> (e.g., ATR72-600)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>4</ddue:codeInline>: seats <strong>71&#8211;85</strong> (e.g., Dash Q8-400)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>5</ddue:codeInline>: seats <strong>86&#8211;100</strong> (e.g., Embraer E190-E2)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>6</ddue:codeInline>: seats <strong>101&#8211;125</strong> (e.g., Embraer E195-E2)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>7</ddue:codeInline>: seats <strong>126&#8211;150</strong> (e.g., Airbus A220-300)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>8</ddue:codeInline>: seats <strong>151&#8211;175</strong> (e.g., Airbus A320neo A1)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>9</ddue:codeInline>: seats <strong>176&#8211;235</strong> (e.g., Airbus A321neo A1)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>10</ddue:codeInline>: seats <strong>236&#8211;300</strong> (e.g., D300+M)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>11</ddue:codeInline>: seats <strong>301&#8211;400</strong> (e.g., Airbus A350-900 A1)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>12</ddue:codeInline>: seats <strong>401&#8211;500</strong> (e.g., Boeing 777-300ER)</ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>13</ddue:codeInline>: seats <strong>501-600</strong>
+                                </ddue:listItem>
+                                <ddue:listItem>
+                                    <ddue:codeInline>14</ddue:codeInline>: seats <strong>601-1000</strong>
+                                </ddue:listItem>
+                            </ddue:list>
+                            <ddue:para>
+                            Notes:
+                            <ddue:list class="bullet">
+                                    <ddue:listItem>Seat ranges are inclusive (e.g., class 5 covers 86 to 100 seats).</ddue:listItem>
+                                    <ddue:listItem>The examples are indicative reference aircraft; they do not constrain modeling.</ddue:listItem>
+                                </ddue:list>
+                            </ddue:para>
+                        </ddue:content>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="paxSeats" minOccurs="0" type="requirementType"/>
+                    <xsd:element name="seatClass" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Seat class
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:integer">
+                                <xsd:minInclusive value="1"/>
+                                <xsd:maxInclusive value="14"/>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="paxCrossBeamsAssemblyType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -29829,7 +29906,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
                 <xsd:all>
-                    <xsd:element name="paxSeats" minOccurs="0" type="requirementType"/>
+                    <xsd:element name="paxCapacity" minOccurs="0" type="paxCapacityType"/>
                     <xsd:element name="cargoCapacity" minOccurs="0" type="requirementType"/>
                 </xsd:all>
             </xsd:extension>
@@ -34853,44 +34930,6 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     <xsd:element name="analyses" minOccurs="0" type="scheduleAnalysesType"/>
                 </xsd:all>
                 <xsd:attribute name="uID" use="required" type="xsd:ID"/>
-            </xsd:extension>
-        </xsd:complexContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="seatClassType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>Seat class</ddue:para>
-                    </ddue:summary>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:complexContent>
-            <xsd:extension base="complexBaseType">
-                <xsd:all>
-                    <xsd:element name="classType" minOccurs="0">
-                        <xsd:annotation>
-                            <xsd:documentation>
-                                Seat class Type (1..15)
-                            </xsd:documentation>
-                        </xsd:annotation>
-                        <xsd:simpleType>
-                            <xsd:restriction base="xsd:int">
-                                <xsd:minInclusive value="1"/>
-                                <xsd:maxInclusive value="15"/>
-                            </xsd:restriction>
-                        </xsd:simpleType>
-                    </xsd:element>
-                    <xsd:element name="seatNumber" minOccurs="0" type="integerBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>
-                                Seat number
-                            </xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
