@@ -4,6 +4,11 @@ Category: Meetings
 Author: Marko
 Summary: We are inviting the CPACS community to a stakeholder meeting on 19 May 2026, covering the proposed refinements for CPACS v3.5.1 and an outlook on the upcoming TiGL v3.5 release.
 
+<img src="images/2026_stakeholderMeeting.png"
+     alt="2026_stakeholderMeeting"
+     width="500px">
+     
+
 We are inviting the CPACS community to join our upcoming **CPACS Stakeholder Meeting**, focused on the proposed refinements for the **v3.5.1 release** and the upcoming release of our geometry library **[TiGL](https://dlr-sc.github.io/tigl/) v3.5**.
 
 **📅 Date:** Tuesday, 19 May 2026  
@@ -20,7 +25,7 @@ These proposals build on the capabilities introduced in CPACS v3.5 and reflect f
 
 In addition, we will give an outlook on **TiGL v3.5**, which is planned as a hand-in-hand release with CPACS v3.5.1, providing support for the new schema features.
 
-Please find the attached [**info sheet**](images/documents/MeetingInfo.pdf) for a detailed overview of the proposed changes and the key review questions.
+Please find the [**info sheet**](images/documents/MeetingInfo.pdf) for a detailed overview of the proposed changes and the key review questions.
 
 If you would like to participate, please send a short request to **[cpacs@dlr.de](mailto:cpacs@dlr.de)** and we will provide you with the meeting access details.
 
