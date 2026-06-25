@@ -1056,6 +1056,11 @@ cpacs@dlr.de
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:sequence>
+                <xsd:attribute name="uID" type="xsd:ID">
+                    <xsd:annotation>
+                        <xsd:documentation>UID of the acoustic data</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
@@ -3396,25 +3401,26 @@ cpacs@dlr.de
         </xsd:annotation>
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
-                <xsd:sequence>
+                <xsd:all>
                     <xsd:element name="airportUID" minOccurs="0" type="stringUIDBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
-                                    Reference to the uID of a CPACS airport (/cpacs/airports/airport)
+                                Reference to the uID of a CPACS airport (/cpacs/airports/airport)
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="scheduleUID" minOccurs="0" type="stringUIDBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
-                                    Reference to the uID of the schedule (/cpacs/schedules/schedule)
+                                Reference to the uID of the schedule (/cpacs/schedules/schedule)
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="trajectoryUIDs" minOccurs="0" type="stringVectorBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
-                                    Reference to the uIDs of the trajectories (vector) (/cpacs/flights/flight/analyses/trajectories/trajectory)
+                                Reference to the uIDs of the trajectories (vector)
+                                (/cpacs/flights/flight/analyses/trajectories/trajectory)
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
@@ -3423,7 +3429,7 @@ cpacs@dlr.de
                             <xsd:documentation>Vector of years used for this assessment case.</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                </xsd:sequence>
+                </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
@@ -3550,6 +3556,9 @@ cpacs@dlr.de
                     <ddue:summary>
                         <ddue:para>Airport</ddue:para>
                     </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Data of an airport</ddue:para>
+                    </ddue:remarks>
                 </sd:schemaDoc>
             </xsd:appinfo>
         </xsd:annotation>
@@ -4387,7 +4396,7 @@ cpacs@dlr.de
                 <xsd:sequence>
                     <xsd:element name="contourType" minOccurs="0">
                         <xsd:annotation>
-                            <xsd:documentation>Contour Type</xsd:documentation>
+                            <xsd:documentation>Contour type (db = noise level in dB; risk = third-party risk value)</xsd:documentation>
                         </xsd:annotation>
                             <xsd:complexType>
                             <xsd:simpleContent>
@@ -4410,7 +4419,7 @@ cpacs@dlr.de
                     </xsd:element>
                     <xsd:element name="population" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>Population nr of the contour</xsd:documentation>
+                            <xsd:documentation>Population within the contour</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="area" minOccurs="0" type="doubleBaseType">
@@ -4420,14 +4429,13 @@ cpacs@dlr.de
                     </xsd:element>
                     <xsd:element name="contour" maxOccurs="unbounded" type="contourType">
                         <xsd:annotation>
-                            <xsd:documentation>Vector of contour outline latitude points in [deg].
-                                First and last value need to match in order to close the contour.</xsd:documentation>
+                            <xsd:documentation>Geographic outline(s) of the contour polygon.</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:sequence>
                 <xsd:attribute name="uID" type="xsd:ID">
                     <xsd:annotation>
-                        <xsd:documentation>UID of the noise contour</xsd:documentation>
+                        <xsd:documentation>UID of the assessment contour</xsd:documentation>
                     </xsd:annotation>
                 </xsd:attribute>
             </xsd:extension>
@@ -7889,7 +7897,7 @@ cpacs@dlr.de
             <xsd:appinfo>
                 <sd:schemaDoc>
                     <ddue:summary>
-                        <ddue:para>Contour type</ddue:para>
+                        <ddue:para>Geographic contour outline defined by lat/lon/alt vectors</ddue:para>
                     </ddue:summary>
                 </sd:schemaDoc>
             </xsd:appinfo>
@@ -13024,7 +13032,7 @@ cpacs@dlr.de
             <xsd:appinfo>
                 <sd:schemaDoc>
                     <ddue:summary>
-                        <ddue:para>Emission data</ddue:para>
+                        <ddue:para>Emission data for an airport assessment case (LTO-cycle totals)</ddue:para>
                     </ddue:summary>
                 </sd:schemaDoc>
             </xsd:appinfo>
@@ -13034,22 +13042,65 @@ cpacs@dlr.de
                 <xsd:all>
                     <xsd:element name="fuelMass" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>
-                                    Fuel mass
-                            </xsd:documentation>
+                            <xsd:documentation>Fuel mass [kg]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="vosMass" minOccurs="0" type="doubleBaseType"/>
-                    <xsd:element name="pm10Mass" minOccurs="0" type="doubleBaseType"/>
-                    <xsd:element name="noxMass" minOccurs="0" type="doubleBaseType"/>
-                    <xsd:element name="pakMass" minOccurs="0" type="doubleBaseType"/>
-                    <xsd:element name="benzMass" minOccurs="0" type="doubleBaseType"/>
-                    <xsd:element name="pbMass" minOccurs="0" type="doubleBaseType"/>
-                    <xsd:element name="co2Mass" minOccurs="0" type="doubleBaseType"/>
-                    <xsd:element name="h2oMass" minOccurs="0" type="doubleBaseType"/>
-                    <xsd:element name="so2Mass" minOccurs="0" type="doubleBaseType"/>
-                    <xsd:element name="hcMass" minOccurs="0" type="doubleBaseType"/>
+                    <xsd:element name="vosMass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Volatile organic substances mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="pm10Mass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Particulate matter PM10 mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="noxMass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>NOx mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="pakMass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Polycyclic aromatic hydrocarbons (PAK) mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="benzMass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Benzene mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="pbMass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Lead (Pb) mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="co2Mass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>CO2 mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="h2oMass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>H2O mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="so2Mass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>SO2 mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="hcMass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Total hydrocarbon (HC) mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
                 </xsd:all>
+                <xsd:attribute name="uID" type="xsd:ID">
+                    <xsd:annotation>
+                        <xsd:documentation>UID of the emission data</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
@@ -31183,10 +31234,15 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     </xsd:element>
                     <xsd:element name="contour" maxOccurs="unbounded" type="assessmentContourType">
                         <xsd:annotation>
-                            <xsd:documentation>Contour values belonging to the assessment</xsd:documentation>
+                            <xsd:documentation>Risk contour values belonging to the assessment</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:sequence>
+                <xsd:attribute name="uID" type="xsd:ID">
+                    <xsd:annotation>
+                        <xsd:documentation>UID of the risk data</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
