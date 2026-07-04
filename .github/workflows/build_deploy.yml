@@ -5,20 +5,17 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   build:
-  
-    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-      
-    # Deploy to the github-pages environment
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-      
     runs-on: ubuntu-latest
 
     steps:
@@ -28,7 +25,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.10' 
+        python-version: '3.10'
 
     - name: Install dependencies
       run: |
@@ -38,7 +35,7 @@ jobs:
     - name: Build Pelican website
       run: |
         pelican content
-        
+
     - name: Copy additional content to output
       run: |
         cp -r addContent/* output/
@@ -48,14 +45,27 @@ jobs:
         chmod -c -R +rX "." | while read line; do
           echo "::warning title=Invalid file permissions automatically fixed::$line"
         done
-        
-    - name: Upload Artifacts
+
+    - name: Configure GitHub Pages
+      uses: actions/configure-pages@v5
+
+    - name: Upload Pages artifact
       uses: actions/upload-pages-artifact@v3
       with:
+        name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
         path: output
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
     - name: Deploy to CPACS website
       id: deployment
       uses: actions/deploy-pages@v4
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        artifact_name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
