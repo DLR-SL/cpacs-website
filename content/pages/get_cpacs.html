@@ -4,168 +4,435 @@
     <title>Get CPACS</title>
     <meta name="status" content="hidden" />
     <meta name="summary" content="Download or link the CPACS schema and related files" />
+
+    <style>
+        .cpacs-page {
+            max-width: 1100px;
+        }
+
+        .cpacs-card {
+            background: #ffffff;
+            border: 1px solid #d9e2ec;
+            border-radius: 10px;
+            padding: 1.4rem 1.6rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .cpacs-card h2,
+        .cpacs-card h3 {
+            margin-top: 0;
+        }
+
+        .cpacs-lead {
+            font-size: 1.05rem;
+            color: #334e68;
+            margin-bottom: 1.3rem;
+        }
+
+        .cpacs-select-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .cpacs-select-row label {
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+
+        #cpacsVersionSelect {
+            min-width: 260px;
+            padding: 0.45rem 0.6rem;
+            border: 1px solid #bcccdc;
+            border-radius: 6px;
+            background: #ffffff;
+        }
+
+        .cpacs-badge {
+            display: inline-block;
+            padding: 0.25rem 0.55rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: #e6f4ea;
+            color: #1e7e34;
+        }
+
+        .cpacs-badge-dev {
+            background: #fff4e5;
+            color: #9a5b00;
+        }
+
+        .cpacs-url-box {
+            background: #f5f9fc;
+            border: 1px solid #d9e2ec;
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            overflow-wrap: anywhere;
+        }
+
+        .cpacs-url-box small {
+            display: block;
+            color: #627d98;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .cpacs-note {
+            border-left: 4px solid #1f77b4;
+            background: #f5f9fc;
+            padding: 0.8rem 1rem;
+            margin: 1rem 0;
+            color: #334e68;
+        }
+
+        .cpacs-note-dev {
+            border-left-color: #f0ad4e;
+            background: #fff8ec;
+        }
+
+        .cpacs-code {
+            margin-top: 0.75rem;
+        }
+
+        .cpacs-code pre {
+            border-radius: 8px;
+            border: 1px solid #d9e2ec;
+            background: #f7f9fb;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+
+        .cpacs-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1.2rem;
+        }
+
+        .cpacs-btn {
+            display: inline-block;
+            border-radius: 6px;
+            padding: 0.55rem 0.9rem;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid #1f77b4;
+            background: #1f77b4;
+            color: #ffffff !important;
+        }
+
+        .cpacs-btn:hover {
+            background: #155d8b;
+            border-color: #155d8b;
+            text-decoration: none;
+        }
+
+        .cpacs-btn-secondary {
+            background: #ffffff;
+            color: #1f77b4 !important;
+        }
+
+        .cpacs-btn-secondary:hover {
+            background: #f5f9fc;
+            color: #155d8b !important;
+        }
+
+        .cpacs-link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .cpacs-link-card {
+            display: block;
+            border: 1px solid #d9e2ec;
+            border-radius: 8px;
+            padding: 1rem;
+            background: #ffffff;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .cpacs-link-card:hover {
+            border-color: #1f77b4;
+            box-shadow: 0 2px 8px rgba(31, 119, 180, 0.12);
+            text-decoration: none;
+        }
+
+        .cpacs-link-card strong {
+            display: block;
+            margin-bottom: 0.3rem;
+            color: #1f77b4;
+        }
+
+        .cpacs-link-card span {
+            color: #627d98;
+        }
+
+        .cpacs-sidebar-box {
+            background: #f7f9fb;
+            border: 1px solid #d9e2ec;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+    </style>
 </head>
 
 <body>
 
-    <div class="col-md-9">
-        <h2>CPACS Schema</h2>
-        <select id="cpacsVersionSelect">
-            <option value="3.5">CPACS 3.5</option>
-            <option value="3.4">CPACS 3.4</option>
-            <option value="3.3">CPACS 3.3</option>
-            <option value="3.2">CPACS 3.2</option>
-            <option value="3.1">CPACS 3.1</option>
-            <option value="3.0">CPACS 3.0</option>
-            <option value="2.3.1">CPACS 2.3.1</option>
-            <option value="2.3">CPACS 2.3</option>
-            <option disabled>──────────</option>
-            <option value="develop">CPACS develop</option>
-            <option disabled>──────────</option>
-            <option value="exact2">Exact-2</option>
-            <option value="impactMonitor">Impact Monitor</option>
-            <option value="alicia">Alicia</option>
-			<option value="wingMates">WingMates</option>
-            <option value="diabolo">Diabolo</option>
-			<option value="arcade">Arcade</option>
-        </select>
-        <p>
-            Permalink: <b><span id="schemaUrlDisplay">https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd</span></b>
-        </p>
-        <p>
-            Copy the following code into your XML file to link to the corresponding CPACS schema:
-        </p>
-        <pre><code class="language-xml" id="codeField">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    <div class="col-md-9 cpacs-page">
+
+        <div class="cpacs-card">
+            <h2>CPACS Schema</h2>
+
+            <p class="cpacs-lead">
+                Download a CPACS schema file or copy the corresponding XML schema reference for your CPACS file.
+            </p>
+
+            <div class="cpacs-select-row">
+                <label for="cpacsVersionSelect">Schema version</label>
+                <select id="cpacsVersionSelect">
+                    <option value="3.5">CPACS 3.5</option>
+                    <option value="3.4">CPACS 3.4</option>
+                    <option value="3.3">CPACS 3.3</option>
+                    <option value="3.2">CPACS 3.2</option>
+                    <option value="3.1">CPACS 3.1</option>
+                    <option value="3.0">CPACS 3.0</option>
+                    <option value="2.3.1">CPACS 2.3.1</option>
+                    <option value="2.3">CPACS 2.3</option>
+                    <option disabled>──────────</option>
+                    <option value="develop">CPACS develop</option>
+                    <option disabled>──────────</option>
+                    <option value="exact2">Exact-2</option>
+                    <option value="impactMonitor">Impact Monitor</option>
+                    <option value="alicia">Alicia</option>
+                    <option value="wingMates">WingMates</option>
+                    <option value="diabolo">Diabolo</option>
+                    <option value="arcade">Arcade</option>
+                </select>
+                <span id="versionBadge" class="cpacs-badge">stable release</span>
+            </div>
+
+            <div id="versionNote" class="cpacs-note">
+                CPACS 3.5 is the latest stable CPACS release available from the website schema archive.
+            </div>
+
+            <div class="cpacs-url-box">
+                <small>Schema URL</small>
+                <b><span id="schemaUrlDisplay">https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd</span></b>
+            </div>
+
+            <div class="cpacs-code">
+                <p>
+                    Copy the following code into your XML file to link to the selected CPACS schema:
+                </p>
+
+                <pre><code class="language-xml" id="codeField">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;cpacs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd"&gt;</code></pre>
-        <a id="downloadLink" download href="../schema/v3_5_0/cpacs_schema.xsd">
-            <button id="downloadButton" class="btn"><i class="fa fa-download"></i> Download Schema (XSD)</button>
-        </a>
+            </div>
+
+            <div class="cpacs-actions">
+                <a id="downloadLink" class="cpacs-btn" download href="../schema/v3_5_0/cpacs_schema.xsd">
+                    <i class="fa fa-download"></i> Open / Download Schema (XSD)
+                </a>
+
+                <a class="cpacs-btn cpacs-btn-secondary" href="https://github.com/DLR-SL/CPACS/releases" target="_blank">
+                    View CPACS releases
+                </a>
+            </div>
+        </div>
+
+        <div class="cpacs-card">
+            <h2>GitHub Repository</h2>
+
+            <p>
+                The complete CPACS repository, including schemas, examples, documentation sources, helper files,
+                and APIs, is available on GitHub.
+            </p>
+
+            <div class="cpacs-link-grid">
+                <a class="cpacs-link-card" href="https://github.com/DLR-SL/CPACS/releases" target="_blank">
+                    <strong>Releases</strong>
+                    <span>Download official CPACS release packages and release candidates.</span>
+                </a>
+
+                <a class="cpacs-link-card" href="https://github.com/DLR-SL/CPACS" target="_blank">
+                    <strong>Repository</strong>
+                    <span>Browse the CPACS schema, examples, issues, and development branches.</span>
+                </a>
+
+                <a class="cpacs-link-card" href="https://github.com/DLR-SL/CPACS/discussions" target="_blank">
+                    <strong>Discussions</strong>
+                    <span>Ask questions, provide feedback, and join community discussions.</span>
+                </a>
+            </div>
+        </div>
+
     </div>
 
     <div class="col-md-3">
-        <div class="sidebar ">
+        <div class="sidebar">
             <aside class="widget widget_news_subs">
-                <h3 class="widget-title">
-                    Open Source
-                </h3>
-                <p>
-                    CPACS is Open Source, published under the <a
-                        href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
-                </p>
+                <div class="cpacs-sidebar-box">
+                    <h3 class="widget-title">Open Source</h3>
+                    <p>
+                        CPACS is open source and published under the
+                        <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
+                    </p>
+                </div>
             </aside>
         </div>
     </div>
 
-
-    <div class="col-md-9">
-        <h2>GitHub Repository</h2>
-        <p>The complete CPACS repository with help files and APIs can be downloaded from <a
-                href="https://github.com/DLR-LY/CPACS/releases">GitHub</a>:</p>
-        <p><a href="https://github.com/DLR-LY/CPACS/releases" target="_blank"><img src="images/github_releases.png"
-                    alt="GitHub releases" style="vertical-align:middle;margin:0px 20px"></a> <b>
-                <a href="https://github.com/DLR-LY/CPACS" target="_blank"><img src="images/github_repo.png"
-                        alt="GitHub repository"></a></p>
-    </div>
-
-
-    <!-- <div class="col-md-9">
-        <h2>Tool-Specific Schema Files</h2>
-        <p>
-            CPACS 3.2 will support the integration of tool-specific namespaces. A selection of associated schema files
-            can be found below:
-        <ul>
-            <li>acCrash: <a
-                    href="https://dlr-sl.github.io/cpacs-website/toolspecific_schemaFiles/toolspecific_acCrash.xsd">https://www.cpacs.de/toolspecific_schemaFiles/toolspecific_acCrash.xsd</a>
-            </li>
-        </ul>
-        </p>
-        Please note that the respective tool developer is responsible for providing and maintaining a schema file.
-        Therefore, the above list does not claim to be complete or up-to-date.
-        If you need help creating a schema file, do not hesitate to <a href="contact.html">contact the CPACS team</a>.
-        <p>
-    </div> -->
-
     <script>
-        var schemaUrl;
+        var schemaVersions = {
+            '3.5': {
+                schemaUrl: 'https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd',
+                downloadHref: '../schema/v3_5_0/cpacs_schema.xsd',
+                badge: 'stable release',
+                badgeClass: 'cpacs-badge',
+                note: 'CPACS 3.5 is the latest stable CPACS release available from the website schema archive.'
+            },
+            '3.4': {
+                schemaUrl: 'https://www.cpacs.de/schema/v3_4_0/cpacs_schema.xsd',
+                downloadHref: '../schema/v3_4_0/cpacs_schema.xsd',
+                badge: 'stable release',
+                badgeClass: 'cpacs-badge',
+                note: 'CPACS 3.4 is an archived stable CPACS release.'
+            },
+            '3.3': {
+                schemaUrl: 'https://www.cpacs.de/schema/v3_3_0/cpacs_schema.xsd',
+                downloadHref: '../schema/v3_3_0/cpacs_schema.xsd',
+                badge: 'stable release',
+                badgeClass: 'cpacs-badge',
+                note: 'CPACS 3.3 is an archived stable CPACS release.'
+            },
+            '3.2': {
+                schemaUrl: 'https://www.cpacs.de/schema/v3_2_0/cpacs_schema.xsd',
+                downloadHref: '../schema/v3_2_0/cpacs_schema.xsd',
+                badge: 'stable release',
+                badgeClass: 'cpacs-badge',
+                note: 'CPACS 3.2 is an archived stable CPACS release.'
+            },
+            '3.1': {
+                schemaUrl: 'https://www.cpacs.de/schema/v3_1_0/cpacs_schema.xsd',
+                downloadHref: '../schema/v3_1_0/cpacs_schema.xsd',
+                badge: 'stable release',
+                badgeClass: 'cpacs-badge',
+                note: 'CPACS 3.1 is an archived stable CPACS release.'
+            },
+            '3.0': {
+                schemaUrl: 'https://www.cpacs.de/schema/v3_0_0/cpacs_schema.xsd',
+                downloadHref: '../schema/v3_0_0/cpacs_schema.xsd',
+                badge: 'stable release',
+                badgeClass: 'cpacs-badge',
+                note: 'CPACS 3.0 is an archived stable CPACS release.'
+            },
+            '2.3.1': {
+                schemaUrl: 'https://www.cpacs.de/schema/v2_3_1/cpacs_schema.xsd',
+                downloadHref: '../schema/v2_3_1/cpacs_schema.xsd',
+                badge: 'stable release',
+                badgeClass: 'cpacs-badge',
+                note: 'CPACS 2.3.1 is an archived stable CPACS release.'
+            },
+            '2.3': {
+                schemaUrl: 'https://www.cpacs.de/schema/v2_3_0/cpacs_schema.xsd',
+                downloadHref: '../schema/v2_3_0/cpacs_schema.xsd',
+                badge: 'stable release',
+                badgeClass: 'cpacs-badge',
+                note: 'CPACS 2.3 is an archived stable CPACS release.'
+            },
+            'develop': {
+                schemaUrl: 'https://raw.githubusercontent.com/DLR-SL/CPACS/refs/heads/develop/schema/cpacs_schema.xsd',
+                downloadHref: 'https://raw.githubusercontent.com/DLR-SL/CPACS/refs/heads/develop/schema/cpacs_schema.xsd',
+                badge: 'latest development version',
+                badgeClass: 'cpacs-badge cpacs-badge-dev',
+                note: 'The develop schema reflects the current development state of CPACS. It may change without notice and should not be used as a stable release reference.'
+            },
+            'exact2': {
+                schemaUrl: 'https://www.cpacs.de/schema/v3_5_exact2/cpacs_schema.xsd',
+                downloadHref: '../schema/v3_5_exact2/cpacs_schema.xsd',
+                badge: 'project schema',
+                badgeClass: 'cpacs-badge cpacs-badge-dev',
+                note: 'This is a project-specific CPACS schema variant.'
+            },
+            'impactMonitor': {
+                schemaUrl: 'https://www.cpacs.de/schema/v3_4_impactMonitor/cpacs_schema.xsd',
+                downloadHref: '../schema/v3_4_impactMonitor/cpacs_schema.xsd',
+                badge: 'project schema',
+                badgeClass: 'cpacs-badge cpacs-badge-dev',
+                note: 'This is a project-specific CPACS schema variant.'
+            },
+            'alicia': {
+                schemaUrl: 'https://www.cpacs.de/schema/v3_4_alicia/cpacs_schema.xsd',
+                downloadHref: '../schema/v3_4_alicia/cpacs_schema.xsd',
+                badge: 'project schema',
+                badgeClass: 'cpacs-badge cpacs-badge-dev',
+                note: 'This is a project-specific CPACS schema variant.'
+            },
+            'wingMates': {
+                schemaUrl: 'https://www.cpacs.de/schema/V3.5-WingMates-1.2/cpacs_schema.xsd',
+                downloadHref: '../schema/V3.5-WingMates-1.2/cpacs_schema.xsd',
+                badge: 'project schema',
+                badgeClass: 'cpacs-badge cpacs-badge-dev',
+                note: 'This is a project-specific CPACS schema variant.'
+            },
+            'diabolo': {
+                schemaUrl: 'https://www.cpacs.de/schema/v3_3_diabolo/cpacs_schema.xsd',
+                downloadHref: '../schema/v3_3_diabolo/cpacs_schema.xsd',
+                badge: 'project schema',
+                badgeClass: 'cpacs-badge cpacs-badge-dev',
+                note: 'This is a project-specific CPACS schema variant.'
+            },
+            'arcade': {
+                schemaUrl: 'https://www.cpacs.de/schema/v3_5_arcade/cpacs_schema.xsd',
+                downloadHref: '../schema/v3_5_arcade/cpacs_schema.xsd',
+                badge: 'project schema',
+                badgeClass: 'cpacs-badge cpacs-badge-dev',
+                note: 'This is a project-specific CPACS schema variant.'
+            }
+        };
 
-        document.getElementById('cpacsVersionSelect').addEventListener('change', function () {
-            var selectedVersion = this.value;
+        function updateSchemaSelection(selectedVersion) {
+            var selectedSchema = schemaVersions[selectedVersion];
             var codeField = document.getElementById('codeField');
             var schemaUrlDisplay = document.getElementById('schemaUrlDisplay');
             var downloadLink = document.getElementById('downloadLink');
+            var versionBadge = document.getElementById('versionBadge');
+            var versionNote = document.getElementById('versionNote');
 
-            switch (selectedVersion) {
-                case '3.5':
-                    schemaUrl = 'https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd';
-                    downloadLink.href = '../schema/v3_5_0/cpacs_schema.xsd';
-                    break;
-                case '3.4':
-                    schemaUrl = 'https://www.cpacs.de/schema/v3_4_0/cpacs_schema.xsd';
-                    downloadLink.href = '../schema/v3_4_0/cpacs_schema.xsd';
-                    break;
-                case '3.3':
-                    schemaUrl = 'https://www.cpacs.de/schema/v3_3_0/cpacs_schema.xsd';
-                    downloadLink.href = '../schema/v3_3_0/cpacs_schema.xsd';
-                    break;
-                case '3.2':
-                    schemaUrl = 'https://www.cpacs.de/schema/v3_2_0/cpacs_schema.xsd';
-                    downloadLink.href = '../schema/v3_2_0/cpacs_schema.xsd';
-                    break;
-                case '3.1':
-                    schemaUrl = 'https://www.cpacs.de/schema/v3_1_0/cpacs_schema.xsd';
-                    downloadLink.href = '../schema/v3_1_0/cpacs_schema.xsd';
-                    break;
-                case '3.0':
-                    schemaUrl = 'https://www.cpacs.de/schema/v3_0_0/cpacs_schema.xsd';
-                    downloadLink.href = '../schema/v3_0_0/cpacs_schema.xsd';
-                    break;
-                case '2.3.1':
-                    schemaUrl = 'https://www.cpacs.de/schema/v2_3_1/cpacs_schema.xsd';
-                    downloadLink.href = '../schema/v2_3_1/cpacs_schema.xsd';
-                    break;
-                case '2.3':
-                    schemaUrl = 'https://www.cpacs.de/schema/v2_3_0/cpacs_schema.xsd';
-                    downloadLink.href = '../schema/v2_3_0/cpacs_schema.xsd';
-                    break;
-                case 'develop':
-                    schemaUrl = 'https://raw.githubusercontent.com/DLR-SL/CPACS/refs/heads/develop/schema/cpacs_schema.xsd';
-                    downloadLink.href = schemaUrl;
-                    break;
-                case 'exact2':
-                    schemaUrl = 'https://www.cpacs.de/schema/v3_5_exact2/cpacs_schema.xsd';
-                    downloadLink.href = '../schema/v3_5_exact2/cpacs_schema.xsd';
-                    break;
-                case 'impactMonitor':
-                    schemaUrl = 'https://www.cpacs.de/schema/v3_4_impactMonitor/cpacs_schema.xsd';
-                    downloadLink.href = '../schema/v3_4_impactMonitor/cpacs_schema.xsd';
-                    break;
-                case 'alicia':
-                    schemaUrl = 'https://www.cpacs.de/schema/v3_4_alicia/cpacs_schema.xsd';
-                    downloadLink.href = '../schema/v3_4_alicia/cpacs_schema.xsd';
-                    break;
-				case 'wingMates':
-                    schemaUrl = 'https://www.cpacs.de/schema/V3.5-WingMates-1.2/cpacs_schema.xsd';
-                    downloadLink.href = '../schema/V3.5-WingMates-1.2/cpacs_schema.xsd';
-                    break;
-                case 'diabolo':
-                    schemaUrl = 'https://www.cpacs.de/schema/v3_3_diabolo/cpacs_schema.xsd';
-                    downloadLink.href = '../schema/v3_3_diabolo/cpacs_schema.xsd';
-                    break;
-				case 'arcade':
-                    schemaUrl = 'https://www.cpacs.de/schema/v3_5_arcade/cpacs_schema.xsd';
-                    downloadLink.href = '../schema/v3_5_arcade/cpacs_schema.xsd';
-                    break;
-
+            if (!selectedSchema) {
+                return;
             }
 
             codeField.innerText = '<?xml version="1.0" encoding="UTF-8"?>\n' +
                 '<cpacs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n' +
-                '       xsi:noNamespaceSchemaLocation="' + schemaUrl + '">';
-            codeField.className = "language-xml";
+                '       xsi:noNamespaceSchemaLocation="' + selectedSchema.schemaUrl + '">';
 
-            schemaUrlDisplay.textContent = schemaUrl;
+            codeField.className = 'language-xml';
+            schemaUrlDisplay.textContent = selectedSchema.schemaUrl;
+            downloadLink.href = selectedSchema.downloadHref;
+
+            versionBadge.textContent = selectedSchema.badge;
+            versionBadge.className = selectedSchema.badgeClass;
+
+            versionNote.textContent = selectedSchema.note;
+            versionNote.className = selectedVersion === 'develop'
+                ? 'cpacs-note cpacs-note-dev'
+                : 'cpacs-note';
+        }
+
+        document.getElementById('cpacsVersionSelect').addEventListener('change', function () {
+            updateSchemaSelection(this.value);
         });
+
+        updateSchemaSelection(document.getElementById('cpacsVersionSelect').value);
     </script>
 
 </body>
