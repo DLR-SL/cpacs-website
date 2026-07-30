@@ -1,54 +1,59 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*- #
-from __future__ import unicode_literals
+"""Pelican configuration for local previews and production builds."""
 
-AUTHOR = u'DLR'
-SITENAME = u'CPACS'
-SITEURL = "https://dlr-sl.github.io/cpacs-website"
-#SITEURL = "https://digitalhangar-demo.pages.gitlab.dlr.de/cpacs-website-preview/"
-#SITEURL = "http://localhost:8000/"
+from __future__ import annotations
 
-PATH = 'content'
+import os
 
-TIMEZONE = 'Europe/Paris'
+AUTHOR = "DLR"
+SITENAME = "CPACS"
 
-DEFAULT_LANG = u'en'
+# Production builds default to the custom domain. The local development wrapper
+# overrides this with an empty value so links remain on localhost.
+SITEURL = os.environ.get("CPACS_SITE_URL", "https://www.cpacs.de").rstrip("/")
+RELATIVE_URLS = not bool(SITEURL)
 
-DEFAULT_DATE_FORMAT = '%a %d %B %Y'
+PATH = "content"
+OUTPUT_PATH = "output"
+THEME = "themes/polar"
 
+TIMEZONE = "Europe/Berlin"
+DEFAULT_LANG = "en"
+DEFAULT_DATE_FORMAT = "%a %d %B %Y"
+DEFAULT_PAGINATION = 10
 
-THEME = 'themes/polar'
+# Keep the established public page URL pattern after removing the vendored
+# pelican-page-hierarchy plugin. The baseline comparison detects any exceptional
+# nested page whose historic path would otherwise change.
+PAGE_URL = "pages/{slug}.html"
+PAGE_SAVE_AS = "pages/{slug}.html"
 
-# Feed generation is usually not desired when developing
+# Feed generation is intentionally disabled to preserve the output currently
+# produced by the GitHub Pages workflow.
 FEED_ALL_ATOM = None
 CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
-# Blogroll
-#   Note: the full path is used for Imprint and Privacy, since Pelican omits pages 
-#   when generating the news.. (ToDo: fix this)
-LINKS = (('Institute of System Architectures in Aeronautics', 'http://www.dlr.de/sl'),
-         ('Imprint', '%s/pages/imprint.html' % SITEURL),
-         ('Privacy', '%s/pages/privacy.html' % SITEURL),
-         ('Terms of use', '%s/pages/terms-of-use.html' % SITEURL),
-         ('Accessibility', '%s/pages/accessibility.html' % SITEURL),)
 
-# Social widget
+def site_url(path: str) -> str:
+    """Return an absolute production URL or a root-relative local URL."""
+    normalized = path.lstrip("/")
+    return f"{SITEURL}/{normalized}" if SITEURL else f"/{normalized}"
+
+
+LINKS = (
+    ("Institute of System Architectures in Aeronautics", "https://www.dlr.de/sl"),
+    ("Imprint", site_url("pages/imprint.html")),
+    ("Privacy", site_url("pages/privacy.html")),
+    ("Terms of use", site_url("pages/terms-of-use.html")),
+    ("Accessibility", site_url("pages/accessibility.html")),
+)
 SOCIAL = ()
 
-DEFAULT_PAGINATION = 10
+STATIC_PATHS = ["images", "pages/images", "extra/CNAME"]
+EXTRA_PATH_METADATA = {"extra/CNAME": {"path": "CNAME"}}
 
-# Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
-
-# Static paths
-STATIC_PATHS = ['images', 'pages/images', 'extra/CNAME']
-
-# Plugins
-PLUGIN_PATHS = ["plugins", "d:\\rce\\plugins"]
-PLUGINS = ['pelican-page-hierarchy.page_hierarchy',]
-
-# Github pages domain name
-EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},}
+# scripts/site.py owns cleanup. Keeping this false prevents Pelican's
+# autoreloader from deleting the separately copied addContent tree.
+DELETE_OUTPUT_DIRECTORY = False
