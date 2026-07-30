@@ -1,79 +1,97 @@
-# Website for CPACS
+# CPACS website
 
-Homepage (landing page) and announcements for CPACS (http://www.cpacs.de).
+Source files and build tooling for the CPACS website at `https://www.cpacs.de`.
+The site is generated with Pelican and deployed to GitHub Pages by GitHub Actions.
 
-Based on [Pelican](http://blog.getpelican.com/) and a modifed Polar theme by [CodePassenger](http://www.codepassenger.com/).
+## Prerequisites
 
-## Local Installation
+Install `uv` 0.11.29 or a newer 0.11.x release, then clone the repository.
+Python and all project dependencies are managed by `uv`; a separate Anaconda or
+system-wide Pelican installation is not required. The official installers are:
 
-* Install Python ([Anaconda](https://store.continuum.io/cshop/anaconda/) works perfectly)
-
-* Install Pelican and supporting libraries
-
-```
-pip install pelican
-pip install markdown
-pip install fabric
-pip install ghp-import
+```powershell
+# Windows PowerShell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/0.11.29/install.ps1 | iex"
 ```
 
- * Clone rce-website
-
-```
-git clone https://github.com/dlr-ly/cpacs-website
-```
-
-### Configuration
-
- * Set proper port for local testing, which works on your machine in `fabfile.py`
-
-```
-# Port for `serve`
-PORT = 8001
+```bash
+# Linux and macOS
+curl -LsSf https://astral.sh/uv/0.11.29/install.sh | sh
 ```
 
-## Build 
+## Initial setup
 
- * Generate website 
-```
-fab build
-```
-
- * Start local server for testing (http://localhost:8001/)
-```
-fab serve
+```bash
+git clone https://github.com/DLR-SL/cpacs-website.git
+cd cpacs-website
+uv sync --locked
 ```
 
- * Convenience target for rebuild and starting local server
+The committed `.python-version`, `pyproject.toml`, and `uv.lock` define the
+reproducible environment used locally and in CI.
+
+## Local preview
+
+```bash
+uv run --locked python scripts/site.py serve
 ```
-fab reserve
+
+The preview is available at `http://127.0.0.1:8000/`. Use another port with:
+
+```bash
+uv run --locked python scripts/site.py serve --port 8001
 ```
+
+Pelican content is regenerated automatically. Restart the preview after changing
+files below `addContent/`.
+
+## Production build and checks
+
+```bash
+uv run --locked python scripts/site.py build
+uv run --locked python scripts/site.py check
+```
+
+The generated website is written to `output/`. The check command verifies key
+entry points, the custom-domain file, copied schema files, unresolved build
+placeholders, local filesystem paths, and internal links.
+
+To compare a new build with the baseline captured before the build-system
+migration:
+
+```bash
+uv run --locked python scripts/site.py compare-baseline baseline/output
+```
+
+Missing public files cause a non-zero exit status. Added and changed files are
+reported for review.
 
 ## Deployment
 
+Pull requests build and validate the website without deploying it. A successful
+push to `main` uploads the generated `output/` directory as a GitHub Pages
+artifact and deploys it.
 
+The canonical site URL is `https://www.cpacs.de`. Keep the custom domain set in
+**Repository settings → Pages** and retain `content/extra/CNAME` with the value
+`www.cpacs.de`.
 
-## Writing Content
+## Content
 
-Use either [Markdown](http://daringfireball.net/projects/markdown/) or HTML for new articles, as described in [Writing content](http://docs.getpelican.com/en/3.6.3/content.html).
+Articles and pages are stored below `content/`. Release announcements require,
+for example:
 
-Add new articles to `content`.
-
-### Metadata
-
-The required meta data for CPACS release announcements are:
-```
-Title: Release 3.5.0 
+```text
+Title: Release 3.5.0
 Date: 2025-04-22 12:00
 Category: Releases
 Author: CPACS
 ```
 
+Large generated documentation, schema archives, and other files currently remain
+below `addContent/` and are copied into the generated site by `scripts/site.py`.
 
+## Dependency updates
 
-### Image sizes
- * Article image: 870x440 px
- * Thumbnail large: 100x108
- * Thumbnail small: 67x73
-
-
+Dependabot checks the `uv` environment and GitHub Actions monthly. Review and
+merge dependency updates only after the website build and validation job passes.
