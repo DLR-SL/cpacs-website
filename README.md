@@ -56,13 +56,6 @@ The generated website is written to `output/`. The check command verifies key
 entry points, the custom-domain file, copied schema files, unresolved build
 placeholders, local filesystem paths, and internal links.
 
-To compare a new build with the baseline captured before the build-system
-migration:
-
-```bash
-uv run --locked python scripts/site.py compare-baseline baseline/output
-```
-
 Missing public files cause a non-zero exit status. Added and changed files are
 reported for review.
 
