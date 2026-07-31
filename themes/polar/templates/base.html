@@ -94,8 +94,8 @@
 	<link href="{{ SITEURL }}/theme/css/font-awesome.min.css" rel="stylesheet">
 
 	<!-- Plugins  -->
-	<link href="{{ SITEURL }}/theme/css/jquery.fs.boxer.css" rel="stylesheet" />
-	<link rel="stylesheet" href="{{ SITEURL }}/theme/css/owl.carousel.css">
+
+
 
 	<!-- Prism -->
 	<link href="{{ SITEURL }}/theme/css/prism.css" rel="stylesheet" />
@@ -131,7 +131,7 @@
 						<!-- Logo -->
 						<h1 class="logo">
 							<a class="navbar-brand" href="{{ SITEURL }}/">
-								<img height="50px" src="{{ SITEURL }}/images/cpacs_logo_transp.png" alt="CPACS Logo">
+								<img height="50" src="{{ SITEURL }}/images/cpacs_logo_transp.png" alt="CPACS Logo">
 							</a><!-- /.navbar-brand -->
 						</h1>
 					</div> <!-- /.navbar-header -->
@@ -139,8 +139,7 @@
 					<nav class="collapse navbar-collapse">
 						<!-- Main navigation -->
 						<ul id="mainNavigation" class="main-mav nav navbar-nav pull-right">
-							<li><a {% if page_name !="index" %}class="not-in-home" {% endif %}class="active"
-									href="{{ SITEURL }}/#page-top">Home</a>
+							<li><a class="{% if page_name != "index" %}not-in-home {% endif %}active" href="{{ SITEURL }}/#page-top">Home</a>
 							</li>
 
 
@@ -196,7 +195,7 @@
 
 					{% if LINKS %}
 					{% for name, link in LINKS %}
-					&nbsp;&sdot;&nbsp;<a href="{{ link }}">{{ name }}</a></li>
+					&nbsp;&sdot;&nbsp;<a href="{{ link }}">{{ name }}</a>
 					{% endfor %}
 					{% endif %}
 
@@ -208,43 +207,13 @@
 			</footer>
 
 		</div><!-- /footer-area -->
+        <!-- Site JavaScript: vendor bundle first, CPACS behavior last -->
+        <script src="{{ SITEURL }}/theme/js/jquery-2.1.0.min.js"></script>
+        <script src="{{ SITEURL }}/theme/js/plugins.js"></script>
+        <script src="{{ SITEURL }}/theme/js/onePage-nav.js"></script>
+        <script src="{{ SITEURL }}/theme/js/prism.js"></script>
+        <script src="{{ SITEURL }}/theme/js/site.js"></script>
 
-		<!-- Include modernizr-2.8.0.min.js -->
-		<script src="{{ SITEURL }}/theme/js/modernizr.js"></script>
-
-		<!-- Include jquery.min.js plugin -->
-		<script src="{{ SITEURL }}/theme/js/jquery-2.1.0.min.js"></script>
-		<script src="{{ SITEURL }}/theme/js/plugins.js"></script>
-		<script src="{{ SITEURL }}/theme/js/onePage-nav.js"></script>
-		<script src="{{ SITEURL }}/theme/js/jquery.ajaxchimp.min.js"></script>
-		<script src="{{ SITEURL }}/theme/js/custom.js"></script>
-		<script src="{{ SITEURL }}/theme/js/prism.js"></script>
-
-		<script>
-			(function ($) {
-				"use strict";
-
-				$(window).on("load", function (e) {
-					// Main menu
-					$('#main-menu #mainNavigation').onePageNav({
-						currentClass: 'active',
-						changeHash: false,
-						scrollSpeed: 750,
-						scrollThreshold: 0.5,
-						scrollOffset: 84,
-						filter: ':not(.sub-menu a, .not-in-home, .donate)',
-						easing: 'swing'
-					});
-				});
-				$(window).on('scroll', function () {
-					if ($(window).scrollTop() > $(window).height() - 110) {
-						$('#main-menu').addClass('navbar-fixed-top');
-					} else {
-						$('#main-menu').removeClass('navbar-fixed-top');
-					}
-				});
-			})(jQuery);
-		</script>
 
 		{% include 'analytics.html' %}
 
