@@ -120,6 +120,11 @@ def serve(port: int) -> None:
 
 
 def check() -> None:
+    subprocess.run(
+        [sys.executable, "scripts/frontend_audit.py"],
+        cwd=ROOT,
+        check=True,
+    )
     build()
     subprocess.run(
         [sys.executable, "-m", "compileall", "-q", "pelicanconf.py", "scripts", "tests"],

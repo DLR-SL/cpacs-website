@@ -9,7 +9,7 @@
 					{{ article.title }}
 				</h2>
 				<div class="page-location">
-					<a href="{{ SITEURL }}/">Home</a> <a href="#">News</a> <span>{{ article.title }}</span>
+					<a href="{{ SITEURL }}/">Home</a> <a href="{{ SITEURL }}/#news">News</a> <span>{{ article.title }}</span>
 				</div>
 			</div><!-- /.container -->
 		</div><!-- /.overlay -->
@@ -77,44 +77,6 @@
 								{{ article.content }}
 							</div><!-- /.entry -->
 						</article>
-
-						<div class="follow-us follow-share social-share">
-							<div class="follow-title">
-								<span>Share on Social Network</span>
-							</div>
-							<div class="social-btn text-center">
-								<a href="#" class="facebook">
-									<i class="fa fa-facebook"></i>
-									<span>Facebook</span>
-								</a>
-								<a href="#" class="google-plus">
-									<i class="fa fa-google-plus"></i>
-									<span>Google +</span>
-								</a>
-								<a href="#" class="twitter">
-									<i class="fa fa-twitter"></i>
-									<span>Twitter</span>
-								</a>
-								<a href="#" class="linked-in">
-									<i class="fa fa-linkedin"></i>
-									<span>linked in</span>
-								</a>
-								<a href="#" class="instagram">
-									<i class="fa fa-instagram"></i>
-									<span>Instagram</span>
-								</a>
-							</div><!-- /.social-btn -->
-						</div><!-- /.follow-us -->
-
-
-						{% if DISQUS_SITENAME %}
-						<div id="comments" class="comments-area">
-							<h3 class="comments-title">
-								Comments
-							</h3><!-- /.comments-title -->
-							{% include "disqus.html" %}
-						</div>
-						{% endif %}
 
 					</div><!-- /.news-single -->
 

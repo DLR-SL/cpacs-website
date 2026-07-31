@@ -12,17 +12,29 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE_TEMPLATE = ROOT / "themes/polar/templates/base.html"
+ARTICLE_TEMPLATE = ROOT / "themes/polar/templates/article.html"
 STYLE = ROOT / "themes/polar/static/css/style.css"
 SITE_JS = ROOT / "themes/polar/static/js/site.js"
 STATIC_ROOT = ROOT / "themes/polar/static"
 
-REMOVED_ASSETS = {
+REMOVED_ASSET_REFERENCES = {
     "theme/css/jquery.fs.boxer.css",
     "theme/css/owl.carousel.css",
+    "theme/css/slick-theme.css",
+    "theme/js/bootstrap.js",
     "theme/js/custom.js",
     "theme/js/jquery.ajaxchimp.min.js",
     "theme/js/modernizr.js",
+    "theme/slick/",
 }
+
+REMOVED_REPOSITORY_PATHS = (
+    ROOT / "themes/polar/static/slick",
+    ROOT / "themes/polar/static/css/slick-theme.css",
+    ROOT / "themes/polar/static/js/bootstrap.js",
+    ROOT / "themes/polar/templates/analytics.html",
+    ROOT / "themes/polar/templates/disqus.html",
+)
 
 
 def fail(errors: list[str], message: str) -> None:
@@ -71,18 +83,23 @@ def css_braces_are_balanced(css: str) -> bool:
 def audit() -> list[str]:
     errors: list[str] = []
 
-    for path in (BASE_TEMPLATE, STYLE, SITE_JS):
+    for path in (BASE_TEMPLATE, ARTICLE_TEMPLATE, STYLE, SITE_JS):
         if not path.is_file():
             fail(errors, f"Missing required file: {path.relative_to(ROOT)}")
+
+    for path in REMOVED_REPOSITORY_PATHS:
+        if path.exists():
+            fail(errors, f"Legacy path still exists: {path.relative_to(ROOT)}")
 
     if errors:
         return errors
 
     base = BASE_TEMPLATE.read_text(encoding="utf-8")
+    article = ARTICLE_TEMPLATE.read_text(encoding="utf-8")
     css = STYLE.read_text(encoding="utf-8")
     site_js = SITE_JS.read_text(encoding="utf-8")
 
-    for asset in sorted(REMOVED_ASSETS):
+    for asset in sorted(REMOVED_ASSET_REFERENCES):
         if asset in base:
             fail(errors, f"Removed asset is still referenced in base.html: {asset}")
 
@@ -103,6 +120,16 @@ def audit() -> list[str]:
         body = match.group("body").strip()
         if "src=" not in attrs and "application/ld+json" not in attrs and body:
             fail(errors, "base.html contains executable inline JavaScript")
+
+    if "analytics.html" in base:
+        fail(errors, "base.html still includes the obsolete analytics template")
+
+    if re.search(r'href\s*=\s*["\']#["\']', article):
+        fail(errors, 'article.html contains a dummy href="#" link')
+    if "social-share" in article or "Share on Social Network" in article:
+        fail(errors, "article.html still contains the non-functional social sharing block")
+    if "DISQUS_SITENAME" in article or "disqus.html" in article:
+        fail(errors, "article.html still contains obsolete Disqus integration")
 
     if "http://fonts.googleapis.com" in css:
         fail(errors, "style.css still contains an insecure Google Fonts import")
