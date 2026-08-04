@@ -3590,6 +3590,35 @@ cpacs@dlr.de
                             <xsd:documentation>Two-letter country code according to ISO 3166-1 (e.g., DE, FR, US, ...)</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
+                    <xsd:element name="region" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Region of the airport according to the IM2 region definition (see project teamsite). Allowed values: EU, EU_Outermost, EFTA_UK, restOfWorld.</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="EU">
+                                    <xsd:annotation>
+                                        <xsd:documentation>Airports in EU Member States (except airports in EU outermost regions -see definition of EU_outermost)</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="EU_Outermost">
+                                    <xsd:annotation>
+                                        <xsd:documentation>Airports in EU Outermost regions (islands of France, Spain and Portugal located in continents different than Europe)</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="EFTA_UK">
+                                    <xsd:annotation>
+                                        <xsd:documentation>Airports in Iceland, Liechtenstein, Norway, Switzerland and UK</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="restOfWorld">
+                                    <xsd:annotation>
+                                        <xsd:documentation>Airports in all countries of the world not included in the previous three regions</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                            </xsd:restriction>
+                        </xsd:simpleType>
+                    </xsd:element>
                     <xsd:element name="utcOffset" minOccurs="0" type="integerBaseType">
                         <xsd:annotation>
                             <xsd:documentation>Offset of the time zone to UTC (always according to winter time)</xsd:documentation>
@@ -3693,7 +3722,10 @@ cpacs@dlr.de
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
                 <xsd:all>
-                    <xsd:element name="aviationFuelPolicies" type="aviationFuelPoliciesType"/>
+                    <xsd:element name="aviationFuelPolicies" minOccurs="0" type="aviationFuelPoliciesType"/>
+                    <xsd:element name="trafficAssessment" minOccurs="0" type="trafficAssessmentType"/>
+                    <xsd:element name="noiseExposureAssessment" minOccurs="0" type="noiseExposureAssessmentType"/>
+                    <xsd:element name="climateImpactAssessment" minOccurs="0" type="climateImpactAssessmentType"/>
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
@@ -6262,6 +6294,86 @@ cpacs@dlr.de
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="climateImpactAssessmentType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Climate impact assessment</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Aggregated results stored as parallel semicolon-separated vectors. All vectors must have the same length; each index position represents one aggregated record.</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="name" minOccurs="0" type="stringBaseType"/>
+                    <xsd:element name="description" minOccurs="0" type="stringBaseType"/>
+                    <xsd:element name="year" minOccurs="0" type="posIntVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Year of the aggregated record</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="scenarioType" minOccurs="0" type="stringVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Scenario identifier (e.g. REF, SIM)</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="flightType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Flight type (domestic, international)</xsd:documentation>
+                        </xsd:annotation>
+                            <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringVectorBaseType">
+                                    <xsd:pattern value="(domestic|international)(;(domestic|international))*"/>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="originRegion" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Origin region (EU, EU_Outermost, EFTA_UK, restOfWorld)</xsd:documentation>
+                        </xsd:annotation>
+                            <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringVectorBaseType">
+                                    <xsd:pattern value="(EU|EU_Outermost|EFTA_UK|restOfWorld)(;(EU|EU_Outermost|EFTA_UK|restOfWorld))*"/>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="destinationRegion" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Destination region (EU, EU_Outermost, EFTA_UK, restOfWorld)</xsd:documentation>
+                        </xsd:annotation>
+                            <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringVectorBaseType">
+                                    <xsd:pattern value="(EU|EU_Outermost|EFTA_UK|restOfWorld)(;(EU|EU_Outermost|EFTA_UK|restOfWorld))*"/>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="co2ClimateImpact" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>CO2 climate impact contribution</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="nonCo2ClimateImpact" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Non-CO2 climate impact contribution</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+                <xsd:attribute name="uID" use="required" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="climateMetricsType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -6413,10 +6525,10 @@ cpacs@dlr.de
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
                 <xsd:all>
-                    <xsd:element name="trajectoryUID" type="stringUIDBaseType">
+                    <xsd:element name="emissionGridUID" type="stringUIDBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
-                                UID of the corresponding trajectory
+                                uID of the corresponding emission grid
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
@@ -13105,6 +13217,115 @@ cpacs@dlr.de
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="emissionGridGlobalType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Grid-wide total emission values of the emission grid</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Grid-wide totals: each value is the sum of the corresponding
+                            gridPoints vector over all points of the emission grid.
+                            The values are therefore redundant with the gridPoints data and are
+                            provided for convenience, e.g. for reporting and for tools that only
+                            require aggregated quantities.
+                        </ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="co2Mass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Grid-wide total CO2 mass, summed over all grid points [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="noxMass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Grid-wide total NOx mass, summed over all grid points [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="h2oMass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Grid-wide total H2O mass, summed over all grid points [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="emissionGridPointsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Grid point data of an emission grid</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>All vectors of this node must have the same length.
+                            Each index refers to one grid point.
+                        </ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="latitude" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Latitude coordinate [0-360]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="longitude" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Longitude coordinate [0-360]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="altitude" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Altitude [m]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="fuelMass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Fuel [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="co2Mass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>CO2 mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="noxMass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>NOx mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="h2oMass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>H20 mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="distance" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Distance [m]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="cellDistributionFactor" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Cell Distribution Factor [-]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="emissionGridsType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -13147,53 +13368,18 @@ cpacs@dlr.de
                             <xsd:documentation>Description</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="latitude" minOccurs="0" type="doubleVectorBaseType">
+                    <xsd:element name="gridPoints" minOccurs="0" type="emissionGridPointsType">
                         <xsd:annotation>
-                            <xsd:documentation>Latitude coordinate [0-360]</xsd:documentation>
+                            <xsd:documentation>Grid point data</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="longitude" minOccurs="0" type="doubleVectorBaseType">
+                    <xsd:element name="global" minOccurs="0" type="emissionGridGlobalType">
                         <xsd:annotation>
-                            <xsd:documentation>Longitude coordinate [0-360]</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="altitude" minOccurs="0" type="doubleVectorBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Altitude [m]</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="fuelMass" minOccurs="0" type="doubleVectorBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Fuel [kg]</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="co2Mass" minOccurs="0" type="doubleVectorBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>CO2 mass [kg]</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="noxMass" minOccurs="0" type="doubleVectorBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>NOx mass [kg]</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="h2oMass" minOccurs="0" type="doubleVectorBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>H20 mass [kg]</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="distance" minOccurs="0" type="doubleVectorBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Distance [m]</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="cellDistributionFactor" minOccurs="0" type="doubleVectorBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Cell Distribution Factor [-]</xsd:documentation>
+                            <xsd:documentation>Grid-wide totals of the emission species, summed over all grid points</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:all>
-                <xsd:attribute name="uID" type="xsd:ID"/>
+                <xsd:attribute name="uID" use="required" type="xsd:ID"/>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
@@ -15650,6 +15836,25 @@ cpacs@dlr.de
                                 Description
                             </xsd:documentation>
                         </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="flightType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Domestic or international flight, according to the IM2 definition (see project teamsite). Allowed values: domestic, international.</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:simpleType>
+                            <xsd:restriction base="xsd:string">
+                                <xsd:enumeration value="domestic">
+                                    <xsd:annotation>
+                                        <xsd:documentation>a flight is defined as domestic when the country of departure is the same as the country of arrival</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                                <xsd:enumeration value="international">
+                                    <xsd:annotation>
+                                        <xsd:documentation>a flight is defined as international when the country of departure and of arrival differ</xsd:documentation>
+                                    </xsd:annotation>
+                                </xsd:enumeration>
+                            </xsd:restriction>
+                        </xsd:simpleType>
                     </xsd:element>
                     <xsd:element name="vehicle" minOccurs="0" type="flightVehicleType"/>
                     <xsd:element name="departure" type="departureArrivalType">
@@ -27239,6 +27444,62 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="noiseExposureAssessmentType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Noise exposure assessment</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Aggregated results stored as parallel semicolon-separated vectors. All vectors must have the same length; each index position represents one aggregated record.</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="name" minOccurs="0" type="stringBaseType"/>
+                    <xsd:element name="description" minOccurs="0" type="stringBaseType"/>
+                    <xsd:element name="year" minOccurs="0" type="posIntVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Year of the aggregated record</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="scenarioType" minOccurs="0" type="stringVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Scenario identifier (e.g. REF, SIM)</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="region" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Region (EU, EU_Outermost, EFTA_UK, restOfWorld)</xsd:documentation>
+                        </xsd:annotation>
+                            <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringVectorBaseType">
+                                    <xsd:pattern value="(EU|EU_Outermost|EFTA_UK|restOfWorld)(;(EU|EU_Outermost|EFTA_UK|restOfWorld))*"/>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="noiseLden" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Day-evening-night noise level Lden band [dB]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="impactedPopulation" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Population exposed at the given Lden band</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+                <xsd:attribute name="uID" use="required" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="noseGearsType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -35941,6 +36202,91 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     <xsd:element name="materialUID" type="stringUIDBaseType"/>
                     <xsd:element name="profileUID" type="stringUIDBaseType"/>
                 </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="trafficAssessmentType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Traffic assessment</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Aggregated results stored as parallel semicolon-separated vectors. All vectors must have the same length; each index position represents one aggregated record.</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="name" minOccurs="0" type="stringBaseType"/>
+                    <xsd:element name="description" minOccurs="0" type="stringBaseType"/>
+                    <xsd:element name="year" minOccurs="0" type="posIntVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Year of the aggregated record</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="scenarioType" minOccurs="0" type="stringVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Scenario identifier (e.g. REF, SIM)</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="flightType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Flight type (domestic, international)</xsd:documentation>
+                        </xsd:annotation>
+                            <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringVectorBaseType">
+                                    <xsd:pattern value="(domestic|international)(;(domestic|international))*"/>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="originRegion" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Origin region (EU, EU_Outermost, EFTA_UK, restOfWorld)</xsd:documentation>
+                        </xsd:annotation>
+                            <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringVectorBaseType">
+                                    <xsd:pattern value="(EU|EU_Outermost|EFTA_UK|restOfWorld)(;(EU|EU_Outermost|EFTA_UK|restOfWorld))*"/>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="destinationRegion" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Destination region (EU, EU_Outermost, EFTA_UK, restOfWorld)</xsd:documentation>
+                        </xsd:annotation>
+                            <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringVectorBaseType">
+                                    <xsd:pattern value="(EU|EU_Outermost|EFTA_UK|restOfWorld)(;(EU|EU_Outermost|EFTA_UK|restOfWorld))*"/>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="travellersPerYear" minOccurs="0" type="posIntVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Number of travellers per year for this aggregation</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="averageTicketPrice" minOccurs="0" type="posIntVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Weighted average ticket price per traveller (in euro) for this aggregation, weighted over the travellers between the airports covered by the combination of originRegion and destinationRegion</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="averageTravelTime" minOccurs="0" type="posIntVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Weighted average travel time per traveller (in hours) for this aggregation, weighted over the travellers between the airports covered by the combination of originRegion and destinationRegion</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+                <xsd:attribute name="uID" use="required" type="xsd:ID"/>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
