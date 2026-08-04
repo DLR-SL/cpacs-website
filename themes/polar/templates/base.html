@@ -103,8 +103,47 @@
 
 
 <body>
-    {% block content %}
-    {% endblock %}
+    <span id="page-top"></span>
+
+    {% if page_name == "index" %}
+    <div class="main-menu-container transparent-nav fix-top">
+    {% else %}
+    <div class="main-menu-container navbar-fixed-top-">
+    {% endif %}
+        <div id="main-menu" class="navbar navbar-default" role="navigation">
+            <div class="container">
+
+                <div class="navbar-header">
+                    <h1 class="logo">
+                        <a class="navbar-brand" href="{{ SITEURL }}/">
+                            <img
+                                height="50"
+                                src="{{ SITEURL }}/images/cpacs_logo_transp.png"
+                                alt="CPACS Logo">
+                        </a>
+                    </h1>
+                </div>
+
+                <nav class="collapse navbar-collapse">
+                    <ul id="mainNavigation" class="main-mav nav navbar-nav pull-right">
+                        <li>
+                            <a href="{{ SITEURL }}/#page-top">Home</a>
+                        </li>
+                        <li>
+                            <a href="{{ SITEURL }}/#contents">What is CPACS?</a>
+                        </li>
+                        <li>
+                            <a href="{{ SITEURL }}/#news">News</a>
+                        </li>
+                        <li>
+                            <a href="{{ SITEURL }}/pages/get-cpacs.html">Get CPACS</a>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
