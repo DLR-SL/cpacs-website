@@ -37,7 +37,7 @@ jobs:
       - name: Build and validate website
         run: uv run --locked python scripts/site.py check
         env:
-          CPACS_SITE_URL: https://www.cpacs.de
+          CPACS_SITE_URL: https://dlr-sl.github.io/cpacs-website
 
       - name: Configure GitHub Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
