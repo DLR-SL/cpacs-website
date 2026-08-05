@@ -17,7 +17,7 @@ CONTENT_DIR = ROOT / "content"
 ADDITIONAL_DIR = ROOT / "addContent"
 OUTPUT_DIR = ROOT / "output"
 SETTINGS_FILE = ROOT / "pelicanconf.py"
-CANONICAL_SITE_URL = "https://dlr-sl.github.io/cpacs-website"
+DEFAULT_SITE_URL = "https://dlr-sl.github.io/cpacs-website"
 
 
 def remove_output() -> None:
@@ -59,12 +59,18 @@ def copy_additional_content() -> None:
             shutil.copy2(source, destination)
 
 
-def build(site_url: str = CANONICAL_SITE_URL) -> None:
+def configured_site_url() -> str:
+    return os.environ.get("CPACS_SITE_URL", DEFAULT_SITE_URL).rstrip("/")
+
+
+def build(site_url: str | None = None) -> None:
+    effective_site_url = configured_site_url() if site_url is None else site_url
+
     remove_output()
     subprocess.run(
         pelican_command(),
         cwd=ROOT,
-        env=build_environment(site_url),
+        env=build_environment(effective_site_url),
         check=True,
     )
     copy_additional_content()
@@ -115,7 +121,11 @@ def serve(port: int) -> None:
         terminate(generator)
         terminate(server)
 
-    if generator.returncode not in (None, 0, -15) or server.returncode not in (None, 0, -15):
+    if generator.returncode not in (None, 0, -15) or server.returncode not in (
+        None,
+        0,
+        -15,
+    ):
         raise SystemExit("The preview generator or HTTP server stopped unexpectedly.")
 
 
@@ -127,7 +137,15 @@ def check() -> None:
     )
     build()
     subprocess.run(
-        [sys.executable, "-m", "compileall", "-q", "pelicanconf.py", "scripts", "tests"],
+        [
+            sys.executable,
+            "-m",
+            "compileall",
+            "-q",
+            "pelicanconf.py",
+            "scripts",
+            "tests",
+        ],
         cwd=ROOT,
         check=True,
     )
@@ -165,7 +183,9 @@ def compare_baseline(baseline: Path) -> None:
     missing = sorted(previous.keys() - current.keys())
     added = sorted(current.keys() - previous.keys())
     changed = sorted(
-        path for path in previous.keys() & current.keys() if previous[path] != current[path]
+        path
+        for path in previous.keys() & current.keys()
+        if previous[path] != current[path]
     )
 
     print(f"Baseline files: {len(previous)}")
@@ -174,7 +194,11 @@ def compare_baseline(baseline: Path) -> None:
     print(f"Added:          {len(added)}")
     print(f"Changed:        {len(changed)}")
 
-    for heading, entries in (("MISSING", missing), ("ADDED", added), ("CHANGED", changed)):
+    for heading, entries in (
+        ("MISSING", missing),
+        ("ADDED", added),
+        ("CHANGED", changed),
+    ):
         if entries:
             print(f"\n{heading}")
             for entry in entries:
@@ -192,7 +216,9 @@ def parse_args() -> argparse.Namespace:
     subparsers.add_parser("clean", help="Remove generated output")
     subparsers.add_parser("check", help="Build and run validation tests")
 
-    serve_parser = subparsers.add_parser("serve", help="Start a local auto-reloading preview")
+    serve_parser = subparsers.add_parser(
+        "serve", help="Start a local auto-reloading preview"
+    )
     serve_parser.add_argument("--port", type=int, default=8000)
 
     compare_parser = subparsers.add_parser(
