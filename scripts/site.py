@@ -17,7 +17,7 @@ CONTENT_DIR = ROOT / "content"
 ADDITIONAL_DIR = ROOT / "addContent"
 OUTPUT_DIR = ROOT / "output"
 SETTINGS_FILE = ROOT / "pelicanconf.py"
-CANONICAL_SITE_URL = "https://www.cpacs.de"
+CANONICAL_SITE_URL = "https://dlr-sl.github.io/cpacs-website"
 
 
 def remove_output() -> None:
