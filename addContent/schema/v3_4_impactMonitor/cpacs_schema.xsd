@@ -4599,6 +4599,87 @@ cpacs@dlr.de
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="averageVehiclesType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Average vehicles</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="averageVehicle" maxOccurs="unbounded" type="averageVehicleType">
+                        <xsd:annotation>
+                            <xsd:documentation>Average vehicle</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="averageVehicleType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Average vehicle</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>A group of vehicles of the same type within a fleet, represented by
+                        average properties instead of individually identified airframes.</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="name" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Name of the vehicle group</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="vehicleUID" type="stringUIDBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>UID of the vehicle (cpacs/vehicles/aircraft/model)</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="numberOfVehicles" type="integerBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Number of vehicles</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="averageAge" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Average age</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="averageFlightTime" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Average flight time</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="averageAnnualFlightCycles" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Average annual flight cycles</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="averageAnnualFlightHours" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Average annual flight hours</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+                <xsd:attribute name="uID" use="required" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="aviationFuelPoliciesType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -6254,6 +6335,76 @@ cpacs@dlr.de
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="climateCo2EquivalentEmissionsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>CO2-equivalent emissions</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Species breakdown of the climate metric expressed as CO2-equivalent emissions. The conversion follows the metricType and timeHorizon of the parent metric, so that all species can be compared on a common mass basis.</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="total" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Total over all species [kg]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="co2" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                CO2: Carbon dioxide [kg]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="h2o" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                H2O: Water [kg]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="o3" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                O3: Ozone [kg]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="ch4" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                CH4: Methane [kg]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="cic" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                CIC: Contrail-induced cloudiness [kg]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="pmo" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                PMO: Primary-mode ozone [kg]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="climateDataType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -6271,21 +6422,91 @@ cpacs@dlr.de
                     <xsd:element name="year" minOccurs="0" type="posIntVectorBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
-                                Vector of years
+                                Vector of years defining the time line of the yearly results below (radiativeForcing, deltaTemperature). All vectors of those nodes must have the same length as this vector and follow the same order.
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="radiativeForcing" minOccurs="0" type="climateYealyDataType">
+                    <xsd:element name="radiativeForcing" minOccurs="0" type="climateRadiativeForcingDataType">
                         <xsd:annotation>
                             <xsd:documentation>
-                                Radiative forcing
+                                Radiative forcing caused by the emissions of this scenario, given as a time series resolved per species [W/m^2]. The time line of the series is defined by the year vector (../year); each species vector must therefore have the same length as that vector and the values must be given in the same order.
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="deltaTemperature" minOccurs="0" type="climateYealyDataType">
+                    <xsd:element name="deltaTemperature" minOccurs="0" type="climateDeltaTemperatureDataType">
                         <xsd:annotation>
                             <xsd:documentation>
-                                Delta temperature
+                                Near-surface temperature change caused by the emissions of this scenario, given as a time series resolved per species [K]. The time line of the series is defined by the year vector (../year); each species vector must therefore have the same length as that vector and the values must be given in the same order. Resolving the response per species allows the individual contributions of CO2 and of the non-CO2 effects to be traced over time.
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="climateDeltaTemperatureDataType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Delta temperature over years</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Species-resolved time series of the near-surface temperature change [K]. All vectors share the time line given by the year vector of the parent climateData node and must have the same length as that vector.</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="total" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Total near-surface temperature change expected over the observation time frame, i.e. the sum of the contributions of all species listed below [K] (Vector, one value per entry of the year vector)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="co2" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                CO2: Carbon dioxide. Near-surface temperature change expected over the observation time frame due to the emission of this species [K] (Vector, one value per entry of the year vector)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="h2o" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                H2O: Water. Near-surface temperature change expected over the observation time frame due to the emission of this species [K] (Vector, one value per entry of the year vector)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="o3" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                O3: Ozone. Near-surface temperature change expected over the observation time frame due to the emission of the ozone precursors [K] (Vector, one value per entry of the year vector)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="ch4" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                CH4: Methane. Near-surface temperature change expected over the observation time frame due to the emission of this species [K] (Vector, one value per entry of the year vector)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="cic" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                CIC: Contrail-induced cloudiness. Near-surface temperature change expected over the observation time frame due to this effect [K] (Vector, one value per entry of the year vector)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="pmo" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                PMO: Primary-mode ozone. Near-surface temperature change expected over the observation time frame due to this effect [K] (Vector, one value per entry of the year vector)
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
@@ -6451,6 +6672,27 @@ cpacs@dlr.de
                             </xsd:simpleContent>
                         </xsd:complexType>
                     </xsd:element>
+                    <xsd:element name="metricUnit">
+                        <xsd:annotation>
+                            <xsd:documentation>Unit in which the values below metricValues are given (K | kg_co2e/kg_emitted). The unit has to be consistent with the selected metricType: absolute climate responses such as atr and agtp are given in K, whereas emission equivalency factors are given as the dimensionless ratio kg_co2e/kg_emitted. (Note: Please contact CPACS support to add additional units)</xsd:documentation>
+                        </xsd:annotation>
+                            <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringBaseType">
+                                    <xsd:enumeration value="K">
+                                        <xsd:annotation>
+                                            <xsd:documentation>Kelvin: absolute temperature response of the metric</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:enumeration>
+                                    <xsd:enumeration value="kg_co2e/kg_emitted">
+                                        <xsd:annotation>
+                                            <xsd:documentation>Kilogram of CO2 equivalent per kilogram of emitted species: dimensionless equivalency factor expressing the climate effect of a species relative to CO2</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:enumeration>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
                     <xsd:element name="timeHorizon" type="integerBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
@@ -6458,52 +6700,157 @@ cpacs@dlr.de
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
+                    <xsd:element name="metricValues" minOccurs="0" type="climateMetricValuesType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Metric values per species, expressed in the unit given by metricUnit
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="co2EquivalentEmissions" minOccurs="0" type="climateCo2EquivalentEmissionsType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Same species breakdown as metricValues, but converted into CO2-equivalent emissions [kg]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="climateMetricValuesType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Climate metric values</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Species breakdown of the climate metric. All values are given in the unit specified by the metricUnit node of the parent metric.</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
                     <xsd:element name="total" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
-                                Total [kg]
+                                Total over all species [metricUnit]
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="co2" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
-                                CO2: Carbon dioxide [kg]
+                                CO2: Carbon dioxide [metricUnit]
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="h2o" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
-                                H2O: Water [kg]
+                                H2O: Water [metricUnit]
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="o3" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
-                                O3: Ozone [kg]
+                                O3: Ozone [metricUnit]
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="ch4" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
-                                CH4: Methane [kg]
+                                CH4: Methane [metricUnit]
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="cic" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
-                                CIC: Contrail-induced cloudiness
+                                CIC: Contrail-induced cloudiness [metricUnit]
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="pmo" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
-                                PMO: Primary-mode ozone
+                                PMO: Primary-mode ozone [metricUnit]
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="climateRadiativeForcingDataType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Radiative forcing over years</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Species-resolved time series of the radiative forcing [W/m^2]. All vectors share the time line given by the year vector of the parent climateData node and must have the same length as that vector.</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="total" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Total radiative forcing expected over the observation time frame, i.e. the sum of the contributions of all species listed below [W/m^2] (Vector, one value per entry of the year vector)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="co2" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                CO2: Carbon dioxide. Radiative forcing expected over the observation time frame due to the emission of this species [W/m^2] (Vector, one value per entry of the year vector)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="h2o" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                H2O: Water. Radiative forcing expected over the observation time frame due to the emission of this species [W/m^2] (Vector, one value per entry of the year vector)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="o3" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                O3: Ozone. Radiative forcing expected over the observation time frame due to the emission of the ozone precursors [W/m^2] (Vector, one value per entry of the year vector)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="ch4" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                CH4: Methane. Radiative forcing expected over the observation time frame due to the emission of this species [W/m^2] (Vector, one value per entry of the year vector)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="cic" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                CIC: Contrail-induced cloudiness. Radiative forcing expected over the observation time frame due to this effect [W/m^2] (Vector, one value per entry of the year vector)
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="pmo" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                PMO: Primary-mode ozone. Radiative forcing expected over the observation time frame due to this effect [W/m^2] (Vector, one value per entry of the year vector)
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
@@ -6568,66 +6915,6 @@ cpacs@dlr.de
                     <xsd:element name="climateData" type="climateDataType"/>
                 </xsd:all>
                 <xsd:attribute name="uID" use="required" type="xsd:ID"/>
-            </xsd:extension>
-        </xsd:complexContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="climateYealyDataType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>Climate date over years</ddue:para>
-                    </ddue:summary>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:complexContent>
-            <xsd:extension base="complexBaseType">
-                <xsd:all>
-                    <xsd:element name="co2" minOccurs="0" type="doubleVectorBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>
-                                CO2: Carbon dioxide [kg] (Vector)
-                            </xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="h2o" minOccurs="0" type="doubleVectorBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>
-                                H2O: Water [kg] (Vector)
-                            </xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="o3" minOccurs="0" type="doubleVectorBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>
-                                O3: Ozone [kg] (Vector)
-                            </xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="ch4" minOccurs="0" type="doubleVectorBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>
-                                CH4: Methane [kg] (Vector)
-                            </xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="cic" minOccurs="0" type="doubleVectorBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>
-                                CIC: Contrail-induced cloudiness (Vector)
-                            </xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="pmo" minOccurs="0" type="doubleVectorBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>
-                                PMO: Primary-mode ozone (Vector)
-                            </xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
@@ -13139,72 +13426,264 @@ cpacs@dlr.de
         </xsd:complexContent>
     </xsd:complexType>
 
-    <xsd:complexType name="emissionDataType">
+    <xsd:complexType name="emissionDataGlobalType">
         <xsd:annotation>
             <xsd:appinfo>
                 <sd:schemaDoc>
                     <ddue:summary>
-                        <ddue:para>Emission data for an airport assessment case (LTO-cycle totals)</ddue:para>
+                        <ddue:para>Grid-wide total emission values of the emission data of an airport assessment case</ddue:para>
                     </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Grid-wide totals: each value is the sum of the corresponding
+                            gridPoints vector over all points of the grid. Where a species is also
+                            given in gridPoints, the value is therefore redundant with the gridPoints
+                            data and is provided for convenience, e.g. for reporting and for tools that
+                            only require aggregated quantities. The species listed here mirror
+                            those available in gridPoints.
+                        </ddue:para>
+                    </ddue:remarks>
                 </sd:schemaDoc>
             </xsd:appinfo>
         </xsd:annotation>
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
                 <xsd:all>
-                    <xsd:element name="fuelMass" minOccurs="0" type="doubleBaseType">
+                    <xsd:element name="benzeneMass" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>Fuel mass [kg]</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="vosMass" minOccurs="0" type="doubleBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Volatile organic substances mass [kg]</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="pm10Mass" minOccurs="0" type="doubleBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Particulate matter PM10 mass [kg]</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="noxMass" minOccurs="0" type="doubleBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>NOx mass [kg]</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="pakMass" minOccurs="0" type="doubleBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Polycyclic aromatic hydrocarbons (PAK) mass [kg]</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="benzMass" minOccurs="0" type="doubleBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Benzene mass [kg]</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="pbMass" minOccurs="0" type="doubleBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Lead (Pb) mass [kg]</xsd:documentation>
+                            <xsd:documentation>Grid-wide total benzene (C6H6) mass, summed over all grid points [kg]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="co2Mass" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>CO2 mass [kg]</xsd:documentation>
+                            <xsd:documentation>Grid-wide total carbon dioxide (CO2) mass, summed over all grid points [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="coMass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Grid-wide total carbon monoxide (CO) mass, summed over all grid points [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="fuelMass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Grid-wide total fuel burnt, summed over all grid points [kg]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="h2oMass" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>H2O mass [kg]</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="so2Mass" minOccurs="0" type="doubleBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>SO2 mass [kg]</xsd:documentation>
+                            <xsd:documentation>Grid-wide total water vapour (H2O) mass, summed over all grid points [kg]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="hcMass" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
+                            <xsd:documentation>Grid-wide total total hydrocarbon (HC) mass, summed over all grid points [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="noxMass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Grid-wide total NOx mass, summed over all grid points [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="pahMass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Grid-wide total polycyclic aromatic hydrocarbon (PAH, also denoted PAK) mass, summed over all grid points [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="pbMass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Grid-wide total lead (Pb) mass, summed over all grid points [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="pm10Mass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Grid-wide total particulate matter PM10 mass, summed over all grid points [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="pm25Mass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Grid-wide total particulate matter PM2.5 mass, summed over all grid points [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="so2Mass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Grid-wide total sulphur dioxide (SO2) mass, summed over all grid points [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="soxMass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Grid-wide total SOx mass, summed over all grid points [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="vocMass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Grid-wide total volatile organic compound (VOC, also denoted VOS) mass, summed over all grid points [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="emissionDataGridPointsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Grid point data of the emission data of an airport assessment case</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>The emission data is stored as a list of grid points, not as
+                            separate axis vectors spanning a regular grid. All vectors of this node
+                            must have the same length and are read index by index, so that each
+                            index refers to exactly one grid point.
+                        </ddue:para>
+                        <ddue:para>The latitude, longitude, altitude and time vectors are the input
+                            nodes: they locate the grid point in space and time. The remaining vectors
+                            are the results: the fuel burnt and the mass of each species emitted at
+                            that grid point.
+                        </ddue:para>
+                        <ddue:para>The time vector holds the time of day as hh:mm. The calendar date is
+                            not repeated here: it follows from the schedule referenced by
+                            specification/scheduleUID. Grid points are therefore resolved by time of
+                            day, and a case covering more than one day aggregates all points sharing
+                            the same hh:mm.
+                        </ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="latitude" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Latitude coordinate [deg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="longitude" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Longitude coordinate [deg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="altitude" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Altitude above mean sea level [m]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="time" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Time of day of the grid point as hh:mm (vector)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringVectorBaseType">
+                                    <xsd:pattern value="([01][0-9]|2[0-3]):[0-5][0-9](;([01][0-9]|2[0-3]):[0-5][0-9])*"/>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="benzeneMass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Benzene (C6H6) mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="co2Mass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Carbon dioxide (CO2) mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="coMass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Carbon monoxide (CO) mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="fuelMass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Fuel burnt [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="h2oMass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Water vapour (H2O) mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="hcMass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
                             <xsd:documentation>Total hydrocarbon (HC) mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="noxMass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>NOx mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="pahMass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Polycyclic aromatic hydrocarbon (PAH, also denoted PAK) mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="pbMass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Lead (Pb) mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="pm10Mass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Particulate matter PM10 mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="pm25Mass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Particulate matter PM2.5 mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="so2Mass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Sulphur dioxide (SO2) mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="soxMass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>SOx mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="vocMass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Volatile organic compound (VOC, also denoted VOS) mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="emissionDataType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Emission data for an airport assessment case</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>The emission data may be given as a list of grid points resolved
+                            in space and time in gridPoints, as grid-wide totals in global, or both.
+                            If both are given, the values in global are expected to be consistent
+                            with the sums over the corresponding gridPoints vectors.
+                        </ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="gridPoints" minOccurs="0" type="emissionDataGridPointsType">
+                        <xsd:annotation>
+                            <xsd:documentation>Grid point data of the emission grid, resolved in space and time</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="global" minOccurs="0" type="emissionDataGlobalType">
+                        <xsd:annotation>
+                            <xsd:documentation>Grid-wide totals of the emission species, summed over all grid points</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:all>
@@ -14601,6 +15080,41 @@ cpacs@dlr.de
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="fleetCompositionType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Fleet composition</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>The composition of a fleet can be described either by individually
+                        identified vehicles (<ddue:legacyItalic>specificVehicles</ddue:legacyItalic>), by
+                        vehicle groups represented by average properties
+                        (<ddue:legacyItalic>averageVehicles</ddue:legacyItalic>), or by a combination of
+                        both.</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="specificVehicles" minOccurs="0" type="specificVehiclesType">
+                        <xsd:annotation>
+                            <xsd:documentation>Individually identified vehicles of the fleet</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="averageVehicles" minOccurs="0" type="averageVehiclesType">
+                        <xsd:annotation>
+                            <xsd:documentation>Groups of vehicles of the fleet described by average properties</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="fleetsType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -14632,7 +15146,7 @@ cpacs@dlr.de
         </xsd:annotation>
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
-                <xsd:all>
+                <xsd:sequence>
                     <xsd:element name="name" type="stringBaseType">
                         <xsd:annotation>
                             <xsd:documentation>Name of fleet</xsd:documentation>
@@ -14643,18 +15157,24 @@ cpacs@dlr.de
                             <xsd:documentation>Description of the fleet</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="scheduleUID" minOccurs="0" type="stringUIDBaseType">
+                    <xsd:choice minOccurs="0">
+                        <xsd:element name="scheduleUID" type="stringUIDBaseType">
+                            <xsd:annotation>
+                                <xsd:documentation>UID of the corresponding schedule. The fleet operates all flights of that schedule.</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="flights" type="uIDSequenceType">
+                            <xsd:annotation>
+                                <xsd:documentation>Explicit list of flight uIDs operated by this fleet. Used instead of scheduleUID if not all flights within a schedule are to be accounted for.</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:choice>
+                    <xsd:element name="composition" type="fleetCompositionType">
                         <xsd:annotation>
-                            <xsd:documentation>UID of the corresponding schedule</xsd:documentation>
+                            <xsd:documentation>Composition of the fleet</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="flights" minOccurs="0" type="uIDSequenceType">
-                        <xsd:annotation>
-                            <xsd:documentation>List of uIDs used in the schedule. This is needed if not all flights within a schedule are to be accounted for.</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="vehicleComposition" type="vehicleCompositionType"/>
-                </xsd:all>
+                </xsd:sequence>
                 <xsd:attribute name="uID" use="required" type="xsd:ID"/>
             </xsd:extension>
         </xsd:complexContent>
@@ -15891,16 +16411,31 @@ cpacs@dlr.de
         </xsd:annotation>
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
-                <xsd:all>
-                    <xsd:element name="vehicleUID" type="stringUIDBaseType"/>
+                <xsd:sequence>
+                    <xsd:choice>
+                        <xsd:element name="vehicleUID" type="stringUIDBaseType">
+                            <xsd:annotation>
+                                <xsd:documentation>Reference to the uID of a vehicle (cpacs/vehicles/aircraft/model)</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="specificVehicleUID" type="stringUIDBaseType">
+                            <xsd:annotation>
+                                <xsd:documentation>Reference to the uID of a specific vehicle of a fleet (cpacs/airline/fleets/fleet/composition/specificVehicles/specificVehicle)</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="averageVehicleUID" type="stringUIDBaseType">
+                            <xsd:annotation>
+                                <xsd:documentation>Reference to the uID of an average vehicle of a fleet (cpacs/airline/fleets/fleet/composition/averageVehicles/averageVehicle)</xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:choice>
                     <xsd:element name="weight" minOccurs="0" type="flightVehicleWeightType"/>
                     <xsd:element name="energyCarrierUID" minOccurs="0" type="stringUIDBaseType">
                         <xsd:annotation>
                             <xsd:documentation>Reference to predefined energy carrier to be used for this flight (defined at cpacs/vehicles/energyCarriers)</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="tailsign" minOccurs="0" type="stringBaseType"/>
-                </xsd:all>
+                </xsd:sequence>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
@@ -34274,6 +34809,87 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="specificVehiclesType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Specific vehicles</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="specificVehicle" maxOccurs="unbounded" type="specificVehicleType">
+                        <xsd:annotation>
+                            <xsd:documentation>Specific vehicle</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="specificVehicleType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Specific vehicle</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>An individually identified vehicle of a fleet, i.e. a single airframe.
+                        Its properties refer to that one vehicle only.</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="name" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Name of the vehicle</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="vehicleUID" type="stringUIDBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>UID of the vehicle (cpacs/vehicles/aircraft/model)</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="age" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Age of the vehicle</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="averageFlightTime" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Average flight time of the vehicle [s]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="annualFlightCycles" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Annual flight cycles of the vehicle</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="annualFlightHours" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Annual flight hours of the vehicle</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="tailsign" minOccurs="0" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Tailsign (registration) of the vehicle</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+                <xsd:attribute name="uID" use="required" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="speedDesignatorsType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -37169,29 +37785,6 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         </xsd:complexContent>
     </xsd:complexType>
 
-    <xsd:complexType name="vehicleCompositionType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>Vehicle composition</ddue:para>
-                    </ddue:summary>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:complexContent>
-            <xsd:extension base="complexBaseType">
-                <xsd:sequence>
-                    <xsd:element name="vehicle" maxOccurs="unbounded" type="vehicleOfVehicleCompositiontypeType">
-                        <xsd:annotation>
-                            <xsd:documentation>Vehicle</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                </xsd:sequence>
-            </xsd:extension>
-        </xsd:complexContent>
-    </xsd:complexType>
-
     <xsd:complexType name="vehicleConfigurationsType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -37260,64 +37853,6 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     </xsd:element>
                 </xsd:all>
                 <xsd:attribute name="uID" use="required" type="xsd:ID"/>
-            </xsd:extension>
-        </xsd:complexContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="vehicleOfVehicleCompositiontypeType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>Vehicle</ddue:para>
-                    </ddue:summary>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:complexContent>
-            <xsd:extension base="complexBaseType">
-                <xsd:all>
-                    <xsd:element name="name" type="stringBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Name of the aircraft</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="vehicleUID" type="stringUIDBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>UID of the vehicle (cpacs/vehicles/aircraft/model)</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="numberOfVehicles" type="integerBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Number of vehicles</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="averageAge" minOccurs="0" type="doubleBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Aveage age</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="averageFlightTime" minOccurs="0" type="doubleBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Aveage flight time</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="averageAnnualFlightCycles" minOccurs="0" type="doubleBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Aveage annual flight cycles</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="averageAnnualFlightHours" minOccurs="0" type="doubleBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Aveage annual flight hours</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="tailsign" minOccurs="0" type="stringBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Tailsign</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
