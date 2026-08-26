@@ -3379,10 +3379,31 @@ cpacs@dlr.de
                             <xsd:documentation>Description</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="specification" type="airportAssessmentSpecificationType"/>
-                    <xsd:element name="acousticData" minOccurs="0" type="acousticDataType"/>
-                    <xsd:element name="emissionData" minOccurs="0" type="emissionDataType"/>
-                    <xsd:element name="riskData" minOccurs="0" type="riskDataType"/>
+                    <xsd:element name="specification" type="airportAssessmentSpecificationType">
+                        <xsd:annotation>
+                            <xsd:documentation>General specification of the assessment case, i.e. the references to the airport, the schedule and the trajectories the assessment is based on, the reference assessment case(s) it is compared against, and the years it covers.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="acousticData" minOccurs="0" type="acousticDataType">
+                        <xsd:annotation>
+                            <xsd:documentation>Acoustic results of the assessment case, given as one or more noise contours.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="emissionData" minOccurs="0" type="emissionDataType">
+                        <xsd:annotation>
+                            <xsd:documentation>Emission results of the assessment case, given as LTO-cycle total masses of the fuel burnt and of the individual emitted species [kg].</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="riskData" minOccurs="0" type="riskDataType">
+                        <xsd:annotation>
+                            <xsd:documentation>Third-party risk results of the assessment case, given as one or more risk contours.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="socialCostBenefitAnalysisData" minOccurs="0" type="socialCostBenefitAnalysisDataType">
+                        <xsd:annotation>
+                            <xsd:documentation>Social cost-benefit analysis (SCBA) results for this assessment case. All values are annualised welfare effects in millions of Euro per year [MEuro/year], at the price level given by the priceLevel node. Sign convention: benefit-positive with respect to the reference case, i.e. a positive value is a welfare gain and a negative value a welfare loss. This holds without exception, including for nodes named after costs: an increase in external or implementation costs is reported as a negative value. See the type documentation of socialCostBenefitAnalysisDataType for the aggregation rules.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
                 </xsd:all>
                 <xsd:attribute name="uID" use="required" type="xsd:ID"/>
             </xsd:extension>
@@ -3424,6 +3445,21 @@ cpacs@dlr.de
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
+                    <xsd:element name="assessmentCaseUIDs" minOccurs="0" type="stringVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Reference to the uIDs of one or more other airport assessment
+                                cases (vector)
+                                (/cpacs/studies/airportAssessment/assessmentCase).
+                                Following the CPACS convention for vector nodes, the uIDs are
+                                given as a semicolon-separated list, e.g.
+                                "assessmentCase_2030_reference;assessmentCase_2030_measure".
+                                This allows an assessment case to refer to other assessment
+                                cases, for example to identify the reference case(s) against
+                                which the results of this case are to be interpreted.
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
                     <xsd:element name="year" minOccurs="0" type="posIntVectorBaseType">
                         <xsd:annotation>
                             <xsd:documentation>Vector of years used for this assessment case.</xsd:documentation>
@@ -3447,7 +3483,11 @@ cpacs@dlr.de
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
                 <xsd:sequence>
-                    <xsd:element name="assessmentCase" maxOccurs="unbounded" type="airportAssessmentCaseType"/>
+                    <xsd:element name="assessmentCase" maxOccurs="unbounded" type="airportAssessmentCaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Single airport assessment case, comprising its specification and the acoustic, emission, risk and social cost-benefit analysis results.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
                 </xsd:sequence>
             </xsd:extension>
         </xsd:complexContent>
@@ -3709,6 +3749,35 @@ cpacs@dlr.de
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="airTransportSystemSocialCostBenefitAnalysisType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Social cost-benefit analysis at air transport system level</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>This node is independent of socialCostBenefitAnalysisDataType, which reports SCBA results for a single airport assessment case. The two share the benefit-positive sign convention and the monetary unit, but not their structure: the airport level node reports annualised welfare effects [MEuro/year], whereas the values below this node are present values discounted at the social discount rate of the respective assessment case. Both the discount rate and the price level are stated per assessment case rather than once for the analysis.</ddue:para>
+                        <ddue:para>Unlike the sibling assessments under /cpacs/studies/airTransportSystem, i.e. trafficAssessment, noiseExposureAssessment and climateImpactAssessment, which report their results as parallel vectors, every value below this node is a scalar. One assessment case holds one regional result per region, and one regional result holds one value per welfare component.</ddue:para>
+                        <ddue:para>An assessment case fixes one scenario and one choice of each assumption, and holds one regional result per region. The regions form a disjoint partition, so aggregates such as the European Union total, the EEA and United Kingdom total or the world total are obtained by summation over the regional results of an assessment case and are not stored.</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+            <xsd:documentation>Social cost-benefit analysis (SCBA) carried out at air transport system level. The node holds a set of assessment cases; each case states its own specification, i.e. the scenario and the assumptions made by the model owner, and reports the resulting welfare components per region. All monetary values below this node are present values expressed in millions of Euro [MEuro], discounted at the social discount rate of the respective assessment case and referring to the price level given by the priceLevel node of that case. Sign convention: benefit-positive with respect to the reference scenario, i.e. a positive value denotes a welfare gain and a negative value a welfare loss. This applies without exception, including to nodes whose names refer to costs: an increase in a cost relative to the reference scenario is reported as a negative value. As a consequence of the sign convention, netSocialWelfareImpact is obtained by summation of the welfare components reported alongside it. The values are differential quantities and are only meaningful with respect to a reference scenario.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="assessmentCases" type="socialCostBenefitAnalysisAssessmentCasesType">
+                        <xsd:annotation>
+                            <xsd:documentation>Assessment cases of the social cost-benefit analysis, one per combination of scenario and assumptions.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="airTransportSystemStudyType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -3726,6 +3795,11 @@ cpacs@dlr.de
                     <xsd:element name="trafficAssessment" minOccurs="0" type="trafficAssessmentType"/>
                     <xsd:element name="noiseExposureAssessment" minOccurs="0" type="noiseExposureAssessmentType"/>
                     <xsd:element name="climateImpactAssessment" minOccurs="0" type="climateImpactAssessmentType"/>
+                    <xsd:element name="socialCostBenefitAnalysis" minOccurs="0" type="airTransportSystemSocialCostBenefitAnalysisType">
+                        <xsd:annotation>
+                            <xsd:documentation>Social cost-benefit analysis (SCBA) results at air transport system level, given as a set of assessment cases. All values are present values in millions of Euro [MEuro] at the price level given by the priceLevel node. Sign convention: benefit-positive with respect to the reference scenario, i.e. a positive value is a welfare gain and a negative value a welfare loss. This holds without exception, including for nodes named after costs: an increase in a cost is reported as a negative value. See the type documentation of airTransportSystemSocialCostBenefitAnalysisType for the aggregation rules.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
@@ -6335,6 +6409,173 @@ cpacs@dlr.de
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="climateCaseSpecificationType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Specification</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Boundary conditions under which the climate results of this assessment case were produced. Region, scenario type and energy source together identify the case; the optional emissionGridUID keeps the traceability link to the emission inventory the calculation was based on.</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+            <xsd:documentation>Boundary conditions identifying the climate impact assessment case.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="region">
+                        <xsd:annotation>
+                            <xsd:documentation>Region whose air traffic emissions are covered by this assessment case, according to the IM2 region definition (see project teamsite). The region refers to the origin of the emissions, not to the geographical extent of the climate response, which is always global. Allowed values: EU, EU_Outermost, EFTA_UK, restOfWorld, global. (Note: Please contact CPACS support to add additional regions)</xsd:documentation>
+                        </xsd:annotation>
+                            <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringBaseType">
+                                    <xsd:enumeration value="EU">
+                                        <xsd:annotation>
+                                            <xsd:documentation>Air traffic of EU Member States (except EU outermost regions - see definition of EU_Outermost)</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:enumeration>
+                                    <xsd:enumeration value="EU_Outermost">
+                                        <xsd:annotation>
+                                            <xsd:documentation>Air traffic of EU Outermost regions (islands of France, Spain and Portugal located in continents different than Europe)</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:enumeration>
+                                    <xsd:enumeration value="EFTA_UK">
+                                        <xsd:annotation>
+                                            <xsd:documentation>Air traffic of Iceland, Liechtenstein, Norway, Switzerland and UK</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:enumeration>
+                                    <xsd:enumeration value="restOfWorld">
+                                        <xsd:annotation>
+                                            <xsd:documentation>Air traffic of all countries of the world not included in the previous three regions</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:enumeration>
+                                    <xsd:enumeration value="global">
+                                        <xsd:annotation>
+                                            <xsd:documentation>Global air traffic, i.e. all regions considered together</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:enumeration>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="scenarioType" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Scenario identifier (e.g. REF, SIM). The same identifier is used in the scenarioType vector of the aggregated results, so that an assessment case can be matched to its aggregated records.
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="energySource">
+                        <xsd:annotation>
+                            <xsd:documentation>Energy source assumed for the air traffic of this assessment case (kerosene | saf | hydrogen | electricity | mixed). Use mixed if the case combines several energy sources; the share of each source is then part of the underlying fleet or schedule definition. (Note: Please contact CPACS support to add additional energy sources)</xsd:documentation>
+                        </xsd:annotation>
+                            <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringBaseType">
+                                    <xsd:enumeration value="kerosene">
+                                        <xsd:annotation>
+                                            <xsd:documentation>Conventional fossil jet fuel</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:enumeration>
+                                    <xsd:enumeration value="saf">
+                                        <xsd:annotation>
+                                            <xsd:documentation>Sustainable aviation fuel</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:enumeration>
+                                    <xsd:enumeration value="hydrogen">
+                                        <xsd:annotation>
+                                            <xsd:documentation>Hydrogen, either burned in a combustion engine or used in a fuel cell</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:enumeration>
+                                    <xsd:enumeration value="electricity">
+                                        <xsd:annotation>
+                                            <xsd:documentation>Electric energy stored on board, e.g. in batteries</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:enumeration>
+                                    <xsd:enumeration value="mixed">
+                                        <xsd:annotation>
+                                            <xsd:documentation>Combination of several energy sources within the same scenario</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:enumeration>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="emissionGridUID" minOccurs="0" type="stringUIDBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                uID of the corresponding emission grid. Optional, since an assessment case may be based on the emissions of several schedules from different years and therefore on more than one emission grid.
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="climateCasesType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Climate impact assessment cases</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Container for the case-resolved climate impact results. Each assessment case holds its own specification (region, scenario type, energy source) and the corresponding climate data (metrics, radiative forcing and temperature response time series).</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+            <xsd:documentation>Container for the case-resolved climate impact results.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="assessmentCase" maxOccurs="unbounded" type="climateCaseType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="climateCaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Climate impact assessment case</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+            <xsd:documentation>One climate impact assessment case, i.e. one combination of region, scenario type and energy source together with the climate results computed for it.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="name" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Name
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="description" minOccurs="0" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Description
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="specification" type="climateCaseSpecificationType"/>
+                    <xsd:element name="climateData" type="climateDataType"/>
+                </xsd:all>
+                <xsd:attribute name="uID" use="required" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="climateCo2EquivalentEmissionsType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -6523,10 +6764,11 @@ cpacs@dlr.de
                         <ddue:para>Climate impact assessment</ddue:para>
                     </ddue:summary>
                     <ddue:remarks>
-                        <ddue:para>Aggregated results stored as parallel semicolon-separated vectors. All vectors must have the same length; each index position represents one aggregated record.</ddue:para>
+                        <ddue:para>The node holds the climate impact results on two levels of detail. The aggregated level is stored directly below this node as parallel semicolon-separated vectors; all these vectors must have the same length and each index position represents one aggregated record. The refined level is stored below assessmentCases, where each assessment case provides the full set of climate metrics and the species-resolved time series.</ddue:para>
                     </ddue:remarks>
                 </sd:schemaDoc>
             </xsd:appinfo>
+            <xsd:documentation>Climate impact assessment of the air transport system, holding both the aggregated results and the refined, case-resolved climate metrics.</xsd:documentation>
         </xsd:annotation>
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
@@ -6587,6 +6829,13 @@ cpacs@dlr.de
                     <xsd:element name="nonCo2ClimateImpact" minOccurs="0" type="doubleVectorBaseType">
                         <xsd:annotation>
                             <xsd:documentation>Non-CO2 climate impact contribution</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="assessmentCases" minOccurs="0" type="climateCasesType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Case-resolved climate impact results underlying the aggregated vectors above. Whereas the aggregated records give one CO2 and one non-CO2 value per year, region and scenario type, each assessment case below carries the full set of climate metrics (e.g. ATR, AGWP, AGTP, RF) and the species-resolved radiative forcing and temperature response time series. An assessment case is not restricted to a single schedule and may therefore combine the emissions of several schedules covering different years.
+                            </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:all>
@@ -6693,10 +6942,17 @@ cpacs@dlr.de
                             </xsd:simpleContent>
                         </xsd:complexType>
                     </xsd:element>
+                    <xsd:element name="startingYear" type="integerBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Calendar year from which the metric and its time horizon are calculated. The metric therefore covers the period from startingYear to startingYear + timeHorizon. Since an assessment case may combine the emissions of schedules from several years, this node is required to interpret the metric values unambiguously.
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
                     <xsd:element name="timeHorizon" type="integerBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
-                                Time horizon for the metric [years]
+                                Time horizon for the metric [years], counted from startingYear
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
@@ -6872,10 +7128,10 @@ cpacs@dlr.de
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
                 <xsd:all>
-                    <xsd:element name="emissionGridUID" type="stringUIDBaseType">
+                    <xsd:element name="trajectoryUID" type="stringUIDBaseType">
                         <xsd:annotation>
                             <xsd:documentation>
-                                uID of the corresponding emission grid
+                                UID of the corresponding trajectory
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
@@ -13573,7 +13829,7 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>Time of day of the grid point as hh:mm (vector)</xsd:documentation>
                         </xsd:annotation>
-                        <xsd:complexType>
+                            <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringVectorBaseType">
                                     <xsd:pattern value="([01][0-9]|2[0-3]):[0-5][0-9](;([01][0-9]|2[0-3]):[0-5][0-9])*"/>
@@ -13709,6 +13965,8 @@ cpacs@dlr.de
                             The values are therefore redundant with the gridPoints data and are
                             provided for convenience, e.g. for reporting and for tools that only
                             require aggregated quantities.
+                            The species set is identical to the one used below gridPoints
+                            and below analyses/emissions.
                         </ddue:para>
                     </ddue:remarks>
                 </sd:schemaDoc>
@@ -13717,19 +13975,49 @@ cpacs@dlr.de
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
                 <xsd:all>
-                    <xsd:element name="co2Mass" minOccurs="0" type="doubleBaseType">
+                    <xsd:element name="fuelMass" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>Grid-wide total CO2 mass, summed over all grid points [kg]</xsd:documentation>
+                            <xsd:documentation>Grid-wide total fuel mass, summed over all grid points [kg]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="noxMass" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>Grid-wide total NOx mass, summed over all grid points [kg]</xsd:documentation>
+                            <xsd:documentation>Grid-wide total nOx mass, summed over all grid points [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="noxMassHumid" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Grid-wide total nOx mass humid, summed over all grid points [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="co2Mass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Grid-wide total cO2 mass, summed over all grid points [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="coMass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Grid-wide total cO mass, summed over all grid points [kg]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="h2oMass" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>Grid-wide total H2O mass, summed over all grid points [kg]</xsd:documentation>
+                            <xsd:documentation>Grid-wide total h2O mass, summed over all grid points [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="so2Mass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Grid-wide total sO2 mass, summed over all grid points [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="hcMass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Grid-wide total hC mass, summed over all grid points [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="sootMass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Grid-wide total soot mass, summed over all grid points [kg]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:all>
@@ -13747,6 +14035,8 @@ cpacs@dlr.de
                     <ddue:remarks>
                         <ddue:para>All vectors of this node must have the same length.
                             Each index refers to one grid point.
+                            The species set is identical to the one used below analyses/emissions
+                            and below emissionGrid/global.
                         </ddue:para>
                     </ddue:remarks>
                 </sd:schemaDoc>
@@ -13772,12 +14062,7 @@ cpacs@dlr.de
                     </xsd:element>
                     <xsd:element name="fuelMass" minOccurs="0" type="doubleVectorBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>Fuel [kg]</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="co2Mass" minOccurs="0" type="doubleVectorBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>CO2 mass [kg]</xsd:documentation>
+                            <xsd:documentation>Fuel mass [kg]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="noxMass" minOccurs="0" type="doubleVectorBaseType">
@@ -13785,9 +14070,39 @@ cpacs@dlr.de
                             <xsd:documentation>NOx mass [kg]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
+                    <xsd:element name="noxMassHumid" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>NOx mass humid [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="co2Mass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>CO2 mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="coMass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>CO mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
                     <xsd:element name="h2oMass" minOccurs="0" type="doubleVectorBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>H20 mass [kg]</xsd:documentation>
+                            <xsd:documentation>H2O mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="so2Mass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>SO2 mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="hcMass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>HC mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="sootMass" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Soot mass [kg]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="distance" minOccurs="0" type="doubleVectorBaseType">
@@ -13870,12 +14185,21 @@ cpacs@dlr.de
                     <ddue:summary>
                         <ddue:para>Emissions</ddue:para>
                     </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Totals of the emitted species. The species set is identical to the one used below emissionGrid/gridPoints (per grid point) and emissionGrid/global (grid-wide totals), so that the three representations can be compared and cross-checked directly.</ddue:para>
+                    </ddue:remarks>
                 </sd:schemaDoc>
             </xsd:appinfo>
+            <xsd:documentation>Totals of the emitted species, using the same species set as the emission grid nodes.</xsd:documentation>
         </xsd:annotation>
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
                 <xsd:all>
+                    <xsd:element name="fuelMass" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Fuel mass [kg]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
                     <xsd:element name="noxMass" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>NOx mass [kg]</xsd:documentation>
@@ -33551,7 +33875,6 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                 <xsd:all>
                     <xsd:element name="emissions" minOccurs="0" type="emissionsType"/>
                     <xsd:element name="emissionGrids" minOccurs="0" type="emissionGridsType"/>
-                    <xsd:element name="climate" minOccurs="0" type="flightClimateType"/>
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
@@ -34251,6 +34574,348 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="skinSegments" minOccurs="0" type="skinSegmentsType"/>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="socialCostBenefitAnalysisAssessmentCasesType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Social cost-benefit analysis assessment cases</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+            <xsd:documentation>Assessment cases of an air transport system level social cost-benefit analysis.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="assessmentCase" maxOccurs="unbounded" type="socialCostBenefitAnalysisAssessmentCaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Single social cost-benefit analysis assessment case, comprising its specification and one regional result per region.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="socialCostBenefitAnalysisAssessmentCaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Social cost-benefit analysis assessment case</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+            <xsd:documentation>Single assessment case of an air transport system level social cost-benefit analysis. The specification fixes the scenario and every assumption made by the model owner, so that the case is interpretable without reference to any other node; the regional results report the resulting welfare components, one set per region.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="name" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Name of the assessment case.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="description" minOccurs="0" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Description of what the assessment case is intended to show.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="specification" type="socialCostBenefitAnalysisSpecificationType">
+                        <xsd:annotation>
+                            <xsd:documentation>General specification of the assessment case, i.e. the scenario it evaluates and the assumptions on discounting, monetary valuation and emission accounting it is based on.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="regionalResults" type="socialCostBenefitAnalysisRegionalResultsType">
+                        <xsd:annotation>
+                            <xsd:documentation>Welfare results of the assessment case, given per region.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+                <xsd:attribute name="uID" use="required" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:simpleType name="socialCostBenefitAnalysisAssumptionLevelType">
+        <xsd:annotation>
+            <xsd:documentation>Level of ambition of an assumption made by the model owner, used for sensitivity analysis.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="noImpact">
+                <xsd:annotation>
+                    <xsd:documentation>The corresponding effect is excluded from the analysis altogether.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="low">
+                <xsd:annotation>
+                    <xsd:documentation>Low estimate of the assumption.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="central">
+                <xsd:annotation>
+                    <xsd:documentation>Central, i.e. best, estimate of the assumption.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="high">
+                <xsd:annotation>
+                    <xsd:documentation>High estimate of the assumption.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="socialCostBenefitAnalysisDataType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Social cost-benefit analysis (SCBA) results for an airport
+                            assessment case</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>All values are annualised monetary quantities expressed in
+                            millions of Euro per year [MEuro/year]. The price level the values
+                            refer to is given by the optional priceLevel node.</ddue:para>
+                        <ddue:para>Sign convention: all values are welfare effects and follow a
+                            benefit-positive convention. A positive value denotes a welfare gain
+                            (benefit), a negative value denotes a welfare loss (cost), in both
+                            cases with respect to the reference case. This convention applies to
+                            all nodes without exception, including those whose names refer to
+                            costs: an increase in external costs or in implementation costs
+                            relative to the reference case is therefore reported as a negative
+                            value.</ddue:para>
+                        <ddue:para>The direct effects (passengers, operators) and the external
+                            effects (CO2 emissions, air pollution, noise, accidents) are the
+                            individual welfare contributions considered in the analysis.
+                            The node totalExternalCosts aggregates the external effects, while
+                            socialWelfare represents the resulting overall welfare balance,
+                            including the implementation costs.</ddue:para>
+                        <ddue:para>As a consequence of the sign convention, the aggregated nodes
+                            are obtained by summation of their contributions:</ddue:para>
+                        <ddue:para>totalExternalCosts = co2Emissions + airPollution + noise +
+                            accidents</ddue:para>
+                        <ddue:para>socialWelfare = directEffectPassengers +
+                            directEffectOperators + totalExternalCosts +
+                            implementationCosts</ddue:para>
+                        <ddue:para>The values are differential quantities and are therefore
+                            only meaningful with respect to a reference case. The reference
+                            case(s) may be identified via the assessmentCaseUIDs node in
+                            /cpacs/studies/airportAssessment/assessmentCase/specification.
+                        </ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="priceLevel" minOccurs="0" type="posExcl0IntBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Reference year of the price level all monetary values in this node are expressed in, e.g. 2020 for values given in 2020 prices. Note that this is the price base year and not necessarily the year the assessment case refers to, which is given in /cpacs/studies/airportAssessment/assessmentCase/specification/year</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="directEffectPassengers" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Direct welfare effect for passengers, e.g. resulting from changes in travel time, reliability and ticket prices [MEuro/year]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="directEffectOperators" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Direct welfare effect for operators, e.g. resulting from changes in operating costs and revenues of the airlines and the airport [MEuro/year]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="co2Emissions" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>External effect of CO2 emissions [MEuro/year]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="airPollution" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>External effect of air pollutant emissions (e.g. NOx, PM10, SO2) on air quality and health [MEuro/year]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="noise" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>External effect of aircraft noise exposure on the population around the airport [MEuro/year]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="accidents" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>External effect of third-party accident risk in the vicinity of the airport [MEuro/year]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="totalExternalCosts" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Total external costs, aggregating the individual external effects (CO2 emissions, air pollution, noise and accidents) [MEuro/year]. Following the benefit-positive sign convention, an increase in external costs relative to the reference case is reported as a negative value</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="implementationCosts" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Costs for implementing and operating the measure assessed in this assessment case, e.g. investment, maintenance and operating costs [MEuro/year]. Following the benefit-positive sign convention, these costs are reported as a negative value</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="socialWelfare" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Resulting overall social welfare balance of the assessment case [MEuro/year]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+                <xsd:attribute name="uID" type="xsd:ID">
+                    <xsd:annotation>
+                        <xsd:documentation>UID of the social cost-benefit analysis data</xsd:documentation>
+                    </xsd:annotation>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="socialCostBenefitAnalysisRegionalResultsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Social cost-benefit analysis regional results</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+            <xsd:documentation>Welfare results of a social cost-benefit analysis assessment case, given per region. The regions form a disjoint partition, therefore results over any subset of them may be added up without double counting.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="regionalResult" maxOccurs="unbounded" type="socialCostBenefitAnalysisRegionalResultType">
+                        <xsd:annotation>
+                            <xsd:documentation>Welfare components of the assessment case, aggregated over one region.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="socialCostBenefitAnalysisRegionalResultType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Social cost-benefit analysis result for a single region</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+            <xsd:documentation>Welfare components of a social cost-benefit analysis assessment case, aggregated over one region. All values are present values in millions of Euro [MEuro] at the price level of the analysis. Sign convention: benefit-positive with respect to the reference scenario, i.e. a positive value denotes a welfare gain and a negative value a welfare loss. This applies without exception, including to nodes whose names refer to costs: an increase in a cost relative to the reference scenario is reported as a negative value. The welfare components are optional so that a tool reports only what it actually computes; netSocialWelfareImpact is the plain sum of the components present.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="region" type="socialCostBenefitAnalysisRegionType">
+                        <xsd:annotation>
+                            <xsd:documentation>Region the welfare components of this node are aggregated over.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="changeInConsumerSurplus" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Change in the surplus of air transport users, i.e. the difference between what passengers are willing to pay and what they actually pay [MEuro]. Following the benefit-positive sign convention, a positive value denotes a welfare gain.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="changeInNoiseCost" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Change in the cost of aircraft noise exposure borne by the population around airports [MEuro]. Following the benefit-positive sign convention, a positive value denotes a cost avoided relative to the reference scenario and therefore a welfare gain, whereas an increase in this cost is reported as a negative value.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="changeInGreenhouseGasCost" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Change in the cost of greenhouse gas emissions of aviation. The life cycle scope of the accounted emissions is given by the wellToWakeEmissionAssumption node of the specification [MEuro]. Following the benefit-positive sign convention, a positive value denotes a cost avoided relative to the reference scenario and therefore a welfare gain, whereas an increase in this cost is reported as a negative value.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="changeInNonCo2ClimateCost" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Change in the cost of the climate impact of aviation effects other than carbon dioxide, such as contrail cirrus, nitrogen oxides and water vapour [MEuro]. Following the benefit-positive sign convention, a positive value denotes a cost avoided relative to the reference scenario and therefore a welfare gain, whereas an increase in this cost is reported as a negative value.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="netSocialWelfareImpact" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Resulting overall social welfare balance for this region, obtained by summation of the welfare components reported in this node [MEuro]. No weighting is applied to the components. A positive value denotes a net welfare gain of the assessed scenario relative to the reference scenario</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:simpleType name="socialCostBenefitAnalysisRegionType">
+        <xsd:annotation>
+            <xsd:documentation>Region a social cost-benefit analysis regional result is aggregated over. The values form a disjoint partition of the world, so that aggregates are obtained by summation and are not stored.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="EU">
+                <xsd:annotation>
+                    <xsd:documentation>Member states of the European Union, excluding their outermost regions.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="EU_Outermost">
+                <xsd:annotation>
+                    <xsd:documentation>Outermost regions of the European Union as defined in the Treaty on the Functioning of the European Union.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="EFTA_UK">
+                <xsd:annotation>
+                    <xsd:documentation>Member states of the European Free Trade Association together with the United Kingdom.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="restOfWorld">
+                <xsd:annotation>
+                    <xsd:documentation>All regions not covered by the other values.</xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="socialCostBenefitAnalysisSpecificationType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Social cost-benefit analysis case specification</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+            <xsd:documentation>General specification of a social cost-benefit analysis assessment case. The scenarioType node names which air transport system state was evaluated; the remaining nodes state the assumptions made by the model owner, which are not derivable from the CPACS input data. Only scenarioType is mandatory. A tool should nevertheless write every node it has a value for: an assumption that is omitted cannot be recovered from the file, and results produced under different assumptions then become indistinguishable from one another.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="scenarioType" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Scenario identifier (e.g. REF, SIM), naming the air transport system state that was evaluated by this assessment case. The identifiers are those used by the scenarioType nodes of the sibling assessments under /cpacs/studies/airTransportSystem, so that an assessment case can be related to the traffic, noise exposure and climate impact results it was derived from.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="socialDiscountRate" minOccurs="0" type="doubleBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Annual social discount rate used to convert the stream of future welfare effects into a present value, given as a dimensionless fraction, e.g. 0.03 for three percent per year.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="monetaryValuationAssumption" minOccurs="0" type="socialCostBenefitAnalysisAssumptionLevelType">
+                        <xsd:annotation>
+                            <xsd:documentation>Level of the unit values used to translate physical impacts into monetary terms, such as the willingness to pay to avoid noise exposure or the shadow price of carbon dioxide.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="wellToWakeEmissionAssumption" minOccurs="0" type="socialCostBenefitAnalysisAssumptionLevelType">
+                        <xsd:annotation>
+                            <xsd:documentation>Level of the emissions accounted over the full energy carrier life cycle, from production of the energy carrier to its use on board the aircraft, including emissions from indirect land use change. The value noImpact excludes these emissions from the analysis.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="priceLevel" minOccurs="0" type="posExcl0IntBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Reference year of the price level the monetary values of this assessment case are expressed in, e.g. 2020 for values given in 2020 prices. Note that this is the price base year and not necessarily the year or years the assessment case refers to. Since the price level is stated per assessment case, cases declaring different price levels are not directly comparable and must be deflated to a common year before their results are set against each other.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
