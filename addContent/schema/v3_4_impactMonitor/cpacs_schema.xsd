@@ -3763,7 +3763,6 @@ cpacs@dlr.de
                     </ddue:remarks>
                 </sd:schemaDoc>
             </xsd:appinfo>
-            <xsd:documentation>Social cost-benefit analysis (SCBA) carried out at air transport system level. The node holds a set of assessment cases; each case states its own specification, i.e. the scenario and the assumptions made by the model owner, and reports the resulting welfare components per region. All monetary values below this node are present values expressed in millions of Euro [MEuro], discounted at the social discount rate of the respective assessment case and referring to the price level given by the priceLevel node of that case. Sign convention: benefit-positive with respect to the reference scenario, i.e. a positive value denotes a welfare gain and a negative value a welfare loss. This applies without exception, including to nodes whose names refer to costs: an increase in a cost relative to the reference scenario is reported as a negative value. As a consequence of the sign convention, netSocialWelfareImpact is obtained by summation of the welfare components reported alongside it. The values are differential quantities and are only meaningful with respect to a reference scenario.</xsd:documentation>
         </xsd:annotation>
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
@@ -3797,7 +3796,7 @@ cpacs@dlr.de
                     <xsd:element name="climateImpactAssessment" minOccurs="0" type="climateImpactAssessmentType"/>
                     <xsd:element name="socialCostBenefitAnalysis" minOccurs="0" type="airTransportSystemSocialCostBenefitAnalysisType">
                         <xsd:annotation>
-                            <xsd:documentation>Social cost-benefit analysis (SCBA) results at air transport system level, given as a set of assessment cases. All values are present values in millions of Euro [MEuro] at the price level given by the priceLevel node. Sign convention: benefit-positive with respect to the reference scenario, i.e. a positive value is a welfare gain and a negative value a welfare loss. This holds without exception, including for nodes named after costs: an increase in a cost is reported as a negative value. See the type documentation of airTransportSystemSocialCostBenefitAnalysisType for the aggregation rules.</xsd:documentation>
+                            <xsd:documentation>Social cost-benefit analysis (SCBA) results at air transport system level, given as a set of assessment cases. Each case states its own specification, i.e. the scenario and the assumptions made by the model owner, and reports the resulting welfare components per region. All values are present values in millions of Euro [MEuro], discounted at the social discount rate of the respective assessment case and referring to the price level given by the priceLevel node of that case. Sign convention: benefit-positive with respect to the reference scenario, i.e. a positive value is a welfare gain and a negative value a welfare loss. This holds without exception, including for nodes named after costs: an increase in a cost is reported as a negative value. As a consequence of the sign convention, netSocialWelfareImpact is obtained by summation of the welfare components reported alongside it. The values are differential quantities and are only meaningful with respect to a reference scenario.</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:all>
@@ -6529,7 +6528,6 @@ cpacs@dlr.de
                     </ddue:remarks>
                 </sd:schemaDoc>
             </xsd:appinfo>
-            <xsd:documentation>Container for the case-resolved climate impact results.</xsd:documentation>
         </xsd:annotation>
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
@@ -34588,14 +34586,13 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     </ddue:summary>
                 </sd:schemaDoc>
             </xsd:appinfo>
-            <xsd:documentation>Assessment cases of an air transport system level social cost-benefit analysis.</xsd:documentation>
         </xsd:annotation>
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
                 <xsd:sequence>
                     <xsd:element name="assessmentCase" maxOccurs="unbounded" type="socialCostBenefitAnalysisAssessmentCaseType">
                         <xsd:annotation>
-                            <xsd:documentation>Single social cost-benefit analysis assessment case, comprising its specification and one regional result per region.</xsd:documentation>
+                            <xsd:documentation>Single social cost-benefit analysis assessment case. The specification fixes the scenario and every assumption made by the model owner, so that the case is interpretable without reference to any other node; the regional results report the resulting welfare components, one set per region.</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:sequence>
@@ -34612,7 +34609,6 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     </ddue:summary>
                 </sd:schemaDoc>
             </xsd:appinfo>
-            <xsd:documentation>Single assessment case of an air transport system level social cost-benefit analysis. The specification fixes the scenario and every assumption made by the model owner, so that the case is interpretable without reference to any other node; the regional results report the resulting welfare components, one set per region.</xsd:documentation>
         </xsd:annotation>
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
@@ -34629,12 +34625,12 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     </xsd:element>
                     <xsd:element name="specification" type="socialCostBenefitAnalysisSpecificationType">
                         <xsd:annotation>
-                            <xsd:documentation>General specification of the assessment case, i.e. the scenario it evaluates and the assumptions on discounting, monetary valuation and emission accounting it is based on.</xsd:documentation>
+                            <xsd:documentation>General specification of the assessment case, i.e. the scenario it evaluates and the assumptions on discounting, monetary valuation and emission accounting it is based on. The scenarioType node names which air transport system state was evaluated; the remaining nodes state the assumptions made by the model owner, which are not derivable from the CPACS input data. Only scenarioType is mandatory. A tool should nevertheless write every node it has a value for: an assumption that is omitted cannot be recovered from the file, and results produced under different assumptions then become indistinguishable from one another.</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="regionalResults" type="socialCostBenefitAnalysisRegionalResultsType">
                         <xsd:annotation>
-                            <xsd:documentation>Welfare results of the assessment case, given per region.</xsd:documentation>
+                            <xsd:documentation>Welfare results of the assessment case, given per region. The regions form a disjoint partition, therefore results over any subset of them may be added up without double counting.</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:all>
@@ -34644,9 +34640,6 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
     </xsd:complexType>
 
     <xsd:simpleType name="socialCostBenefitAnalysisAssumptionLevelType">
-        <xsd:annotation>
-            <xsd:documentation>Level of ambition of an assumption made by the model owner, used for sensitivity analysis.</xsd:documentation>
-        </xsd:annotation>
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="noImpact">
                 <xsd:annotation>
@@ -34785,14 +34778,13 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     </ddue:summary>
                 </sd:schemaDoc>
             </xsd:appinfo>
-            <xsd:documentation>Welfare results of a social cost-benefit analysis assessment case, given per region. The regions form a disjoint partition, therefore results over any subset of them may be added up without double counting.</xsd:documentation>
         </xsd:annotation>
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
                 <xsd:sequence>
                     <xsd:element name="regionalResult" maxOccurs="unbounded" type="socialCostBenefitAnalysisRegionalResultType">
                         <xsd:annotation>
-                            <xsd:documentation>Welfare components of the assessment case, aggregated over one region.</xsd:documentation>
+                            <xsd:documentation>Welfare components of the assessment case, aggregated over one region. All values are present values in millions of Euro [MEuro] at the price level of the analysis. Sign convention: benefit-positive with respect to the reference scenario, i.e. a positive value denotes a welfare gain and a negative value a welfare loss. This applies without exception, including to nodes whose names refer to costs: an increase in a cost relative to the reference scenario is reported as a negative value. The welfare components are optional so that a tool reports only what it actually computes; netSocialWelfareImpact is the plain sum of the components present.</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:sequence>
@@ -34809,14 +34801,13 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     </ddue:summary>
                 </sd:schemaDoc>
             </xsd:appinfo>
-            <xsd:documentation>Welfare components of a social cost-benefit analysis assessment case, aggregated over one region. All values are present values in millions of Euro [MEuro] at the price level of the analysis. Sign convention: benefit-positive with respect to the reference scenario, i.e. a positive value denotes a welfare gain and a negative value a welfare loss. This applies without exception, including to nodes whose names refer to costs: an increase in a cost relative to the reference scenario is reported as a negative value. The welfare components are optional so that a tool reports only what it actually computes; netSocialWelfareImpact is the plain sum of the components present.</xsd:documentation>
         </xsd:annotation>
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
                 <xsd:all>
                     <xsd:element name="region" type="socialCostBenefitAnalysisRegionType">
                         <xsd:annotation>
-                            <xsd:documentation>Region the welfare components of this node are aggregated over.</xsd:documentation>
+                            <xsd:documentation>Region the welfare components of this node are aggregated over. The values form a disjoint partition of the world, so that aggregates are obtained by summation and are not stored.</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="changeInConsumerSurplus" minOccurs="0" type="doubleBaseType">
@@ -34850,9 +34841,6 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
     </xsd:complexType>
 
     <xsd:simpleType name="socialCostBenefitAnalysisRegionType">
-        <xsd:annotation>
-            <xsd:documentation>Region a social cost-benefit analysis regional result is aggregated over. The values form a disjoint partition of the world, so that aggregates are obtained by summation and are not stored.</xsd:documentation>
-        </xsd:annotation>
         <xsd:restriction base="xsd:string">
             <xsd:enumeration value="EU">
                 <xsd:annotation>
@@ -34886,7 +34874,6 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     </ddue:summary>
                 </sd:schemaDoc>
             </xsd:appinfo>
-            <xsd:documentation>General specification of a social cost-benefit analysis assessment case. The scenarioType node names which air transport system state was evaluated; the remaining nodes state the assumptions made by the model owner, which are not derivable from the CPACS input data. Only scenarioType is mandatory. A tool should nevertheless write every node it has a value for: an assumption that is omitted cannot be recovered from the file, and results produced under different assumptions then become indistinguishable from one another.</xsd:documentation>
         </xsd:annotation>
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
