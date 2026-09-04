@@ -3231,6 +3231,19 @@ article.news-container .entry {
 
 
 
+/* News teasers and articles carry their images straight from Markdown, and a
+   few of them set a height attribute with nothing bounding the width. Such an
+   image keeps its size on every screen: a 1775px-wide figure stayed 754px wide
+   on a phone, which does not merely overflow -- it widens the layout viewport
+   itself, and the fixed menu bar follows it. That is how the bar ended up twice
+   as wide as the column beneath it, with the burger outside the visible area.
+   height:auto is what lets the width bound take effect without squashing. */
+.entry img {
+	max-width: 100%;
+	height: auto;
+}
+
+
 /* Every page below content/pages/ wraps its body in a second .container,
    inside the one the page template already provides. Bootstrap's container
    carries 15px of padding and, from 768px up, a fixed width -- so the inner one
