@@ -3,40 +3,14 @@ Date: 2026-07-04 10:00
 Category: Releases
 Author: Marko
 
-<div style="padding: 1.1rem 1.3rem; border-left: 4px solid #1f77b4; background: #f5f9fc; margin-bottom: 1.5rem;">
-<strong>CPACS v3.5.1-RC2 is now available for community review.</strong><br>
-This second release candidate provides an updated review state for CPACS v3.5.1, with a particular focus on the refined structure of predefined <code>systemElements</code>.
-</div>
+CPACS v3.5.1-RC2 is available for community review. It continues the refinement work on top of CPACS v3.5 and follows the first release candidate published in May. While the overall release scope remains unchanged, the definition of predefined `systemElements` has been significantly elaborated based on the ongoing review and implementation work.
 
-CPACS v3.5.1-RC2 continues the refinement work on top of CPACS v3.5 and follows the first release candidate published in May. While the overall release scope remains unchanged, the definition of predefined `systemElements` has been significantly elaborated based on the ongoing review and implementation work.
+The updated `systemElements` structure is now organized in a clearer function-oriented hierarchy. Predefined system elements are grouped according to their primary functional role, for example into electrical, mechanical, pneumatic, hydraulic, and thermo-fluid elements. Within these domains, elements are further organized into functional categories where applicable:
 
-The updated `systemElements` structure is now organized in a clearer function-oriented hierarchy. Predefined system elements are grouped according to their primary functional role, for example into electrical, mechanical, pneumatic, hydraulic, and thermo-fluid elements.
-
-Within these domains, elements are further organized into functional categories where applicable:
-
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
-
-<div style="padding: 1rem; border: 1px solid #ddd; border-radius: 8px; background: #fff;">
-<strong>Storage</strong><br>
-Elements that store energy, mass, pressure, or other physical quantities.
-</div>
-
-<div style="padding: 1rem; border: 1px solid #ddd; border-radius: 8px; background: #fff;">
-<strong>Conversion</strong><br>
-Elements that convert energy, power, flow, or signals from one form into another.
-</div>
-
-<div style="padding: 1rem; border: 1px solid #ddd; border-radius: 8px; background: #fff;">
-<strong>Distribution</strong><br>
-Elements that transport or distribute electrical, mechanical, pneumatic, hydraulic, or thermo-fluid quantities.
-</div>
-
-<div style="padding: 1rem; border: 1px solid #ddd; border-radius: 8px; background: #fff;">
-<strong>Control</strong><br>
-Elements that switch, regulate, protect, or monitor system behavior.
-</div>
-
-</div>
+- **Storage** — elements that store energy, mass, pressure, or other physical quantities.
+- **Conversion** — elements that convert energy, power, flow, or signals from one form into another.
+- **Distribution** — elements that transport or distribute electrical, mechanical, pneumatic, hydraulic, or thermo-fluid quantities.
+- **Control** — elements that switch, regulate, protect, or monitor system behavior.
 
 The goal of this additional review step is to make the predefined system element library easier to understand, easier to extend, and more consistent for CPACS users and tool developers.
 
@@ -46,9 +20,8 @@ The goal of this additional review step is to make the predefined system element
 - [CPACS v3.5.1-RC2 documentation](https://dlr-sl.github.io/CPACS/html/88830dfb-9468-15e9-2772-2eb249b0a0ac.htm)
 - [Discussion and feedback thread](https://github.com/DLR-SL/CPACS/discussions/862)
 
-<div style="padding: 1.1rem 1.3rem; border-radius: 8px; background: #f7f7f7; margin: 1.5rem 0;">
-<strong>Review deadline: 28 July 2026</strong><br>
-We kindly invite the CPACS community to review the updated <code>systemElements</code> definition and provide feedback by this date.
+<div style="border-left: 3px solid #3d6ca4; background: #fafbfc; padding: 1rem 1.3rem; margin: 1.8rem 0;">
+<strong>Review deadline: 28 July 2026.</strong> We kindly invite the CPACS community to review the updated <code>systemElements</code> definition and provide feedback by this date.
 </div>
 
 In particular, we would appreciate feedback on the following points:
