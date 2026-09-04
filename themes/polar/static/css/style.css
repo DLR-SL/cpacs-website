@@ -3761,10 +3761,16 @@ article.news-container .entry {
 	margin-bottom: 24px;
 }
 
+/* Same treatment as the two field labels further down -- it names a control
+   the way those name a value, and there is no reason for it to shout. The
+   weight is spelled out because Bootstrap puts labels at 700. */
 .cpacs-picker label {
-	color: #282828;
-	font-weight: 600;
+	color: #6b7280;
+	font-size: 12px;
+	font-weight: 400;
+	letter-spacing: .6px;
 	margin-bottom: 0;
+	text-transform: uppercase;
 }
 
 #cpacsVersionSelect {
@@ -3780,6 +3786,18 @@ article.news-container .entry {
 #cpacsVersionSelect:focus {
 	border-color: #3d6ca4;
 	outline: none;
+}
+
+/* The theme clears outlines for links and buttons site-wide, which leaves
+   keyboard users with nothing to follow. These put a ring back on the controls
+   this page is made of; it only shows for keyboard focus, so pointer users see
+   no change. #3d6ca4 on white is 5.4:1, well past the 3:1 a focus indicator
+   needs. */
+#cpacsVersionSelect:focus-visible,
+.cpacs-link-card:focus-visible,
+.doc-btn:focus-visible {
+	outline: 2px solid #3d6ca4;
+	outline-offset: 2px;
 }
 
 /* The badge only marks how far the selection can be trusted: accent while a
@@ -3849,6 +3867,39 @@ article.news-container .entry {
 	text-transform: uppercase;
 }
 
+/* The button used to sit straight on the rule closing the URL field. The row
+   holds it off, and puts the two ways of taking the schema next to each other:
+   copy the address, or save the file. */
+.cpacs-actions {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-top: 22px;
+}
+
+/* A border on both keeps the pair the same height, and <button> otherwise
+   brings the UA font along instead of the page's. */
+.cpacs-actions .doc-btn {
+	border: 1px solid #3d6ca4;
+	cursor: pointer;
+	font-family: inherit;
+	line-height: 1.5;
+}
+
+.doc-btn.cpacs-btn-quiet {
+	background: #fff;
+	border-color: #c7d2de;
+	color: #3d6ca4;
+}
+
+.doc-btn.cpacs-btn-quiet:focus,
+.doc-btn.cpacs-btn-quiet:hover {
+	background: #f5f9fc;
+	border-color: #3d6ca4;
+	color: #3d6ca4;
+}
+
 /* Both fields carry the same string, so neither may look like the more
    official one. The URL is set on rules, the snippet sits in a panel, and the
    label above each says what it is for. */
@@ -3863,15 +3914,22 @@ article.news-container .entry {
 	padding: 11px 0;
 }
 
-.cpacs-code {
-	background: #fafbfc;
-	border: 1px solid #eceff3;
-	border-radius: 3px;
-	color: #282828;
-	font-size: 13px;
+/* Prism copies the language class onto the <pre> when it highlights, which
+   drags in the dark panel of its tomorrow theme -- pre[class*="language-"]
+   outranks a bare class. Matching that shape keeps the block on the page's own
+   ground. The fill is the one the badge already uses, and it carries the block
+   on its own, so there is no outline around it. */
+pre.cpacs-code,
+pre.cpacs-code[class*="language-"] {
+	background: #eef3f8;
+	border: 0;
+	border-radius: 4px;
+	color: #2b3440;
+	font-size: 12px;
+	line-height: 1.7;
 	margin: 0;
 	overflow-x: auto;
-	padding: 16px 18px;
+	padding: 18px 20px;
 }
 
 /* Bootstrap tints inline code and boxes it a second time inside the pre. */
@@ -3879,6 +3937,7 @@ article.news-container .entry {
 	background: none;
 	color: inherit;
 	font-size: inherit;
+	line-height: inherit;
 	padding: 0;
 	white-space: pre;
 }
@@ -3890,7 +3949,7 @@ article.news-container .entry {
 .cpacs-code .token.doctype,
 .cpacs-code .token.prolog,
 .cpacs-code .token.punctuation {
-	color: #6b7280;
+	color: #666e7b;
 }
 
 .cpacs-code .token.tag {
@@ -3929,6 +3988,11 @@ article.news-container .entry {
 	background: #f5f9fc;
 	border-color: #3d6ca4;
 	color: #3d6ca4;
+}
+
+.cpacs-band-col div.code-toolbar > .toolbar > .toolbar-item > button:focus-visible {
+	outline: 2px solid #3d6ca4;
+	outline-offset: 2px;
 }
 
 

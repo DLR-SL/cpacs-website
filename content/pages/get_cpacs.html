@@ -48,21 +48,21 @@
                     </p>
 
                     <div class="row cpacs-band">
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             <div class="cpacs-band-col">
                                 <p class="cpacs-field-label">Schema URL</p>
                                 <p class="cpacs-url" id="schemaUrlDisplay">
                                     https://www.cpacs.de/schema/v3_5_1/cpacs_schema.xsd
                                 </p>
-                                <a id="downloadLink" class="doc-btn" download
-                                    href="../schema/v3_5_1/cpacs_schema.xsd">Download schema</a>
-                                <p class="doc-btn-hint">
-                                    The .xsd file for the selected version, served from the
-                                    website archive.
-                                </p>
+                                <div class="cpacs-actions">
+                                    <button type="button" class="doc-btn cpacs-btn-quiet"
+                                        id="copyUrlButton" aria-live="polite">Copy URL</button>
+                                    <a id="downloadLink" class="doc-btn" download
+                                        href="../schema/v3_5_1/cpacs_schema.xsd">Download XSD</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-7">
+                        <div class="col-md-8">
                             <div class="cpacs-band-col">
                                 <p class="cpacs-field-label">Reference in your CPACS file</p>
                                 <pre class="cpacs-code"><code class="language-xml" id="codeField">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
@@ -180,6 +180,7 @@
             'develop': {
                 schemaUrl: 'https://raw.githubusercontent.com/DLR-SL/CPACS/refs/heads/develop/schema/cpacs_schema.xsd',
                 downloadHref: 'https://raw.githubusercontent.com/DLR-SL/CPACS/refs/heads/develop/schema/cpacs_schema.xsd',
+                external: true,
                 badge: 'development version',
                 badgeClass: 'cpacs-badge cpacs-badge-dev',
                 note: 'The develop schema reflects the current development state of CPACS. It may change without notice and should not be used as a stable release reference.'
@@ -258,6 +259,21 @@
             schemaUrlDisplay.textContent = selectedSchema.schemaUrl;
             downloadLink.href = selectedSchema.downloadHref;
 
+            // Browsers ignore the download attribute on a cross-origin href, so
+            // the develop schema would open instead of saving. Say so rather
+            // than promise a download the browser will not perform.
+            if (selectedSchema.external) {
+                downloadLink.removeAttribute('download');
+                downloadLink.setAttribute('target', '_blank');
+                downloadLink.setAttribute('rel', 'noopener');
+                downloadLink.textContent = 'Open on GitHub';
+            } else {
+                downloadLink.setAttribute('download', '');
+                downloadLink.removeAttribute('target');
+                downloadLink.removeAttribute('rel');
+                downloadLink.textContent = 'Download XSD';
+            }
+
             versionBadge.textContent = selectedSchema.badge;
             versionBadge.className = selectedSchema.badgeClass;
 
@@ -266,6 +282,51 @@
                 ? 'cpacs-note cpacs-note-dev'
                 : 'cpacs-note';
         }
+
+        var copyUrlButton = document.getElementById('copyUrlButton');
+        var copyResetTimer = null;
+
+        function confirmCopy() {
+            copyUrlButton.textContent = 'Copied';
+            window.clearTimeout(copyResetTimer);
+            copyResetTimer = window.setTimeout(function () {
+                copyUrlButton.textContent = 'Copy URL';
+            }, 1600);
+        }
+
+        // The async clipboard needs a secure context; the textarea route is the
+        // fallback for anything that does not offer one.
+        function copySchemaUrl() {
+            var url = document.getElementById('schemaUrlDisplay').textContent.trim();
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(url).then(confirmCopy, legacyCopy);
+                return;
+            }
+
+            legacyCopy();
+
+            function legacyCopy() {
+                var field = document.createElement('textarea');
+                field.value = url;
+                field.setAttribute('readonly', '');
+                field.style.position = 'absolute';
+                field.style.left = '-9999px';
+                document.body.appendChild(field);
+                field.select();
+
+                try {
+                    document.execCommand('copy');
+                    confirmCopy();
+                } catch (error) {
+                    copyUrlButton.textContent = 'Press Ctrl+C';
+                }
+
+                document.body.removeChild(field);
+            }
+        }
+
+        copyUrlButton.addEventListener('click', copySchemaUrl);
 
         document.getElementById('cpacsVersionSelect').addEventListener('change', function () {
             updateSchemaSelection(this.value);
