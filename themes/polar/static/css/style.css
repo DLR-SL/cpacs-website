@@ -3794,7 +3794,7 @@ article.news-container .entry {
    no change. #3d6ca4 on white is 5.4:1, well past the 3:1 a focus indicator
    needs. */
 #cpacsVersionSelect:focus-visible,
-.cpacs-link-card:focus-visible,
+.doc-card:focus-visible,
 .doc-btn:focus-visible {
 	outline: 2px solid #3d6ca4;
 	outline-offset: 2px;
@@ -3838,28 +3838,28 @@ article.news-container .entry {
 /* Downloading the file and linking it are two ways out of the same choice,
    so they stand side by side under one picker rather than in a queue. The
    rule between them is the divider the documentation page uses. */
-.cpacs-band {
+.doc-band {
 	display: flex;
 	flex-wrap: wrap;
 	margin-bottom: 10px;
 }
 
-.cpacs-band > [class*="col-"] {
+.doc-band > [class*="col-"] {
 	display: flex;
 }
 
-.cpacs-band-col {
+.doc-band-col {
 	padding: 0 30px 5px 0;
 	width: 100%;
 }
 
-.cpacs-band > [class*="col-"] + [class*="col-"] .cpacs-band-col {
+.doc-band > [class*="col-"] + [class*="col-"] .doc-band-col {
 	border-left: 1px solid #e6e6e6;
 	padding-left: 40px;
 	padding-right: 0;
 }
 
-.cpacs-field-label {
+.doc-label {
 	color: #6b7280;
 	font-size: 12px;
 	letter-spacing: .6px;
@@ -3870,7 +3870,7 @@ article.news-container .entry {
 /* The button used to sit straight on the rule closing the URL field. The row
    holds it off, and puts the two ways of taking the schema next to each other:
    copy the address, or save the file. */
-.cpacs-actions {
+.doc-actions {
 	align-items: center;
 	display: flex;
 	flex-wrap: wrap;
@@ -3880,21 +3880,21 @@ article.news-container .entry {
 
 /* A border on both keeps the pair the same height, and <button> otherwise
    brings the UA font along instead of the page's. */
-.cpacs-actions .doc-btn {
+.doc-actions .doc-btn {
 	border: 1px solid #3d6ca4;
 	cursor: pointer;
 	font-family: inherit;
 	line-height: 1.5;
 }
 
-.doc-btn.cpacs-btn-quiet {
+.doc-btn.doc-btn-quiet {
 	background: #fff;
 	border-color: #c7d2de;
 	color: #3d6ca4;
 }
 
-.doc-btn.cpacs-btn-quiet:focus,
-.doc-btn.cpacs-btn-quiet:hover {
+.doc-btn.doc-btn-quiet:focus,
+.doc-btn.doc-btn-quiet:hover {
 	background: #f5f9fc;
 	border-color: #3d6ca4;
 	color: #3d6ca4;
@@ -3919,8 +3919,8 @@ article.news-container .entry {
    outranks a bare class. Matching that shape keeps the block on the page's own
    ground. The fill is the one the badge already uses, and it carries the block
    on its own, so there is no outline around it. */
-pre.cpacs-code,
-pre.cpacs-code[class*="language-"] {
+pre.doc-code,
+pre.doc-code[class*="language-"] {
 	background: #eef3f8;
 	border: 0;
 	border-radius: 4px;
@@ -3933,7 +3933,7 @@ pre.cpacs-code[class*="language-"] {
 }
 
 /* Bootstrap tints inline code and boxes it a second time inside the pre. */
-.cpacs-code code {
+.doc-code code {
 	background: none;
 	color: inherit;
 	font-size: inherit;
@@ -3945,35 +3945,35 @@ pre.cpacs-code[class*="language-"] {
 /* Prism ships the tomorrow theme, whose token colours are drawn for a dark
    panel and wash out on this one. Same hues the rest of the page uses, at a
    weight that reads on the light block. */
-.cpacs-code .token.comment,
-.cpacs-code .token.doctype,
-.cpacs-code .token.prolog,
-.cpacs-code .token.punctuation {
+.doc-code .token.comment,
+.doc-code .token.doctype,
+.doc-code .token.prolog,
+.doc-code .token.punctuation {
 	color: #666e7b;
 }
 
-.cpacs-code .token.tag {
+.doc-code .token.tag {
 	color: #2f5580;
 }
 
-.cpacs-code .token.attr-name {
+.doc-code .token.attr-name {
 	color: #3d6ca4;
 }
 
-.cpacs-code .token.attr-value,
-.cpacs-code .token.string {
+.doc-code .token.attr-value,
+.doc-code .token.string {
 	color: #2a6f4c;
 }
 
 /* Prism's copy button is drawn for the same dark theme -- light grey on a
    drop shadow, invisible here. It gets the outline of the chips instead, and
    Prism keeps it hidden until the block is hovered. */
-.cpacs-band-col div.code-toolbar > .toolbar {
+.doc-band-col div.code-toolbar > .toolbar {
 	right: 8px;
 	top: 8px;
 }
 
-.cpacs-band-col div.code-toolbar > .toolbar > .toolbar-item > button {
+.doc-band-col div.code-toolbar > .toolbar > .toolbar-item > button {
 	background: #fff;
 	border: 1px solid #dfe5ec;
 	border-radius: 3px;
@@ -3983,29 +3983,202 @@ pre.cpacs-code[class*="language-"] {
 	padding: 4px 10px;
 }
 
-.cpacs-band-col div.code-toolbar > .toolbar > .toolbar-item > button:focus,
-.cpacs-band-col div.code-toolbar > .toolbar > .toolbar-item > button:hover {
+.doc-band-col div.code-toolbar > .toolbar > .toolbar-item > button:focus,
+.doc-band-col div.code-toolbar > .toolbar > .toolbar-item > button:hover {
 	background: #f5f9fc;
 	border-color: #3d6ca4;
 	color: #3d6ca4;
 }
 
-.cpacs-band-col div.code-toolbar > .toolbar > .toolbar-item > button:focus-visible {
+.doc-band-col div.code-toolbar > .toolbar > .toolbar-item > button:focus-visible {
 	outline: 2px solid #3d6ca4;
 	outline-offset: 2px;
+}
+
+/* --- Shared page kit ------------------------------------------------------
+   Everything below is used by more than one page. The subpages were each
+   carrying their own inline margins and float columns; these give them one
+   vocabulary instead: a heading with a lead paragraph, a text-and-figure band,
+   a row of cards, a plain list, and a callout. */
+
+/* A figure beside its text. The image is the illustration, not the subject,
+   so it is capped rather than stretched to the column. */
+.doc-figure {
+	margin: 0;
+	max-width: 560px;
+}
+
+/* Process diagrams are read, not glanced at, so they may use the full column. */
+.doc-figure-wide {
+	max-width: 100%;
+}
+
+/* Illustrations that only set the scene. Roughly the size they carried before,
+   and small enough that a stacked column does not turn them into a banner. */
+.doc-figure-compact {
+	max-width: 380px;
+}
+
+.doc-figure img {
+	border: 1px solid #e6e6e6;
+	display: block;
+	height: auto;
+	max-width: 100%;
+}
+
+.doc-figure-plain img {
+	border: 0;
+}
+
+.doc-figcaption {
+	color: #6b7280;
+	font-size: 13px;
+	line-height: 1.6;
+	margin-top: 10px;
+}
+
+/* Lists carried a left margin per paragraph before. One rule, one indent. */
+.doc-list {
+	list-style: none;
+	margin: 0 0 18px;
+	max-width: 46em;
+	padding: 0;
+}
+
+.doc-list li {
+	line-height: 1.7;
+	padding: 5px 0 5px 18px;
+	position: relative;
+}
+
+.doc-list li:before {
+	background: #b3c1d1;
+	border-radius: 50%;
+	content: "";
+	height: 5px;
+	left: 0;
+	position: absolute;
+	top: 16px;
+	width: 5px;
+}
+
+/* The development process is a sequence, so the number carries the step
+   rather than a bullet. */
+.doc-steps {
+	counter-reset: doc-step;
+	list-style: none;
+	margin: 0 0 18px;
+	max-width: 46em;
+	padding: 0;
+}
+
+.doc-steps > li {
+	counter-increment: doc-step;
+	line-height: 1.7;
+	padding: 8px 0 8px 40px;
+	position: relative;
+}
+
+.doc-steps > li:before {
+	color: #3d6ca4;
+	content: counter(doc-step);
+	font-size: 13px;
+	font-weight: 600;
+	left: 0;
+	position: absolute;
+	top: 10px;
+}
+
+/* One sentence that the page is built around. A rule on the left, no fill --
+   the same shape the notes use, one step quieter. */
+.doc-callout {
+	border-left: 3px solid #3d6ca4;
+	color: #282828;
+	font-size: 1.125em;
+	line-height: 1.6;
+	margin: 26px 0;
+	max-width: 40em;
+	padding: 4px 0 4px 18px;
+}
+
+/* A block of addresses or commands set apart from the running text. */
+.doc-inline-code {
+	background: #eef3f8;
+	border-radius: 3px;
+	color: #2b3440;
+	font-size: 13px;
+	padding: 2px 6px;
+}
+
+.doc-address {
+	color: #6b7280;
+	line-height: 1.8;
+	margin: 0;
+}
+
+.doc-address strong {
+	color: #282828;
+	display: block;
+	font-weight: 600;
+}
+
+/* A run of entries down a page -- one tool, one project, one topic each. The
+   rule between them replaces the full-width banded sections the subpages used
+   to repeat, which cost a screen of chrome per entry. */
+.doc-item + .doc-item {
+	border-top: 1px solid #e6e6e6;
+	margin-top: 38px;
+	padding-top: 38px;
+}
+
+.doc-item-body {
+	max-width: 46em;
+}
+
+/* One media box for a run of entries, so a small source does not read as a
+   smaller entry. The embeds set the shape -- they were fixed at 560x315 and
+   pushed out of their column on anything narrower -- and the images fill it.
+   Swap cover for contain to letterbox instead of crop. */
+.doc-media {
+	background: #eef3f8;
+	border: 1px solid #e6e6e6;
+	border-radius: 4px;
+	height: 0;
+	margin: 0;
+	overflow: hidden;
+	padding-bottom: 56.25%;
+	position: relative;
+}
+
+.doc-media iframe,
+.doc-media img {
+	border: 0;
+	height: 100%;
+	left: 0;
+	object-fit: cover;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
+@media (max-width: 991px) {
+	.doc-figure,
+	.doc-media {
+		margin-top: 24px;
+	}
 }
 
 
 /* Three destinations, each with a line the chips on the documentation page
    could not carry. Flat outlines keep them a list, not a set of raised tiles. */
-.cpacs-link-grid {
+.doc-cards {
 	display: grid;
 	gap: 16px;
 	grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
 	max-width: 66em;
 }
 
-.cpacs-link-card {
+.doc-card {
 	border: 1px solid #dfe5ec;
 	border-radius: 3px;
 	display: block;
@@ -4013,35 +4186,35 @@ pre.cpacs-code[class*="language-"] {
 	transition: background .2s ease, border-color .2s ease;
 }
 
-.cpacs-link-card:hover,
-.cpacs-link-card:focus {
+.doc-card:hover,
+.doc-card:focus {
 	background: #f5f9fc;
 	border-color: #3d6ca4;
 	text-decoration: none;
 }
 
-.cpacs-link-card strong {
+.doc-card strong {
 	color: #3d6ca4;
 	display: block;
 	font-weight: 600;
 	margin-bottom: 6px;
 }
 
-.cpacs-link-card span {
+.doc-card span {
 	color: #6b7280;
 	display: block;
 	font-size: 14px;
 }
 
 @media (max-width: 991px) {
-	.cpacs-band > [class*="col-"] + [class*="col-"] .cpacs-band-col {
+	.doc-band > [class*="col-"] + [class*="col-"] .doc-band-col {
 		border-left: 0;
 		border-top: 1px solid #e6e6e6;
 		padding-left: 0;
 		padding-top: 26px;
 	}
 
-	.cpacs-band-col {
+	.doc-band-col {
 		padding-right: 0;
 	}
 }

@@ -8,8 +8,8 @@
 
 <body>
     <section id="get-cpacs">
-        <div class="success-story background-bg success-story-bg">
-            <div class="overlay subsection-padding">
+        <div class="success-story">
+            <div class="subsection-padding">
                 <div class="container">
 
                     <h2 class="doc-heading">Schema file</h2>
@@ -47,15 +47,15 @@
                         schema archive.
                     </p>
 
-                    <div class="row cpacs-band">
+                    <div class="row doc-band">
                         <div class="col-md-4">
-                            <div class="cpacs-band-col">
-                                <p class="cpacs-field-label">Schema URL</p>
+                            <div class="doc-band-col">
+                                <p class="doc-label">Schema URL</p>
                                 <p class="cpacs-url" id="schemaUrlDisplay">
                                     https://www.cpacs.de/schema/v3_5_1/cpacs_schema.xsd
                                 </p>
-                                <div class="cpacs-actions">
-                                    <button type="button" class="doc-btn cpacs-btn-quiet"
+                                <div class="doc-actions">
+                                    <button type="button" class="doc-btn doc-btn-quiet"
                                         id="copyUrlButton" aria-live="polite">Copy URL</button>
                                     <a id="downloadLink" class="doc-btn" download
                                         href="../schema/v3_5_1/cpacs_schema.xsd">Download XSD</a>
@@ -63,9 +63,9 @@
                             </div>
                         </div>
                         <div class="col-md-8">
-                            <div class="cpacs-band-col">
-                                <p class="cpacs-field-label">Reference in your CPACS file</p>
-                                <pre class="cpacs-code"><code class="language-xml" id="codeField">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+                            <div class="doc-band-col">
+                                <p class="doc-label">Reference in your CPACS file</p>
+                                <pre class="doc-code"><code class="language-xml" id="codeField">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;cpacs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="https://www.cpacs.de/schema/v3_5_1/cpacs_schema.xsd"&gt;</code></pre>
                             </div>
@@ -78,16 +78,16 @@
                         developed in the open.
                     </p>
 
-                    <div class="cpacs-link-grid">
-                        <a class="cpacs-link-card" href="https://github.com/DLR-SL/CPACS" target="_blank">
+                    <div class="doc-cards">
+                        <a class="doc-card" href="https://github.com/DLR-SL/CPACS" target="_blank">
                             <strong>Repository</strong>
                             <span>Browse the schema, examples, issues and development branches.</span>
                         </a>
-                        <a class="cpacs-link-card" href="https://github.com/DLR-SL/CPACS/releases" target="_blank">
+                        <a class="doc-card" href="https://github.com/DLR-SL/CPACS/releases" target="_blank">
                             <strong>Releases</strong>
                             <span>Official release packages and release candidates.</span>
                         </a>
-                        <a class="cpacs-link-card" href="https://github.com/DLR-SL/CPACS/discussions" target="_blank">
+                        <a class="doc-card" href="https://github.com/DLR-SL/CPACS/discussions" target="_blank">
                             <strong>Discussions</strong>
                             <span>Ask questions, give feedback and follow the community.</span>
                         </a>
@@ -107,9 +107,9 @@
                 </div>
                 <!-- /.container -->
             </div>
-            <!-- /.overlay -->
+            <!-- /.subsection-padding -->
         </div>
-        <!-- /.background-bg -->
+        <!-- /.success-story -->
     </section>
 
     <script>
