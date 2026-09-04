@@ -4410,6 +4410,10 @@ pre.doc-code[class*="language-"] {
 	color: #3d6ca4;
 }
 
+.doc-table td .doc-chips {
+	margin: -2px 0;
+}
+
 .doc-chip-size {
 	color: #6b7280;
 	font-size: 13px;
@@ -4421,6 +4425,12 @@ pre.doc-code[class*="language-"] {
 	border-collapse: collapse;
 	width: 100%;
 	max-width: 46em;
+}
+
+/* The two generated releases stand as entries above; the .chm-only ones
+   follow as a table. The gap keeps the table from reading as their footer. */
+.doc-table-spaced {
+	margin-top: 34px;
 }
 
 .doc-table th,

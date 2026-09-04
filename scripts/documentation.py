@@ -46,11 +46,27 @@ class Documentation:
 
     directory: str
     ref: str
+    # The self-contained single file. Worth its 15 MB for the current release,
+    # not for superseded ones: those already ship a .chm beside them, which is
+    # the offline copy that was published with them.
+    single: bool = False
+    # Superseded releases document themselves in a ddue vocabulary the current
+    # generator does not render completely - `subscript`, `superscript`,
+    # `ddue:subtitle`, `ddue:math` - and v3.4 references one figure its
+    # catalogue does not define. One and three findings respectively, all
+    # cosmetic, none of them fixable in this repository. Until the generator
+    # covers them, those two builds are allowed to report and continue, while
+    # the current release keeps the gate that fails the website build.
+    tolerate_errors: bool = False
 
 
 # The published documentation sets. A release tag is pinned; the generator that
 # renders it is not, which is the point of building here at all.
-DOCUMENTATION = (Documentation(directory="CPACS_3_5_1_Docs", ref="v3.5.1"),)
+DOCUMENTATION = (
+    Documentation(directory="CPACS_3_5_1_Docs", ref="v3.5.1", single=True),
+    Documentation(directory="CPACS_3_5_0_Docs", ref="v3.5", tolerate_errors=True),
+    Documentation(directory="CPACS_3_4_0_Docs", ref="v3.4", tolerate_errors=True),
+)
 
 
 def _git(*arguments: str, cwd: Path) -> None:
@@ -163,11 +179,17 @@ def generate(output_dir: Path) -> None:
             check=True,
         )
 
+        options = ["--site"]
+        if documentation.single:
+            # The self-contained variant lands next to the static pages it
+            # duplicates, the way the sandcastle build keeps its .chm beside
+            # its HTML. One directory per documentation system.
+            options.append("--single")
+        if documentation.tolerate_errors:
+            options.append("--tolerate-errors")
+
         # The catalogue is found by its position next to the schema directory,
         # which is why neither --media nor --media-root has to be passed.
-        # --single puts the self-contained variant next to the static pages it
-        # duplicates, the way the sandcastle build keeps its .chm beside its
-        # HTML. One directory per documentation system, nothing beside them.
         subprocess.run(
             [
                 _uv(),
@@ -186,8 +208,7 @@ def generate(output_dir: Path) -> None:
                 str(source / "schema" / "cpacs_schema.xsd"),
                 "-o",
                 str(target),
-                "--site",
-                "--single",
+                *options,
             ],
             cwd=ROOT,
             env=_generator_environment(),

@@ -123,19 +123,26 @@ class GeneratedSiteTests(unittest.TestCase):
         them, and repeating its output here would turn every upstream change
         into a failure of this repository.
         """
-        generated = OUTPUT / "documentation" / "CPACS_3_5_1_Docs" / "cpacs-doc"
-        for relative in ("index.html", "404.html", "cpacs-doc-model.json"):
-            with self.subTest(path=relative):
-                self.assertTrue((generated / relative).is_file(), relative)
-        for relative in ("type", "doc", "media", "assets"):
-            with self.subTest(path=relative):
-                directory = generated / relative
-                self.assertTrue(directory.is_dir(), relative)
-                self.assertTrue(any(directory.iterdir()), f"{relative} is empty")
+        for release in ("CPACS_3_5_1_Docs", "CPACS_3_5_0_Docs", "CPACS_3_4_0_Docs"):
+            generated = OUTPUT / "documentation" / release / "cpacs-doc"
+            for relative in ("index.html", "404.html", "cpacs-doc-model.json"):
+                with self.subTest(release=release, path=relative):
+                    self.assertTrue((generated / relative).is_file(), relative)
+            for relative in ("type", "doc", "media", "assets"):
+                with self.subTest(release=release, path=relative):
+                    directory = generated / relative
+                    self.assertTrue(directory.is_dir(), relative)
+                    self.assertTrue(any(directory.iterdir()), f"{relative} is empty")
 
-        # The self-contained variant sits beside the static pages it
-        # duplicates, as the sandcastle .chm sits beside its HTML.
-        self.assertTrue((generated / "cpacs-doc.html").is_file(), "cpacs-doc.html")
+        # The self-contained variant sits beside the static pages it duplicates,
+        # as the sandcastle .chm sits beside its HTML. It is built for the
+        # current release only; the superseded ones carry a .chm already.
+        current = OUTPUT / "documentation" / "CPACS_3_5_1_Docs" / "cpacs-doc"
+        self.assertTrue((current / "cpacs-doc.html").is_file(), "cpacs-doc.html")
+        for release in ("CPACS_3_5_0_Docs", "CPACS_3_4_0_Docs"):
+            with self.subTest(release=release):
+                single = OUTPUT / "documentation" / release / "cpacs-doc" / "cpacs-doc.html"
+                self.assertFalse(single.exists(), "single file built for a superseded release")
 
     def test_generated_html_contains_no_build_placeholders_or_local_paths(self) -> None:
         forbidden = ("{filename}", "{static}", "file://", "d:\\rce\\plugins")
