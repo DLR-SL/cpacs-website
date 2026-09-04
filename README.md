@@ -7,7 +7,9 @@ The site is generated with Pelican and deployed to GitHub Pages by GitHub Action
 
 Install `uv` 0.11.29 or a newer 0.11.x release, then clone the repository.
 Python and all project dependencies are managed by `uv`; a separate Anaconda or
-system-wide Pelican installation is not required. The official installers are:
+system-wide Pelican installation is not required. `git` and network access are
+also required: the build generates the schema documentation from two upstream
+repositories, see **Schema documentation**. The official installers are:
 
 ```powershell
 # Windows PowerShell
@@ -83,6 +85,32 @@ Author: CPACS
 
 Large generated documentation, schema archives, and other files currently remain
 below `addContent/` and are copied into the generated site by `scripts/site.py`.
+
+## Schema documentation
+
+The documentation of the current release is not stored in this repository. It is
+rendered on every build by `scripts/documentation.py` from two upstream sources:
+
+* [cpacs-doc](https://github.com/DLR-SL/cpacs-doc) - the generator, taken from
+  its default branch and deliberately not pinned, so the published pages always
+  come out of the current generator.
+* [CPACS](https://github.com/DLR-SL/CPACS) - schema and documentation media,
+  taken from the release tag named in `DOCUMENTATION` in that script.
+
+Each build derives the figure catalogue `media.json` from the release with the
+generator's `convert_media_catalogue.py`, then runs `cpacs-doc build --site
+--single` into `output/documentation/<release>/cpacs-doc/`. That directory holds
+both the browsable pages and the self-contained `cpacs-doc.html`, the way the
+sandcastle directory holds both its HTML and its `.chm`.
+
+Both checkouts are cached below `.cache/` and are not committed. The pinned CPACS
+tag is fetched once; the generator is refreshed on every build. When a fetch
+fails and a cached checkout exists, the build continues on it and prints a
+warning. Delete `.cache/` to start over.
+
+Add a release by extending `DOCUMENTATION` in `scripts/documentation.py`. The
+sandcastle output below `addContent/documentation/` belongs to the previous
+documentation system and stays committed, because it cannot be regenerated here.
 
 ## Dependency updates
 

@@ -12,6 +12,8 @@ import sys
 import time
 from pathlib import Path
 
+import documentation
+
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT_DIR = ROOT / "content"
 ADDITIONAL_DIR = ROOT / "addContent"
@@ -74,6 +76,7 @@ def build(site_url: str | None = None) -> None:
         check=True,
     )
     copy_additional_content()
+    documentation.generate(OUTPUT_DIR)
 
 
 def terminate(process: subprocess.Popen[bytes]) -> None:
