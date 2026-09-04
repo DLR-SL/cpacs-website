@@ -3231,6 +3231,21 @@ article.news-container .entry {
 
 
 
+/* Every page below content/pages/ wraps its body in a second .container,
+   inside the one the page template already provides. Bootstrap's container
+   carries 15px of padding and, from 768px up, a fixed width -- so the inner one
+   indented the text by another 15px on phones while hanging 15px over the outer
+   container's right edge on wider screens. Neither is intended: the header, the
+   home page and the news articles all sit on the outer container's edge, and a
+   nested container drifted away from them. Neutralised here rather than in each
+   page, since the markup pattern repeats across all of them. */
+.container .container {
+	padding-left: 0;
+	padding-right: 0;
+	width: auto;
+}
+
+
 /* 35 - Responsive 
 ******************************************************/
 @media (min-width: 1200px) {
