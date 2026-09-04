@@ -3,11 +3,15 @@ Date: 2026-09-04 10:00
 Category: Releases
 Author: Marko
 
-<p style="text-align: center; margin: 0 0 2.2rem;">
+<figure style="position: relative; max-width: 430px; margin: 0 auto 2.2rem; text-align: center;">
 <img src="images/saturnV.png"
      alt="Saturn V modelled in CPACS, tanks and feed systems visible through the outer shell"
-     style="width: 100%; max-width: 430px;">
-</p>
+     style="width: 100%;">
+<span style="position: absolute; top: 3%; left: 0; text-align: left; line-height: 1.35; pointer-events: none;">
+<span style="display: block; font-size: clamp(0.68rem, 2.4vw, 0.82rem); font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: #3d6ca4;">Saturn&nbsp;V</span>
+<span style="display: block; font-size: clamp(0.62rem, 2.1vw, 0.75rem); color: #6b7280;">NASA&rsquo;s Apollo Moon launcher, 1967&ndash;1973</span>
+</span>
+</figure>
 
 CPACS v3.5.1 is out. Going by the version number this looks like a small patch, but it turned out to be a bit more than that. Three areas have been reworked: `systems` and `fuelTanks`, both introduced with v3.5, and `decks`, which has been part of CPACS for a good while longer and is now brought in line with them. All of it based on the first implementation experience and on the feedback we collected during the stakeholder review in May.
 

@@ -3749,180 +3749,239 @@ article.news-container .entry {
 /* 36 - Background Images End
 ******************************************************/
 
-.cpacs-page {
-	max-width: 1100px;
-}
+/* Get CPACS follows the documentation page and borrows its primitives -- the
+   flat button, the chips, the quiet note. Defined here is only what that page
+   has no counterpart for: the version picker and the two schema fields. */
 
-.cpacs-card {
-	background: #ffffff;
-	border: 1px solid #d9e2ec;
-	border-radius: 10px;
-	padding: 1.4rem 1.6rem;
-	margin-bottom: 1.5rem;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-.cpacs-card h2,
-.cpacs-card h3 {
-	margin-top: 0;
-}
-
-.cpacs-lead {
-	font-size: 1.05rem;
-	color: #334e68;
-	margin-bottom: 1.3rem;
-}
-
-.cpacs-select-row {
+.cpacs-picker {
+	align-items: center;
 	display: flex;
 	flex-wrap: wrap;
-	gap: 1rem;
-	align-items: center;
-	margin-bottom: 1rem;
+	gap: 12px;
+	margin-bottom: 24px;
 }
 
-.cpacs-select-row label {
+.cpacs-picker label {
+	color: #282828;
 	font-weight: 600;
 	margin-bottom: 0;
 }
 
 #cpacsVersionSelect {
-	min-width: 260px;
-	padding: 0.45rem 0.6rem;
-	border: 1px solid #bcccdc;
-	border-radius: 6px;
-	background: #ffffff;
+	background: #fff;
+	border: 1px solid #dfe5ec;
+	border-radius: 3px;
+	color: #282828;
+	min-width: 240px;
+	padding: 8px 10px;
+	transition: border-color .2s ease;
 }
 
+#cpacsVersionSelect:focus {
+	border-color: #3d6ca4;
+	outline: none;
+}
+
+/* The badge only marks how far the selection can be trusted: accent while a
+   release is chosen, grey once the choice leaves solid ground -- the develop
+   branch or a project variant. */
 .cpacs-badge {
-	display: inline-block;
-	padding: 0.25rem 0.55rem;
-	border-radius: 999px;
-	font-size: 0.85rem;
+	background: #eef3f8;
+	border-radius: 2px;
+	color: #3d6ca4;
+	font-size: 11px;
 	font-weight: 600;
-	background: #e6f4ea;
-	color: #1e7e34;
+	letter-spacing: .6px;
+	padding: 4px 9px;
+	text-transform: uppercase;
 }
 
 .cpacs-badge-dev {
-	background: #fff4e5;
-	color: #9a5b00;
-}
-
-.cpacs-url-box {
-	background: #f5f9fc;
-	border: 1px solid #d9e2ec;
-	border-radius: 8px;
-	padding: 0.8rem 1rem;
-	margin: 1rem 0;
-	overflow-wrap: anywhere;
-}
-
-.cpacs-url-box small {
-	display: block;
-	color: #627d98;
-	font-weight: 600;
-	margin-bottom: 0.25rem;
+	background: #f1f2f7;
+	color: #6b7280;
 }
 
 .cpacs-note {
-	border-left: 4px solid #1f77b4;
-	background: #f5f9fc;
-	padding: 0.8rem 1rem;
-	margin: 1rem 0;
-	color: #334e68;
+	background: #fafbfc;
+	border-left: 3px solid #3d6ca4;
+	color: #6b7280;
+	margin-bottom: 36px;
+	max-width: 46em;
+	padding: 14px 18px;
 }
 
+/* The develop schema is the one selection whose note is a caution rather than
+   a fact, so it carries the only warm colour on the page. */
 .cpacs-note-dev {
-	border-left-color: #f0ad4e;
-	background: #fff8ec;
+	background: #fdfaf4;
+	border-left-color: #c8862a;
+}
+
+/* Downloading the file and linking it are two ways out of the same choice,
+   so they stand side by side under one picker rather than in a queue. The
+   rule between them is the divider the documentation page uses. */
+.cpacs-band {
+	display: flex;
+	flex-wrap: wrap;
+	margin-bottom: 10px;
+}
+
+.cpacs-band > [class*="col-"] {
+	display: flex;
+}
+
+.cpacs-band-col {
+	padding: 0 30px 5px 0;
+	width: 100%;
+}
+
+.cpacs-band > [class*="col-"] + [class*="col-"] .cpacs-band-col {
+	border-left: 1px solid #e6e6e6;
+	padding-left: 40px;
+	padding-right: 0;
+}
+
+.cpacs-field-label {
+	color: #6b7280;
+	font-size: 12px;
+	letter-spacing: .6px;
+	margin-bottom: 8px;
+	text-transform: uppercase;
+}
+
+/* Both fields carry the same string, so neither may look like the more
+   official one. The URL is set on rules, the snippet sits in a panel, and the
+   label above each says what it is for. */
+.cpacs-url {
+	border-bottom: 1px solid #eceff3;
+	border-top: 1px solid #eceff3;
+	color: #282828;
+	font-family: Menlo, Consolas, "Courier New", monospace;
+	font-size: 14px;
+	margin: 0;
+	overflow-wrap: anywhere;
+	padding: 11px 0;
 }
 
 .cpacs-code {
-	margin-top: 0.75rem;
-}
-
-.cpacs-code pre {
-	border-radius: 8px;
-	border: 1px solid #d9e2ec;
-	background: #f7f9fb;
-	padding: 1rem;
+	background: #fafbfc;
+	border: 1px solid #eceff3;
+	border-radius: 3px;
+	color: #282828;
+	font-size: 13px;
+	margin: 0;
 	overflow-x: auto;
+	padding: 16px 18px;
 }
 
-.cpacs-actions {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.8rem;
-	margin-top: 1.2rem;
+/* Bootstrap tints inline code and boxes it a second time inside the pre. */
+.cpacs-code code {
+	background: none;
+	color: inherit;
+	font-size: inherit;
+	padding: 0;
+	white-space: pre;
 }
 
-.cpacs-btn {
-	display: inline-block;
-	border-radius: 6px;
-	padding: 0.55rem 0.9rem;
-	text-decoration: none;
-	font-weight: 600;
-	border: 1px solid #1f77b4;
-	background: #1f77b4;
-	color: #ffffff !important;
+/* Prism ships the tomorrow theme, whose token colours are drawn for a dark
+   panel and wash out on this one. Same hues the rest of the page uses, at a
+   weight that reads on the light block. */
+.cpacs-code .token.comment,
+.cpacs-code .token.doctype,
+.cpacs-code .token.prolog,
+.cpacs-code .token.punctuation {
+	color: #6b7280;
 }
 
-.cpacs-btn:hover {
-	background: #155d8b;
-	border-color: #155d8b;
-	text-decoration: none;
+.cpacs-code .token.tag {
+	color: #2f5580;
 }
 
-.cpacs-btn-secondary {
-	background: #ffffff;
-	color: #1f77b4 !important;
+.cpacs-code .token.attr-name {
+	color: #3d6ca4;
 }
 
-.cpacs-btn-secondary:hover {
+.cpacs-code .token.attr-value,
+.cpacs-code .token.string {
+	color: #2a6f4c;
+}
+
+/* Prism's copy button is drawn for the same dark theme -- light grey on a
+   drop shadow, invisible here. It gets the outline of the chips instead, and
+   Prism keeps it hidden until the block is hovered. */
+.cpacs-band-col div.code-toolbar > .toolbar {
+	right: 8px;
+	top: 8px;
+}
+
+.cpacs-band-col div.code-toolbar > .toolbar > .toolbar-item > button {
+	background: #fff;
+	border: 1px solid #dfe5ec;
+	border-radius: 3px;
+	box-shadow: none;
+	color: #3d6ca4;
+	font-size: 12px;
+	padding: 4px 10px;
+}
+
+.cpacs-band-col div.code-toolbar > .toolbar > .toolbar-item > button:focus,
+.cpacs-band-col div.code-toolbar > .toolbar > .toolbar-item > button:hover {
 	background: #f5f9fc;
-	color: #155d8b !important;
+	border-color: #3d6ca4;
+	color: #3d6ca4;
 }
 
+
+/* Three destinations, each with a line the chips on the documentation page
+   could not carry. Flat outlines keep them a list, not a set of raised tiles. */
 .cpacs-link-grid {
 	display: grid;
+	gap: 16px;
 	grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-	gap: 1rem;
-	margin-top: 1rem;
+	max-width: 66em;
 }
 
 .cpacs-link-card {
+	border: 1px solid #dfe5ec;
+	border-radius: 3px;
 	display: block;
-	border: 1px solid #d9e2ec;
-	border-radius: 8px;
-	padding: 1rem;
-	background: #ffffff;
-	text-decoration: none;
-	color: inherit;
+	padding: 18px 20px;
+	transition: background .2s ease, border-color .2s ease;
 }
 
-.cpacs-link-card:hover {
-	border-color: #1f77b4;
-	box-shadow: 0 2px 8px rgba(31, 119, 180, 0.12);
+.cpacs-link-card:hover,
+.cpacs-link-card:focus {
+	background: #f5f9fc;
+	border-color: #3d6ca4;
 	text-decoration: none;
 }
 
 .cpacs-link-card strong {
+	color: #3d6ca4;
 	display: block;
-	margin-bottom: 0.3rem;
-	color: #1f77b4;
+	font-weight: 600;
+	margin-bottom: 6px;
 }
 
 .cpacs-link-card span {
-	color: #627d98;
+	color: #6b7280;
+	display: block;
+	font-size: 14px;
 }
 
-.cpacs-sidebar-box {
-	background: #f7f9fb;
-	border: 1px solid #d9e2ec;
-	border-radius: 8px;
-	padding: 1rem;
+@media (max-width: 991px) {
+	.cpacs-band > [class*="col-"] + [class*="col-"] .cpacs-band-col {
+		border-left: 0;
+		border-top: 1px solid #e6e6e6;
+		padding-left: 0;
+		padding-top: 26px;
+	}
+
+	.cpacs-band-col {
+		padding-right: 0;
+	}
 }
+
 
 .button-container {
 	display: flex;

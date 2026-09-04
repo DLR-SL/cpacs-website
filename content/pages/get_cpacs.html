@@ -7,121 +7,126 @@
 </head>
 
 <body>
+    <section id="get-cpacs">
+        <div class="success-story background-bg success-story-bg">
+            <div class="overlay subsection-padding">
+                <div class="container">
 
-    <div class="col-md-9 cpacs-page">
-
-        <div class="cpacs-card">
-            <h2>CPACS Schema</h2>
-
-            <p class="cpacs-lead">
-                Download a CPACS schema file or copy the corresponding XML schema reference for your CPACS file.
-            </p>
-
-            <div class="cpacs-select-row">
-                <label for="cpacsVersionSelect">Schema version</label>
-                <select id="cpacsVersionSelect">
-                    <option value="3.5">CPACS 3.5</option>
-                    <option value="3.4">CPACS 3.4</option>
-                    <option value="3.3">CPACS 3.3</option>
-                    <option value="3.2">CPACS 3.2</option>
-                    <option value="3.1">CPACS 3.1</option>
-                    <option value="3.0">CPACS 3.0</option>
-                    <option value="2.3.1">CPACS 2.3.1</option>
-                    <option value="2.3">CPACS 2.3</option>
-                    <option disabled>──────────</option>
-                    <option value="develop">CPACS develop</option>
-                    <option disabled>──────────</option>
-                    <option value="exact2">Exact-2</option>
-                    <option value="impactMonitor">Impact Monitor</option>
-                    <option value="alicia">Alicia</option>
-                    <option value="wingMates">WingMates</option>
-                    <option value="diabolo">Diabolo</option>
-                    <option value="arcade">Arcade</option>
-                </select>
-                <span id="versionBadge" class="cpacs-badge">stable release</span>
-            </div>
-
-            <div id="versionNote" class="cpacs-note">
-                CPACS 3.5 is the latest stable CPACS release available from the website schema archive.
-            </div>
-
-            <div class="cpacs-url-box">
-                <small>Schema URL</small>
-                <b><span id="schemaUrlDisplay">https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd</span></b>
-            </div>
-
-            <div class="cpacs-code">
-                <p>
-                    Copy the following code into your XML file to link to the selected CPACS schema:
-                </p>
-
-                <pre><code class="language-xml" id="codeField">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;cpacs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:noNamespaceSchemaLocation="https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd"&gt;</code></pre>
-            </div>
-
-            <div class="cpacs-actions">
-                <a id="downloadLink" class="cpacs-btn" download href="../schema/v3_5_0/cpacs_schema.xsd">
-                    <i class="fa fa-download"></i> Open / Download Schema (XSD)
-                </a>
-
-                <a class="cpacs-btn cpacs-btn-secondary" href="https://github.com/DLR-SL/CPACS/releases"
-                    target="_blank">
-                    View CPACS releases
-                </a>
-            </div>
-        </div>
-
-        <div class="cpacs-card">
-            <h2>GitHub Repository</h2>
-
-            <p>
-                The complete CPACS repository, including schemas, examples, documentation sources, helper files,
-                and APIs, is available on GitHub.
-            </p>
-
-            <div class="cpacs-link-grid">
-                <a class="cpacs-link-card" href="https://github.com/DLR-SL/CPACS/releases" target="_blank">
-                    <strong>Releases</strong>
-                    <span>Download official CPACS release packages and release candidates.</span>
-                </a>
-
-                <a class="cpacs-link-card" href="https://github.com/DLR-SL/CPACS" target="_blank">
-                    <strong>Repository</strong>
-                    <span>Browse the CPACS schema, examples, issues, and development branches.</span>
-                </a>
-
-                <a class="cpacs-link-card" href="https://github.com/DLR-SL/CPACS/discussions" target="_blank">
-                    <strong>Discussions</strong>
-                    <span>Ask questions, provide feedback, and join community discussions.</span>
-                </a>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="col-md-3">
-        <div class="sidebar">
-            <aside class="widget widget_news_subs">
-                <div class="cpacs-sidebar-box">
-                    <h3 class="widget-title">Open Source</h3>
-                    <p>
-                        CPACS is open source and published under the
-                        <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>.
+                    <h2 class="doc-heading">Schema file</h2>
+                    <p class="doc-intro">
+                        Pick a version, then save the schema or link it from your own CPACS file.
                     </p>
+
+                    <div class="cpacs-picker">
+                        <label for="cpacsVersionSelect">Version</label>
+                        <select id="cpacsVersionSelect">
+                            <option value="3.5.1">CPACS 3.5.1</option>
+                            <option value="3.5">CPACS 3.5</option>
+                            <option value="3.4">CPACS 3.4</option>
+                            <option value="3.3">CPACS 3.3</option>
+                            <option value="3.2">CPACS 3.2</option>
+                            <option value="3.1">CPACS 3.1</option>
+                            <option value="3.0">CPACS 3.0</option>
+                            <option value="2.3.1">CPACS 2.3.1</option>
+                            <option value="2.3">CPACS 2.3</option>
+                            <option disabled>──────────</option>
+                            <option value="develop">CPACS develop</option>
+                            <option disabled>──────────</option>
+                            <option value="exact2">Exact-2</option>
+                            <option value="impactMonitor">Impact Monitor</option>
+                            <option value="alicia">Alicia</option>
+                            <option value="wingMates">WingMates</option>
+                            <option value="diabolo">Diabolo</option>
+                            <option value="arcade">Arcade</option>
+                        </select>
+                        <span id="versionBadge" class="cpacs-badge">stable release</span>
+                    </div>
+
+                    <p id="versionNote" class="cpacs-note">
+                        CPACS 3.5.1 is the latest stable CPACS release available from the website
+                        schema archive.
+                    </p>
+
+                    <div class="row cpacs-band">
+                        <div class="col-md-5">
+                            <div class="cpacs-band-col">
+                                <p class="cpacs-field-label">Schema URL</p>
+                                <p class="cpacs-url" id="schemaUrlDisplay">
+                                    https://www.cpacs.de/schema/v3_5_1/cpacs_schema.xsd
+                                </p>
+                                <a id="downloadLink" class="doc-btn" download
+                                    href="../schema/v3_5_1/cpacs_schema.xsd">Download schema</a>
+                                <p class="doc-btn-hint">
+                                    The .xsd file for the selected version, served from the
+                                    website archive.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="cpacs-band-col">
+                                <p class="cpacs-field-label">Reference in your CPACS file</p>
+                                <pre class="cpacs-code"><code class="language-xml" id="codeField">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;cpacs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="https://www.cpacs.de/schema/v3_5_1/cpacs_schema.xsd"&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="doc-heading doc-heading-spaced">On GitHub</h2>
+                    <p class="doc-intro">
+                        Schema, examples, documentation sources, helper files and APIs are
+                        developed in the open.
+                    </p>
+
+                    <div class="cpacs-link-grid">
+                        <a class="cpacs-link-card" href="https://github.com/DLR-SL/CPACS" target="_blank">
+                            <strong>Repository</strong>
+                            <span>Browse the schema, examples, issues and development branches.</span>
+                        </a>
+                        <a class="cpacs-link-card" href="https://github.com/DLR-SL/CPACS/releases" target="_blank">
+                            <strong>Releases</strong>
+                            <span>Official release packages and release candidates.</span>
+                        </a>
+                        <a class="cpacs-link-card" href="https://github.com/DLR-SL/CPACS/discussions" target="_blank">
+                            <strong>Discussions</strong>
+                            <span>Ask questions, give feedback and follow the community.</span>
+                        </a>
+                    </div>
+
+                    <div class="doc-note">
+                        <div class="doc-note-body">
+                            <h4><i class="fa fa-info-circle"></i> License</h4>
+                            <p class="doc-note-aside">
+                                CPACS is open source and published under the
+                                <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License,
+                                    Version 2.0</a>.
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
-            </aside>
+                <!-- /.container -->
+            </div>
+            <!-- /.overlay -->
         </div>
-    </div>
+        <!-- /.background-bg -->
+    </section>
 
     <script>
         var schemaVersions = {
+            '3.5.1': {
+                schemaUrl: 'https://www.cpacs.de/schema/v3_5_1/cpacs_schema.xsd',
+                downloadHref: '../schema/v3_5_1/cpacs_schema.xsd',
+                badge: 'stable release',
+                badgeClass: 'cpacs-badge',
+                note: 'CPACS 3.5.1 is the latest stable CPACS release available from the website schema archive.'
+            },
             '3.5': {
                 schemaUrl: 'https://www.cpacs.de/schema/v3_5_0/cpacs_schema.xsd',
                 downloadHref: '../schema/v3_5_0/cpacs_schema.xsd',
                 badge: 'stable release',
                 badgeClass: 'cpacs-badge',
-                note: 'CPACS 3.5 is the latest stable CPACS release available from the website schema archive.'
+                note: 'CPACS 3.5 is an archived stable CPACS release.'
             },
             '3.4': {
                 schemaUrl: 'https://www.cpacs.de/schema/v3_4_0/cpacs_schema.xsd',
@@ -175,7 +180,7 @@
             'develop': {
                 schemaUrl: 'https://raw.githubusercontent.com/DLR-SL/CPACS/refs/heads/develop/schema/cpacs_schema.xsd',
                 downloadHref: 'https://raw.githubusercontent.com/DLR-SL/CPACS/refs/heads/develop/schema/cpacs_schema.xsd',
-                badge: 'latest development version',
+                badge: 'development version',
                 badgeClass: 'cpacs-badge cpacs-badge-dev',
                 note: 'The develop schema reflects the current development state of CPACS. It may change without notice and should not be used as a stable release reference.'
             },
@@ -235,11 +240,21 @@
                 return;
             }
 
-            codeField.innerText = '<?xml version="1.0" encoding="UTF-8"?>\n' +
+            // textContent, not innerText: the innerText setter turns the line
+            // breaks into <br> elements, and Prism reads textContent, which
+            // skips those -- so the snippet came back highlighted on one line.
+            codeField.textContent = '<?xml version="1.0" encoding="UTF-8"?>\n' +
                 '<cpacs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n' +
                 '       xsi:noNamespaceSchemaLocation="' + selectedSchema.schemaUrl + '">';
 
             codeField.className = 'language-xml';
+
+            // Writing the text drops Prism's markup, so ask for it again.
+            // On the first run Prism has not loaded yet; its own pass covers that.
+            if (window.Prism) {
+                window.Prism.highlightElement(codeField);
+            }
+
             schemaUrlDisplay.textContent = selectedSchema.schemaUrl;
             downloadLink.href = selectedSchema.downloadHref;
 
