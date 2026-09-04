@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CPACS 3.3</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../index.html">Documentation</a> · <a href="../../index.html">Types</a></nav><h1>CPACS 3.3</h1><div class="cd-remarks"><div class="cd-content"> <p>Release in June 2021</p> <ul class="cd-list"> <li> Revision of the mission definition including parameter lapses within segments (<strong>compatibility break</strong>) </li> <li> Revision of the point performance definition (<strong>compatibility break</strong>) </li> <li> Revision of performance requirements (<strong>compatibility break</strong>) </li> <li> Revision of landing gears (<strong>compatibility break</strong>) </li> <li> Revision of control surface tracks definition (<strong>compatibility break</strong>) </li> <li> Load analysis: Revision of flightLoadCasesType (<strong>compatibility break</strong>) </li> <li> Load analysis: Revision of aeroCasesType (<strong>compatibility break</strong>) </li> <li> Load analysis: loadEnvelopesType relocated and envelope simplified to a single uID-Sequence (<strong>compatibility break</strong>) </li> <li> Load analysis: Replaced dynamicAircraftModel elements by loadApplicationPointSets (<strong>compatibility break</strong>) </li> <li> Flight dynamics: Group flightPerformance, flyingQualities and trim under flightDynamics parent node (<strong>compatibility break</strong>) </li> <li>Introduced a configuration node to describe aircraft and payload configurations</li> <li>Fuselage profiles: Introduced rectangle and super ellipse as standard profiles</li> <li>Fuselage profiles: Added vector to specify curve parameters for profiles with kinks</li> <li>Internal structure: Added standard profiles to profile based structural elements</li> <li>Internal structure: Added ribPosts element to wingRibCrossSectionType</li> <li>Internal structure: Upper and lowerCap now optional in sparCellType</li> <li>Internal structure: Stringers and frames can reference sections </li> <li>MassBreakdown: Set mass inertia Jxy, Jxz and Jyz optional</li> <li>MassBreakdown: Added mMiscellaneous element</li> <li>MassBreakdown: Added fuselage walls</li> <li>Added flight envelope to aircraft global element</li> <li>Added new base types: doubleVectorBaseType, posIntVectorBaseType, doubleArrayBaseType</li> <li>Added &#x27;none&#x27; and &#x27;inherit&#x27; to list of symmetry flags</li> <li>Set mapType attribute of vector and array elements to optional (requires TiXI&gt;=3.1)</li> <li> AeroMaps: Defined angleOfSideslip as input and added distinction between minimum and maximum angleOfAttack in aeroLimitMaps (<strong>compatibility break</strong>) </li> <li> AeroMaps: Added missing singular incrementMap element to incrementMaps in aeroLimitsMap (<strong>compatibility break</strong>) </li> <li> AeroMaps: Adopted the camelCase style for damping derivatives (<strong>compatibility break</strong>) </li> <li> Introduced common nomenclature for speeds and altitudes (<strong>compatibility break</strong>) </li> <li>Control distributors are set to optional</li> <li>Added instructions for superposition of control surface deflections</li> <li>Further elaboration of development standards</li> <li>General improvements of the documentation</li> </ul> </div></div>
+</body>
+</html>

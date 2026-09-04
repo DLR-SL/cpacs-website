@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>profileBasedStructuralElementType</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../../index.html">Types</a> · <a href="../../tree/cpacs/vehicles/structuralElements/profileBasedStructuralElements/profileBasedStructuralElement/">Show in tree</a></nav>
+<h1>profileBasedStructuralElementType</h1>
+<p class="cd-kind">complexType · extension <a href="../complexBaseType/index.html"><code>complexBaseType</code></a> · sequence</p>
+<div class="cd-summary"><p>Structural elements based on profiles</p></div>
+<div class="cd-remarks"><div class="cd-content"> <section class="cd-section"> <h3>Short description</h3> <div class="cd-content"> <p> The ProfileBasedStructuralElement type containins the data of a structural element, that are based on 2-dimensional profiles. </p> <p> There are three approaches to model profile based structural elements: <ul class="cd-list"> <li>by specifying global beam properties</li> <li>by referencing a structuralProfile2D element</li> <li>by choosing one of the prescribed standard profiles</li> </ul> </p> </div> </section> <section class="cd-section"> <h3>1. Global beam properties</h3> <div class="cd-content"> <p> In the section <em>globalBeamProperties</em> the properties of the structural profile in an equivalent beam representation are defined. </p> </div> </section> <section class="cd-section"> <h3>2. Structural 2D profile</h3> <div class="cd-content"> <p> The <em>structuralProfileUID</em> element refers to the <em>uID</em> of the <em>structuralProfile2D</em> element. As described in the corresponding documentation, this profile is defined by several points in the x-y-space. Two points always form a sheet. The properties of each sheet are defined in the <em>sheetProperties</em> element. The orthotropy direction of composite materials equals the sheets&#x27; x-axis. The orthotropy direction angle equals a positive rotation around the sheets&#x27; z-axis as indicated in the picture below (part 3), which shows an example of a wing stringer.: </p> <figure class="cd-figure"> <img class="cd-image" src="../../media/figures/stringer2.jpg" alt="stringer 2"> </figure> </div> </section> <section class="cd-section"> <h3>3. Standard structural 2D profile</h3> <div class="cd-content"> <p> Instead of referencing a <em>structuralProfile2D</em> element, it is also possible to select a predefined standard profile. These profiles are listed in the figure below. Under <em>sheetProperties</em>, only the <em>standardProfileSheetID</em> (equals S1, S2, ...) must now be specified along with a corresponding length. </p> <figure class="cd-figure"> <img class="cd-image" src="../../media/figures/standard_profiles.png" alt="standard profile"> </figure> </div> </section> </div></div>
+<section class="cd-attributes"><h2>Attributes</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th>Use</th><th>Default</th><th>Description</th></tr><tr><td><code>@externalDataDirectory</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Directory of the external data file</td></tr><tr><td><code>@externalDataNodePath</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Path of the node inside the external data file</td></tr><tr><td><code>@externalFileName</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Name of the external data file</td></tr><tr><td><code>@uID</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_ID.html" target="_blank" rel="noopener noreferrer"><code>xsd:ID</code></a></td><td></td><td>required</td><td></td><td>UID</td></tr></table></div></section>
+<section class="cd-children"><h2>Child elements</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th><span class="cd-note-term" tabindex="0">Occurrence<span class="cd-tip" role="note">How often the element may appear at this place. The schema writes it as minOccurs and maxOccurs on the declaration.</span></span></th><th>Default</th><th>Description</th></tr><tr class="cd-group cd-group-sequence"><td colspan="5"><span class="cd-group-label"><span class="cd-group-mark" aria-hidden="true"></span><span class="cd-group-term" tabindex="0">sequence<span class="cd-tip" role="note">The children below must appear in exactly this order. Each may repeat as often as its own occurrence allows.</span></span></span></td><td></td></tr><tr><td class="cd-indent" style="--depth:1"><code>name</code></td><td><a href="../stringBaseType/index.html"><code>stringBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Name</td></tr><tr><td class="cd-indent" style="--depth:1"><code>description</code></td><td><a href="../stringBaseType/index.html"><code>stringBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Description</td></tr><tr class="cd-group cd-group-choice"><td class="cd-indent" style="--depth:1" colspan="5"><span class="cd-group-label"><span class="cd-group-mark" aria-hidden="true"></span><span class="cd-group-term" tabindex="0">choice<span class="cd-tip" role="note">Exactly one of the alternatives below may appear, unless the occurrence next to this line says otherwise.</span></span></span></td><td></td></tr><tr class="cd-group cd-group-sequence"><td class="cd-indent" style="--depth:2" colspan="5"><span class="cd-group-label"><span class="cd-group-mark" aria-hidden="true"></span><span class="cd-group-term" tabindex="0">sequence<span class="cd-tip" role="note">The children below must appear in exactly this order. Each may repeat as often as its own occurrence allows.</span></span></span></td><td></td></tr><tr><td class="cd-indent" style="--depth:3"><code>sheetProperties</code></td><td><a href="../materialDefinitionForProfileBasedType/index.html"><code>materialDefinitionForProfileBasedType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[1..∞]</span> one or more</td><td></td><td>Material definition of a sheet of the profile</td></tr><tr class="cd-group cd-group-choice"><td class="cd-indent" style="--depth:3" colspan="5"><span class="cd-group-label"><span class="cd-group-mark" aria-hidden="true"></span><span class="cd-group-term" tabindex="0">choice<span class="cd-tip" role="note">Exactly one of the alternatives below may appear, unless the occurrence next to this line says otherwise.</span></span></span></td><td></td></tr><tr class="cd-group cd-group-sequence"><td class="cd-indent" style="--depth:4" colspan="5"><span class="cd-group-label"><span class="cd-group-mark" aria-hidden="true"></span><span class="cd-group-term" tabindex="0">sequence<span class="cd-tip" role="note">The children below must appear in exactly this order. Each may repeat as often as its own occurrence allows.</span></span></span></td><td></td></tr><tr><td class="cd-indent" style="--depth:5"><code>structuralProfileUID</code></td><td><a href="../stringUIDBaseType/index.html"><code>stringUIDBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>Reference to the structural profile profile UID</td></tr><tr><td class="cd-indent" style="--depth:5"><code>pointProperties</code></td><td><a href="../materialDefinitionForProfileBasedPointType/index.html"><code>materialDefinitionForProfileBasedPointType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..∞]</span> any number</td><td></td><td>Material definition of a point reinforcement of the profile</td></tr><tr><td class="cd-indent" style="--depth:5"><code>referencePointUID</code></td><td><a href="../stringUIDBaseType/index.html"><code>stringUIDBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Reference point in structural profile definition for structural element definition</td></tr><tr><td class="cd-indent" style="--depth:4"><code>standardProfileType</code></td><td><a href="../profileBasedStructuralElementType--standardProfileType/index.html"><code>stringBaseType</code></a></td><td><a class="cd-holds" href="../profileBasedStructuralElementType--standardProfileType/index.html">12 values</a></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>Standard Profile Type, see picture below for further information</td></tr><tr><td class="cd-indent" style="--depth:2"><code>globalBeamProperties</code></td><td><a href="../globalBeamPropertiesType/index.html"><code>globalBeamPropertiesType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Global beam properties</td></tr><tr><td class="cd-indent" style="--depth:1"><code>transformation</code></td><td><a href="../transformation2DType/index.html"><code>transformation2DType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Two-dimensional transformation</td></tr></table></div></section>
+<section class="cd-usage"><h2>Used by</h2><h3>In a dataset <span class="cd-inherited">· 1 path</span></h3><ul class="cd-usage-list"><li><a href="../../tree/cpacs/vehicles/structuralElements/profileBasedStructuralElements/profileBasedStructuralElement/"><code>cpacs/vehicles/structuralElements/profileBasedStructuralElements/profileBasedStructuralElement</code></a></li></ul><h3>In the schema <span class="cd-inherited">· 1 declaration</span></h3><div class="cd-scroll"><table><tr><th>Type</th><th>Name</th></tr><tr><td><a href="../profileBasedStructuralElementsType/index.html"><code>profileBasedStructuralElementsType</code></a></td><td><code>profileBasedStructuralElement</code></td></tr></table></div></section>
+</body>
+</html>

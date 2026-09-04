@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documentation</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../index.html">Types</a></nav><h1>Documentation</h1><p class="cd-kind">31 sections · <a href="../type/cpacsType/index.html"><code>cpacsType</code></a></p><div class="cd-remarks"><div class="cd-content"> <dl class="cd-definitions"> <dt>Version</dt> <dd> <p>V3.5.1</p> </dd> <dt>Date</dt> <dd> <p>2026-09-04</p> </dd> </dl> </div></div><ul class="cd-doc-index"><li><a href="1-overview/index.html">1. Overview</a></li><li><a href="2-data-structure/index.html">2. Data structure</a></li><li><a href="3-coordinate-systems/index.html">3. Coordinate Systems</a></li><li><a href="4-units/index.html">4. Units</a></li><li><a href="5-splitting-up-a-cpacs-dataset-into-several-files/index.html">5. Splitting up a CPACS dataset into several files</a></li><li><a href="6-uids-and-references/index.html">6. UIDs and references</a></li><li><a href="7-usage-of-name-description-and-uid/index.html">7. Usage of name, description and uID</a></li><li><a href="8-symmetry/index.html">8. Symmetry</a></li><li><a href="9-vectors-and-arrays/index.html">9. Vectors and arrays</a></li><li><a href="10-control-parameters/index.html">10. Control Parameters</a></li><li><a href="11-atmosphere/index.html">11. Atmosphere</a></li><li><a href="cpacs-3-5-1/index.html">CPACS 3.5.1</a></li><li><a href="cpacs-3-5/index.html">CPACS 3.5</a></li><li><a href="cpacs-3-4/index.html">CPACS 3.4</a></li><li><a href="cpacs-3-3/index.html">CPACS 3.3</a></li><li><a href="cpacs-3-2/index.html">CPACS 3.2</a></li><li><a href="cpacs-3-1/index.html">CPACS 3.1</a></li><li><a href="cpacs-3-0/index.html">CPACS 3.0</a></li><li><a href="cpacs-2-3-1/index.html">CPACS 2.3.1</a></li><li><a href="cpacs-2-3/index.html">CPACS 2.3</a></li><li><a href="cpacs-2-2-1/index.html">CPACS 2.2.1</a></li><li><a href="cpacs-2-2/index.html">CPACS 2.2</a></li><li><a href="cpacs-2-1/index.html">CPACS 2.1</a></li><li><a href="cpacs-2-01/index.html">CPACS 2.01</a></li><li><a href="cpacs-2-0/index.html">CPACS 2.0</a></li><li><a href="cpacs-1-6/index.html">CPACS 1.6</a></li><li><a href="cpacs-1-5/index.html">CPACS 1.5</a></li><li><a href="cpacs-1-4/index.html">CPACS 1.4</a></li><li><a href="cpacs-1-3/index.html">CPACS 1.3</a></li><li><a href="cpacs-1-2/index.html">CPACS 1.2</a></li><li><a href="cpacs-1-1/index.html">CPACS 1.1</a></li></ul>
+</body>
+</html>

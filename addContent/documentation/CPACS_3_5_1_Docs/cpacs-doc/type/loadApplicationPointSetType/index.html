@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>loadApplicationPointSetType</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../../index.html">Types</a> · <a href="../../tree/cpacs/vehicles/aircraft/model/analyses/global/loadApplicationPointSets/loadApplicationPointSet/">Show in tree</a></nav>
+<h1>loadApplicationPointSetType</h1>
+<p class="cd-kind">complexType · extension <a href="../complexBaseType/index.html"><code>complexBaseType</code></a> · all</p>
+<div class="cd-summary"><p>Load application point set</p></div>
+<div class="cd-remarks"><div class="cd-content"> <p> A point set contains discrete spatial points at which loads are applied (e.g., aerodynamic or structural loads). A typical procedure in CPACS is as follows: </p> <p> <ul class="cd-list"> <li> Reference a wing, fuselage or control surface by its <em>uID</em> using the <em>componentUID</em> node. </li> <li> Define a reference axis through the above component with the <em>loadReferenceLine</em> element to specify where a load distribution shall be applied. </li> <li> Compute the intersections with (e.g.) ribs of the referenced component (wing, fuselage or control surface) and write the results into <em>loadApplicationPoints</em>. This procedure results from common practice where the forces in structural analyses are typically introduced at structural elements such as ribs and spars. With respect to preliminary aircraft design a two-dimensional load distribution is preferred. However, an arbitrary distribution of the load application points is possible (without the intersection of structural elements with a reference axis in the previous step), for example to define discrete load distributions on the wing surface in streamwise and spanwise direction. </li> <li> Specify the location and orientation of cut loads in the <em>cutLoadIntegrationPoints</em> element and the corresponding connectivity information in the <em>connectivities</em> node. </li> </ul> </p> <figure class="cd-figure"> <img class="cd-image" src="../../media/figures/loadReferenceLine.png" alt="Load reference line"> </figure> </div></div>
+<section class="cd-attributes"><h2>Attributes</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th>Use</th><th>Default</th><th>Description</th></tr><tr><td><code>@externalDataDirectory</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Directory of the external data file</td></tr><tr><td><code>@externalDataNodePath</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Path of the node inside the external data file</td></tr><tr><td><code>@externalFileName</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Name of the external data file</td></tr><tr><td><code>@uID</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_ID.html" target="_blank" rel="noopener noreferrer"><code>xsd:ID</code></a></td><td></td><td>required</td><td></td><td>UID</td></tr></table></div></section>
+<section class="cd-children"><h2>Child elements</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th><span class="cd-note-term" tabindex="0">Occurrence<span class="cd-tip" role="note">How often the element may appear at this place. The schema writes it as minOccurs and maxOccurs on the declaration.</span></span></th><th>Default</th><th>Description</th></tr><tr class="cd-group cd-group-all"><td colspan="5"><span class="cd-group-label"><span class="cd-group-mark" aria-hidden="true"></span><span class="cd-group-term" tabindex="0">all<span class="cd-tip" role="note">The children below may appear in any order. Each may appear at most once.</span></span></span></td><td></td></tr><tr><td class="cd-indent" style="--depth:1"><code>componentUID</code></td><td><a href="../stringUIDBaseType/index.html"><code>stringUIDBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>UID of a wing, fuselage or control surface</td></tr><tr><td class="cd-indent" style="--depth:1"><code>loadReferenceLine</code></td><td><a href="../loadReferenceLineType/index.html"><code>loadReferenceLineType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Reference axis (line) for load distribution</td></tr><tr><td class="cd-indent" style="--depth:1"><code>loadApplicationPoints</code></td><td><a href="../loadApplicationPointsType/index.html"><code>loadApplicationPointsType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>List of points at which load vectors are applied to</td></tr><tr><td class="cd-indent" style="--depth:1"><code>cutLoadIntegrationPoints</code></td><td><a href="../cutLoadPointsType/index.html"><code>cutLoadPointsType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>List of points at which cut loads are applied to</td></tr><tr><td class="cd-indent" style="--depth:1"><code>connectivities</code></td><td><a href="../connectivitiesType/index.html"><code>connectivitiesType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Connectivity properties between points</td></tr></table></div></section>
+<section class="cd-usage"><h2>Used by</h2><h3>In a dataset <span class="cd-inherited">· 1 path</span></h3><ul class="cd-usage-list"><li><a href="../../tree/cpacs/vehicles/aircraft/model/analyses/global/loadApplicationPointSets/loadApplicationPointSet/"><code>cpacs/vehicles/aircraft/model/analyses/global/loadApplicationPointSets/loadApplicationPointSet</code></a></li></ul><h3>In the schema <span class="cd-inherited">· 1 declaration</span></h3><div class="cd-scroll"><table><tr><th>Type</th><th>Name</th></tr><tr><td><a href="../loadApplicationPointSetsType/index.html"><code>loadApplicationPointSetsType</code></a></td><td><code>loadApplicationPointSet</code></td></tr></table></div></section>
+</body>
+</html>

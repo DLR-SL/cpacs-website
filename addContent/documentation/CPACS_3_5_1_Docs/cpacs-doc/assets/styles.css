@@ -1,0 +1,1202 @@
+/* Reference documentation, opened dozens of times a day and read for years.
+   The design is deliberately quiet: no motion, no gradients, no cards. What
+   carries it is the distinction between schema vocabulary, set in a monospaced
+   face, and prose about it, set in a text face. */
+
+:root {
+  color-scheme: light dark;
+
+  /* Paper rather than a lit panel. Reference documentation is opened dozens of
+     times a day and read for years, and #16191d on #ffffff is 17.6 to 1 — a
+     ratio that is faultless on a chart and tiring to sit in. The page comes
+     down and the ink comes up until they meet at 12.7, which is still half
+     again what AAA asks of body text (7) and no longer glares.
+
+     The ground is stated rather than left to the browser's canvas: without it
+     the page was whatever white the engine paints, and a colour the stylesheet
+     never names cannot be tuned against the ink that sits on it.
+
+     The cast is what makes it read as paper, and it has to run through the
+     whole neutral scale or it reads as something laid over the page instead.
+     Measured as red minus blue: the page +4, the ink +1, the soft ink +6, the
+     two rules +6 and +8. A warm ground was tried once under the ink this
+     palette started with, which is blue-grey at -5 and -11, and the page then
+     looked like a screen with a blue filter on it rather than like paper —
+     the cast has to be in the ink, not only under it. It is kept small: three
+     or four steps out of 255, enough to be warm and not enough to be a colour.
+
+     The links, the alarm and the three code hues stay where they were: they
+     are the only saturated things here and they still measure 6.2, 7.2 and 5.2
+     and up against this ground. */
+  --page: #fcfbf8;
+  --ink: #313030;
+  --ink-soft: #6a6864;
+  --rule: #e7e4e1;
+  --rule-strong: #a5a29d;
+  --field: rgba(140, 132, 120, 0.09);
+  --link: #1d5fa8;
+  /* The focus ring, which was --link and had no business being it: a link is
+     read, a ring is only glanced at, and at the link's strength — 6.2 to 1
+     against the page, 5.7 against a selected row — it shouted every time the
+     keyboard moved. Quieted to roughly 4, which keeps the 3:1 a focus
+     indicator owes (WCAG 2.4.11) even on the tightest ground it meets, the
+     --field of the row the cursor stands on. Measured there: 3.6 and 3.4. */
+  --focus: #4b81bd;
+  --alarm: #a3241c;
+  /* Figures are drawn for paper: dark strokes and labels, mostly on a
+     transparent ground (62 of 98). They are set on a light plate rather than
+     inverted, because a filter cannot tell a line drawing from a colour
+     illustration and would wreck the latter to save the former. */
+  --plate: #fefdfb;
+  --plate-edge: rgba(0, 0, 0, 0.08);
+  --guide: rgba(0, 0, 0, 0.13);
+  --group-tint: rgba(0, 0, 0, 0.035);
+  --tip-bg: #23272c;
+  --tip-ink: #f2f4f6;
+
+  /* XML examples. Three hues carry the three things a reader looks for in an
+     instance document — element, attribute, value — and everything else stays
+     the text colour. Measured against the block background: 6.3, 6.5 and 5.2
+     to 1 on the light page, 7.4, 6.8 and 7.2 on the dark one. Colour is not
+     the only signal; the syntax says the same thing. */
+  --code-tag: #1c5f75;
+  --code-attr: #7a3e86;
+  --code-value: #8a5a1e;
+
+  /* A minor third between steps: enough separation to see hierarchy at a
+     glance without the headings shouting. */
+  --step-0: 0.82rem;
+  --step-1: 0.94rem;
+  --step-2: 1rem;
+  --step-3: 1.19rem;
+  --step-4: 1.42rem;
+  --step-5: 1.9rem;
+
+  /* The one correction that is not a step. A monospace face set at the size of
+     the text around it reads larger than it — wider letters, a taller
+     x-height — so code inline in a sentence is taken down a little. It has to
+     follow whatever surrounds it rather than name a step, because inline code
+     appears in prose at 19.04 px and in table cells at 15.04. Every place that
+     wants this correction takes it from here: four different factors were in
+     the stylesheet, and only this one had a reason. */
+  --code-scale: 0.88;
+
+  --face-text: ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+  --face-code: ui-monospace, "Cascadia Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+/* The reader may override the system. `data-theme` on the root element says
+   so, set by the one inline script every page carries; absent means "follow
+   the system", which is what a first visit gets.
+
+   The dark palette is therefore written twice: once for a system that asks for
+   it where the reader has not said otherwise, once for a reader who asked for
+   it outright. CSS cannot give one declaration block two conditions, and
+   `light-dark()` would do it in one place at the price of failing outright
+   where it is unknown — a documentation site cannot trade its whole palette
+   for tidiness. The duplication is sixteen lines and it is the interface, so
+   the two blocks are kept adjacent and identical. */
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --page: #1c1d1f;
+    --ink: #d6d8db;
+    --ink-soft: #949aa2;
+    --rule: #34363a;
+    --rule-strong: #5c646d;
+    --field: rgba(150, 160, 172, 0.11);
+    --link: #74b3f0;
+    --focus: #4f80b0;
+    --alarm: #e8837b;
+    /* Slightly off white, so a full-page-width figure does not glare against
+       a dark page. */
+    --plate: #edeff1;
+    --plate-edge: rgba(255, 255, 255, 0.14);
+    --guide: rgba(255, 255, 255, 0.17);
+    --group-tint: rgba(255, 255, 255, 0.045);
+    --tip-bg: #f2f4f6;
+    --tip-ink: #1a1d21;
+    --code-tag: #7fc6d9;
+    --code-attr: #c9a6e0;
+    --code-value: #d9b371;
+  }
+}
+
+:root[data-theme="dark"] {
+  --page: #1c1d1f;
+  --ink: #d6d8db;
+  --ink-soft: #949aa2;
+  --rule: #34363a;
+  --rule-strong: #5c646d;
+  --field: rgba(150, 160, 172, 0.11);
+  --link: #74b3f0;
+  --focus: #4f80b0;
+  --alarm: #e8837b;
+  --plate: #edeff1;
+  --plate-edge: rgba(255, 255, 255, 0.14);
+  --guide: rgba(255, 255, 255, 0.17);
+  --group-tint: rgba(255, 255, 255, 0.045);
+  --tip-bg: #f2f4f6;
+  --tip-ink: #1a1d21;
+  --code-tag: #7fc6d9;
+  --code-attr: #c9a6e0;
+  --code-value: #d9b371;
+}
+
+body {
+  font: var(--step-2) / 1.62 var(--face-text);
+  color: var(--ink);
+  background: var(--page);
+  margin: 0 auto;
+  max-width: 58rem;
+  padding: 2.5rem 1.25rem 6rem;
+}
+
+a { color: var(--link); text-underline-offset: 0.15em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 2px; }
+
+code {
+  font-family: var(--face-code);
+  font-size: calc(var(--code-scale) * 1em);
+  overflow-wrap: anywhere;
+}
+
+/* Page head: position, name, and the one-line profile read as three levels,
+   not as three paragraphs. */
+.cd-breadcrumb {
+  font-size: var(--step-0);
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 0.9rem;
+}
+
+/* A schema name is one word with no break in it, and the heading is the one
+   place where that word is the whole content. Left to `normal` it does not
+   wrap — it runs out of the pane and takes the end of the name with it:
+   `landingGearInterfaceLongFloorBeamsConnection` needs 576 px where the panel
+   offers 360 at a wide tree column, and 628 where it offers 612 at the
+   default one. `anywhere` rather than `break-word`, as `code` has it, so the
+   name also stops setting a floor under the panel it stands in. */
+h1 {
+  font-family: var(--face-code);
+  font-size: var(--step-5);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  margin: 0 0 0.35rem;
+  overflow-wrap: anywhere;
+}
+
+/* The head's own line: where the element or the type stands, how often, what
+   may be written there. It ends where the prose begins, and the space says so
+   — a rule there only separated, which is what the space already does. The one
+   stroke left in the reading part of the page is the rail on the borrowed
+   block, and that one carries a meaning. */
+.cd-kind {
+  color: var(--ink-soft);
+  font-size: var(--step-1);
+  margin: 0 0 1.7rem;
+}
+/* The lines of the head belong to each other, so they sit a line apart and the
+   air is under the block rather than between its parts. */
+.cd-head { margin-bottom: 1.7rem; }
+.cd-head .cd-kind { margin-bottom: 0.3rem; }
+.cd-head .cd-kind:last-child { margin-bottom: 0; }
+.cd-kind code, .cd-kind a { font-size: inherit; }
+
+h2 {
+  font-size: var(--step-3);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  margin: 2.6rem 0 0.6rem;
+}
+
+.cd-summary { font-size: var(--step-3); line-height: 1.5; }
+.cd-summary p:first-child, .cd-remarks p:first-child { margin-top: 0; }
+
+/* Tables carry data, so they get one rule under the head and air between rows
+   rather than a grid. A full border on every row is what makes a reference
+   page look like a spreadsheet. */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.3rem 0 0.5rem;
+  font-size: var(--step-1);
+}
+th {
+  text-align: left;
+  font-weight: 600;
+  font-size: var(--step-0);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--rule-strong);
+  padding: 0 0.7rem 0.4rem 0;
+  white-space: nowrap;
+}
+td {
+  /* Top, not baseline: a cell that wraps — a long description, a type with a
+     marker under it — would otherwise drop its neighbours to the last line and
+     the row would read as though the name belonged to the bottom of it. */
+  vertical-align: top;
+  padding: 0.42rem 0.7rem 0.42rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+tr:last-child td { border-bottom: 0; }
+td:first-child, th:first-child { padding-left: 0; }
+td:last-child, th:last-child { padding-right: 0; }
+td code { white-space: nowrap; }
+
+/* The table's own scroller. A reference table is as wide as its widest name
+   and cannot be made to fit a reading measure: the child table needs up to
+   1,143 px against a 928 px column, on 1,079 of the 1,206 type pages. Without
+   this the *page* scrolled, and the heading, the prose and the breadcrumb slid
+   out of view with the table — which is what a code block avoids by scrolling
+   in a container of its own.
+
+   `clip` on the other axis, not the `auto` it would otherwise become: a tip is
+   laid out even while hidden, so an `auto` container carries a vertical
+   scrollbar for a tip nobody has opened. `overflow-clip-margin` would be the
+   way to leave the tips their room and is ignored on a scroll container, so
+   the tips near the edge are dealt with where they stand, below. */
+.cd-scroll {
+  overflow-x: auto;
+  overflow-y: clip;
+}
+
+/* A tip on the last row opens into the clip — the row's bottom is the
+   container's bottom — so it opens upwards instead. Measured on the real
+   schema 2026-08-30: 20 of the 2,319 tips a table carries are in that place,
+   cut by up to 23 px and one by 46; the rows above them leave 46 px at least,
+   against the 41 a tip and its gap take. Every other tip is drawn over the
+   rows beneath it, as before. */
+.cd-scroll tr:last-child .cd-tip {
+  top: auto;
+  bottom: calc(100% + 0.4rem);
+}
+
+/* A built-in datatype is the last stop: its name leads out of the schema and
+   out of this site, while a type name next to it leads further into what is
+   written here. `xsd:string` alone stands in 3,624 rows, so the difference is
+   carried by ink rather than by a mark on every one of them — the underline
+   still says "link", and the pointer or the keyboard brings it up to a link's
+   own colour. */
+.cd-builtin {
+  color: var(--ink-soft);
+  text-decoration-color: var(--rule-strong);
+}
+.cd-builtin:hover, .cd-builtin:focus-visible {
+  color: var(--link);
+  text-decoration-color: currentColor;
+}
+
+.cd-inherited, .cd-fixed { color: var(--ink-soft); font-size: var(--step-0); }
+/* What sits behind a type link, where the label alone would not say there is
+   anything: an inline restriction of `xsd:string` reads like a plain string.
+   Set quietly — it is a signpost, not the thing itself. */
+/* A link, because the words name what the reader is looking for and the type
+   name does not — but a step smaller than the type, so the column stays the
+   quieter of the two. */
+.cd-holds {
+  font-family: var(--face-text);
+  font-size: var(--step-0);
+  white-space: nowrap;
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+/* A facet is the schema's word for it, set like one, with the plain reading
+   held on the word as the compositors hold theirs. The value beside it may be
+   a regular expression 150 characters long, so it wraps rather than forcing the
+   table wider than the page. */
+.cd-facet {
+  font-family: var(--face-code);
+  font-size: var(--step-0);
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+.cd-facets td:last-child code { white-space: normal; overflow-wrap: anywhere; }
+
+/* A compositor governs a set of children, so it heads them rather than
+   repeating itself on every row. The schema word is kept for readers who think
+   in it, with the plain reading next to it for those who do not. */
+/* The group row reads as a heading for the rows beneath it, so it carries a
+   tint of its own. This is colour marking a role, not encoding a level. */
+.cd-group td { border-bottom: 0; padding-bottom: 0.15rem; padding-top: 0.7rem; }
+/* The first cell of a table is flush left, which is right for a name and wrong
+   for this row: the tint runs the width of the row, and the mark stood against
+   its edge with no air on that side while it has 0.45rem to the word on the
+   other. The same 0.45rem here puts it in a well rather than in a corner.
+   Only where the row is not indented: a nested group carries `td.cd-indent`
+   and its depth says where the cell starts. Without `:not()` this rule wins on
+   specificity — a class, a type and a pseudo-class against a type and a class
+   — and every group in the table sat at 0.45rem whatever its depth, so a
+   `choice` stood to the left of the elements it is a sibling of and the
+   sequences inside it began where the outermost one does. */
+.cd-group td:first-child:not(.cd-indent) { padding-left: 0.45rem; }
+.cd-group { background: var(--group-tint); }
+.cd-group-label { display: inline-flex; align-items: center; gap: 0.45rem; }
+.cd-group-term {
+  font-family: var(--face-code);
+  font-size: var(--step-0);
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+.cd-group-occurs { font-size: var(--step-0); color: var(--ink-soft); }
+
+/* The explanation is held by the term rather than shown next to it: readers
+   who know the vocabulary are not made to read it on every group. Shown on
+   focus as well as hover, so it is reachable without a pointer, and left in
+   the document so a screen reader announces it either way. */
+/* A column heading that explains itself. Not set in the code face: it is a
+   word of ours, not the schema's, and what it explains is where the schema
+   says the same thing. Underlined so the explanation can be found without
+   hovering every heading to see which ones have one. */
+.cd-note-term {
+  position: relative;
+  cursor: help;
+  border-bottom: 1px dotted var(--rule-strong);
+}
+.cd-note-term:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.cd-note-term:hover .cd-tip,
+.cd-note-term:focus-visible .cd-tip { opacity: 1; visibility: visible; }
+
+.cd-group-term, .cd-facet { position: relative; cursor: help; }
+.cd-group-term:focus-visible,
+.cd-facet:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.cd-tip {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 0.4rem);
+  z-index: 5;
+  width: max-content;
+  max-width: 22rem;
+  /* Said outright, because a tip is prose and stands wherever its term does.
+     The term on the Occurrence heading is in a `th`, and `th` is `nowrap` so a
+     column head does not break in two — which the tip inherited: it held its
+     344 characters on one 688 px line inside the 352 px its own max-width
+     allows, and the sentence ran out of the box and across the page. Nothing
+     clips it, since the box is what carries the ground. */
+  white-space: normal;
+  padding: 0.5rem 0.7rem;
+  background: var(--tip-bg);
+  color: var(--tip-ink);
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.28);
+  font-family: var(--face-text);
+  font-weight: 400;
+  font-size: var(--step-0);
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-transform: none;
+  /* Hidden by clipping, not by display:none, so it stays in the accessibility
+     tree and is announced with the term. */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 90ms ease-out;
+  pointer-events: none;
+}
+.cd-group-term:hover .cd-tip,
+.cd-group-term:focus-visible .cd-tip,
+.cd-facet:hover .cd-tip,
+.cd-facet:focus-visible .cd-tip { opacity: 1; visibility: visible; }
+@media (prefers-reduced-motion: reduce) { .cd-tip { transition: none; } }
+
+/* Masked rather than inlined so the mark takes the surrounding text colour in
+   both light and dark mode. Where masks are unsupported nothing is drawn and
+   the wording still says it. */
+.cd-group-mark {
+  flex: 0 0 0.95rem;
+  height: 0.95rem;
+  background-color: var(--ink-soft);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+/* A spine with rungs: one after the other. */
+.cd-group-sequence .cd-group-mark { -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M3%202.5v11%22%2F%3E%3Cpath%20d%3D%22M3%204h9%22%2F%3E%3Cpath%20d%3D%22M3%208h9%22%2F%3E%3Cpath%20d%3D%22M3%2012h9%22%2F%3E%3C%2Fsvg%3E"); mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M3%202.5v11%22%2F%3E%3Cpath%20d%3D%22M3%204h9%22%2F%3E%3Cpath%20d%3D%22M3%208h9%22%2F%3E%3Cpath%20d%3D%22M3%2012h9%22%2F%3E%3C%2Fsvg%3E"); }
+/* The same rungs without a spine: a set, no order. */
+.cd-group-all .cd-group-mark { -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M3%204h10%22%2F%3E%3Cpath%20d%3D%22M3%208h10%22%2F%3E%3Cpath%20d%3D%22M3%2012h10%22%2F%3E%3C%2Fsvg%3E"); mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M3%204h10%22%2F%3E%3Cpath%20d%3D%22M3%208h10%22%2F%3E%3Cpath%20d%3D%22M3%2012h10%22%2F%3E%3C%2Fsvg%3E"); }
+/* One path that forks: exactly one way on. */
+/* Indent guides, as a code editor draws them: one hairline per level, so it is
+   visible at a glance which rows belong to which group. The repeating gradient
+   is clipped to the indented width, which keeps one rule for every depth. */
+/* `td.cd-indent`, not `.cd-indent`: `td:first-child` sets padding-left to zero
+   and outweighs a bare class. */
+td.cd-indent {
+  padding-left: calc(var(--depth, 0) * 1.4rem);
+  /* Guides start at the second level. The outermost group holds nearly every
+     row, so a line for it would run the height of the table and mark no
+     grouping at all — and for the 1,030 types with a single group it would be
+     the only line there is. */
+  background-image: repeating-linear-gradient(
+    to right, var(--guide) 0 1px, transparent 1px 1.4rem
+  );
+  background-size: calc(max(var(--depth, 0) - 1, 0) * 1.4rem) 100%;
+  background-position: 1.85rem 0;
+  background-repeat: no-repeat;
+}
+
+.cd-group-choice .cd-group-mark { -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M2%208h4%22%2F%3E%3Cpath%20d%3D%22M6%208l4-4h4%22%2F%3E%3Cpath%20d%3D%22M6%208l4%204h4%22%2F%3E%3C%2Fsvg%3E"); mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M2%208h4%22%2F%3E%3Cpath%20d%3D%22M6%208l4-4h4%22%2F%3E%3Cpath%20d%3D%22M6%208l4%204h4%22%2F%3E%3C%2Fsvg%3E"); }
+
+pre, .cd-code {
+  background: var(--field);
+  border-left: 2px solid var(--rule-strong);
+  padding: 0.7rem 0.9rem;
+  overflow-x: auto;
+  font-size: var(--step-1);
+  line-height: 1.5;
+}
+
+
+/* The parts of an XML example, marked by the renderer that writes the block.
+   Scoped to the block: these are the only place the class names appear. */
+.cd-code .cd-tag { color: var(--code-tag); }
+.cd-code .cd-attr { color: var(--code-attr); }
+.cd-code .cd-value { color: var(--code-value); }
+.cd-code .cd-punct { color: var(--ink-soft); }
+.cd-code .cd-meta { color: var(--ink-soft); }
+.cd-code .cd-comment { color: var(--ink-soft); font-style: italic; }
+
+figure { margin: 1.6rem 0; }
+.cd-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  background: var(--plate);
+  border: 1px solid var(--plate-edge);
+  border-radius: 4px;
+  padding: 0.9rem;
+  box-sizing: border-box;
+}
+figcaption {
+  font-size: var(--step-0);
+  color: var(--ink-soft);
+  margin-top: 0.5rem;
+}
+.cd-missing-image::before {
+  content: "[figure missing]";
+  color: var(--alarm);
+  font-size: var(--step-0);
+}
+
+.cd-definitions { margin: 1rem 0; }
+/* A term is ranked by weight, the way the terms in the notes are. It took the
+   code face at 0.9em, and the two terms CPACS defines — `Version` and `Date` —
+   are prose labels rather than names out of the schema: at 14.4 px over the
+   16 px of the value under them they read as a footnote to their own
+   definition. A term that is a name says so with `codeInline`, and that brings
+   the face with it. */
+.cd-definitions dt { font-weight: 600; margin-top: 0.6rem; }
+.cd-definitions dd { margin: 0 0 0 1.2rem; }
+
+/* Where a type is used. The count is a line of its own — not `.cd-kind`, which
+   heads a page and carries the rule under it; here that rule read as the end of
+   the section, with the paths stranded below it. */
+.cd-usage-count {
+  color: var(--ink-soft);
+  font-size: var(--step-1);
+  margin: 0.7rem 0 0;
+}
+.cd-usage-count > summary { cursor: pointer; color: var(--link); width: max-content; }
+
+/* Which level the list is at, not what it holds: both lists under "Used by"
+   are elements, and a document is what tells one from the schema. A step down
+   from the `h2` above rather than the browser's `h3`, which is 700 against
+   that heading's 600 and a third of a pixel smaller — a subheading that
+   outweighed the heading it sits under. */
+.cd-usage h3 {
+  font-size: var(--step-1);
+  font-weight: 600;
+  margin: 1.5rem 0 0.2rem;
+}
+.cd-usage h3:first-of-type { margin-top: 0.7rem; }
+
+.cd-usage-list {
+  list-style: none;
+  margin: 0.4rem 0 0.9rem;
+  padding: 0.1rem 0 0.1rem 1.15rem;
+  font-size: var(--step-1);
+  line-height: 1.8;
+}
+/* A dot per item says where an item begins, which matters for a path long
+   enough to wrap: without one it begins twice and the eye cannot tell which.
+   Drawn rather than set as a marker: at this size a bullet glyph is a
+   different weight in every face, and the point is that it stays quieter than
+   the paths it counts off. */
+.cd-usage-list li { position: relative; }
+.cd-usage-list li::before {
+  content: "";
+  position: absolute;
+  left: -0.75rem;
+  /* Half the line height: the centre of the first line, whatever the item
+     wraps to below it. */
+  top: 0.9em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--rule-strong);
+}
+/* Not an item: it says how many were left out. */
+.cd-usage-list li.cd-inherited::before { content: none; }
+.cd-usage-list .cd-crumb { overflow-wrap: anywhere; text-align: left; }
+
+.cd-type-index {
+  columns: 16rem 3;
+  column-gap: 2rem;
+  list-style: none;
+  padding: 0;
+  font-family: var(--face-code);
+  font-size: var(--step-1);
+}
+/* A type name has no space to break at, and 153 of the 1,206 are wider than
+   the 288 px the three columns leave them — the worst by 241 px, which was
+   drawn over the column beside it. So the name is allowed to wrap. Where it
+   carries a slash the break lands there, which is the one place a reader still
+   takes it for one name: `break-word` prefers a marked opportunity to an
+   arbitrary point, and the markup marks the slash because the line-breaking
+   algorithm offers nothing there by itself. Measured on the real schema
+   2026-08-30: of the 153, 61 carry a slash and 55 break on it, the other six
+   being names whose first part alone is wider than the column. The rest break
+   mid-word, there being no other place to put it — the longest single name
+   measures 423 px. The continuation hangs, so a wrapped name reads as one
+   entry rather than as two. */
+.cd-type-index li {
+  break-inside: avoid;
+  overflow-wrap: break-word;
+  padding-left: 1.1rem;
+  text-indent: -1.1rem;
+}
+
+/* ---- viewer ---- */
+
+/* The reading measure on body suits running text on a type page. The viewer is
+   two panes side by side and needs the window. */
+body.cd-viewer { max-width: none; padding: 1.1rem 1.4rem; }
+
+/* The tree column is resizable rather than fixed: instance paths run to depth
+   22, and no single default is right for a shallow and a deep view alike. */
+/* The window, less the body's own padding, and no more: the two panes divide
+   it between them and the page itself does not scroll (0014). Stated here as a
+   height rather than on each pane as a `max-height` guess at how much chrome
+   stands above them — that guess was 5rem, the hint is 4.6rem more, and the
+   first key of a first visit brings the hint out (0019). The column then grew
+   past the window, the page took a scrollbar it is not supposed to have, and
+   the arrows a reader presses in the detail panel scrolled the page 70px and
+   then nothing: on a type whose panel does not overflow, that is the whole
+   effect of the key. Measured 2026-09-03 at 1500 × 950, Firefox 155 and
+   Chrome alike. */
+.cd-app {
+  display: grid;
+  grid-template-columns: var(--tree-width, 28rem) auto 1fr;
+  gap: 0 1rem;
+  align-items: stretch;
+  height: calc(100vh - 2.2rem);
+}
+.cd-splitter {
+  align-self: stretch;
+  width: 0.4rem;
+  cursor: col-resize;
+  border-radius: 2px;
+  background: var(--field);
+  min-height: 60vh;
+}
+.cd-splitter:hover, .cd-splitter:focus-visible { background: var(--rule-strong); outline: none; }
+
+/* One ground for both columns. The tree carried a shade of its own for a
+   while, to say which side navigates and which is read; the splitter says that
+   already, and a second ground turned every window into two rectangles that
+   had to be told apart before either could be read. */
+/* `min-height: 0` so the tree may shrink below its content: without it a
+   flex item refuses to, and the hint above it would push the column past
+   the window again. */
+.cd-column { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+/* The panel is the pane, so the field keeps its place while the rows move.
+   Nothing is clipped here: the rows do their own scrolling, and the field's
+   focus ring reaches past its own box. */
+/* Two classes, so this beats `.cd-pane`'s own `overflow` whatever the order
+   of the two rules: this pane does not scroll, the rows inside it do. */
+.cd-pane.cd-search-panel { display: flex; flex-direction: column; overflow: visible; }
+/* A class that sets `display` outweighs the browser's own `[hidden]` rule, and
+   without this the field stands under the tree as well as in its own tab. */
+.cd-search-panel[hidden] { display: none; }
+.cd-results { overflow: auto; min-height: 0; }
+.cd-search { display: flex; align-items: baseline; gap: 0.6rem; margin-bottom: 0.6rem; }
+.cd-search input {
+  flex: 1 1 auto;
+  min-width: 0;
+  font: inherit;
+  font-size: var(--step-1);
+  padding: 0.35rem 0.55rem;
+  color: inherit;
+  background: var(--field);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+.cd-search input:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+.cd-search-count { color: var(--ink-soft); font-size: var(--step-0); white-space: nowrap; }
+
+/* The counts the quota is computed from, made visible: what the reader can see
+   here is that the other kinds exist at all. Set like the tab strip above it,
+   because it does the same job one level down. */
+.cd-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin: 0 0 0.6rem;
+}
+.cd-filter {
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: none;
+  font: inherit;
+  font-size: var(--step-0);
+  color: var(--ink-soft);
+  padding: 0.1rem 0.55rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.cd-filter:hover:not(:disabled) { color: var(--ink); border-color: var(--rule-strong); }
+.cd-filter[aria-pressed="true"] {
+  color: var(--ink);
+  border-color: var(--ink);
+  font-weight: 600;
+}
+.cd-filter:disabled { opacity: 0.45; cursor: default; }
+.cd-filter-count { font-variant-numeric: tabular-nums; }
+/* Shown to whoever has just narrowed with a chip, and only until they take the
+   shortcut it names — with the prefix in the field the line is not drawn. */
+.cd-filter-note {
+  margin: -0.3rem 0 0.6rem;
+  color: var(--ink-soft);
+  font-size: var(--step-0);
+}
+
+.cd-result-list { display: flex; flex-direction: column; }
+.cd-fold { display: flex; flex-direction: column; }
+.cd-place-list { display: flex; flex-direction: column; }
+.cd-result,
+.cd-place {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  padding: 0.28rem 0.3rem;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.cd-result:hover, .cd-result:focus-visible,
+.cd-place:hover, .cd-place:focus-visible { background: var(--field); }
+/* Pulled inside the row, as on the tree's nodes and for the same reason: the
+   rows fill the width of a pane that scrolls, so a ring drawn outside them is
+   cut off left and right, and `focus()` parks the row flush against the top or
+   bottom edge, where the same happens again. The list is walked with the
+   arrows, so that is the ordinary case and not the corner one. */
+.cd-result:focus-visible,
+.cd-place:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+/* The tree's own column width, so a name that folds starts where a name that
+   does not would. Not `.cd-group-mark`: that one is the compositor's, over in
+   the child-elements table. */
+.cd-fold-mark {
+  flex: 0 0 1.3rem;
+  color: var(--ink-soft);
+  text-align: center;
+}
+.cd-fold-count {
+  color: var(--ink-soft);
+  font-size: var(--step-0);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+/* The places line up under the name they belong to, past the mark. */
+.cd-place { padding-left: 1.9rem; align-items: flex-start; }
+/* Not `.cd-result-detail`: that one is cut at the front, which is the one
+   thing that does not work inside a group. */
+.cd-place-path {
+  color: var(--ink-soft);
+  font-size: var(--step-0);
+  /* Only where one segment is wider than the column: the breaks that matter
+     are the `wbr` the row puts after each slash. */
+  overflow-wrap: break-word;
+}
+/* A class that sets `display` outweighs the browser's own `[hidden]` rule, and
+   a list once opened then stayed on screen when it was closed again. */
+.cd-place-list[hidden] { display: none; }
+.cd-place-more {
+  margin: 0.1rem 0 0.4rem 1.9rem;
+  color: var(--ink-soft);
+  font-size: var(--step-0);
+}
+.cd-result-label { font-family: var(--face-code); font-size: var(--step-1); flex: 0 0 auto; }
+/* A search result is a name next to its path and holds one line. A chapter
+   title is the whole entry and runs to nine words in CPACS 3.5.1, so it wraps
+   rather than being cut off in a pane the reader has narrowed. */
+#cd-docs .cd-result-label { flex: 1 1 auto; white-space: normal; }
+.cd-result-type { font-style: italic; }
+/* The path is the disambiguator, so it is truncated at the front: the tail is
+   what tells two occurrences of the same element apart. */
+.cd-result-detail {
+  color: var(--ink-soft);
+  font-size: var(--step-0);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  direction: rtl;
+  text-align: left;
+}
+
+/* Each pane takes what the row gives it and scrolls inside that. The tree
+   is a flex child of the column, the detail panel a grid item stretched to
+   the same row; both need the `min-height: 0` for the same reason. */
+.cd-pane { flex: 1 1 auto; min-height: 0; overflow: auto; }
+.cd-pane-detail { padding-right: 1rem; }
+/* Detail text keeps a readable measure even though the pane is wide. Tables
+   and "Used by" do not: their content is names and instance paths, which are
+   not read as prose and wrap into a ladder when they are held to a measure. */
+.cd-pane-detail > * { max-width: 44rem; }
+.cd-pane-detail table, .cd-pane-detail img, .cd-pane-detail pre,
+.cd-pane-detail .cd-usage { max-width: 100%; }
+.cd-pane-detail h1 { font-size: var(--step-4); }
+
+/* Three states, not two: a reader who has expressed no preference follows the
+   system, and that has to remain reachable — otherwise the first click spends
+   a setting that cannot be given back. The mark is masked rather than drawn so
+   it takes the surrounding ink in either palette. */
+.cd-theme {
+  flex: 0 0 auto;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.45rem;
+  height: 1.45rem;
+  padding: 0;
+  border: 1px solid var(--rule-strong);
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+}
+.cd-theme:hover { border-color: var(--ink); }
+.cd-theme-mark {
+  width: 0.85rem;
+  height: 0.85rem;
+  background-color: var(--ink-soft);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+.cd-theme:hover .cd-theme-mark { background-color: var(--ink); }
+.cd-theme[data-mode="system"] .cd-theme-mark { -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.4%22%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%225.5%22%2F%3E%3Cpath%20d%3D%22M8%202.5a5.5%205.5%200%200%201%200%2011z%22%20fill%3D%22black%22%20stroke%3D%22none%22%2F%3E%3C%2Fsvg%3E"); mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.4%22%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%225.5%22%2F%3E%3Cpath%20d%3D%22M8%202.5a5.5%205.5%200%200%201%200%2011z%22%20fill%3D%22black%22%20stroke%3D%22none%22%2F%3E%3C%2Fsvg%3E"); }
+.cd-theme[data-mode="light"] .cd-theme-mark { -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%223.1%22%2F%3E%3Cpath%20d%3D%22M8%201.2v1.5M8%2013.3v1.5M1.2%208h1.5M13.3%208h1.5M3.2%203.2l1.1%201.1M11.7%2011.7l1.1%201.1M12.8%203.2l-1.1%201.1M4.3%2011.7l-1.1%201.1%22%2F%3E%3C%2Fsvg%3E"); mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.4%22%20stroke-linecap%3D%22round%22%3E%3Ccircle%20cx%3D%228%22%20cy%3D%228%22%20r%3D%223.1%22%2F%3E%3Cpath%20d%3D%22M8%201.2v1.5M8%2013.3v1.5M1.2%208h1.5M13.3%208h1.5M3.2%203.2l1.1%201.1M11.7%2011.7l1.1%201.1M12.8%203.2l-1.1%201.1M4.3%2011.7l-1.1%201.1%22%2F%3E%3C%2Fsvg%3E"); }
+.cd-theme[data-mode="dark"] .cd-theme-mark { -webkit-mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22black%22%3E%3Cpath%20d%3D%22M13.4%2010.3A5.7%205.7%200%200%201%205.7%202.6a5.7%205.7%200%201%200%207.7%207.7z%22%2F%3E%3C%2Fsvg%3E"); mask-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22black%22%3E%3Cpath%20d%3D%22M13.4%2010.3A5.7%205.7%200%200%201%205.7%202.6a5.7%205.7%200%201%200%207.7%207.7z%22%2F%3E%3C%2Fsvg%3E"); }
+
+/* On a page rather than in the viewer the control has no chrome to sit in, so
+   it gets a line of its own above the heading. */
+.cd-chrome { display: flex; justify-content: flex-end; margin: -1rem 0 0.4rem; }
+
+/* The places the column can show: the schema as a tree, the search, and the
+   prose that belongs to no instance path and therefore to no node in it. They
+   share one slot rather than opening a second navigation area, and the strip
+   is what keeps that legible — it names them against each other, and exactly
+   one of them is marked at every moment. It does not come and go: a strip that
+   left while one of the three held the slot is what made the results read as
+   a layer over the tree. */
+.cd-tabs {
+  display: flex;
+  align-items: baseline;
+  gap: 1.2rem;
+  margin: 0 0 0.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+/* A class that sets `display` outweighs the browser's own `[hidden]` rule. */
+.cd-tab[hidden] { display: none; }
+/* The two round buttons are the page's, not the strip's: they sit past the
+   last tab, where the field used to keep them. */
+.cd-tabs-rest { flex: 1 1 auto; }
+.cd-tabs .cd-theme, .cd-tabs .cd-help { margin-bottom: 0.25rem; }
+.cd-tab-count {
+  font-variant-numeric: tabular-nums;
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+.cd-tab-count:not(:empty) { margin-left: 0.35rem; }
+.cd-tab {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  background: none;
+  font: inherit;
+  font-size: var(--step-1);
+  color: var(--ink-soft);
+  padding: 0.15rem 0.1rem 0.4rem;
+  cursor: pointer;
+}
+.cd-tab:hover { color: var(--ink); }
+.cd-tab[aria-selected="true"] {
+  color: var(--ink);
+  font-weight: 600;
+  border-bottom-color: var(--ink);
+}
+.cd-result.cd-selected { background: var(--field); }
+.cd-doc-index { line-height: 1.9; }
+
+/* The way back to the strip once it has been put away, and the sign that
+   there is something to know at all.
+
+   Ring and glyph in one ink. Drawn in --rule-strong the ring measured 2.6 and
+   3.1 to 1 against the page while the `?` inside it held 5.9 and 7.3: the eye
+   read the character and not the button, and a lone `?` beside a search field
+   looks like a question rather than something to press. */
+.cd-help {
+  align-self: center;
+  flex: 0 0 auto;
+  width: 1.45rem;
+  height: 1.45rem;
+  padding: 0;
+  border: 1px solid var(--ink-soft);
+  border-radius: 50%;
+  background: none;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: var(--step-0);
+  line-height: 1;
+  cursor: pointer;
+}
+.cd-help:hover,
+.cd-help[aria-expanded="true"] { color: var(--ink); border-color: var(--ink); }
+/* Dimmed rather than taken away: a button that leaves the strip and comes back
+   as the reader moves along it is harder to place than one plainly not on
+   offer. Last, so it beats the hover rule above on a button that takes no
+   click. */
+.cd-help:disabled {
+  opacity: 0.4;
+  cursor: default;
+  color: var(--ink-soft);
+  border-color: var(--rule-strong);
+}
+
+/* Said once, above the thing it describes, and gone at the first key. In the
+   idiom of the rest of the page: a quiet strip, no card, no motion — the keys
+   themselves carry it, so they are the only thing set in relief. Two lines,
+   because the column holds two things that cannot be read off the screen: the
+   tree's keys, and what the field accepts. */
+/* The hint belongs to the strip above it, not to the pane below: it is what
+   the `?` in the strip opens, and it describes the places the strip switches
+   between. Standing free, roughly equidistant between the two, it was read as
+   a heading of whichever pane was showing — and then half of it, the half
+   about the other place, looked misplaced. Flush against the strip and clear
+   of the pane, proximity alone settles which it belongs to. */
+/* `:not([hidden])`, because a hint suppressed for the Handbook still stands in
+   the document: without it the strip would give up its own gap to a box that
+   is not there, and the pane would butt against the tabs. */
+.cd-tabs:has(+ .cd-hint:not([hidden])) { margin-bottom: 0; }
+.cd-hint {
+  position: relative;
+  margin: 0 0 0.9rem;
+  padding: 0.5rem 1.9rem 0.5rem 0.6rem;
+  background: var(--field);
+  border-radius: 0 0 4px 4px;
+  font-size: var(--step-0);
+  color: var(--ink-soft);
+}
+.cd-hint-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.85rem;
+}
+/* A class that sets `display` outweighs the browser's own `[hidden]` rule, and
+   without this the group for the other tab stands in this one. */
+.cd-hint-line[hidden] { display: none; }
+.cd-hint-line + .cd-hint-line {
+  margin-top: 0.4rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--rule);
+}
+/* The rule divides two groups. Where the one above is put away, it would be a
+   line under nothing and blank space at the top of the box. */
+.cd-hint-line[hidden] + .cd-hint-line {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+/* A heading over its row rather than a column beside it. Set flush left on a
+   line of its own, it is plainly what follows it is about, and the samples
+   underneath start where every other line starts.
+
+   Not uppercase: it holds a word on one line and a sentence on the next, and a
+   sentence in capitals shouts. What tells it from the samples is the face and
+   the ink — text against the code face, --ink-soft against --ink — since
+   weight alone put it within 50 of the legend's own bold sample, which is the
+   mark for "must appear", and a heading that reads as a sample explains
+   nothing. */
+.cd-hint-lead {
+  flex: 0 0 100%;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+}
+/* A form is typed into the field, a key is pressed on the keyboard. Setting
+   both in relief would send a reader looking for a key marked `type:`. */
+.cd-hint-form { font-family: var(--face-code); color: var(--ink); }
+.cd-hint-item { display: inline-flex; align-items: center; gap: 0.25rem; white-space: nowrap; }
+.cd-hint-what { margin-left: 0.15rem; }
+.cd-hint kbd {
+  font-family: var(--face-code);
+  font-size: calc(var(--code-scale) * 1em);
+  line-height: 1;
+  padding: 0.22rem 0.36rem;
+  color: var(--ink);
+  border: 1px solid var(--rule-strong);
+  border-radius: 3px;
+  /* No fill: the strip already sits on one, and a second plate would make a
+     key look like a button to press on the page. */
+}
+.cd-hint-close {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.4rem;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: var(--step-2);
+  line-height: 1;
+  padding: 0 0.15rem;
+}
+.cd-hint-close:hover { color: var(--ink); }
+
+/* min-width keeps a row at its natural width so the toggle cannot be squeezed;
+   without it a long row shifts its own indentation to the left. */
+.cd-node {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  white-space: nowrap;
+  min-width: max-content;
+  border-radius: 3px;
+}
+.cd-node.cd-selected { background: var(--field); }
+/* The cursor is where the keyboard points, the selection is what the detail
+   panel shows. They are usually the same row and need not be, so they are
+   marked differently — and the cursor keeps its mark once Enter has moved the
+   focus to the panel, so the way back stays visible.
+
+   Kept, but not in the same words as the focus. Enter hands the keyboard to
+   the panel; drawing the row it came from in the ring that means "the keys are
+   here" says the opposite of what happened, and the next arrow key scrolls the
+   panel instead of moving a cursor the reader believes he still holds. So the
+   two are told apart by weight and hue — one dashed grey hair against two
+   solid blue — and the quietness is spent on the stroke rather than on the
+   colour. A paler grey was the first try and the wrong one: --rule-strong
+   measures 2.3 and 2.7 to 1 against the row it sits on, under the 3:1 a state
+   indicator owes (WCAG 1.4.11), and a mark saying "the way back is here" may
+   not be the faintest thing on the screen. --ink-soft holds 5.4 and 6.2.
+
+   Both offsets are pulled inside the row and both are -2px, so the two marks
+   share an outer edge and the row does not shift as the focus comes and goes.
+   The focus rule follows this one at equal specificity so that the focused
+   cursor row takes it: the two match the same element most of the time, and
+   two rings around one row is a smear. */
+.cd-node.cd-cursor { outline: 1px dashed var(--ink-soft); outline-offset: -2px; }
+.cd-node:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+/* Marks a node bound to a choice. The tree is flat — indentation there means
+   containment in an instance, and a compositor contains nothing — so the
+   constraint rides on the node rather than on a row of its own. */
+/* No tip of its own and so nothing to position against: what it means is in
+   the legend under the `?`, where it is read once instead of hunted for on
+   every row. See the note in `renderNode` for what the tip cost the pane. */
+.cd-alternative {
+  color: var(--ink-soft);
+  font-size: var(--step-1);
+  line-height: 1;
+}
+.cd-toggle {
+  flex: 0 0 1.3rem;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: var(--ink-soft);
+  font: inherit;
+  padding: 0;
+  text-align: center;
+}
+.cd-toggle:disabled { cursor: default; opacity: 0.3; }
+.cd-label {
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  padding: 0.06rem 0;
+  text-align: left;
+  display: flex;
+  gap: 0.45rem;
+  align-items: baseline;
+  flex: 0 0 auto;
+}
+.cd-label:hover .cd-name { text-decoration: underline; }
+.cd-name { font-family: var(--face-code); font-size: var(--step-1); }
+
+/* Mandatory elements carry slightly more weight, optional ones a muted colour.
+   Since the bounds left the rows this is the only thing in the tree that says
+   which is which, and it is meant to stay that way: it answers the question a
+   reader has while scanning — is this one I have to write? — without teaching
+   a notation, and the panel states the bounds exactly for the row in hand. */
+/* The ink is stated rather than inherited, as its optional twin below always
+   stated it. Inherited, the pair says what it means only inside the tree, and
+   the legend under the `?` — which draws these very rules, so that it cannot
+   drift from what it explains — drew the required sample in the muted colour
+   of the optional one. */
+.cd-required .cd-name { font-weight: 650; color: var(--ink); }
+.cd-optional .cd-name { color: var(--ink-soft); }
+/* The bounds, wherever they are stated in full: the head of the panel and the
+   Occurrence column. One quiet code face for the notation everywhere it
+   appears, and tabular so the column of them lines up. */
+/* Bounds and reading on one line. Left to itself the cell wrapped into two,
+   which cost up to 30 % of the table's height (wingType 623 → 474 px,
+   fuselageType 790 → 557 px at a 1180 px viewport) and bought nothing: the
+   column takes its 18 px from the slack in the table, not from the total, which
+   is 1,073 px on genericMassType with the bounds and without them. */
+.cd-occurs { white-space: nowrap; }
+
+.cd-bounds {
+  font-family: var(--face-code);
+  font-size: var(--step-0);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.cd-crumb {
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  padding: 0;
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+.cd-breadcrumb .cd-crumb { font-family: var(--face-code); text-transform: none; letter-spacing: 0; }
+
+/* An action, not a place. The crumbs are underlined in --link because each is
+   somewhere to go; this one goes nowhere, so it takes a hairline and the muted
+   ink instead. The nav sets the path in capitals and this does not follow it:
+   the browser's own sheet holds form controls at `text-transform: none`, so the
+   label stands in lower case against the path — measured, not intended, and
+   worth keeping.
+
+   Its size is not a fourth distinction. At 0.85em of the nav it came out at
+   11.15 px, the smallest text in the application and below the foot of the
+   scale, and a label on something to press is the last place to save a pixel. */
+.cd-copy {
+  margin-left: 0.55rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 3px;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--step-0);
+  line-height: 1;
+  padding: 0.2rem 0.4rem;
+  color: var(--ink-soft);
+  vertical-align: 0.05em;
+}
+.cd-copy:hover,
+.cd-copy.cd-copied { color: var(--ink); border-color: var(--ink-soft); }
+
+.cd-elementdoc { font-size: var(--step-3); line-height: 1.5; }
+
+/* What the type lends the node, marked as borrowed. The words of the place
+   stay unmarked — that is what a reader came for, and marking both would make
+   a reader learn two signs where one will do. Measured on the real schema:
+   41,004 of the 54,552 nodes carry both kinds of text, 12,980 only the type's,
+   where a general sentence otherwise reads as a statement about this place.
+
+   The mark is on the attribution and not down the side of the block. A rail
+   the height of the text fences it, and fencing reads as quoting: on
+   `wingSectionType` and its like the type's words are the substance of the
+   page, four paragraphs and a figure, and they are not an aside to the one
+   line above them. So the prose keeps the margin and the measure the place's
+   own words have, and what is marked is where the owner changes.
+
+   The tick is decoration; the line beside it says the same thing in words. */
+/* The crossbar. It runs the whole measure, above the label rather than beside
+   it, so what it marks is the join — where the place's own words stop and the
+   type's begin — which proximity alone was not saying.
+
+   Above and not through the label. A rule with the label knocked out of its
+   middle needs the label painted in the page's own ground, a second pair of
+   values to keep in step across the themes; and a rule that merely fills what
+   the label leaves came out a stub, because the label and the route take most
+   of a 44rem measure between them.
+
+   It replaces the tick rather than joining it: 0015 counted one stroke in the
+   reading part of this page, and there is still one. A bar across the measure
+   is far longer than a tick was tall, so it takes --rule where the tick took
+   --rule-strong. */
+/* The air is above the bar, not under it: 29 px over 13, so the bar belongs to
+   the block it opens rather than floating between the two. */
+.cd-borrowed {
+  margin: 1.8rem 0 0;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--rule);
+}
+/* A heading over the block, not a caption on the link that used to open it.
+   At --step-0 it was 13.12 px under 19.04 px of prose — 31 % smaller than the
+   text it introduces, which is the proportion of a footnote — so it read as
+   something hanging off the name rather than as the title of what follows.
+   The weight is what makes it a heading; it keeps --ink-soft, so the gain is
+   in rank and not in loudness.
+
+   The line was raised to --step-3 for one revision, to stand among the h2 of
+   the tables, and comes back down now that the name carries the link: it is
+   the only thing on the line set in the link's hue and underlined, which is
+   the strongest mark this palette has, and a whole step of size on top of it
+   made the block louder than the sections around it. What was missing was
+   never size — it was a signpost the eye recognises. */
+.cd-borrowed-head {
+  font-size: var(--step-2);
+  font-weight: 600;
+  /* The label holds one line, so the body's 1.62 buys it nothing and spends
+     5 px of half-leading above the words — a fifth of the gap under the bar,
+     put there by a setting meant for paragraphs. */
+  line-height: 1.35;
+  color: var(--ink-soft);
+  margin: 0 0 0.55rem;
+}
+.cd-borrowed-head code { font-size: inherit; }
+/* The word is the signpost, the name is the answer. The word stays soft; the
+   name is a link and takes the link's own hue, which is what the eye finds. */
+.cd-borrowed-kind { color: var(--ink-soft); }
+.cd-error { padding: 3rem 0; }
+.cd-empty { color: var(--ink-soft); }
+
+@media (max-width: 48rem) {
+  /* One column, stacked: here the page is the thing that scrolls, so the app
+     takes its content's height and the panes take theirs. */
+  .cd-app { grid-template-columns: 1fr; height: auto; }
+  .cd-splitter { display: none; }
+  .cd-pane { flex: none; }
+}

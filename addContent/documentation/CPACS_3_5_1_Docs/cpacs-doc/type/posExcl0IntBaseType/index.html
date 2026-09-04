@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>posExcl0IntBaseType</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../../index.html">Types</a> · <a href="../../tree/cpacs/vehicles/aircraft/model/analyses/weightAndBalance/operationalCases/operationalCase/configurations/configuration/vectorIndex/">Show in tree</a></nav>
+<h1>posExcl0IntBaseType</h1>
+<p class="cd-kind">complexType · restriction <a href="../integerBaseType/index.html"><code>integerBaseType</code></a> · value <a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_integer.html" target="_blank" rel="noopener noreferrer"><code>xsd:integer</code></a></p>
+<div class="cd-summary"><p>Positive integer values larger than 0</p></div>
+<section class="cd-attributes"><h2>Attributes</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th>Use</th><th>Default</th><th>Description</th></tr><tr><td><code>@externalDataDirectory</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Directory of the external data file</td></tr><tr><td><code>@externalDataNodePath</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Path of the node inside the external data file</td></tr><tr><td><code>@externalFileName</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Name of the external data file</td></tr></table></div></section>
+<section class="cd-facets"><h2>Value constraints</h2><div class="cd-scroll"><table><tr><th>Constraint</th><th>Value</th></tr><tr><td><span class="cd-facet" tabindex="0">minExclusive<span class="cd-tip" role="note">The value must be greater than this.</span></span></td><td><code>0</code></td></tr></table></div></section>
+<section class="cd-usage"><h2>Used by</h2><h3>In a dataset <span class="cd-inherited">· 6 paths</span></h3><ul class="cd-usage-list"><li><a href="../../tree/cpacs/vehicles/aircraft/model/analyses/weightAndBalance/operationalCases/operationalCase/configurations/configuration/vectorIndex/"><code>cpacs/vehicles/aircraft/model/analyses/weightAndBalance/operationalCases/operationalCase/configurations/configuration/vectorIndex</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/analyses/weightAndBalance/certificationCases/certificationCase/configurations/configuration/vectorIndex/"><code>cpacs/vehicles/aircraft/model/analyses/weightAndBalance/certificationCases/certificationCase/configurations/configuration/vectorIndex</code></a></li><li><a href="../../tree/cpacs/vehicles/rotorcraft/model/analyses/weightAndBalance/operationalCases/operationalCase/configurations/configuration/vectorIndex/"><code>cpacs/vehicles/rotorcraft/model/analyses/weightAndBalance/operationalCases/operationalCase/configurations/configuration/vectorIndex</code></a></li><li><a href="../../tree/cpacs/vehicles/rotorcraft/model/analyses/weightAndBalance/certificationCases/certificationCase/configurations/configuration/vectorIndex/"><code>cpacs/vehicles/rotorcraft/model/analyses/weightAndBalance/certificationCases/certificationCase/configurations/configuration/vectorIndex</code></a></li><li><a href="../../tree/cpacs/vehicles/deckElements/galleyElements/galleyElement/numberOfTrolleys/"><code>cpacs/vehicles/deckElements/galleyElements/galleyElement/numberOfTrolleys</code></a></li><li><a href="../../tree/cpacs/vehicles/deckElements/seatElements/seatElement/numberOfSeats/"><code>cpacs/vehicles/deckElements/seatElements/seatElement/numberOfSeats</code></a></li></ul><h3>In the schema <span class="cd-inherited">· 3 declarations</span></h3><div class="cd-scroll"><table><tr><th>Type</th><th>Name</th></tr><tr><td><a href="../configurationReferenceType/index.html"><code>configurationReferenceType</code></a></td><td><code>vectorIndex</code></td></tr><tr><td><a href="../galleyElementType/index.html"><code>galleyElementType</code></a></td><td><code>numberOfTrolleys</code></td></tr><tr><td><a href="../seatElementType/index.html"><code>seatElementType</code></a></td><td><code>numberOfSeats</code></td></tr></table></div></section>
+</body>
+</html>

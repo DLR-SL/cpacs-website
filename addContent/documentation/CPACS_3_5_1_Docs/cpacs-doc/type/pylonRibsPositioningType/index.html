@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>pylonRibsPositioningType</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../../index.html">Types</a> · <a href="../../tree/cpacs/vehicles/aircraft/model/enginePylons/enginePylon/loadCarryingStructure/pylonBox/ribsDefinitions/ribsDefinition/ribsPositioning/">Show in tree</a></nav>
+<h1>pylonRibsPositioningType</h1>
+<p class="cd-kind">complexType · extension <a href="../complexBaseType/index.html"><code>complexBaseType</code></a> · sequence</p>
+<div class="cd-summary"><p>Pylon ribs positioning</p></div>
+<div class="cd-remarks"><div class="cd-content"> <p>Within the ribsPositioning type the position and the orientation of the ribs of the rib set are defined.</p> <p>The forward and the rear beginning of the rib set is defined using relDepthStart and relDepthEnd. The orientation of the ribs is defined in ribRotaton. The number of ribs of the current rib set is either defined by ribNumber or by spacing. </p> </div></div>
+<section class="cd-attributes"><h2>Attributes</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th>Use</th><th>Default</th><th>Description</th></tr><tr><td><code>@externalDataDirectory</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Directory of the external data file</td></tr><tr><td><code>@externalDataNodePath</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Path of the node inside the external data file</td></tr><tr><td><code>@externalFileName</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Name of the external data file</td></tr></table></div></section>
+<section class="cd-children"><h2>Child elements</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th><span class="cd-note-term" tabindex="0">Occurrence<span class="cd-tip" role="note">How often the element may appear at this place. The schema writes it as minOccurs and maxOccurs on the declaration.</span></span></th><th>Default</th><th>Description</th></tr><tr class="cd-group cd-group-sequence"><td colspan="5"><span class="cd-group-label"><span class="cd-group-mark" aria-hidden="true"></span><span class="cd-group-term" tabindex="0">sequence<span class="cd-tip" role="note">The children below must appear in exactly this order. Each may repeat as often as its own occurrence allows.</span></span></span></td><td></td></tr><tr><td class="cd-indent" style="--depth:1"><code>relDepthStart</code></td><td><a href="../doubleBaseType/index.html"><code>doubleBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>relDepthStart defines the forward location of the beginning of the rib set. 0 equals the forward end of the pylon box, while 1 equals the rear end of the pylon box.</td></tr><tr><td class="cd-indent" style="--depth:1"><code>relDepthEnd</code></td><td><a href="../doubleBaseType/index.html"><code>doubleBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>relDepthEnd defines the rear end. 0 equals the forward end of the pylon box, while 1 equals the rear end of the pylon box.</td></tr><tr><td class="cd-indent" style="--depth:1"><code>ribRotation</code></td><td><a href="../pointYType/index.html"><code>pointYType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Ribs can be rotated in the side view. The defaults to 90°, which equals an orientation along the pylons z-axis. The angle is measured around the positive y-direction of the pylon.</td></tr><tr class="cd-group cd-group-choice"><td class="cd-indent" style="--depth:1" colspan="5"><span class="cd-group-label"><span class="cd-group-mark" aria-hidden="true"></span><span class="cd-group-term" tabindex="0">choice<span class="cd-tip" role="note">Exactly one of the alternatives below may appear, unless the occurrence next to this line says otherwise.</span></span></span></td><td></td></tr><tr><td class="cd-indent" style="--depth:2"><code>spacing</code></td><td><a href="../doubleBaseType/index.html"><code>doubleBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>The spacing of the ribs defines the distance between two ribs, measured along the pylons x-axis. First rib is placed at relDepthStart.</td></tr><tr><td class="cd-indent" style="--depth:2"><code>numberOfRibs</code></td><td><a href="../integerBaseType/index.html"><code>integerBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>RibNumber defines the number of ribs in this ribSet. First rib is at relDepthStart along the pylons x-axis, last rib is at relDepthEnd. The spacing is constant.</td></tr><tr><td class="cd-indent" style="--depth:1"><code>ribCrossingBehaviour</code></td><td><a href="../pylonRibsPositioningType--ribCrossingBehaviour/index.html"><code>stringBaseType</code></a></td><td><a class="cd-holds" href="../pylonRibsPositioningType--ribCrossingBehaviour/index.html">2 values</a></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>Behaviour of the ribs when crossing other structural elements</td></tr></table></div></section>
+<section class="cd-usage"><h2>Used by</h2><h3>In a dataset <span class="cd-inherited">· 1 path</span></h3><ul class="cd-usage-list"><li><a href="../../tree/cpacs/vehicles/aircraft/model/enginePylons/enginePylon/loadCarryingStructure/pylonBox/ribsDefinitions/ribsDefinition/ribsPositioning/"><code>cpacs/vehicles/aircraft/model/enginePylons/enginePylon/loadCarryingStructure/pylonBox/ribsDefinitions/ribsDefinition/ribsPositioning</code></a></li></ul><h3>In the schema <span class="cd-inherited">· 1 declaration</span></h3><div class="cd-scroll"><table><tr><th>Type</th><th>Name</th></tr><tr><td><a href="../pylonRibsDefinitionType/index.html"><code>pylonRibsDefinitionType</code></a></td><td><code>ribsPositioning</code></td></tr></table></div></section>
+</body>
+</html>

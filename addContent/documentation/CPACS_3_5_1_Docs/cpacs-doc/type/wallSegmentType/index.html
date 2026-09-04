@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>wallSegmentType</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../../index.html">Types</a> · <a href="../../tree/cpacs/vehicles/aircraft/model/fuselages/fuselage/structure/walls/wallSegments/wallSegment/">Show in tree</a></nav>
+<h1>wallSegmentType</h1>
+<p class="cd-kind">complexType · all</p>
+<div class="cd-summary"><p>Wall segment</p></div>
+<section class="cd-attributes"><h2>Attributes</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th>Use</th><th>Default</th><th>Description</th></tr><tr><td><code>@uID</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_ID.html" target="_blank" rel="noopener noreferrer"><code>xsd:ID</code></a></td><td></td><td>optional</td><td></td><td>UID</td></tr></table></div></section>
+<section class="cd-children"><h2>Child elements</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th><span class="cd-note-term" tabindex="0">Occurrence<span class="cd-tip" role="note">How often the element may appear at this place. The schema writes it as minOccurs and maxOccurs on the declaration.</span></span></th><th>Default</th><th>Description</th></tr><tr class="cd-group cd-group-all"><td colspan="5"><span class="cd-group-label"><span class="cd-group-mark" aria-hidden="true"></span><span class="cd-group-term" tabindex="0">all<span class="cd-tip" role="note">The children below may appear in any order. Each may appear at most once.</span></span></span></td><td></td></tr><tr><td class="cd-indent" style="--depth:1"><code>phi</code></td><td><a href="../wallSegmentType--phi/index.html"><code>doubleBaseType</code></a></td><td><a class="cd-holds" href="../wallSegmentType--phi/index.html">minInclusive, maxInclusive</a></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td><code>0.0</code></td><td>Extrusion direction. Rotation angle around fuselage x-axis of extrusion direction. A value of 0deg means fuselage z-axis as extrusion direction. Default: 0.0deg.</td></tr><tr><td class="cd-indent" style="--depth:1"><code>doubleSidedExtrusion</code></td><td><a href="../booleanBaseType/index.html"><code>booleanBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>By default, the wall is only extruded in positive direction. If doubleSidedExtrusion is true, the wall is additionally extruded in negative direction as well. Default: false.</td></tr><tr><td class="cd-indent" style="--depth:1"><code>flushConnectionStart</code></td><td><a href="../booleanBaseType/index.html"><code>booleanBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Rotates the first edge of the wall segment so that it is adjacent with the structural element defined in the first wall position (bulkhead, fuselage section or another plane wall). Default: false.</td></tr><tr><td class="cd-indent" style="--depth:1"><code>flushConnectionEnd</code></td><td><a href="../booleanBaseType/index.html"><code>booleanBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Rotates the last edge of the wall segment so that it is adjacent with the structural element defined in the last wall position (bulkhead, fuselage section or another plane wall). Default: false.</td></tr><tr><td class="cd-indent" style="--depth:1"><code>boundingElementUIDs</code></td><td><a href="../boundingElementUIDsType/index.html"><code>boundingElementUIDsType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>A list of uIDs referencing other structural/geometric elements that shall serve as a boundary of the wall element. Possible references are floor, wall or genericGeometryComponent. A major requirement is that the referenced element has an intersection with the wall for at least the distance between two wall positions. So that a full geometric face of the wall is bounded by it. Neighbouring wall faces that are not completely bounded by the reference element are not affected.</td></tr><tr><td class="cd-indent" style="--depth:1"><code>structuralWallElementUID</code></td><td><a href="../stringUIDBaseType/index.html"><code>stringUIDBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Reference to the structural property definition</td></tr><tr><td class="cd-indent" style="--depth:1"><code>wallPositionUIDs</code></td><td><a href="../wallPositionUIDsType/index.html"><code>wallPositionUIDsType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>List of wall position uIDs that are used for this wall segment. At least two positions must be defined (for start and end position of wall). If more than two positions are referenced here, the wall is constructed out of several planar faces that connect two consecutive positions (Note: Order of position uIDs defines connectivity).</td></tr></table></div></section>
+<section class="cd-usage"><h2>Used by</h2><h3>In a dataset <span class="cd-inherited">· 3 paths</span></h3><ul class="cd-usage-list"><li><a href="../../tree/cpacs/vehicles/aircraft/model/fuselages/fuselage/structure/walls/wallSegments/wallSegment/"><code>cpacs/vehicles/aircraft/model/fuselages/fuselage/structure/walls/wallSegments/wallSegment</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/fuelTanks/fuelTank/vessels/vessel/structure/walls/wallSegments/wallSegment/"><code>cpacs/vehicles/aircraft/model/fuelTanks/fuelTank/vessels/vessel/structure/walls/wallSegments/wallSegment</code></a></li><li><a href="../../tree/cpacs/vehicles/rotorcraft/model/fuselages/fuselage/structure/walls/wallSegments/wallSegment/"><code>cpacs/vehicles/rotorcraft/model/fuselages/fuselage/structure/walls/wallSegments/wallSegment</code></a></li></ul><h3>In the schema <span class="cd-inherited">· 1 declaration</span></h3><div class="cd-scroll"><table><tr><th>Type</th><th>Name</th></tr><tr><td><a href="../wallSegmentsType/index.html"><code>wallSegmentsType</code></a></td><td><code>wallSegment</code></td></tr></table></div></section>
+</body>
+</html>

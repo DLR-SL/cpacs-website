@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>controlSurfacesType</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../../index.html">Types</a> · <a href="../../tree/cpacs/vehicles/aircraft/model/wings/wing/componentSegments/componentSegment/controlSurfaces/">Show in tree</a></nav>
+<h1>controlSurfacesType</h1>
+<p class="cd-kind">complexType · extension <a href="../complexBaseType/index.html"><code>complexBaseType</code></a> · all</p>
+<div class="cd-summary"><p>Control surfaces</p></div>
+<div class="cd-remarks"><p>Definition of the outer shape, structure and deflection of all control surfaces (flaps, slats, soiler, ailerons...) of the wing.</p></div>
+<section class="cd-attributes"><h2>Attributes</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th>Use</th><th>Default</th><th>Description</th></tr><tr><td><code>@externalDataDirectory</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Directory of the external data file</td></tr><tr><td><code>@externalDataNodePath</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Path of the node inside the external data file</td></tr><tr><td><code>@externalFileName</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Name of the external data file</td></tr></table></div></section>
+<section class="cd-children"><h2>Child elements</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th><span class="cd-note-term" tabindex="0">Occurrence<span class="cd-tip" role="note">How often the element may appear at this place. The schema writes it as minOccurs and maxOccurs on the declaration.</span></span></th><th>Default</th><th>Description</th></tr><tr class="cd-group cd-group-all"><td colspan="5"><span class="cd-group-label"><span class="cd-group-mark" aria-hidden="true"></span><span class="cd-group-term" tabindex="0">all<span class="cd-tip" role="note">The children below may appear in any order. Each may appear at most once.</span></span></span></td><td></td></tr><tr><td class="cd-indent" style="--depth:1"><code>leadingEdgeDevices</code></td><td><a href="../leadingEdgeDevicesType/index.html"><code>leadingEdgeDevicesType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Leading edge devices of the componentSegment</td></tr><tr><td class="cd-indent" style="--depth:1"><code>trailingEdgeDevices</code></td><td><a href="../trailingEdgeDevicesType/index.html"><code>trailingEdgeDevicesType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Trailing edge devices of the componentSegment</td></tr><tr><td class="cd-indent" style="--depth:1"><code>spoilers</code></td><td><a href="../spoilersType/index.html"><code>spoilersType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Spoilers of the componentSegment</td></tr></table></div></section>
+<section class="cd-usage"><h2>Used by</h2><h3>In a dataset <span class="cd-inherited">· 3 paths</span></h3><ul class="cd-usage-list"><li><a href="../../tree/cpacs/vehicles/aircraft/model/wings/wing/componentSegments/componentSegment/controlSurfaces/"><code>cpacs/vehicles/aircraft/model/wings/wing/componentSegments/componentSegment/controlSurfaces</code></a></li><li><a href="../../tree/cpacs/vehicles/rotorcraft/model/wings/wing/componentSegments/componentSegment/controlSurfaces/"><code>cpacs/vehicles/rotorcraft/model/wings/wing/componentSegments/componentSegment/controlSurfaces</code></a></li><li><a href="../../tree/cpacs/vehicles/rotorcraft/model/rotorBlades/rotorBlade/componentSegments/componentSegment/controlSurfaces/"><code>cpacs/vehicles/rotorcraft/model/rotorBlades/rotorBlade/componentSegments/componentSegment/controlSurfaces</code></a></li></ul><h3>In the schema <span class="cd-inherited">· 1 declaration</span></h3><div class="cd-scroll"><table><tr><th>Type</th><th>Name</th></tr><tr><td><a href="../componentSegmentType/index.html"><code>componentSegmentType</code></a></td><td><code>controlSurfaces</code></td></tr></table></div></section>
+</body>
+</html>

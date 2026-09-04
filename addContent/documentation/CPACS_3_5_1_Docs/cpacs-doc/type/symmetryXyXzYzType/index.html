@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>symmetryXyXzYzType</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../../index.html">Types</a></nav>
+<h1>symmetryXyXzYzType</h1>
+<p class="cd-kind">simpleType · restriction <a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></p>
+<div class="cd-summary"><p>Symmetry (see CPACS root node documentation for details)</p></div>
+<section class="cd-enumeration"><h2>Allowed values</h2><div class="cd-scroll"><table><tr><th>Value</th><th>Description</th></tr><tr><td><code>none</code></td><td>Symmetry inheritance from parent element disabled</td></tr><tr><td><code>inherit</code></td><td>Symmetry inherited from parent element (default behavior, i.e. also applies if attribute not set)</td></tr><tr><td><code>x-y-plane</code></td><td>Symmetry w.r.t. the x-y plane of the CPACS coordinate system</td></tr><tr><td><code>x-z-plane</code></td><td>Symmetry w.r.t. the x-z plane of the CPACS coordinate system</td></tr><tr><td><code>y-z-plane</code></td><td>Symmetry w.r.t. the y-z plane of the CPACS coordinate system</td></tr></table></div></section>
+<section class="cd-usage"><h2>Used by</h2><h3>In the schema <span class="cd-inherited">· 11 declarations</span></h3><div class="cd-scroll"><table><tr><th>Type</th><th>Name</th></tr><tr><td><a href="../ductType/index.html"><code>ductType</code></a></td><td><code>@symmetry</code></td></tr><tr><td><a href="../enginePositionType/index.html"><code>enginePositionType</code></a></td><td><code>@symmetry</code></td></tr><tr><td><a href="../enginePylonType/index.html"><code>enginePylonType</code></a></td><td><code>@symmetry</code></td></tr><tr><td><a href="../fuelTankType/index.html"><code>fuelTankType</code></a></td><td><code>@symmetry</code></td></tr><tr><td><a href="../fuselageType/index.html"><code>fuselageType</code></a></td><td><code>@symmetry</code></td></tr><tr><td><a href="../genericGeometricComponentType/index.html"><code>genericGeometricComponentType</code></a></td><td><code>@symmetry</code></td></tr><tr><td><a href="../guideCurveProfileGeometryType/index.html"><code>guideCurveProfileGeometryType</code></a></td><td><code>@symmetry</code></td></tr><tr><td><a href="../landingGearBaseType/index.html"><code>landingGearBaseType</code></a></td><td><code>@symmetry</code></td></tr><tr><td><a href="../profileGeometryType/index.html"><code>profileGeometryType</code></a></td><td><code>@symmetry</code></td></tr><tr><td><a href="../rotorType/index.html"><code>rotorType</code></a></td><td><code>@symmetry</code></td></tr><tr><td><a href="../wingType/index.html"><code>wingType</code></a></td><td><code>@symmetry</code></td></tr></table></div></section>
+</body>
+</html>

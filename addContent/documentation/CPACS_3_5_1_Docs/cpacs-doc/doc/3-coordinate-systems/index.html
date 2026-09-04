@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3. Coordinate Systems</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../index.html">Documentation</a> · <a href="../../index.html">Types</a></nav><h1>3. Coordinate Systems</h1><div class="cd-remarks"><div class="cd-content"> <p> <strong>3.1. CPACS coordinate system</strong> </p> <p> Coordinate systems are a regular cause for ambiguous interpretation of data. In CPACS, the reference coordinate system is the CPACS-coordinate system. This coordinate system is used for most of the data. A single exception is made in order to keep aerodynamic data in an aerodynamic coordinate system. The following paragraphs outline the determination to known coordinate systems. </p> <p> The CPACS coordinate system is the coordinate system identified by <a class="cd-link" href="https://dlr-sc.github.io/tigl" rel="noopener">TiGL</a>, CPACS&#x27;s geometry library. It is a right-handed coordinate system. If an aircraft is defined in the CPACS coordinate system it will usually follow the directions listed in the table below. </p> <p> Therefore, the CPACS coordinate system can be confused with the body-fixed coordinate system. While often the CPACS coordinate system and the body-fixed coordinate system overlap, this must not always be true. Several definitions for body-fixed coordinate systems exist (x-axis through nose and tail, x-axis perpendicular to nose plane). For non-symmetric aircraft, body-fixed coordinate systems become even more complicated. Hence, analysis tools should stick to the CPACS coordinate system. It remains to the designer to model the geometry accordingly. </p> <p> The CPACS coordinate system does not rotate with flow. Hence, aerodynamic calculations do rotate their flow relative to the CPACS coordinate system. If not stated explicitly different, e.g. for target lift-coefficients, results are returned in the CPACS coordinate system, i.e. the cfx-coefficient is parallel to the CPACS x-coordinate, regardless of the way the geometry is defined. </p> <p> The following table gives a &quot;best-practice&quot; advice on how to locate a geometry within CPACS. Different approaches are, of course, valid as well. </p> <table class="cd-table"> <tr> <td> <strong>Axis</strong> </td> <td> <strong>Direction</strong> </td> <td> <strong>Description</strong> </td> </tr> <tr> <td>x</td> <td>tailwards</td> <td>from nose to tail</td> </tr> <tr> <td>y</td> <td>spanwise</td> <td>from symmetry plane to the right wingtip</td> </tr> <tr> <td>z</td> <td>upwards</td> <td>from landing gear to tip of vertical tailplane</td> </tr> </table> <p> The following figures show an example of a geometry that is aligned with the CPACS coordinate system, i.e. the body-fixed coordinate system corresponds to the CPACS coordinate system. </p> <figure class="cd-figure"> <img class="cd-image" src="../../media/figures/cosys01.png" alt="Coordinate systems 1"> </figure> <p> The aerodynamic analysis is relative to the CPACS coordinate system. That is, the angle of attack is represented by the dashed orange line. Results of the aerodynamic calculation are given in the CPACS coordinate system. </p> <figure class="cd-figure"> <img class="cd-image" src="../../media/figures/cosys02.png" alt="Coordinate systems 2"> </figure> <p> The following figures give an example of a geometry that is not defined in alignment with the CPACS coordinate system. It is a valid CPACS file, but only used in this example for demonstrative purposes. </p> <figure class="cd-figure"> <img class="cd-image" src="../../media/figures/cosys1.png" alt="Coordinate systems 1 with angleOfAttack"> </figure> <p> The body axes and the CPACS coordinate system do not align. That is, the origin of the geometry is not at CPACS (0,0,0) but at a point in positive x- and z-direction. </p> <figure class="cd-figure"> <img class="cd-image" src="../../media/figures/cosys2.png" alt="Coordinate systems 2 with angleOfAttack"> </figure> <p> Again, the aerodynamic analysis is relative to the CPACS coordinate system. That is, the angle of attack is represented by the dashed orange line. Results of the aerodynamic calculation are given in the CPACS coordinate system. </p> <p> <strong>3.2. Local coordinate systems via parentUID and transformation</strong> </p> <p> Some elements in CPACS, in particular the geometric components, are described in local coordinates. The hierarchical data structure allows to define a local coordinate system either with respect to the coordinate system of the parent element or with respect to the global CPACS coordinate system. This is achieved by combining the two elements <code>&lt;parentUID&gt;</code> and <code>&lt;transformation&gt;</code>: </p> <ul class="cd-list"> <li> <p> <strong>parentUID</strong>: An individual data hierarchy can be set up using the optional <code>&lt;parentUID&gt;</code> element. Here it is <strong>important that exactly one element does not contain the <code>&lt;parentUID&gt;</code> </strong> in order to identify the top element of this user-specific hierarchy. As soon as the <code>parentUID</code> (which refers to the <code>uID</code> of the parent element) is set, a local coordinate system of the corresponding node is instantiated. </p> </li> <li> <p> <strong>transformation</strong>: This allows the coordinate system to be transformed via <code>&lt;translation&gt;</code>, <code>&lt;rotation&gt;</code> and <code>&lt;scaling&gt;</code>. As soon as the <code>&lt;parentUID&gt;</code> is set, this transformation refers to the local coordinate system (in the current CPACS version this only affects <code>&lt;translation&gt;</code>). An attribute <code>refType</code> is used to either make this explicit (<code>refType=&quot;absLocal&quot;</code>) or to override this and reference the global CPACS coordinate system instead (<code>refType=&quot;absGlobal&quot;</code>). </p> </li> </ul> <p> The following table summarizes the possible combinations of <code>&lt;parentUID&gt;</code> and <code>&lt;transformation&gt;</code> and the resulting coordinate system (local or global): </p> <table class="cd-table"> <tr> <td></td> <td> <code>&lt;parentUID&gt;</code> not set </td> <td> <code>&lt;parentUID&gt;</code> set </td> </tr> <tr> <td> <code>&lt;transformation&gt;</code> without <code>refType</code> </td> <td>global</td> <td>local</td> </tr> <tr> <td> <code>&lt;transformation&gt;</code> with <code>refType=&quot;absLocal&quot;</code> </td> <td>global</td> <td>local</td> </tr> <tr> <td> <code>&lt;transformation&gt;</code> with <code>refType=&quot;absGlobal&quot;</code> </td> <td>global</td> <td>global</td> </tr> </table> <p> <strong>Note:</strong> The combination of <code>&lt;transformation&gt;</code> with <code>refType=&quot;absLocal&quot;</code> and no <code>&lt;parentUID&gt;</code> is global, because the local coordinate system to which the transformation is referring to via <code>refType</code> equals the global coordinate system (see fuselage in the following example). </p> <p> An exemplary use case further illustrates the concept of the coordinate system hierarchy. The CPACS schema shall not specify in advance that a wing is always be part of the fuselage and engines must always be part of the wing. In other cases the engine could be attached to the fuselage, which would not be possible via a predefined XML tree. The following figure shows how components of the aircraft are related to each other via the <code>&lt;parentUID&gt;</code>. The fairing is a child of the wing and is therefore automatically translated when the wing is translated. Likewise, the horizontal tailplane is a part of the vertical tailplane and is therefore affected by translation of the latter: </p> <figure class="cd-figure"> <img class="cd-image" src="../../media/figures/parentUID_transformations.png" alt="parentUID and transformations"> </figure> </div></div>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CPACS 1.2</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../index.html">Documentation</a> · <a href="../../index.html">Types</a></nav><h1>CPACS 1.2</h1><div class="cd-remarks"><div class="cd-content"> <p>Release in May 2010</p> <ul class="cd-list"> <li>Fuselage Structure Elements are updated following the input from BK</li> <ul class="cd-list"> <li>stringers&gt;arbitrary additional parameters: yBezugAtStartX, zBezugAtStartX, yBezugAtEndX, zBezugAtEndX</li> <li>paxCrossBeams additional parameters: startX, endX</li> <li>cargoCrossBeams additional parameters: startX, endX</li> <li>paxCrossBeamStruts additional parameters: startX, endX</li> <li>cargoCrossBeamStruts additional parameters: startX, endX</li> <li>structure&gt;pressureBulkhead: positionX instead of positionZ</li> <li>reinforcementNumberVertical: number of vertical reinforcements</li> <li>reinforcementNumberHorizontal: number of horizontal reinforcements</li> <li>maxFlectionDepth: max camber of pressure bulkhead</li> <li>reinforcementNumber: number of reinforcements rear pressure bulkhead</li> <li>sheetProperties: definition of sheet properties</li> <li>innerRadius: inner radius of the pressure bulkhead</li> </ul> <li>Dummy Wingbox element is included. This definition needs further enhancements</li> <ul class="cd-list"> <li>cpacs&gt;vehicles&gt;aircraft&gt;model&gt;fuselage&gt;fuselage&gt;structure</li> <li>Wingbox:</li> <li>xStart: start of the wingbox area</li> <li>xEnd: end of the wingbox area</li> <li>zStart: upper limit of the wingbox area</li> </ul> <li>Damping Derivatives are added in the form of dcfxdp, dcfxdq, dcfxdr, dcfydp, etc. The data will be stored in the model/global/aeroperformaneMap under a new dampingDerivatives element. Unit is deg/sec.</li> <li>StructureProfiles are defined in the profiles element. They are referenced in structuralElements for several entities such as stringer, frame etc. Currently they are referenced via &#x27;structuralProfileUID&#x27; for name consistency it should be either only &#x27;structure&#x27; or only &#x27;structural&#x27;</li> <li>Control Commands. The chain between pilot inputs and controlsurface deflections is now closed.</li> <ul class="cd-list"> <li>Parameters located at cpacs\vehicles\aircraft\model\systems</li> <li>cockpitControl: links from pilotInput to commandCase</li> <li>commandCase: links from commandCase to controlDistributor or controlFunction</li> <li>controlDistributor links to the controlSurface</li> <li>controlLaws includes controlModes automatic and manual</li> <li>controlModes contain controlFunctions</li> </ul> <li>TraFuMo toolspecific data added</li> </ul> </div></div>
+</body>
+</html>

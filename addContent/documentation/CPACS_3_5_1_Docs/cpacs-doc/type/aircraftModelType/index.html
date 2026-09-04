@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>aircraftModelType</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../../index.html">Types</a> · <a href="../../tree/cpacs/vehicles/aircraft/model/">Show in tree</a></nav>
+<h1>aircraftModelType</h1>
+<p class="cd-kind">complexType · extension <a href="../complexBaseType/index.html"><code>complexBaseType</code></a> · all</p>
+<div class="cd-summary"><p>Aircraft model</p></div>
+<div class="cd-remarks"><div class="cd-content"> <p> The <em>aircraftModelType</em> contains the geometric aircraft model and associated data. </p> <p> Elements specifying the geometry of the aircraft are <em>fuselages</em>, <em>wings</em>, <em>engines</em> (referenced via <em>uID</em>), <em>enginePylons</em>, <em>landingGear</em>, <em>systems</em> (to some extend) and <em>genericGeometryComponents</em>. </p> <p> Other elements are dedicated to additional data associated to this aircraft model. Brief and concise analysis results are stored in the <em>global</em> node. The <em>analysis</em> node contains extensive results from multidisciplinary analysis modules. </p> <p> In the current CPACS version requirements only refer to the aircraft performance and are therefore specified in the <em>performanceRequirements</em> node. </p> </div></div>
+<section class="cd-attributes"><h2>Attributes</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th>Use</th><th>Default</th><th>Description</th></tr><tr><td><code>@externalDataDirectory</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Directory of the external data file</td></tr><tr><td><code>@externalDataNodePath</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Path of the node inside the external data file</td></tr><tr><td><code>@externalFileName</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Name of the external data file</td></tr><tr><td><code>@uID</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_ID.html" target="_blank" rel="noopener noreferrer"><code>xsd:ID</code></a></td><td></td><td>required</td><td></td><td>UID</td></tr></table></div></section>
+<section class="cd-children"><h2>Child elements</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th><span class="cd-note-term" tabindex="0">Occurrence<span class="cd-tip" role="note">How often the element may appear at this place. The schema writes it as minOccurs and maxOccurs on the declaration.</span></span></th><th>Default</th><th>Description</th></tr><tr class="cd-group cd-group-all"><td colspan="5"><span class="cd-group-label"><span class="cd-group-mark" aria-hidden="true"></span><span class="cd-group-term" tabindex="0">all<span class="cd-tip" role="note">The children below may appear in any order. Each may appear at most once.</span></span></span></td><td></td></tr><tr><td class="cd-indent" style="--depth:1"><code>name</code></td><td><a href="../stringBaseType/index.html"><code>stringBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>Name</td></tr><tr><td class="cd-indent" style="--depth:1"><code>description</code></td><td><a href="../stringBaseType/index.html"><code>stringBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Description</td></tr><tr><td class="cd-indent" style="--depth:1"><code>reference</code></td><td><a href="../referenceType/index.html"><code>referenceType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Reference values, e.g. reference area and reference length</td></tr><tr><td class="cd-indent" style="--depth:1"><code>configurationDefinitions</code></td><td><a href="../configurationDefinitionsType/index.html"><code>configurationDefinitionsType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Configuration definitions</td></tr><tr><td class="cd-indent" style="--depth:1"><code>ducts</code></td><td><a href="../ductsType/index.html"><code>ductsType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Ducts</td></tr><tr><td class="cd-indent" style="--depth:1"><code>fuselages</code></td><td><a href="../fuselagesType/index.html"><code>fuselagesType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Fuselages</td></tr><tr><td class="cd-indent" style="--depth:1"><code>wings</code></td><td><a href="../wingsType/index.html"><code>wingsType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Wings</td></tr><tr><td class="cd-indent" style="--depth:1"><code>engines</code></td><td><a href="../enginePositionsType/index.html"><code>enginePositionsType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Positions</td></tr><tr><td class="cd-indent" style="--depth:1"><code>enginePylons</code></td><td><a href="../enginePylonsType/index.html"><code>enginePylonsType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Engine pylons</td></tr><tr><td class="cd-indent" style="--depth:1"><code>landingGears</code></td><td><a href="../landingGearsType/index.html"><code>landingGearsType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Landing gears</td></tr><tr><td class="cd-indent" style="--depth:1"><code>fuelTanks</code></td><td><a href="../fuelTanksType/index.html"><code>fuelTanksType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Fuel tanks</td></tr><tr><td class="cd-indent" style="--depth:1"><code>systems</code></td><td><a href="../systemsType/index.html"><code>systemsType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Systems</td></tr><tr><td class="cd-indent" style="--depth:1"><code>genericGeometryComponents</code></td><td><a href="../genericGeometryComponentsType/index.html"><code>genericGeometryComponentsType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Geometric components</td></tr><tr><td class="cd-indent" style="--depth:1"><code>global</code></td><td><a href="../aircraftGlobalType/index.html"><code>aircraftGlobalType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Global data</td></tr><tr><td class="cd-indent" style="--depth:1"><code>analyses</code></td><td><a href="../aircraftAnalysesType/index.html"><code>aircraftAnalysesType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Analysis results</td></tr><tr><td class="cd-indent" style="--depth:1"><code>performanceRequirements</code></td><td><a href="../performanceRequirementsType/index.html"><code>performanceRequirementsType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Performance requirements</td></tr><tr><td class="cd-indent" style="--depth:1"><code>systemArchitectures</code></td><td><a href="../systemArchitecturesType/index.html"><code>systemArchitecturesType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>System architectures</td></tr></table></div></section>
+<section class="cd-usage"><h2>Used by</h2><h3>In a dataset <span class="cd-inherited">· 1 path</span></h3><ul class="cd-usage-list"><li><a href="../../tree/cpacs/vehicles/aircraft/model/"><code>cpacs/vehicles/aircraft/model</code></a></li></ul><h3>In the schema <span class="cd-inherited">· 1 declaration</span></h3><div class="cd-scroll"><table><tr><th>Type</th><th>Name</th></tr><tr><td><a href="../aircraftType/index.html"><code>aircraftType</code></a></td><td><code>model</code></td></tr></table></div></section>
+</body>
+</html>

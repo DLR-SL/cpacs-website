@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>rotorHubHingeType</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../../index.html">Types</a> · <a href="../../tree/cpacs/vehicles/rotorcraft/model/rotors/rotor/rotorHub/rotorBladeAttachments/rotorBladeAttachment/hinges/hinge/">Show in tree</a></nav>
+<h1>rotorHubHingeType</h1>
+<p class="cd-kind">complexType · extension <a href="../complexBaseType/index.html"><code>complexBaseType</code></a> · all</p>
+<div class="cd-summary"><p>rotorHubHinge type, containing a rotor hub hinge (flap/leadLag/pitch).</p></div>
+<div class="cd-remarks"><div class="cd-content"> <p>Rotor hub hinge (flap/leadLag/pitch) of a rotorcraft model.</p> </div></div>
+<section class="cd-attributes"><h2>Attributes</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th>Use</th><th>Default</th><th>Description</th></tr><tr><td><code>@externalDataDirectory</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Directory of the external data file</td></tr><tr><td><code>@externalDataNodePath</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Path of the node inside the external data file</td></tr><tr><td><code>@externalFileName</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Name of the external data file</td></tr><tr><td><code>@uID</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_ID.html" target="_blank" rel="noopener noreferrer"><code>xsd:ID</code></a></td><td></td><td>required</td><td></td><td>UID</td></tr></table></div></section>
+<section class="cd-children"><h2>Child elements</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th><span class="cd-note-term" tabindex="0">Occurrence<span class="cd-tip" role="note">How often the element may appear at this place. The schema writes it as minOccurs and maxOccurs on the declaration.</span></span></th><th>Default</th><th>Description</th></tr><tr class="cd-group cd-group-all"><td colspan="5"><span class="cd-group-label"><span class="cd-group-mark" aria-hidden="true"></span><span class="cd-group-term" tabindex="0">all<span class="cd-tip" role="note">The children below may appear in any order. Each may appear at most once.</span></span></span></td><td></td></tr><tr><td class="cd-indent" style="--depth:1"><code>name</code></td><td><a href="../stringBaseType/index.html"><code>stringBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Name</td></tr><tr><td class="cd-indent" style="--depth:1"><code>description</code></td><td><a href="../stringBaseType/index.html"><code>stringBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Description</td></tr><tr><td class="cd-indent" style="--depth:1"><code>transformation</code></td><td><a href="../transformationType/index.html"><code>transformationType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>Position and orientation</td></tr><tr><td class="cd-indent" style="--depth:1"><code>type</code></td><td><a href="../rotorHubHingeType--type/index.html"><code>xsd:string</code></a></td><td><a class="cd-holds" href="../rotorHubHingeType--type/index.html">3 values</a></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>Hinge type. Possible values: &quot;flap&quot;, &quot;pitch&quot; &quot;leadLag&quot;. This is used to define the rotation axis of the hinge (flap = y-axis in blade cs, pitch = x-axis in blade cs, lead-lag = z-axis in blade cs).</td></tr><tr><td class="cd-indent" style="--depth:1"><code>neutralPosition</code></td><td><a href="../doubleBaseType/index.html"><code>doubleBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>The angle (in deg) at which the hinge is in neutral position. This element is normally used to define precone or prelag angles of the attached blade. Defaults to 0.</td></tr><tr><td class="cd-indent" style="--depth:1"><code>staticStiffness</code></td><td><a href="../doubleBaseType/index.html"><code>doubleBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Static stiffness of the hinge in (N/m) for linear hinges and (N.m/deg) for angular hinges. Default value: +inf (statically rigid hinge)</td></tr><tr><td class="cd-indent" style="--depth:1"><code>dynamicStiffness</code></td><td><a href="../doubleBaseType/index.html"><code>doubleBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Dynamic stiffness of the hinge in (N/m) for linear hinges and (N.m/deg) for angular hinges. Default value: +inf (statically rigid hinge)</td></tr><tr><td class="cd-indent" style="--depth:1"><code>damping</code></td><td><a href="../doubleBaseType/index.html"><code>doubleBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Damping of the hinge in (N/(m/s)) for linear hinges and (N.m/(deg/s)) for angular hinges. Default value: +inf.</td></tr></table></div></section>
+<section class="cd-usage"><h2>Used by</h2><h3>In a dataset <span class="cd-inherited">· 1 path</span></h3><ul class="cd-usage-list"><li><a href="../../tree/cpacs/vehicles/rotorcraft/model/rotors/rotor/rotorHub/rotorBladeAttachments/rotorBladeAttachment/hinges/hinge/"><code>cpacs/vehicles/rotorcraft/model/rotors/rotor/rotorHub/rotorBladeAttachments/rotorBladeAttachment/hinges/hinge</code></a></li></ul><h3>In the schema <span class="cd-inherited">· 1 declaration</span></h3><div class="cd-scroll"><table><tr><th>Type</th><th>Name</th></tr><tr><td><a href="../rotorHubHingesType/index.html"><code>rotorHubHingesType</code></a></td><td><code>hinge</code></td></tr></table></div></section>
+</body>
+</html>

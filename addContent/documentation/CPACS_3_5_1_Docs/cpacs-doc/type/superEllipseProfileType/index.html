@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>superEllipseProfileType</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../../index.html">Types</a> · <a href="../../tree/cpacs/vehicles/profiles/fuselageProfiles/fuselageProfile/standardProfile/superEllipse/">Show in tree</a></nav>
+<h1>superEllipseProfileType</h1>
+<p class="cd-kind">complexType · extension <a href="../complexBaseType/index.html"><code>complexBaseType</code></a> · all</p>
+<div class="cd-summary"><p>Superellipse</p></div>
+<div class="cd-remarks"><div class="cd-content"> <p>A profile based on superellipses is composed of an upper and a lower semi-ellipse, which may differ from each other in their parameterization. The total width and height of the profile is always 1, since scaling is performed after referencing (e.g., in the fuselage). </p> <p> This <em>lowerHeightFraction</em> describes the portion of the lower semi-ellipse on the total height. </p> <p>The resulting profile is defined by the following set of equations:</p> <figure class="cd-figure"> <img class="cd-image" src="../../media/equations/superEllipseUpper.png" alt="Equation for superellipse in positive half-space"> </figure> <figure class="cd-figure"> <img class="cd-image" src="../../media/equations/superEllipseLower.png" alt="Equation for superellipse in negative half-space"> </figure> <p>with</p> <figure class="cd-figure"> <img class="cd-image" src="../../media/equations/superEllipseZ0.png" alt="Equation for superellipse middle line"> </figure> <p>The following examples indicate the various possibilities of parametric profiles:</p> <p> <strong>Example 1</strong>: (<em>mUpper,nUpper,mLower,nLower, lowerHeightFraction</em>) = (0.5; 2; 5; 3; 0.25) </p> <figure class="cd-figure"> <img class="cd-image" src="../../media/figures/superEllipse_05_2_5_3_025.png" alt="Example of adjacent lower and upper superellipse"> </figure> <p> <strong>Example 2</strong>: (<em>mUpper,nUpper,mLower,nLower, lowerHeightFraction</em>) = (2; 2; 2; 2; 0.5) = a circle </p> <figure class="cd-figure"> <img class="cd-image" src="../../media/figures/superEllipse_2_2_2_2_05.png" alt="Example of a superellipse forming a circle"> </figure> <p> <strong>Example 3</strong>: (<em>mUpper,nUpper,mLower,nLower, lowerHeightFraction</em>) = (1; 1; 1; 1; 0.5) = a square / diamond </p> <figure class="cd-figure"> <img class="cd-image" src="../../media/figures/superEllipse_1_1_1_1_05.png" alt="Example of a superellipse forming a square"> </figure> <p> <strong>Note</strong>: For exponents that are infinitely large, the superellipse converges to a rectangle. However, the value <em>Inf</em> is not a valid entry at this point. Use the <em>square</em> element instead. </p> </div></div>
+<section class="cd-attributes"><h2>Attributes</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th>Use</th><th>Default</th><th>Description</th></tr><tr><td><code>@externalDataDirectory</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Directory of the external data file</td></tr><tr><td><code>@externalDataNodePath</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Path of the node inside the external data file</td></tr><tr><td><code>@externalFileName</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Name of the external data file</td></tr></table></div></section>
+<section class="cd-children"><h2>Child elements</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th><span class="cd-note-term" tabindex="0">Occurrence<span class="cd-tip" role="note">How often the element may appear at this place. The schema writes it as minOccurs and maxOccurs on the declaration.</span></span></th><th>Default</th><th>Description</th></tr><tr class="cd-group cd-group-all"><td colspan="5"><span class="cd-group-label"><span class="cd-group-mark" aria-hidden="true"></span><span class="cd-group-term" tabindex="0">all<span class="cd-tip" role="note">The children below may appear in any order. Each may appear at most once.</span></span></span></td><td></td></tr><tr><td class="cd-indent" style="--depth:1"><code>mUpper</code></td><td><a href="../posExcl0DoubleBaseType/index.html"><code>posExcl0DoubleBaseType</code></a></td><td><a class="cd-holds" href="../posExcl0DoubleBaseType/index.html">minExclusive</a></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>Exponent m for upper semi-ellipse</td></tr><tr><td class="cd-indent" style="--depth:1"><code>nUpper</code></td><td><a href="../posExcl0DoubleBaseType/index.html"><code>posExcl0DoubleBaseType</code></a></td><td><a class="cd-holds" href="../posExcl0DoubleBaseType/index.html">minExclusive</a></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>Exponent n for upper semi-ellipse</td></tr><tr><td class="cd-indent" style="--depth:1"><code>mLower</code></td><td><a href="../posExcl0DoubleBaseType/index.html"><code>posExcl0DoubleBaseType</code></a></td><td><a class="cd-holds" href="../posExcl0DoubleBaseType/index.html">minExclusive</a></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>Exponent m for lower semi-ellipse</td></tr><tr><td class="cd-indent" style="--depth:1"><code>nLower</code></td><td><a href="../posExcl0DoubleBaseType/index.html"><code>posExcl0DoubleBaseType</code></a></td><td><a class="cd-holds" href="../posExcl0DoubleBaseType/index.html">minExclusive</a></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>Exponent n for lower semi-ellipse</td></tr><tr><td class="cd-indent" style="--depth:1"><code>lowerHeightFraction</code></td><td><a href="../superEllipseProfileType--lowerHeightFraction/index.html"><code>doubleBaseType</code></a></td><td><a class="cd-holds" href="../superEllipseProfileType--lowerHeightFraction/index.html">minExclusive, maxExclusive</a></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>Height of the lower semi-ellipse relative to the total height</td></tr></table></div></section>
+<section class="cd-usage"><h2>Used by</h2><h3>In a dataset <span class="cd-inherited">· 3 paths</span></h3><ul class="cd-usage-list"><li><a href="../../tree/cpacs/vehicles/profiles/fuselageProfiles/fuselageProfile/standardProfile/superEllipse/"><code>cpacs/vehicles/profiles/fuselageProfiles/fuselageProfile/standardProfile/superEllipse</code></a></li><li><a href="../../tree/cpacs/vehicles/profiles/wingAirfoils/wingAirfoil/standardProfile/superEllipse/"><code>cpacs/vehicles/profiles/wingAirfoils/wingAirfoil/standardProfile/superEllipse</code></a></li><li><a href="../../tree/cpacs/vehicles/profiles/rotorAirfoils/rotorAirfoil/standardProfile/superEllipse/"><code>cpacs/vehicles/profiles/rotorAirfoils/rotorAirfoil/standardProfile/superEllipse</code></a></li></ul><h3>In the schema <span class="cd-inherited">· 1 declaration</span></h3><div class="cd-scroll"><table><tr><th>Type</th><th>Name</th></tr><tr><td><a href="../standardProfileType/index.html"><code>standardProfileType</code></a></td><td><code>superEllipse</code></td></tr></table></div></section>
+</body>
+</html>

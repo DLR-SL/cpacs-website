@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>axleType/sideOfFirstWheel</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../../index.html">Types</a> · <a href="../../tree/cpacs/vehicles/aircraft/model/landingGears/landingGear/componentAssembly/axle/sideOfFirstWheel/">Show in tree</a></nav>
+<h1>axleType/sideOfFirstWheel</h1>
+<p class="cd-kind">simpleType · restriction <a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></p>
+<section class="cd-enumeration"><h2>Allowed values</h2><div class="cd-scroll"><table><tr><th>Value</th><th>Description</th></tr><tr><td><code>inboard</code></td><td></td></tr><tr><td><code>outboard</code></td><td></td></tr><tr><td><code>centre</code></td><td></td></tr></table></div></section>
+<section class="cd-usage"><h2>Used by</h2><h3>In a dataset <span class="cd-inherited">· 8 paths</span></h3><ul class="cd-usage-list"><li><a href="../../tree/cpacs/vehicles/aircraft/model/landingGears/landingGear/componentAssembly/axle/sideOfFirstWheel/"><code>cpacs/vehicles/aircraft/model/landingGears/landingGear/componentAssembly/axle/sideOfFirstWheel</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/landingGears/landingGear/componentAssembly/bogie/axleAssemblies/axleAssembly/axle/sideOfFirstWheel/"><code>cpacs/vehicles/aircraft/model/landingGears/landingGear/componentAssembly/bogie/axleAssemblies/axleAssembly/axle/sideOfFirstWheel</code></a></li><li><a href="../../tree/cpacs/vehicles/rotorcraft/model/landingGear/noseGears/noseGear/componentAssembly/axle/sideOfFirstWheel/"><code>cpacs/vehicles/rotorcraft/model/landingGear/noseGears/noseGear/componentAssembly/axle/sideOfFirstWheel</code></a></li><li><a href="../../tree/cpacs/vehicles/rotorcraft/model/landingGear/noseGears/noseGear/componentAssembly/bogie/axleAssemblies/axleAssembly/axle/sideOfFirstWheel/"><code>cpacs/vehicles/rotorcraft/model/landingGear/noseGears/noseGear/componentAssembly/bogie/axleAssemblies/axleAssembly/axle/sideOfFirstWheel</code></a></li><li><a href="../../tree/cpacs/vehicles/rotorcraft/model/landingGear/mainGears/mainGear/componentAssembly/axle/sideOfFirstWheel/"><code>cpacs/vehicles/rotorcraft/model/landingGear/mainGears/mainGear/componentAssembly/axle/sideOfFirstWheel</code></a></li><li><a href="../../tree/cpacs/vehicles/rotorcraft/model/landingGear/mainGears/mainGear/componentAssembly/bogie/axleAssemblies/axleAssembly/axle/sideOfFirstWheel/"><code>cpacs/vehicles/rotorcraft/model/landingGear/mainGears/mainGear/componentAssembly/bogie/axleAssemblies/axleAssembly/axle/sideOfFirstWheel</code></a></li><li><a href="../../tree/cpacs/vehicles/rotorcraft/model/landingGear/skidGears/skidGear/componentAssembly/axle/sideOfFirstWheel/"><code>cpacs/vehicles/rotorcraft/model/landingGear/skidGears/skidGear/componentAssembly/axle/sideOfFirstWheel</code></a></li><li><a href="../../tree/cpacs/vehicles/rotorcraft/model/landingGear/skidGears/skidGear/componentAssembly/bogie/axleAssemblies/axleAssembly/axle/sideOfFirstWheel/"><code>cpacs/vehicles/rotorcraft/model/landingGear/skidGears/skidGear/componentAssembly/bogie/axleAssemblies/axleAssembly/axle/sideOfFirstWheel</code></a></li></ul><h3>In the schema <span class="cd-inherited">· 1 declaration</span></h3><div class="cd-scroll"><table><tr><th>Type</th><th>Name</th></tr><tr><td><a href="../axleType/index.html"><code>axleType</code></a></td><td><code>sideOfFirstWheel</code></td></tr></table></div></section>
+</body>
+</html>

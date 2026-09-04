@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9. Vectors and arrays</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../index.html">Documentation</a> · <a href="../../index.html">Types</a></nav><h1>9. Vectors and arrays</h1><div class="cd-remarks"><div class="cd-content"> <p> For large data sets (e.g. increments of aerodynamic coefficients due to control surface deflections) it is advantageous to map them via vectors and arrays instead of using a sequence of nodes for each data value. Therefore vectors and arrays are defined as semicolon-separated lists in CPACS. Via the documentation (derived from the XSD) of the corresponding nodes it has to be checked whether it is a vector or an array. <ul class="cd-list"> <li> Vector <p> The vector is meant as a one-dimensional-array. In such a node, the values are given in a semicolon separated list: </p> <figure class="cd-code-figure"><pre class="cd-code" data-language="XML"><code><span class="cd-punct">&lt;</span><span class="cd-tag">angleOfAttack</span><span class="cd-punct">&gt;</span>0.;1.5;3.;4.5;6;7.5;9.<span class="cd-punct">&lt;/</span><span class="cd-tag">angleOfAttack</span><span class="cd-punct">&gt;</span></code></pre><figcaption>CPACS vector element</figcaption></figure> </li> <li> Array <p> As for vectors, multi-dimensional arrays provide values in a semicolon separated list. An array is always preceded by a sequence of vectors, containing the dimensions and index values. Which vectors of an array are dimensioning is specified in the respective documentation of the array. </p> <figure class="cd-code-figure"><pre class="cd-code" data-language="XML"><code><span class="cd-punct">&lt;</span><span class="cd-tag">altitude</span><span class="cd-punct">&gt;</span>1000.;2000.;3000.<span class="cd-punct">&lt;/</span><span class="cd-tag">altitude</span><span class="cd-punct">&gt;</span> <span class="cd-comment">&lt;!-- vector element --&gt;</span>
+    <span class="cd-punct">&lt;</span><span class="cd-tag">incrementMaps</span><span class="cd-punct">&gt;</span>
+        <span class="cd-punct">&lt;</span><span class="cd-tag">incrementMap</span> <span class="cd-attr">uID</span><span class="cd-punct">=</span><span class="cd-value">&quot;incMap_b3ac2&quot;</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">controlSurfaceUID</span><span class="cd-punct">&gt;</span>InnerWingFlap<span class="cd-punct">&lt;/</span><span class="cd-tag">controlSurfaceUID</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">controlParameters</span><span class="cd-punct">&gt;</span>-1;-0.5;0;1<span class="cd-punct">&lt;/</span><span class="cd-tag">controlParameters</span><span class="cd-punct">&gt;</span> <span class="cd-comment">&lt;!-- vector element --&gt;</span>
+                <span class="cd-comment">&lt;!-- array of dimension length(altitude) x length(controlParameters): --&gt;</span>
+                <span class="cd-punct">&lt;</span><span class="cd-tag">dcl</span><span class="cd-punct">&gt;</span>11.;12.;13.;14.;21.;22.;23.;24.;31.;32.;33.;34.<span class="cd-punct">&lt;/</span><span class="cd-tag">dcl</span><span class="cd-punct">&gt;</span></code></pre><figcaption>Usage of a CPACS array element</figcaption></figure> <table class="cd-table"> <caption> <strong>Values for cl increments:</strong> </caption> <tr> <td></td> <td>Control parameter = -1</td> <td>Control parameter = -0.5</td> <td>Control parameter = 0</td> <td>Control parameter = 1</td> </tr> <tr> <td>Altitude = 1000m</td> <td>11.</td> <td>12.</td> <td>13.</td> <td>14.</td> </tr> <tr> <td>Altitude = 2000m</td> <td>21.</td> <td>22.</td> <td>23.</td> <td>24.</td> </tr> <tr> <td>Altitude = 3000m</td> <td>31.</td> <td>32.</td> <td>33.</td> <td>34.</td> </tr> </table> </li> </ul> </p> </div></div>
+</body>
+</html>

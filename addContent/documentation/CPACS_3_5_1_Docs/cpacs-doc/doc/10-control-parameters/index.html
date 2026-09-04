@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>10. Control Parameters</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../index.html">Documentation</a> · <a href="../../index.html">Types</a></nav><h1>10. Control Parameters</h1><div class="cd-remarks"><div class="cd-content"> <p> Control parameters are abstract parameters, linking a generic value (i.e., the control parameter) to a configurational state of a control device (e.g., control surface, landing gear, engine settings, ...). The basic idea is that this control parameter can be used in different CPACS nodes (e.g., aeroMaps), while the relationship between the abstract control parameter and the configurative state of a controllable component is defined in the latter. Controllable compents can have multiple control functions (referred to as control devices), e.g., extraction and rotation state as well as the braking state of a landing gear. </p> <p> Control parameters are predominantly used for control surfaces, which is why they are discussed in more detail below as an example. However, the approach also applies to other components, such as landing gears. In future the engines and other components will also be controlable via control parameters.</p> <p> For control surfaces, the translation from the abstract control parameter to its physical state (i.e., deflection = rotation + translation) is defined in a so-called <code>&lt;path&gt;</code>, which is componsed of a list of <code>&lt;step&gt;</code> elements. </p> <p> The control parameter values for each step are arbitrary floating point values. However, it is strongly recommended to use values between -1 and +1, or between 0 and +1 (depending on the type of control surface). The smallest and the largest value implicitly define the maximum deflection limits. It is mandatory, that the value “0” is within the specified range, as this value is treated as undeflected and used to specify a “clean” aircraft configuration (e.g. used in the clean aero performance map). Furthermore, it it is mandatory for the <code>&lt;step&gt;</code> elements to be sorted in ascending order of the control parameters. It is recommended, but not mandatory to specify a <code>&lt;step&gt;</code> with a <code>&lt;controlParameter&gt;</code> of 0. Consequently, no <code>&lt;controlParameter&gt;</code> must be used twice within a single <code>&lt;path&gt;</code> definition. Deflection values between two specified steps are handled by linear interpolation. </p> <p> The following example shows the usage of control parameters within a control surface deflection path definition:</p> <figure class="cd-code-figure"><pre class="cd-code" data-language="XML"><code><span class="cd-punct">&lt;</span><span class="cd-tag">controlSurfaces</span><span class="cd-punct">&gt;</span>
+  <span class="cd-punct">&lt;</span><span class="cd-tag">trailingEdgeDevices</span><span class="cd-punct">&gt;</span>
+    <span class="cd-punct">&lt;</span><span class="cd-tag">trailingEdgeDevice</span> <span class="cd-attr">uID</span><span class="cd-punct">=</span><span class="cd-value">&quot;InnerWingFlap&quot;</span><span class="cd-punct">&gt;</span>
+      ...
+      <span class="cd-punct">&lt;</span><span class="cd-tag">path</span><span class="cd-punct">&gt;</span>
+        ...
+        <span class="cd-punct">&lt;</span><span class="cd-tag">steps</span><span class="cd-punct">&gt;</span>
+          <span class="cd-punct">&lt;</span><span class="cd-tag">step</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">controlParameter</span><span class="cd-punct">&gt;</span>-1<span class="cd-punct">&lt;/</span><span class="cd-tag">controlParameter</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">hingeLineRotation</span><span class="cd-punct">&gt;</span>-20.<span class="cd-punct">&lt;/</span><span class="cd-tag">hingeLineRotation</span><span class="cd-punct">&gt;</span>
+          <span class="cd-punct">&lt;/</span><span class="cd-tag">step</span><span class="cd-punct">&gt;</span>
+          <span class="cd-punct">&lt;</span><span class="cd-tag">step</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">controlParameter</span><span class="cd-punct">&gt;</span>-0.5<span class="cd-punct">&lt;/</span><span class="cd-tag">controlParameter</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">hingeLineRotation</span><span class="cd-punct">&gt;</span>-10.<span class="cd-punct">&lt;/</span><span class="cd-tag">hingeLineRotation</span><span class="cd-punct">&gt;</span>
+          <span class="cd-punct">&lt;/</span><span class="cd-tag">step</span><span class="cd-punct">&gt;</span>
+          <span class="cd-punct">&lt;</span><span class="cd-tag">step</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">controlParameter</span><span class="cd-punct">&gt;</span>0<span class="cd-punct">&lt;/</span><span class="cd-tag">controlParameter</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">hingeLineRotation</span><span class="cd-punct">&gt;</span>0.<span class="cd-punct">&lt;/</span><span class="cd-tag">hingeLineRotation</span><span class="cd-punct">&gt;</span>
+          <span class="cd-punct">&lt;/</span><span class="cd-tag">step</span><span class="cd-punct">&gt;</span>
+          <span class="cd-punct">&lt;</span><span class="cd-tag">step</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">controlParameter</span><span class="cd-punct">&gt;</span>1<span class="cd-punct">&lt;/</span><span class="cd-tag">controlParameter</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">hingeLineRotation</span><span class="cd-punct">&gt;</span>5.<span class="cd-punct">&lt;/</span><span class="cd-tag">hingeLineRotation</span><span class="cd-punct">&gt;</span>
+          <span class="cd-punct">&lt;/</span><span class="cd-tag">step</span><span class="cd-punct">&gt;</span>
+        <span class="cd-punct">&lt;/</span><span class="cd-tag">steps</span><span class="cd-punct">&gt;</span>
+        ...</code></pre><figcaption>Control parameter example</figcaption></figure> <p> There is a possibility that more than one deflection command is applied to a control surface at the same time (e.g. coming from a <code>&lt;configurationDefinition&gt;</code> and from an explicit deflection). Furthermore, a control surface could be deflected by one (or even multiple) control distributor and control device command(s) in parallel. In all these cases, the deflection commands have to be superposed in the following way: <ol class="cd-list"> <li> The commands for each control distributor have to be added up to get a summed-up control distributor command input. </li> <li> The command inputs for each control distributor have to be evaluated to come to a set of control device control parameters. </li> <li> The control device control parameters for each control device (coming from control distributor and from control device commands) have to be added up. </li> <li> The final control device control parameters for each control device have to be evaluated considering the corresponding <code>&lt;path&gt;</code> specification to come to the desired movements/deflections. </li> <li> If command inputs or control parameters in step 2.) or 4.) are found to exceed the or boundaries of the defined range, an error should be returned from the evaluation. </li> </ol> </p> </div></div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1. Overview</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../index.html">Documentation</a> · <a href="../../index.html">Types</a></nav><h1>1. Overview</h1><div class="cd-remarks"><div class="cd-content"> <p> The <strong>C</strong>ommon <strong>P</strong>arametric <strong>A</strong>ircraft <strong>C</strong>onfiguration <strong>S</strong>cheme <em>(CPACS)</em> is an XML-based data format for describing aircraft configurations and their corresponding data. </p> <p> This XML-Schema document (<strong>XSD</strong>) serves two purposes: (1) it defines the CPACS data structure used in the <strong>XML</strong> file (e.g., aircraft.xml) and (2) it provides the corresponding documentation (see picture below). An XML processor (e.g., <a class="cd-link" href="https://github.com/DLR-SC/tixi" rel="noopener">TiXI</a> or XML tools in Eclipse) parses the XSD and XML files and validates whether the data set defined by the user (or tool) conforms to the given structure defined by the schema. </p> <figure class="cd-figure"> <img class="cd-image" src="../../media/figures/basicPrinciple.png" alt="basic principle of CPACS"> </figure> <p> This documentation explains the <strong>elements</strong> defined in CPACS and its corresponding <strong>data types</strong>. Data types can either be <strong>simple types</strong> (string, double, boolean, etc.) or <strong>complex types</strong> (definition of attributes and sub-elements to build a hierarchical structure). In addition, the sequence of the elements and their occurrence is documented. </p> <p> To link the XML file to the XSD file, the header of the XML file should specify the path of the schema file. An example could look like this: <figure class="cd-code-figure"><pre class="cd-code" data-language="XML"><code><span class="cd-punct">&lt;</span><span class="cd-tag">cpacs</span> <span class="cd-attr">xmlns:xsi</span><span class="cd-punct">=</span><span class="cd-value">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+       <span class="cd-attr">xsi:noNamespaceSchemaLocation</span><span class="cd-punct">=</span><span class="cd-value">&quot;pathToSchemaFile/cpacs_schema.xsd&quot;</span><span class="cd-punct">&gt;</span></code></pre><figcaption>CPACS header</figcaption></figure> </p> <p> CPACS is an open source project published by the <a class="cd-link" href="https://www.dlr.de/" rel="noopener">German Aerospace Center (DLR e.V.)</a>. For further information please visit <a class="cd-link" href="https://www.cpacs.de" rel="noopener">www.cpacs.de</a>. </p> </div></div>
+</body>
+</html>

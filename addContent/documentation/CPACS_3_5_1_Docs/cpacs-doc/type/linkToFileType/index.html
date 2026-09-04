@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>linkToFileType</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../../index.html">Types</a> · <a href="../../tree/cpacs/vehicles/aircraft/model/genericGeometryComponents/genericGeometryComponent/linkToFile/">Show in tree</a></nav>
+<h1>linkToFileType</h1>
+<p class="cd-kind">complexType · extension <a href="../stringBaseType/index.html"><code>stringBaseType</code></a> · value <a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></p>
+<div class="cd-summary"><p>Link to file (Step, Iges or Stl)</p></div>
+<div class="cd-remarks"><p>Please provide a link to the additional file that shall be loaded by the TIGL library. Furthermore it is necessary to provide the format attribute so that the file type can be identified. Several CAD formats provide multiple endings, and hence, this measure seems necessary.</p></div>
+<section class="cd-attributes"><h2>Attributes</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th>Use</th><th>Default</th><th>Description</th></tr><tr><td><code>@externalDataDirectory</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Directory of the external data file</td></tr><tr><td><code>@externalDataNodePath</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Path of the node inside the external data file</td></tr><tr><td><code>@externalFileName</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Name of the external data file</td></tr><tr><td><code>@format</code></td><td><a href="../linkToFileType--format/index.html"><code>xsd:string</code></a></td><td><a class="cd-holds" href="../linkToFileType--format/index.html">3 values</a></td><td>optional</td><td></td><td>File format of the linked geometry file</td></tr></table></div></section>
+<section class="cd-usage"><h2>Used by</h2><h3>In a dataset <span class="cd-inherited">· 161 paths</span></h3><ul class="cd-usage-list"><li><a href="../../tree/cpacs/vehicles/aircraft/model/genericGeometryComponents/genericGeometryComponent/linkToFile/"><code>cpacs/vehicles/aircraft/model/genericGeometryComponents/genericGeometryComponent/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/deckElements/ceilingPanelElements/ceilingPanelElement/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/deckElements/ceilingPanelElements/ceilingPanelElement/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/deckElements/classDividerElements/classDividerElement/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/deckElements/classDividerElements/classDividerElement/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/deckElements/galleyElements/galleyElement/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/deckElements/galleyElements/galleyElement/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/deckElements/genericFloorElements/genericFloorElement/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/deckElements/genericFloorElements/genericFloorElement/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/deckElements/lavatoryElements/lavatoryElement/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/deckElements/lavatoryElements/lavatoryElement/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/deckElements/luggageCompartmentElements/luggageCompartmentElement/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/deckElements/luggageCompartmentElements/luggageCompartmentElement/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/deckElements/seatElements/seatElement/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/deckElements/seatElements/seatElement/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/deckElements/sidewallPanelElements/sidewallPanelElement/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/deckElements/sidewallPanelElements/sidewallPanelElement/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/deckElements/cargoContainerElements/cargoContainerElement/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/deckElements/cargoContainerElements/cargoContainerElement/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/systemElements/genericElements/genericElement/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/systemElements/genericElements/genericElement/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/systemElements/electricalElements/genericElectricalElements/genericElectricalElement/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/systemElements/electricalElements/genericElectricalElements/genericElectricalElement/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/systemElements/electricalElements/storageElements/genericStorageElements/genericStorageElement/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/systemElements/electricalElements/storageElements/genericStorageElements/genericStorageElement/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/systemElements/electricalElements/storageElements/batteries/battery/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/systemElements/electricalElements/storageElements/batteries/battery/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/systemElements/electricalElements/storageElements/capacitors/capacitor/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/systemElements/electricalElements/storageElements/capacitors/capacitor/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/systemElements/electricalElements/storageElements/inductors/inductor/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/systemElements/electricalElements/storageElements/inductors/inductor/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/systemElements/electricalElements/storageElements/superCapacitors/superCapacitor/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/systemElements/electricalElements/storageElements/superCapacitors/superCapacitor/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/systemElements/electricalElements/conversionElements/genericConversionElements/genericConversionElement/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/systemElements/electricalElements/conversionElements/genericConversionElements/genericConversionElement/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/systemElements/electricalElements/conversionElements/generators/generator/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/systemElements/electricalElements/conversionElements/generators/generator/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/systemElements/electricalElements/conversionElements/acGenerators/acGenerator/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/systemElements/electricalElements/conversionElements/acGenerators/acGenerator/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/systemElements/electricalElements/conversionElements/dcGenerators/dcGenerator/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/systemElements/electricalElements/conversionElements/dcGenerators/dcGenerator/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/systemElements/electricalElements/conversionElements/fuelCellStacks/fuelCellStack/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/systemElements/electricalElements/conversionElements/fuelCellStacks/fuelCellStack/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/systemElements/electricalElements/conversionElements/converters/converter/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/systemElements/electricalElements/conversionElements/converters/converter/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/systemElements/electricalElements/conversionElements/acdcConverters/acdcConverter/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/systemElements/electricalElements/conversionElements/acdcConverters/acdcConverter/geometry/externals/external/linkToFile</code></a></li><li><a href="../../tree/cpacs/vehicles/systemElements/electricalElements/conversionElements/dcacConverters/dcacConverter/geometry/externals/external/linkToFile/"><code>cpacs/vehicles/systemElements/electricalElements/conversionElements/dcacConverters/dcacConverter/geometry/externals/external/linkToFile</code></a></li><li class="cd-inherited">and 136 more</li></ul><h3>In the schema <span class="cd-inherited">· 2 declarations</span></h3><div class="cd-scroll"><table><tr><th>Type</th><th>Name</th></tr><tr><td><a href="../externalGeometryType/index.html"><code>externalGeometryType</code></a></td><td><code>linkToFile</code></td></tr><tr><td><a href="../genericGeometricComponentType/index.html"><code>genericGeometricComponentType</code></a></td><td><code>linkToFile</code></td></tr></table></div></section>
+</body>
+</html>

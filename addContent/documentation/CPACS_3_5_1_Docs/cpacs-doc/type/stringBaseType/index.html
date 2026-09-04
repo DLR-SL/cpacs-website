@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>stringBaseType</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../../index.html">Types</a> · <a href="../../tree/cpacs/header/name/">Show in tree</a></nav>
+<h1>stringBaseType</h1>
+<p class="cd-kind">complexType · extension <a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></p>
+<div class="cd-summary"><p>String base type</p></div>
+<div class="cd-remarks"><p>Base type for string nodes (including external data attributes)</p></div>
+<section class="cd-attributes"><h2>Attributes</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th>Use</th><th>Default</th><th>Description</th></tr><tr><td><code>@externalDataDirectory</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Directory of the external data file</td></tr><tr><td><code>@externalDataNodePath</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Path of the node inside the external data file</td></tr><tr><td><code>@externalFileName</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Name of the external data file</td></tr></table></div></section>
+<section class="cd-usage"><h2>Used by</h2><h3>In a dataset <span class="cd-inherited">· 3403 paths</span></h3><ul class="cd-usage-list"><li><a href="../../tree/cpacs/header/name/"><code>cpacs/header/name</code></a></li><li><a href="../../tree/cpacs/header/description/"><code>cpacs/header/description</code></a></li><li><a href="../../tree/cpacs/header/versionInfos/versionInfo/description/"><code>cpacs/header/versionInfos/versionInfo/description</code></a></li><li><a href="../../tree/cpacs/header/versionInfos/versionInfo/creator/"><code>cpacs/header/versionInfos/versionInfo/creator</code></a></li><li><a href="../../tree/cpacs/header/versionInfos/versionInfo/changeLog/logEntry/description/"><code>cpacs/header/versionInfos/versionInfo/changeLog/logEntry/description</code></a></li><li><a href="../../tree/cpacs/header/versionInfos/versionInfo/changeLog/logEntry/creator/"><code>cpacs/header/versionInfos/versionInfo/changeLog/logEntry/creator</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/name/"><code>cpacs/vehicles/aircraft/model/name</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/description/"><code>cpacs/vehicles/aircraft/model/description</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/configurationDefinitions/configurationDefinition/name/"><code>cpacs/vehicles/aircraft/model/configurationDefinitions/configurationDefinition/name</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/configurationDefinitions/configurationDefinition/description/"><code>cpacs/vehicles/aircraft/model/configurationDefinitions/configurationDefinition/description</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/ducts/duct/name/"><code>cpacs/vehicles/aircraft/model/ducts/duct/name</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/ducts/duct/description/"><code>cpacs/vehicles/aircraft/model/ducts/duct/description</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/ducts/duct/sections/section/name/"><code>cpacs/vehicles/aircraft/model/ducts/duct/sections/section/name</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/ducts/duct/sections/section/description/"><code>cpacs/vehicles/aircraft/model/ducts/duct/sections/section/description</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/ducts/duct/sections/section/elements/element/name/"><code>cpacs/vehicles/aircraft/model/ducts/duct/sections/section/elements/element/name</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/ducts/duct/sections/section/elements/element/description/"><code>cpacs/vehicles/aircraft/model/ducts/duct/sections/section/elements/element/description</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/ducts/duct/positionings/positioning/name/"><code>cpacs/vehicles/aircraft/model/ducts/duct/positionings/positioning/name</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/ducts/duct/positionings/positioning/description/"><code>cpacs/vehicles/aircraft/model/ducts/duct/positionings/positioning/description</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/ducts/duct/segments/segment/name/"><code>cpacs/vehicles/aircraft/model/ducts/duct/segments/segment/name</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/ducts/duct/segments/segment/description/"><code>cpacs/vehicles/aircraft/model/ducts/duct/segments/segment/description</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/ducts/duct/segments/segment/guideCurves/guideCurve/name/"><code>cpacs/vehicles/aircraft/model/ducts/duct/segments/segment/guideCurves/guideCurve/name</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/ducts/duct/segments/segment/guideCurves/guideCurve/description/"><code>cpacs/vehicles/aircraft/model/ducts/duct/segments/segment/guideCurves/guideCurve/description</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/ducts/duct/segments/segment/guideCurves/guideCurve/guideCurveProfileUID/"><code>cpacs/vehicles/aircraft/model/ducts/duct/segments/segment/guideCurves/guideCurve/guideCurveProfileUID</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/ducts/ductAssembly/name/"><code>cpacs/vehicles/aircraft/model/ducts/ductAssembly/name</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/ducts/ductAssembly/description/"><code>cpacs/vehicles/aircraft/model/ducts/ductAssembly/description</code></a></li><li class="cd-inherited">and 3378 more</li></ul><h3>In the schema <span class="cd-inherited">· 272 declarations</span></h3><div class="cd-scroll"><table><tr><th>Type</th><th>Name</th></tr><tr><td><a href="../aeroCaseType/index.html"><code>aeroCaseType</code></a></td><td><code>description</code></td></tr><tr><td><a href="../aeroCaseType/index.html"><code>aeroCaseType</code></a></td><td><code>name</code></td></tr><tr><td><a href="../aeroMapType/index.html"><code>aeroMapType</code></a></td><td><code>description</code></td></tr><tr><td><a href="../aeroMapType/index.html"><code>aeroMapType</code></a></td><td><code>name</code></td></tr><tr><td><a href="../aircraftModelType/index.html"><code>aircraftModelType</code></a></td><td><code>description</code></td></tr><tr><td><a href="../aircraftModelType/index.html"><code>aircraftModelType</code></a></td><td><code>name</code></td></tr><tr><td><a href="../airlineType/index.html"><code>airlineType</code></a></td><td><code>description</code></td></tr><tr><td><a href="../airlineType/index.html"><code>airlineType</code></a></td><td><code>name</code></td></tr><tr><td><a href="../airportType/index.html"><code>airportType</code></a></td><td><code>description</code></td></tr><tr><td><a href="../airportType/index.html"><code>airportType</code></a></td><td><code>iataCode</code></td></tr><tr><td><a href="../airportType/index.html"><code>airportType</code></a></td><td><code>icaoCode</code></td></tr><tr><td><a href="../airportType/index.html"><code>airportType</code></a></td><td><code>name</code></td></tr><tr><td><a href="../cabinAisleType/index.html"><code>cabinAisleType</code></a></td><td><code>description</code></td></tr><tr><td><a href="../cabinAisleType/index.html"><code>cabinAisleType</code></a></td><td><code>name</code></td></tr><tr><td><a href="../cabinGeometryType/index.html"><code>cabinGeometryType</code></a></td><td><code>description</code></td></tr><tr><td><a href="../cabinGeometryType/index.html"><code>cabinGeometryType</code></a></td><td><code>name</code></td></tr><tr><td><a href="../cabinSpaceType/index.html"><code>cabinSpaceType</code></a></td><td><code>description</code></td></tr><tr><td><a href="../cabinSpaceType/index.html"><code>cabinSpaceType</code></a></td><td><code>name</code></td></tr><tr><td><a href="../cockpitControlType/index.html"><code>cockpitControlType</code></a></td><td><code>description</code></td></tr><tr><td><a href="../cockpitControlType/index.html"><code>cockpitControlType</code></a></td><td><code>name</code></td></tr><tr><td><a href="../commandCaseType/index.html"><code>commandCaseType</code></a></td><td><code>description</code></td></tr><tr><td><a href="../commandCaseType/index.html"><code>commandCaseType</code></a></td><td><code>name</code></td></tr><tr><td><a href="../compartmentType/index.html"><code>compartmentType</code></a></td><td><code>description</code></td></tr><tr><td><a href="../compartmentType/index.html"><code>compartmentType</code></a></td><td><code>name</code></td></tr><tr><td><a href="../componentSegmentType/index.html"><code>componentSegmentType</code></a></td><td><code>description</code></td></tr><tr><td colspan="2" class="cd-inherited">and 247 more</td></tr></table></div></section>
+</body>
+</html>

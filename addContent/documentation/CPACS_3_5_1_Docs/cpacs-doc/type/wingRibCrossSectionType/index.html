@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>wingRibCrossSectionType</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../../index.html">Types</a> · <a href="../../tree/cpacs/vehicles/aircraft/model/wings/wing/componentSegments/componentSegment/structure/ribsDefinitions/ribsDefinition/ribCrossSection/">Show in tree</a></nav>
+<h1>wingRibCrossSectionType</h1>
+<p class="cd-kind">complexType · extension <a href="../complexBaseType/index.html"><code>complexBaseType</code></a> · all</p>
+<div class="cd-summary"><p>Cross section properties of a wing rib</p></div>
+<div class="cd-remarks"><p>wingRibCrossSectionType, containing the definition of ribsCrossSection</p></div>
+<section class="cd-attributes"><h2>Attributes</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th>Use</th><th>Default</th><th>Description</th></tr><tr><td><code>@externalDataDirectory</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Directory of the external data file</td></tr><tr><td><code>@externalDataNodePath</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Path of the node inside the external data file</td></tr><tr><td><code>@externalFileName</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Name of the external data file</td></tr></table></div></section>
+<section class="cd-children"><h2>Child elements</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th><span class="cd-note-term" tabindex="0">Occurrence<span class="cd-tip" role="note">How often the element may appear at this place. The schema writes it as minOccurs and maxOccurs on the declaration.</span></span></th><th>Default</th><th>Description</th></tr><tr class="cd-group cd-group-all"><td colspan="5"><span class="cd-group-label"><span class="cd-group-mark" aria-hidden="true"></span><span class="cd-group-term" tabindex="0">all<span class="cd-tip" role="note">The children below may appear in any order. Each may appear at most once.</span></span></span></td><td></td></tr><tr><td class="cd-indent" style="--depth:1"><code>material</code></td><td><a href="../materialDefinitionType/index.html"><code>materialDefinitionType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>The orthotropyDirection is defined as rotation around the ribs z-axis. The rib coordinate system is defined as follows: x-axis is from leading to trailingeEdge of the componentSegment in the direction of the rib elongation. z-axis is normal to the rib in the direction of positive eta. y is defined by right hand rule. Rotation is around the z-axis. Zero degrees are at the x-axis positive direction.</td></tr><tr><td class="cd-indent" style="--depth:1"><code>ribRotation</code></td><td><a href="../pointXType/index.html"><code>pointXType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>WING: The Rotation along the x describes a rotation around a line, that is defined by the intersection of the rib with the wing middle plane (orientated from leading to trailing edge). This angle defaults to 90° which means, that the rib is perpendicular on the wings middle plane. The rotation angle is defined at the intersection point of the rib with the ribReference line. The rib itself is always straight and not twisted. PYLON: The Rotation along the z describes a rotation around the pylons z-axis (= rotation in top view). This angle defaults to 90° which means, that the rib is perpendicular to the pylons x-axis.</td></tr><tr><td class="cd-indent" style="--depth:1"><code>ribCell</code></td><td><a href="../wingRibCellType/index.html"><code>wingRibCellType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Cell of the rib with deviating properties</td></tr><tr><td class="cd-indent" style="--depth:1"><code>upperCap</code></td><td><a href="../capType/index.html"><code>capType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Upper cap</td></tr><tr><td class="cd-indent" style="--depth:1"><code>lowerCap</code></td><td><a href="../capType/index.html"><code>capType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Lower cap</td></tr><tr><td class="cd-indent" style="--depth:1"><code>ribPost</code></td><td><a href="../capType/index.html"><code>capType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Post element definition applied to all vertical intersections with spars</td></tr></table></div></section>
+<section class="cd-usage"><h2>Used by</h2><h3>In a dataset <span class="cd-inherited">· 13 paths</span></h3><ul class="cd-usage-list"><li><a href="../../tree/cpacs/vehicles/aircraft/model/wings/wing/componentSegments/componentSegment/structure/ribsDefinitions/ribsDefinition/ribCrossSection/"><code>cpacs/vehicles/aircraft/model/wings/wing/componentSegments/componentSegment/structure/ribsDefinitions/ribsDefinition/ribCrossSection</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/wings/wing/componentSegments/componentSegment/controlSurfaces/leadingEdgeDevices/leadingEdgeDevice/structure/ribsDefinitions/ribsDefinition/ribCrossSection/"><code>cpacs/vehicles/aircraft/model/wings/wing/componentSegments/componentSegment/controlSurfaces/leadingEdgeDevices/leadingEdgeDevice/structure/ribsDefinitions/ribsDefinition/ribCrossSection</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/wings/wing/componentSegments/componentSegment/controlSurfaces/trailingEdgeDevices/trailingEdgeDevice/structure/ribsDefinitions/ribsDefinition/ribCrossSection/"><code>cpacs/vehicles/aircraft/model/wings/wing/componentSegments/componentSegment/controlSurfaces/trailingEdgeDevices/trailingEdgeDevice/structure/ribsDefinitions/ribsDefinition/ribCrossSection</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/wings/wing/componentSegments/componentSegment/controlSurfaces/spoilers/spoiler/structure/ribsDefinitions/ribsDefinition/ribCrossSection/"><code>cpacs/vehicles/aircraft/model/wings/wing/componentSegments/componentSegment/controlSurfaces/spoilers/spoiler/structure/ribsDefinitions/ribsDefinition/ribCrossSection</code></a></li><li><a href="../../tree/cpacs/vehicles/aircraft/model/enginePylons/enginePylon/loadCarryingStructure/pylonBox/ribsDefinitions/ribsDefinition/ribCrossSection/"><code>cpacs/vehicles/aircraft/model/enginePylons/enginePylon/loadCarryingStructure/pylonBox/ribsDefinitions/ribsDefinition/ribCrossSection</code></a></li><li><a href="../../tree/cpacs/vehicles/rotorcraft/model/wings/wing/componentSegments/componentSegment/structure/ribsDefinitions/ribsDefinition/ribCrossSection/"><code>cpacs/vehicles/rotorcraft/model/wings/wing/componentSegments/componentSegment/structure/ribsDefinitions/ribsDefinition/ribCrossSection</code></a></li><li><a href="../../tree/cpacs/vehicles/rotorcraft/model/wings/wing/componentSegments/componentSegment/controlSurfaces/leadingEdgeDevices/leadingEdgeDevice/structure/ribsDefinitions/ribsDefinition/ribCrossSection/"><code>cpacs/vehicles/rotorcraft/model/wings/wing/componentSegments/componentSegment/controlSurfaces/leadingEdgeDevices/leadingEdgeDevice/structure/ribsDefinitions/ribsDefinition/ribCrossSection</code></a></li><li><a href="../../tree/cpacs/vehicles/rotorcraft/model/wings/wing/componentSegments/componentSegment/controlSurfaces/trailingEdgeDevices/trailingEdgeDevice/structure/ribsDefinitions/ribsDefinition/ribCrossSection/"><code>cpacs/vehicles/rotorcraft/model/wings/wing/componentSegments/componentSegment/controlSurfaces/trailingEdgeDevices/trailingEdgeDevice/structure/ribsDefinitions/ribsDefinition/ribCrossSection</code></a></li><li><a href="../../tree/cpacs/vehicles/rotorcraft/model/wings/wing/componentSegments/componentSegment/controlSurfaces/spoilers/spoiler/structure/ribsDefinitions/ribsDefinition/ribCrossSection/"><code>cpacs/vehicles/rotorcraft/model/wings/wing/componentSegments/componentSegment/controlSurfaces/spoilers/spoiler/structure/ribsDefinitions/ribsDefinition/ribCrossSection</code></a></li><li><a href="../../tree/cpacs/vehicles/rotorcraft/model/rotorBlades/rotorBlade/componentSegments/componentSegment/structure/ribsDefinitions/ribsDefinition/ribCrossSection/"><code>cpacs/vehicles/rotorcraft/model/rotorBlades/rotorBlade/componentSegments/componentSegment/structure/ribsDefinitions/ribsDefinition/ribCrossSection</code></a></li><li><a href="../../tree/cpacs/vehicles/rotorcraft/model/rotorBlades/rotorBlade/componentSegments/componentSegment/controlSurfaces/leadingEdgeDevices/leadingEdgeDevice/structure/ribsDefinitions/ribsDefinition/ribCrossSection/"><code>cpacs/vehicles/rotorcraft/model/rotorBlades/rotorBlade/componentSegments/componentSegment/controlSurfaces/leadingEdgeDevices/leadingEdgeDevice/structure/ribsDefinitions/ribsDefinition/ribCrossSection</code></a></li><li><a href="../../tree/cpacs/vehicles/rotorcraft/model/rotorBlades/rotorBlade/componentSegments/componentSegment/controlSurfaces/trailingEdgeDevices/trailingEdgeDevice/structure/ribsDefinitions/ribsDefinition/ribCrossSection/"><code>cpacs/vehicles/rotorcraft/model/rotorBlades/rotorBlade/componentSegments/componentSegment/controlSurfaces/trailingEdgeDevices/trailingEdgeDevice/structure/ribsDefinitions/ribsDefinition/ribCrossSection</code></a></li><li><a href="../../tree/cpacs/vehicles/rotorcraft/model/rotorBlades/rotorBlade/componentSegments/componentSegment/controlSurfaces/spoilers/spoiler/structure/ribsDefinitions/ribsDefinition/ribCrossSection/"><code>cpacs/vehicles/rotorcraft/model/rotorBlades/rotorBlade/componentSegments/componentSegment/controlSurfaces/spoilers/spoiler/structure/ribsDefinitions/ribsDefinition/ribCrossSection</code></a></li></ul><h3>In the schema <span class="cd-inherited">· 2 declarations</span></h3><div class="cd-scroll"><table><tr><th>Type</th><th>Name</th></tr><tr><td><a href="../pylonRibsDefinitionType/index.html"><code>pylonRibsDefinitionType</code></a></td><td><code>ribCrossSection</code></td></tr><tr><td><a href="../wingRibsDefinitionType/index.html"><code>wingRibsDefinitionType</code></a></td><td><code>ribCrossSection</code></td></tr></table></div></section>
+</body>
+</html>

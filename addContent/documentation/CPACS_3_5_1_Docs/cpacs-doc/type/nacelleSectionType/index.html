@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>nacelleSectionType</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../../index.html">Types</a> · <a href="../../tree/cpacs/vehicles/engines/engine/nacelle/fanCowl/sections/section/">Show in tree</a></nav>
+<h1>nacelleSectionType</h1>
+<p class="cd-kind">complexType · extension <a href="../complexBaseType/index.html"><code>complexBaseType</code></a> · all</p>
+<div class="cd-summary"><p>Section</p></div>
+<div class="cd-remarks"><div class="cd-content"> <p> An engine nacelle is defined by sections, where at least one and up to an infinite number of sections can be specified. Lofting of the nacelle surface along the sections is done in cylindrical coordinates. The <strong>coordinate origin refers to the center of the fan</strong>, i.e. the sections and their profiles are typically shifted in negative x-direction. </p> <p> <strong>Note</strong>: In the current CPACS release, transformations are still labeled as Cartesian coordinates. It is current work in progress to explicitly introduce cylindrical coordinates. Until this is implemented in a future CPACS release, the implicit conventions listed below apply: </p> <table class="cd-table"> <tr> <td>Translation component</td> <td>Cylindrical coordinate equivalent</td> <td>Description</td> </tr> <tr> <td> <em>x</em> </td> <td> <em>ϑ</em> </td> <td> Rotation angle around <em>x</em> </td> </tr> <tr> <td> <em>y</em> </td> <td> <em>h</em> </td> <td>Horizontal translation</td> </tr> <tr> <td> <em>z</em> </td> <td> <em>r</em> </td> <td>Radial translation</td> </tr> </table> <p> The following example illustrates the setup of a nacelle with 4 sections. These are rotated by 0, 120, 180 and 240 degrees around the <em>x</em>-axis (given by <code>translation/x</code>). To illustrate the possible transformations, the profile of the upper section is shifted slightly further in the negative <em>x</em>-direction (<code>translation/y</code>), while the lower section has a smaller radial distance from the rotation axis (<code>translation/z</code>). In addition, the sections are scaled differently (<code>transformation/scaling</code>; not shown in the example figures) in order to create a straight trailing edge and to realize a flattened profile near the ground. </p> <p> The following example also shows the profile cut-outs due to the radially symmetric inner region of the nacelle defined by the<code>rotationCurve</code>. For detailed information, please refer to the documentation of the <code>rotationCurve</code> element. </p> <figure class="cd-figure"> <img class="cd-image" src="../../media/figures/nacelle_sections.png" alt="Nacelle sections"> </figure> <p> The first section is not rotated (<em>x=ϑ=0</em>), but shifted vertically in negative direction (<em>y=h=-0.257</em>). The radial distance is given by <em>z=r=0.365</em>: </p> <figure class="cd-code-figure"><pre class="cd-code" data-language="XML"><code><span class="cd-punct">&lt;</span><span class="cd-tag">section</span> <span class="cd-attr">uID</span><span class="cd-punct">=</span><span class="cd-value">&quot;fanCowl_upperSection&quot;</span><span class="cd-punct">&gt;</span>
+    <span class="cd-punct">&lt;</span><span class="cd-tag">name</span><span class="cd-punct">&gt;</span>Upper section<span class="cd-punct">&lt;/</span><span class="cd-tag">name</span><span class="cd-punct">&gt;</span>
+    <span class="cd-punct">&lt;</span><span class="cd-tag">transformation</span><span class="cd-punct">&gt;</span>
+        <span class="cd-punct">&lt;</span><span class="cd-tag">scaling</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">x</span><span class="cd-punct">&gt;</span>1.055<span class="cd-punct">&lt;/</span><span class="cd-tag">x</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">y</span><span class="cd-punct">&gt;</span>1<span class="cd-punct">&lt;/</span><span class="cd-tag">y</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">z</span><span class="cd-punct">&gt;</span>1<span class="cd-punct">&lt;/</span><span class="cd-tag">z</span><span class="cd-punct">&gt;</span>
+        <span class="cd-punct">&lt;/</span><span class="cd-tag">scaling</span><span class="cd-punct">&gt;</span>
+        <span class="cd-punct">&lt;</span><span class="cd-tag">translation</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">x</span><span class="cd-punct">&gt;</span>0.0<span class="cd-punct">&lt;/</span><span class="cd-tag">x</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">y</span><span class="cd-punct">&gt;</span>-0.257<span class="cd-punct">&lt;/</span><span class="cd-tag">y</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">z</span><span class="cd-punct">&gt;</span>0.365<span class="cd-punct">&lt;/</span><span class="cd-tag">z</span><span class="cd-punct">&gt;</span>
+        <span class="cd-punct">&lt;/</span><span class="cd-tag">translation</span><span class="cd-punct">&gt;</span>
+    <span class="cd-punct">&lt;/</span><span class="cd-tag">transformation</span><span class="cd-punct">&gt;</span>
+    <span class="cd-punct">&lt;</span><span class="cd-tag">profileUID</span><span class="cd-punct">&gt;</span>fanCowlUpperSectionProfile<span class="cd-punct">&lt;/</span><span class="cd-tag">profileUID</span><span class="cd-punct">&gt;</span>
+<span class="cd-punct">&lt;/</span><span class="cd-tag">section</span><span class="cd-punct">&gt;</span></code></pre><figcaption>Upper section at 0°</figcaption></figure> <p> The second section is rotated around the <em>x</em>-axis (<em>x=ϑ=120</em>) as well as scaled by a factor of 1.1 in its profile height: </p> <figure class="cd-code-figure"><pre class="cd-code" data-language="XML"><code><span class="cd-punct">&lt;</span><span class="cd-tag">section</span> <span class="cd-attr">uID</span><span class="cd-punct">=</span><span class="cd-value">&quot;fanCowl_inboardSection&quot;</span><span class="cd-punct">&gt;</span>
+    <span class="cd-punct">&lt;</span><span class="cd-tag">name</span><span class="cd-punct">&gt;</span>Inboard section<span class="cd-punct">&lt;/</span><span class="cd-tag">name</span><span class="cd-punct">&gt;</span>
+    <span class="cd-punct">&lt;</span><span class="cd-tag">transformation</span><span class="cd-punct">&gt;</span>
+        <span class="cd-punct">&lt;</span><span class="cd-tag">scaling</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">x</span><span class="cd-punct">&gt;</span>1<span class="cd-punct">&lt;/</span><span class="cd-tag">x</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">y</span><span class="cd-punct">&gt;</span>1<span class="cd-punct">&lt;/</span><span class="cd-tag">y</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">z</span><span class="cd-punct">&gt;</span>1.1<span class="cd-punct">&lt;/</span><span class="cd-tag">z</span><span class="cd-punct">&gt;</span>
+        <span class="cd-punct">&lt;/</span><span class="cd-tag">scaling</span><span class="cd-punct">&gt;</span>
+        <span class="cd-punct">&lt;</span><span class="cd-tag">translation</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">x</span><span class="cd-punct">&gt;</span>120.0<span class="cd-punct">&lt;/</span><span class="cd-tag">x</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">y</span><span class="cd-punct">&gt;</span>-0.2<span class="cd-punct">&lt;/</span><span class="cd-tag">y</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">z</span><span class="cd-punct">&gt;</span>0.365<span class="cd-punct">&lt;/</span><span class="cd-tag">z</span><span class="cd-punct">&gt;</span>
+        <span class="cd-punct">&lt;/</span><span class="cd-tag">translation</span><span class="cd-punct">&gt;</span>
+    <span class="cd-punct">&lt;/</span><span class="cd-tag">transformation</span><span class="cd-punct">&gt;</span>
+    <span class="cd-punct">&lt;</span><span class="cd-tag">profileUID</span><span class="cd-punct">&gt;</span>fanCowlUpperSectionProfile<span class="cd-punct">&lt;/</span><span class="cd-tag">profileUID</span><span class="cd-punct">&gt;</span>
+<span class="cd-punct">&lt;/</span><span class="cd-tag">section</span><span class="cd-punct">&gt;</span></code></pre><figcaption>Inboard section at 120° (identical to outboard section at 240°)</figcaption></figure> <p> The third section is rotated around the <em>x</em>-axis by 180° and scaled by a factor of 0.8 in its profile height: </p> <figure class="cd-code-figure"><pre class="cd-code" data-language="XML"><code><span class="cd-punct">&lt;</span><span class="cd-tag">section</span> <span class="cd-attr">uID</span><span class="cd-punct">=</span><span class="cd-value">&quot;fanCowl_lowerSection&quot;</span><span class="cd-punct">&gt;</span>
+    <span class="cd-punct">&lt;</span><span class="cd-tag">name</span><span class="cd-punct">&gt;</span>Lower section<span class="cd-punct">&lt;/</span><span class="cd-tag">name</span><span class="cd-punct">&gt;</span>
+    <span class="cd-punct">&lt;</span><span class="cd-tag">transformation</span><span class="cd-punct">&gt;</span>
+        <span class="cd-punct">&lt;</span><span class="cd-tag">scaling</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">x</span><span class="cd-punct">&gt;</span>1<span class="cd-punct">&lt;/</span><span class="cd-tag">x</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">y</span><span class="cd-punct">&gt;</span>1<span class="cd-punct">&lt;/</span><span class="cd-tag">y</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">z</span><span class="cd-punct">&gt;</span>0.8<span class="cd-punct">&lt;/</span><span class="cd-tag">z</span><span class="cd-punct">&gt;</span>
+        <span class="cd-punct">&lt;/</span><span class="cd-tag">scaling</span><span class="cd-punct">&gt;</span>
+        <span class="cd-punct">&lt;</span><span class="cd-tag">translation</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">x</span><span class="cd-punct">&gt;</span>180.0<span class="cd-punct">&lt;/</span><span class="cd-tag">x</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">y</span><span class="cd-punct">&gt;</span>-0.2<span class="cd-punct">&lt;/</span><span class="cd-tag">y</span><span class="cd-punct">&gt;</span>
+            <span class="cd-punct">&lt;</span><span class="cd-tag">z</span><span class="cd-punct">&gt;</span>0.33<span class="cd-punct">&lt;/</span><span class="cd-tag">z</span><span class="cd-punct">&gt;</span>
+        <span class="cd-punct">&lt;/</span><span class="cd-tag">translation</span><span class="cd-punct">&gt;</span>
+    <span class="cd-punct">&lt;/</span><span class="cd-tag">transformation</span><span class="cd-punct">&gt;</span>
+    <span class="cd-punct">&lt;</span><span class="cd-tag">profileUID</span><span class="cd-punct">&gt;</span>fanCowlUpperSectionProfile<span class="cd-punct">&lt;/</span><span class="cd-tag">profileUID</span><span class="cd-punct">&gt;</span>
+<span class="cd-punct">&lt;/</span><span class="cd-tag">section</span><span class="cd-punct">&gt;</span></code></pre><figcaption>Lower section at 180°</figcaption></figure> </div></div>
+<section class="cd-attributes"><h2>Attributes</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th>Use</th><th>Default</th><th>Description</th></tr><tr><td><code>@externalDataDirectory</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Directory of the external data file</td></tr><tr><td><code>@externalDataNodePath</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Path of the node inside the external data file</td></tr><tr><td><code>@externalFileName</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Name of the external data file</td></tr><tr><td><code>@uID</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_ID.html" target="_blank" rel="noopener noreferrer"><code>xsd:ID</code></a></td><td></td><td>required</td><td></td><td>UID</td></tr></table></div></section>
+<section class="cd-children"><h2>Child elements</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th><span class="cd-note-term" tabindex="0">Occurrence<span class="cd-tip" role="note">How often the element may appear at this place. The schema writes it as minOccurs and maxOccurs on the declaration.</span></span></th><th>Default</th><th>Description</th></tr><tr class="cd-group cd-group-all"><td colspan="5"><span class="cd-group-label"><span class="cd-group-mark" aria-hidden="true"></span><span class="cd-group-term" tabindex="0">all<span class="cd-tip" role="note">The children below may appear in any order. Each may appear at most once.</span></span></span></td><td></td></tr><tr><td class="cd-indent" style="--depth:1"><code>name</code></td><td><a href="../stringBaseType/index.html"><code>stringBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>Name</td></tr><tr><td class="cd-indent" style="--depth:1"><code>description</code></td><td><a href="../stringBaseType/index.html"><code>stringBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[0..1]</span> optional</td><td></td><td>Description</td></tr><tr><td class="cd-indent" style="--depth:1"><code>transformation</code></td><td><a href="../transformationType/index.html"><code>transformationType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>Position and orientation</td></tr><tr><td class="cd-indent" style="--depth:1"><code>profileUID</code></td><td><a href="../stringUIDBaseType/index.html"><code>stringUIDBaseType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>UID of the profile</td></tr></table></div></section>
+<section class="cd-usage"><h2>Used by</h2><h3>In a dataset <span class="cd-inherited">· 2 paths</span></h3><ul class="cd-usage-list"><li><a href="../../tree/cpacs/vehicles/engines/engine/nacelle/fanCowl/sections/section/"><code>cpacs/vehicles/engines/engine/nacelle/fanCowl/sections/section</code></a></li><li><a href="../../tree/cpacs/vehicles/engines/engine/nacelle/coreCowl/sections/section/"><code>cpacs/vehicles/engines/engine/nacelle/coreCowl/sections/section</code></a></li></ul><h3>In the schema <span class="cd-inherited">· 1 declaration</span></h3><div class="cd-scroll"><table><tr><th>Type</th><th>Name</th></tr><tr><td><a href="../nacelleSectionsType/index.html"><code>nacelleSectionsType</code></a></td><td><code>section</code></td></tr></table></div></section>
+</body>
+</html>

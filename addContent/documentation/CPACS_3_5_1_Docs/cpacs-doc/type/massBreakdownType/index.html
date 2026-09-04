@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>massBreakdownType</title>
+<script>
+(function () {
+  var KEY = "cpacs-doc.theme";
+  var ORDER = ["system", "light", "dark"];
+  var root = document.documentElement;
+
+  function read() {
+    try { return window.localStorage.getItem(KEY) || "system"; } catch (e) { return "system"; }
+  }
+  function apply(mode) {
+    if (mode === "light" || mode === "dark") root.setAttribute("data-theme", mode);
+    else root.removeAttribute("data-theme");
+    // The attribute is enough for the tokens, which are painted with the
+    // stylesheet anyway. The canvas is not: it is the browser's, and on a page
+    // that links its stylesheet rather than inlining it there is a window in
+    // which the sheet has not arrived and the ground is already white. Saying
+    // it here closes that window.
+    root.style.colorScheme = mode === "light" || mode === "dark" ? mode : "light dark";
+  }
+  apply(read());
+
+  function label(mode) {
+    return "Colour theme: " + mode + ". Switch to "
+      + ORDER[(ORDER.indexOf(mode) + 1) % ORDER.length] + ".";
+  }
+  function dress(button, mode) {
+    button.setAttribute("data-mode", mode);
+    button.setAttribute("aria-label", label(mode));
+    button.setAttribute("title", label(mode));
+  }
+  function ready() {
+    var button = document.getElementById("cd-theme");
+    if (!button) return;
+    dress(button, read());
+    button.addEventListener("click", function () {
+      var next = ORDER[(ORDER.indexOf(read()) + 1) % ORDER.length];
+      try { window.localStorage.setItem(KEY, next); } catch (e) { /* private mode */ }
+      apply(next);
+      dress(button, next);
+    });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", ready);
+  } else {
+    ready();
+  }
+})();
+</script>
+<link rel="stylesheet" href="../../assets/styles.css">
+<body>
+<div class="cd-chrome"><button id="cd-theme" class="cd-theme" type="button" data-mode="system" aria-label="Colour theme"><span class="cd-theme-mark" aria-hidden="true"></span></button></div>
+<nav class="cd-breadcrumb"><a href="../../index.html">Types</a> · <a href="../../tree/cpacs/vehicles/aircraft/model/analyses/massBreakdown/">Show in tree</a></nav>
+<h1>massBreakdownType</h1>
+<p class="cd-kind">complexType · extension <a href="../complexBaseType/index.html"><code>complexBaseType</code></a> · all</p>
+<div class="cd-summary"><p>Mass breakdown</p></div>
+<div class="cd-remarks"><div class="cd-content"> <section class="cd-section"> <h3>1. General</h3> <div class="cd-content"> <p> The <em>massBreakeDown</em> is subdivided in <em>designMasses</em>, <em>fuel</em>, <em>payload</em> and <em>mOME</em> (operating empty mass). </p> <p> <strong>designMass</strong> </p> <p>The design masses contain the overall values for mTOM and so forth. These should be listed as specified by the TLAR or found from initial sizing.</p> <p> <strong>fuel</strong> and <strong>payload</strong> </p> <p>The fuel and payload nodes should contain maximum values, i.e. full fuel tanks, all passengers on board and full cargo holding. These values may exceed the maximum allowable take-off mass as the actual loading of the aircraft should be specified in the weight and balance section of the aircraft. </p> <p> <strong>mOEM</strong> </p> <p> The operation empty mass structure is based on the Airbus Mass Standard brake down [AIRBUS MASS STANDARD 2008]. The operator’s mass empty (OME) is defined by the sum of the following component masses: <ul class="cd-list"> <li>operator’s items</li> <li>manufacturer’s mass empty (MME) </li> </ul> </p> </div> </section> <section class="cd-section"> <h3>2. massDescription</h3> <div class="cd-content"> <p> Each sub component has the following <em>massDescription</em> which include a: <ul class="cd-list"> <li>Name</li> <li>Description</li> <li>parentUID</li> <li>Mass value</li> <li>Mass location</li> <li>Mass orientation</li> <li>Mass Inertia.</li> </ul> </p> <p> The <em>massdescription</em> can be found at the <em>designMasses</em> direct under each item. At the <em>fuel</em>, <em>payload</em> and <em>mOME</em> under massDescription in each item and sub item. </p> <p>Concerning symmetry please note that any item referenced by its UID, e.g. wingUID, accounts for the complete component, e.g. right and left side. Hence for these items their complete mass needs to be specified. If the mass of geometricallly symmetrical components is different, please use the symmetry modifyers for UIDs: _symm and _mirror. See also the overall CPACS definition section on symmetry</p> </div> </section> </div></div>
+<section class="cd-attributes"><h2>Attributes</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th>Use</th><th>Default</th><th>Description</th></tr><tr><td><code>@externalDataDirectory</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Directory of the external data file</td></tr><tr><td><code>@externalDataNodePath</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Path of the node inside the external data file</td></tr><tr><td><code>@externalFileName</code></td><td><a class="cd-builtin" href="https://www.datypic.com/sc/xsd/t-xsd_string.html" target="_blank" rel="noopener noreferrer"><code>xsd:string</code></a></td><td></td><td>optional</td><td></td><td>Name of the external data file</td></tr></table></div></section>
+<section class="cd-children"><h2>Child elements</h2><div class="cd-scroll"><table><tr><th>Name</th><th>Type</th><th>Constraints</th><th><span class="cd-note-term" tabindex="0">Occurrence<span class="cd-tip" role="note">How often the element may appear at this place. The schema writes it as minOccurs and maxOccurs on the declaration.</span></span></th><th>Default</th><th>Description</th></tr><tr class="cd-group cd-group-all"><td colspan="5"><span class="cd-group-label"><span class="cd-group-mark" aria-hidden="true"></span><span class="cd-group-term" tabindex="0">all<span class="cd-tip" role="note">The children below may appear in any order. Each may appear at most once.</span></span></span></td><td></td></tr><tr><td class="cd-indent" style="--depth:1"><code>designMasses</code></td><td><a href="../designMassesType/index.html"><code>designMassesType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>Design masses of the aircraft</td></tr><tr><td class="cd-indent" style="--depth:1"><code>payload</code></td><td><a href="../mPayloadType/index.html"><code>mPayloadType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>Payload mass</td></tr><tr><td class="cd-indent" style="--depth:1"><code>fuel</code></td><td><a href="../mFuelType/index.html"><code>mFuelType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>Fuel mass</td></tr><tr><td class="cd-indent" style="--depth:1"><code>mOEM</code></td><td><a href="../oEMType/index.html"><code>oEMType</code></a></td><td></td><td class="cd-occurs"><span class="cd-bounds">[1..1]</span> required</td><td></td><td>Operating empty mass</td></tr></table></div></section>
+<section class="cd-usage"><h2>Used by</h2><h3>In a dataset <span class="cd-inherited">· 1 path</span></h3><ul class="cd-usage-list"><li><a href="../../tree/cpacs/vehicles/aircraft/model/analyses/massBreakdown/"><code>cpacs/vehicles/aircraft/model/analyses/massBreakdown</code></a></li></ul><h3>In the schema <span class="cd-inherited">· 1 declaration</span></h3><div class="cd-scroll"><table><tr><th>Type</th><th>Name</th></tr><tr><td><a href="../aircraftAnalysesType/index.html"><code>aircraftAnalysesType</code></a></td><td><code>massBreakdown</code></td></tr></table></div></section>
+</body>
+</html>
