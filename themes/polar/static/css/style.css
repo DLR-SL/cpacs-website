@@ -3961,3 +3961,252 @@ article.news-container .entry {
 	gap: 15px;
 	align-items: center;
 }
+
+/* Documentation page -------------------------------------------------------
+   Two entry points of equal standing -- the release and the development branch
+   -- then the archive, then the project versions. The page carries no panels:
+   what separates a block from the next one is space and a hairline, so the one
+   filled element on it is the button a reader is meant to press. */
+
+.doc-heading {
+	color: #3d6ca4;
+	font-size: 1.75em;
+	margin: 0 0 8px;
+}
+
+.doc-heading-spaced {
+	margin-top: 60px;
+}
+
+.doc-intro {
+	color: #6b7280;
+	margin-bottom: 30px;
+	max-width: 46em;
+}
+
+/* Bootstrap 3 floats its columns; flex makes the pair one band, so the rule
+   between them meets the taller of the two rather than stopping short. */
+.doc-current {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.doc-current > [class*="col-"] {
+	display: flex;
+	margin-bottom: 10px;
+}
+
+.doc-entry {
+	width: 100%;
+	padding: 0 30px 5px 0;
+}
+
+.doc-current > [class*="col-"] + [class*="col-"] .doc-entry {
+	border-left: 1px solid #e6e6e6;
+	padding-left: 40px;
+	padding-right: 0;
+}
+
+.doc-entry-title {
+	color: #282828;
+	font-size: 1.375em;
+	font-weight: 600;
+	margin: 0 0 4px;
+}
+
+.doc-tag {
+	background: #eef3f8;
+	border-radius: 2px;
+	color: #3d6ca4;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: .6px;
+	margin-left: 6px;
+	padding: 3px 8px;
+	text-transform: uppercase;
+	vertical-align: middle;
+}
+
+.doc-tag-quiet {
+	background: #f1f2f7;
+	color: #6b7280;
+}
+
+.doc-entry-lead {
+	color: #6b7280;
+	font-size: 14px;
+	margin-bottom: 22px;
+}
+
+.doc-btn {
+	background: #3d6ca4;
+	border-radius: 3px;
+	color: #fff;
+	display: inline-block;
+	font-size: 13px;
+	letter-spacing: .4px;
+	padding: 10px 22px;
+	text-transform: uppercase;
+	transition: background .2s ease;
+}
+
+.doc-btn:hover,
+.doc-btn:focus {
+	background: #2f5580;
+	color: #fff;
+}
+
+.doc-btn-hint {
+	color: #6b7280;
+	font-size: 14px;
+	margin: 12px 0 0;
+}
+
+.doc-alternatives {
+	border-top: 1px solid #e6e6e6;
+	margin-top: 20px;
+	padding-top: 14px;
+}
+
+.doc-alternatives-label {
+	color: #6b7280;
+	font-size: 12px;
+	letter-spacing: .6px;
+	margin-bottom: 10px;
+	text-transform: uppercase;
+}
+
+/* One outline per option. Set as a run of words the three forms were hard to
+   tell apart -- each carries a size of its own, so the comma inside an entry
+   competed with the separator between them. A border settles what belongs to
+   what, and the icon says whether the entry leads away or saves a file. */
+.doc-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.doc-chips a {
+	background: #fff;
+	border: 1px solid #dfe5ec;
+	border-radius: 3px;
+	color: #3d6ca4;
+	display: inline-block;
+	font-size: 14px;
+	padding: 7px 13px;
+	transition: border-color .2s ease, background .2s ease;
+}
+
+.doc-chips a:hover,
+.doc-chips a:focus {
+	background: #f5f9fc;
+	border-color: #3d6ca4;
+}
+
+.doc-chips a i {
+	color: #8fa6bd;
+	margin-right: 7px;
+}
+
+.doc-chips a:hover i,
+.doc-chips a:focus i {
+	color: #3d6ca4;
+}
+
+.doc-chip-size {
+	color: #6b7280;
+	font-size: 13px;
+}
+
+/* Tables carry no rules of their own: the version is a heading in its own
+   right, and the eye needs the column, not a grid. */
+.doc-table {
+	border-collapse: collapse;
+	width: 100%;
+	max-width: 46em;
+}
+
+.doc-table th,
+.doc-table td {
+	border-bottom: 1px solid #eceff3;
+	padding: 9px 0;
+	text-align: left;
+	vertical-align: baseline;
+}
+
+.doc-table th {
+	color: #282828;
+	font-weight: 600;
+	width: 12em;
+}
+
+.doc-table td {
+	color: #6b7280;
+}
+
+/* The note about .chm files is the one caveat a reader has to meet before
+   downloading, so it stands with the links rather than beside them in a
+   column of its own. The figure is an illustration and sized accordingly. */
+.doc-note {
+	background: #fafbfc;
+	border-left: 3px solid #3d6ca4;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 25px;
+	margin-top: 40px;
+	padding: 22px 25px;
+}
+
+.doc-note-figure {
+	flex: 0 0 auto;
+}
+
+.doc-note-figure img {
+	border: 1px solid #e6e6e6;
+	display: block;
+	max-height: 165px;
+	width: auto;
+}
+
+.doc-note-body {
+	flex: 1 1 320px;
+	max-width: 46em;
+}
+
+.doc-note-body h4 {
+	color: #282828;
+	font-size: 1em;
+	font-weight: 600;
+	margin: 0 0 8px;
+}
+
+.doc-note-body h4 i {
+	color: #3d6ca4;
+	margin-right: 7px;
+}
+
+.doc-note-body p {
+	margin-bottom: 8px;
+}
+
+.doc-note-aside {
+	color: #6b7280;
+	font-size: 14px;
+	margin-bottom: 0;
+}
+
+@media (max-width: 991px) {
+	.doc-current > [class*="col-"] + [class*="col-"] .doc-entry {
+		border-left: 0;
+		border-top: 1px solid #e6e6e6;
+		padding-left: 0;
+		padding-top: 30px;
+	}
+
+	.doc-entry {
+		padding-right: 0;
+	}
+}
