@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found &middot; CPACS</title>
+<style>
+  body { margin: 0; padding: 4rem 1.5rem; font: 16px/1.5 system-ui, sans-serif;
+         color: #222; background: #fff; }
+  main { max-width: 34rem; margin: 0 auto; }
+  h1 { font-size: 1.5rem; margin: 0 0 .5rem; }
+  code { font-family: ui-monospace, monospace; word-break: break-all; }
+  @media (prefers-color-scheme: dark) { body { color: #ddd; background: #16181c; } }
+</style>
+<script>
+(function () {
+  // The schema viewer draws every instance path client-side, so its addresses
+  // are not files and reach the site as a miss. Its own router sits beside the
+  // documentation it belongs to, but GitHub Pages serves the error document of
+  // the site root only, never a nested one -- this page stands in for it.
+  var TREE_SEGMENT = "/tree/";
+
+  var path = window.location.pathname;
+  var index = path.indexOf(TREE_SEGMENT);
+  if (index === -1) return;
+
+  // Same origin by construction: the address is this page's own, and only the
+  // part in front of the segment is kept. That prefix is the deployment root,
+  // so the handover works for any version at any depth without naming one.
+  fetch(path.slice(0, index) + "/404.html")
+    .then(function (response) { return response.ok ? response.text() : null; })
+    .then(function (html) {
+      if (html === null) return;
+      // The router carries its stylesheet and its script inside it, and the
+      // script is what has to run. Assigning innerHTML would insert it without
+      // executing it; document.write is the one way that starts it. The address
+      // stays untouched, which is where the viewer reads its root from.
+      document.open();
+      document.write(html);
+      document.close();
+    })
+    .catch(function () { /* the ordinary not-found page below stands */ });
+})();
+</script>
+<main>
+  <h1>Page not found</h1>
+  <p>The address <code id="cd-address"></code> does not exist on this site.</p>
+  <script>
+    document.getElementById("cd-address").textContent = window.location.pathname;
+  </script>
+</main>

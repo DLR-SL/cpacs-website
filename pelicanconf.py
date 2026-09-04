@@ -51,8 +51,17 @@ LINKS = (
 )
 SOCIAL = ()
 
-STATIC_PATHS = ["images", "pages/images", "extra/CNAME"]
-EXTRA_PATH_METADATA = {"extra/CNAME": {"path": "CNAME"}}
+STATIC_PATHS = ["images", "pages/images", "extra/CNAME", "extra/404.html"]
+EXTRA_PATH_METADATA = {
+    "extra/CNAME": {"path": "CNAME"},
+    # GitHub Pages reads the error document from the site root only, so the
+    # page that hands schema-viewer addresses to their router must sit there.
+    "extra/404.html": {"path": "404.html"},
+}
+
+# content/extra holds output files, not articles. Without this the HTML
+# reader picks up 404.html and the build stops on its missing title.
+ARTICLE_EXCLUDES = ["extra"]
 
 # scripts/site.py owns cleanup. Keeping this false prevents Pelican's
 # autoreloader from deleting the separately copied addContent tree.
