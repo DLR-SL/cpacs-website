@@ -4186,16 +4186,14 @@ pre.cpacs-code[class*="language-"] {
 }
 
 .doc-alternatives {
-	border-top: 1px solid #e6e6e6;
-	margin-top: 20px;
-	padding-top: 14px;
+	margin-top: 18px;
 }
 
 .doc-alternatives-label {
 	color: #6b7280;
 	font-size: 12px;
 	letter-spacing: .6px;
-	margin-bottom: 10px;
+	margin-bottom: 6px;
 	text-transform: uppercase;
 }
 
