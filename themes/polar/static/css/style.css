@@ -4008,9 +4008,12 @@ pre.doc-code[class*="language-"] {
 	max-width: 560px;
 }
 
-/* Process diagrams are read, not glanced at, so they may use the full column. */
-.doc-figure-wide {
-	max-width: 100%;
+/* Process diagrams are read, not glanced at, so they get more room than the
+   560px default -- but no more than the text beside them: 46em is the measure
+   the intro, the lists and the steps are set to, and a diagram that overhangs
+   them reads as a separate column rather than as part of the argument. */
+.doc-figure-column {
+	max-width: 46em;
 }
 
 /* Illustrations that only set the scene. Roughly the size they carried before,
