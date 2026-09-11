@@ -267,11 +267,11 @@ cpacs@dlr.de
                                             <ddue:entry>Energy</ddue:entry>
                                         </ddue:row>
                                     </ddue:table>
-                                    <ddue:para>The only non SI unit used throughout <ddue:legacyItalic>CPACS</ddue:legacyItalic> is the angle in degrees [&#176;].
+                                    <ddue:para>The only non SI unit used throughout <ddue:legacyItalic>CPACS</ddue:legacyItalic> is the angle in degrees [°].
                                     For the sake of an intuitive use the angles are given in degrees rather than in radian [rad].</ddue:para>
                                     <ddue:table>
                                         <ddue:row>
-                                            <ddue:entry>[&#176;]</ddue:entry>
+                                            <ddue:entry>[°]</ddue:entry>
                                             <ddue:entry>Angle</ddue:entry>
                                         </ddue:row>
                                     </ddue:table>
@@ -597,8 +597,8 @@ cpacs@dlr.de
                                     &lt;path&gt;. </ddue:para>
                                     <ddue:para>The control parameter values for each step are arbitrary floating point values. However, it is strongly recommended to use
                                     values between -1. and +1., or between 0. And +1. (depending on the type of control surface). The smallest and the largest value implicitly
-                                    define the maximum deflection limits. It is mandatory, that the value &#8220;0.&#8221; is within the specified range, as this value is treated as
-                                    undeflected and used to specify a &#8220;clean&#8221; aircraft configuration (e.g. used in the clean aero performance map). It is recommended, but not
+                                    define the maximum deflection limits. It is mandatory, that the value “0.” is within the specified range, as this value is treated as
+                                    undeflected and used to specify a “clean” aircraft configuration (e.g. used in the clean aero performance map). It is recommended, but not
                                     mandatory to specify a &lt;step&gt; with a &lt;controlParameter&gt; of 0. Consequently, no &lt;controlParameter&gt; must be used twice within
                                     a single &lt;path&gt; definition. Deflection values between two specified steps are handled by linear interpolation.</ddue:para>
                                     <ddue:para>The following example shows the usage of control parameters within a control surface deflection path definition:</ddue:para>
@@ -1031,6 +1031,601 @@ cpacs@dlr.de
             <xsd:element name="toolspecific" minOccurs="0" type="toolspecificType"/>
         </xsd:all>
     </xsd:complexType>
+
+    <!-- ==== base types ==== -->
+
+    <xsd:complexType name="complexBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>complexBaseType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Base type for complex nodes (including external data
+                            attributes)</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:attribute name="creator" use="optional" type="xsd:string"/>
+        <xsd:attribute name="timestamp" use="optional" type="xsd:dateTime"/>
+        <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
+        <xsd:attribute name="externalFileName" type="xsd:string"/>
+        <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="stringArrayBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>stringArrayBaseType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Base type for string array nodes (including maptype
+                            array attribute)</ddue:para>
+                        <ddue:para>DEPRECATED: As of CPACCS version 3.3, the <ddue:legacyItalic>mapType</ddue:legacyItalic> attribute is set to optional to ensure the compatibility of older data records. However, since the type is uniquely defined via the XSD, the attribute is superfluous and will therefore be completely omitted in future versions. </ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="stringBaseType">
+                <xsd:attribute name="mapType" fixed="array" type="xsd:string"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="stringVectorBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>stringVectorBaseType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:content>
+                            <ddue:para>Base type for string vector nodes</ddue:para>
+                            <ddue:para>The vector base type can include optional uncertainty
+                                information. The description of uncertainties is placed in
+                                addtional attributes. First, it is described by an attribute that
+                                describes the type of uncertainty function called functionName.
+                                The functionName attribute includes the tag name of the
+                                distribution function which is listened in the table shown below.
+                                Each uncertainty function is further describes by a set of
+                                parameters that are described in the table below.</ddue:para>
+                            <ddue:para>If the uncertainty values change for the elements of
+                                the vector than the attribute may be written as a list of values
+                                separated by semicolons</ddue:para>
+                            <ddue:para>DEPRECATED: As of <ddue:legacyItalic>CPACS</ddue:legacyItalic>
+                                version 3.3, the <ddue:legacyItalic>mapType</ddue:legacyItalic>
+                                attribute is set to optional to ensure the compatibility of older data sets.
+                                However, since the type is uniquely defined via the XSD, the attribute is superfluous
+                                and will therefore be completely omitted in the next major release (Note: requires
+                                TiXI &gt;= 3.3). Please contact the <ddue:legacyItalic>CPACS</ddue:legacyItalic> team
+                                if for any reason you see a long-term need for the <ddue:legacyItalic>mapType</ddue:legacyItalic>
+                                attribute.</ddue:para>
+                            <ddue:mediaLink>
+                                <ddue:image xlink:href="uncertaintyFunctions"/>
+                            </ddue:mediaLink>
+                        </ddue:content>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="stringBaseType">
+                <xsd:attribute name="mapType" fixed="vector" type="xsd:string"/>
+                <xsd:attribute name="uncertaintyFunctionName" type="uncertaintyFunctionType"/>
+                <xsd:attribute name="mu" type="xsd:string"/>
+                <xsd:attribute name="delta" type="xsd:string"/>
+                <xsd:attribute name="a" type="xsd:string"/>
+                <xsd:attribute name="b" type="xsd:string"/>
+                <xsd:attribute name="c" type="xsd:string"/>
+                <xsd:attribute name="v" type="xsd:string"/>
+                <xsd:attribute name="w" type="xsd:string"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="booleanBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>booleanBaseType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Base type for boolean nodes (including external data
+                            attributes)</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:boolean">
+                <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
+                <xsd:attribute name="externalFileName" type="xsd:string"/>
+                <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="dateBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>dateBaseType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Base type for date nodes (including external data attributes).
+                            This date type is based on the xsd:date definition.
+                            "To specify a time zone, you can either enter a date in UTC time by adding a "Z" behind the date - like this: 2002-09-24Z
+                            or you can specify an offset from the UTC time by adding a positive or negative time behind the date - like this:
+                            2002-09-24-06:00
+                            or
+                            2002-09-24+06:00" (description taken from http://www.w3schools.com/xml/schema_dtypes_date.asp)
+                        </ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:date">
+                <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
+                <xsd:attribute name="externalFileName" type="xsd:string"/>
+                <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="dateTimeBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>dateTimeBaseType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Base type for dateTime nodes (including external data
+                            attributes)</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:dateTime">
+                <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
+                <xsd:attribute name="externalFileName" type="xsd:string"/>
+                <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="doubleArrayBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Array with semicolon separated values of type double</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:content>
+                            <ddue:para>In <ddue:legacyItalic>CPACS</ddue:legacyItalic> arrays are used to exchange values
+                            in full-factorial parameter spaces, for example to describe the aerodynamic coefficients depending
+                            on Mach number and altitude.
+                            </ddue:para>
+                            <ddue:para>Thus, the dimensions of the array are spanned by the input vectors. See the following
+                            example where two input vectors are defined. For clarification the entries of the array result from
+                            the multiplication of the index values of the corresponding input vectors:</ddue:para>
+                            <ddue:code language="XML" title="Input vectors">
+&lt;inputVector1&gt;1;2;3&lt;/inputVector1&gt;
+&lt;inputVector2&gt;4;5;6;7&lt;/inputVector2&gt;
+                            </ddue:code>
+                            <ddue:code language="XML" title="Resulting 3x4 array">
+&lt;array&gt;4;5;6;7;8;10;12;14;12;15;18;21&lt;/array&gt;
+                            </ddue:code>
+                            <ddue:para>Any entries of type <ddue:legacyItalic>double</ddue:legacyItalic> separated by semicolons are valid, e.g.:</ddue:para>
+                            <ddue:code language="XML" title="Example 1: valid double array">
+&lt;doubleArrayTest&gt;123.456;+123.456;-1.234e56;-.45E-6;NaN;0&lt;/doubleArrayTest&gt;
+                            </ddue:code>
+                            <ddue:code language="XML" title="Example 2: valid double array with only one entry">
+&lt;doubleArrayTest&gt;123.456&lt;/doubleArrayTest&gt;
+                            </ddue:code>
+                            <ddue:code language="XML" title="Example 3: invalid double array due to comma separation">
+&lt;doubleArrayTest&gt;123.456,+1234.456&lt;/doubleArrayTest&gt;
+                            </ddue:code>
+                            <ddue:code language="XML" title="Example 4: invalid double array due to string entry">
+&lt;doubleArrayTest&gt;123.456;mainWingUID&lt;/doubleArrayTest&gt;
+                            </ddue:code>
+                            <ddue:code language="XML" title="Example 5: invalid double array due invalid double values">
+&lt;doubleArrayTest&gt;1234.4E 56;-1.234e5.6&lt;/doubleArrayTest&gt;
+                            </ddue:code>
+                            <ddue:para>
+                                Please note that the syntax of arrays in the current <ddue:legacyItalic>CPACS</ddue:legacyItalic>
+                                version correspond exactly to the syntax of vectors. There is no special character indicating
+                                the dimensions. Thus, the input vectors have to be determined from the documentation of the
+                                corresponding elements and splitting of the one-dimensional vector has to be done manually.
+                            </ddue:para>
+                        </ddue:content>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="stringArrayBaseType">
+                <xsd:pattern value="((\s+)?[-+]?(\d+)?(\.)?(\d+)?(([eE][-+]?)?\d+)?(\s+)?|(\s+)?(NaN)(\s+)?)(;(((\s+)?[-+]?(\d+)?(\.)?(\d+)?(([eE][-+]?)?\d+)?(\s+)?)|(\s+)?(NaN)(\s+)?))*"/>
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="doubleBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>doubleBaseType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:content>
+                            <ddue:para>Base type for double nodes (including external data
+                                attributes)</ddue:para>
+                            <ddue:para>The double base type can include optional uncertainty
+                                information. The description of uncertainties is placed in
+                                addtional attributes. First, it is described by an attribute
+                                that describes the type of uncertainty function called
+                                functionName. The functionName attribute includes the tag name
+                                of the distribution function which is listened in the table
+                                shown below. Each uncertainty function is further describes by a
+                                set of parameters that are described in the table below.
+                            </ddue:para>
+                            <ddue:mediaLink>
+                                <ddue:image xlink:href="uncertaintyFunctions"/>
+                            </ddue:mediaLink>
+                        </ddue:content>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:double">
+                <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
+                <xsd:attribute name="externalFileName" type="xsd:string"/>
+                <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
+                <xsd:attribute name="uncertaintyFunctionName" type="uncertaintyFunctionType"/>
+                <xsd:attribute name="mu" type="xsd:double"/>
+                <xsd:attribute name="delta" type="xsd:double"/>
+                <xsd:attribute name="a" type="xsd:double"/>
+                <xsd:attribute name="b" type="xsd:double"/>
+                <xsd:attribute name="c" type="xsd:double"/>
+                <xsd:attribute name="v" type="xsd:double"/>
+                <xsd:attribute name="w" type="xsd:double"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="doubleConstraintBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>doubleConstraintBaseType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:content>
+                            <ddue:para>Base type for double nodes including a relational operator attribute indicating valid constraint region</ddue:para>
+                            <ddue:para>The doubleConstraintBaseType extends the doubleBaseType and thus inherits all its attributes.</ddue:para>
+                        </ddue:content>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="doubleBaseType">
+                <xsd:attribute name="relationalOperator" use="required">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="lt"/>
+                            <xsd:enumeration value="le"/>
+                            <xsd:enumeration value="eq"/>
+                            <xsd:enumeration value="ne"/>
+                            <xsd:enumeration value="gt"/>
+                            <xsd:enumeration value="ge"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="doubleVectorBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Vector with semicolon separated values of type double</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:content>
+                            <ddue:para>Any entries of type <ddue:legacyItalic>double</ddue:legacyItalic> separated by semicolons are permitted, e.g.:</ddue:para>
+                            <ddue:code language="XML" title="Example 1: valid double vector">
+&lt;doubleVectorTest&gt;123.456;+123.456;-1.234e56;-.45E-6;NaN&lt;/doubleVectorTest&gt;
+                               </ddue:code>
+                            <ddue:code language="XML" title="Example 2: valid double vector with only one entry">
+&lt;doubleVectorTest&gt;123.456&lt;/doubleVectorTest&gt;
+                            </ddue:code>
+                            <ddue:code language="XML" title="Example 3: invalid double vector due to comma separation">
+&lt;doubleVectorTest&gt;123.456,+1234.456&lt;/doubleVectorTest&gt;
+                            </ddue:code>
+                            <ddue:code language="XML" title="Example 4: invalid double vector due to string entry">
+&lt;doubleVectorTest&gt;123.456;mainWingUID&lt;/doubleVectorTest&gt;
+                            </ddue:code>
+                            <ddue:code language="XML" title="Example 5: invalid double vector due invalid double values">
+&lt;doubleVectorTest&gt;123.456;1234.4E 56;-1.234e5.6&lt;/doubleVectorTest&gt;
+                            </ddue:code>
+                        </ddue:content>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="stringVectorBaseType">
+                <xsd:pattern value="((\s+)?[-+]?(\d+)?(\.)?(\d+)?(([eE][-+]?)?\d+)?(\s+)?|(\s+)?(NaN)(\s+)?)(;(((\s+)?[-+]?(\d+)?(\.)?(\d+)?(([eE][-+]?)?\d+)?(\s+)?)|(\s+)?(NaN)(\s+)?))*"/>
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="doubleVectorConstraintBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>doubleVectorConstraintBaseType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:content>
+                            <ddue:para>Base type for double vectors including a relational operator attribute indicating valid constraint region.</ddue:para>
+                            <ddue:para>The doubleVectorConstraintBaseType extends the doubleVectorBaseType and thus inherits all its attributes.</ddue:para>
+                        </ddue:content>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="doubleVectorBaseType">
+                <xsd:attribute name="relationalOperator" use="required">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="lt"/>
+                            <xsd:enumeration value="le"/>
+                            <xsd:enumeration value="eq"/>
+                            <xsd:enumeration value="ne"/>
+                            <xsd:enumeration value="gt"/>
+                            <xsd:enumeration value="ge"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="integerBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>integerBaseType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Base type for integer nodes (including external data
+                            attributes)</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:integer">
+                <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
+                <xsd:attribute name="externalFileName" type="xsd:string"/>
+                <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="posExcl0DoubleBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Positive double values larger than 0</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="doubleBaseType">
+                <xsd:minExclusive value="0"/>
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="posExcl0IntBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Positive integer values larger than 0</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="integerBaseType">
+                <xsd:minExclusive value="0"/>
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="posIntVectorBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Vector with semicolon separated positive integer values</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:content>
+                            <ddue:para>Any positive integer values separated by semicolons are permitted, e.g.:</ddue:para>
+                            <ddue:code language="XML" title="Example 1: valid integer vector">
+&lt;intVectorTest&gt;0;1;2;3;4;5&lt;/intVectorTest&gt;
+                            </ddue:code>
+                            <ddue:code language="XML" title="Example 2: valid integer vector with only one entry">
+&lt;intVectorTest&gt;1&lt;/intVectorTest&gt;
+                            </ddue:code>
+                            <ddue:code language="XML" title="Example 3: invalid integer vector due comma separation">
+&lt;intVectorTest&gt;0,1,2,3,4,5&lt;/intVectorTest&gt;
+                            </ddue:code>
+                            <ddue:code language="XML" title="Example 4: invalid integer vector due to invalid integer">
+&lt;intVectorTest&gt;0.;1.;2.&lt;/intVectorTest&gt;
+                            </ddue:code>
+                            <ddue:code language="XML" title="Example 5: invalid integer vector due to negative value">
+&lt;intVectorTest&gt;-1;0;1&lt;/intVectorTest&gt;
+                            </ddue:code>
+                        </ddue:content>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:restriction base="stringVectorBaseType">
+                <xsd:pattern value="(\s+)?\d+(([eE][-+]?)?\d+)?(\s+)?(;(\s+)?\d+(([eE][-+]?)?\d+)?(\s+)?)*"/>
+            </xsd:restriction>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="stringBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>stringBaseType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Base type for string nodes (including external data
+                            attributes)</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:string">
+                <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
+                <xsd:attribute name="externalFileName" type="xsd:string"/>
+                <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="stringUIDBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>stringUIDBaseType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>This is the base type that links to other components. It should always contain a UID.</ddue:para>
+                        <ddue:para>This node has an additional attribute isLink that will be used if a stringBaseType refers to a uID. TIXI can then
+                            perform automatic validation for the existence of the referenced uID. </ddue:para>
+                        <ddue:para>Furthermore this node contains an additional attribute symmetry. The symmetry attribute may take three values: symm, def, full </ddue:para>
+                        <ddue:para>def: The element refers to the geometric component that has a symmetry attribute and refers only to the defined side of the geometric component.</ddue:para>
+                        <ddue:para>symm: The element refers to the geometric component that has a symmetry attribute and refers only to the symmetric side of the geometric component. (Similar to the previous _symm solution)</ddue:para>
+                        <ddue:para>full: The element refers to the geometric component that has a symmetry attribute and refers to the complete component. (This is the default behaviour)</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:IDREF">
+                <xsd:attribute name="isLink" default="True" type="xsd:string"/>
+                <xsd:attribute name="symmetry">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="def"/>
+                            <xsd:enumeration value="symm"/>
+                            <xsd:enumeration value="full"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="timeBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>timeBaseType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Base type for time nodes (including external data attributes)
+                            This time type is based on the xsd:time definition.
+                            "To specify a time zone, you can either enter a time in UTC time by adding a "Z" behind the time - like this: 09:30:10Z
+                            or you can specify an offset from the UTC time by adding a positive or negative time behind the time - like this:
+                            09:30:10-06:00
+                            or
+                            09:30:10+06:00" (description taken from http://www.w3schools.com/xml/schema_dtypes_date.asp)</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="xsd:time">
+                <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
+                <xsd:attribute name="externalFileName" type="xsd:string"/>
+                <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="timeConstraintBaseType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>timeConstraintBaseType</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:content>
+                            <ddue:para>Base type for time nodes including a relational operator attribute indicating valid constraint region</ddue:para>
+                            <ddue:para>The timeConstraintBaseType extends the timeBaseType and thus inherits all its attributes.</ddue:para>
+                        </ddue:content>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:simpleContent>
+            <xsd:extension base="timeBaseType">
+                <xsd:attribute name="relationalOperator" use="required">
+                    <xsd:simpleType>
+                        <xsd:restriction base="xsd:string">
+                            <xsd:enumeration value="lt"/>
+                            <xsd:enumeration value="le"/>
+                            <xsd:enumeration value="eq"/>
+                            <xsd:enumeration value="ne"/>
+                            <xsd:enumeration value="gt"/>
+                            <xsd:enumeration value="ge"/>
+                        </xsd:restriction>
+                    </xsd:simpleType>
+                </xsd:attribute>
+            </xsd:extension>
+        </xsd:simpleContent>
+    </xsd:complexType>
+
+    <!-- ==== custom types ==== -->
 
     <xsd:complexType name="acousticDataType">
         <xsd:annotation>
@@ -2217,7 +2812,7 @@ cpacs@dlr.de
 &lt;cl mapType="vector"&gt;-0.1;0.04;0.18;0.32;0.46;-0.08;0.03;0.14;0.25;0.36&lt;/cl&gt;
                                     </ddue:code>
                                     <ddue:para>The aerodynamic coefficients for <ddue:legacyItalic>altitude</ddue:legacyItalic>=1200m, <ddue:legacyItalic>machNumber</ddue:legacyItalic>=0.2,
-                                        <ddue:legacyItalic>angleOfSideslip</ddue:legacyItalic>=0&#176; and <ddue:legacyItalic>angleOfAttack</ddue:legacyItalic>=6&#176; can be found at the 5th index:
+                                        <ddue:legacyItalic>angleOfSideslip</ddue:legacyItalic>=0° and <ddue:legacyItalic>angleOfAttack</ddue:legacyItalic>=6° can be found at the 5th index:
                                         <ddue:legacyItalic>cd</ddue:legacyItalic>=0.208, <ddue:legacyItalic>cs</ddue:legacyItalic>=0 and <ddue:legacyItalic>cl</ddue:legacyItalic>=0.46.
                                     </ddue:para>
                                 </ddue:content>
@@ -3757,7 +4352,7 @@ cpacs@dlr.de
                         <ddue:para>Social cost-benefit analysis at air transport system level</ddue:para>
                     </ddue:summary>
                     <ddue:remarks>
-                        <ddue:para>This node is independent of socialCostBenefitAnalysisDataType, which reports SCBA results for a single airport assessment case. The two share the benefit-positive sign convention and the monetary unit, but not their structure: the airport level node reports annualised welfare effects [MEuro/year], whereas the values below this node are present values discounted at the social discount rate of the respective assessment case. Both the discount rate and the price level are stated per assessment case rather than once for the analysis.</ddue:para>
+                        <ddue:para>This node is independent of socialCostBenefitAnalysisDataType, which reports SCBA results for a single airport assessment case. The two share the benefit-positive sign convention and the monetary unit, but not their structure: the airport level node reports annualised welfare effects [MEuro/year], whereas the values below this node are present values discounted at the social discount rate of the respective assessment case. The discount rate, the discounting base year and the price level are all stated per assessment case rather than once for the analysis. All values are given in millions of Euro [MEuro] and follow the benefit-positive sign convention, so that a positive value denotes a benefit.</ddue:para>
                         <ddue:para>Unlike the sibling assessments under /cpacs/studies/airTransportSystem, i.e. trafficAssessment, noiseExposureAssessment and climateImpactAssessment, which report their results as parallel vectors, every value below this node is a scalar. One assessment case holds one regional result per region, and one regional result holds one value per welfare component.</ddue:para>
                         <ddue:para>An assessment case fixes one scenario and one choice of each assumption, and holds one regional result per region. The regions form a disjoint partition, so aggregates such as the European Union total, the EEA and United Kingdom total or the world total are obtained by summation over the regional results of an assessment case and are not stored.</ddue:para>
                     </ddue:remarks>
@@ -3794,6 +4389,8 @@ cpacs@dlr.de
                     <xsd:element name="trafficAssessment" minOccurs="0" type="trafficAssessmentType"/>
                     <xsd:element name="noiseExposureAssessment" minOccurs="0" type="noiseExposureAssessmentType"/>
                     <xsd:element name="climateImpactAssessment" minOccurs="0" type="climateImpactAssessmentType"/>
+                    <xsd:element name="localEmissionsAssessment" minOccurs="0" type="localEmissionsAssessmentType"/>
+                    <xsd:element name="energyConsumptionAssessment" minOccurs="0" type="energyConsumptionAssessmentType"/>
                     <xsd:element name="socialCostBenefitAnalysis" minOccurs="0" type="airTransportSystemSocialCostBenefitAnalysisType">
                         <xsd:annotation>
                             <xsd:documentation>Social cost-benefit analysis (SCBA) results at air transport system level, given as a set of assessment cases. Each case states its own specification, i.e. the scenario and the assumptions made by the model owner, and reports the resulting welfare components per region. All values are present values in millions of Euro [MEuro], discounted at the social discount rate of the respective assessment case and referring to the price level given by the priceLevel node of that case. Sign convention: benefit-positive with respect to the reference scenario, i.e. a positive value is a welfare gain and a negative value a welfare loss. This holds without exception, including for nodes named after costs: an increase in a cost is reported as a negative value. As a consequence of the sign convention, netSocialWelfareImpact is obtained by summation of the welfare components reported alongside it. The values are differential quantities and are only meaningful with respect to a reference scenario.</xsd:documentation>
@@ -4503,7 +5100,7 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>Contour type (db = noise level in dB; risk = third-party risk value)</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="db"/>
@@ -4572,7 +5169,7 @@ cpacs@dlr.de
                             <xsd:documentation>Atmospheric model (e.g. ISA for ICAO Standard
                                 atmosphere (ISA) from 1993).</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="ISA"/>
@@ -5110,29 +5707,6 @@ cpacs@dlr.de
         </xsd:complexContent>
     </xsd:complexType>
 
-    <xsd:complexType name="booleanBaseType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>booleanBaseType</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:para>Base type for boolean nodes (including external data
-                            attributes)</ddue:para>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:simpleContent>
-            <xsd:extension base="xsd:boolean">
-                <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
-                <xsd:attribute name="externalFileName" type="xsd:string"/>
-                <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
-            </xsd:extension>
-        </xsd:simpleContent>
-    </xsd:complexType>
-
     <xsd:complexType name="boundingBoxType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -5558,7 +6132,7 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>Contour: single or double</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="single"/>
@@ -6416,7 +6990,7 @@ cpacs@dlr.de
                         <ddue:para>Specification</ddue:para>
                     </ddue:summary>
                     <ddue:remarks>
-                        <ddue:para>Boundary conditions under which the climate results of this assessment case were produced. Region, scenario type and energy source together identify the case; the optional emissionGridUID keeps the traceability link to the emission inventory the calculation was based on.</ddue:para>
+                        <ddue:para>Boundary conditions under which the climate results of this assessment case were produced. Region, scenario type, flight type and energy source together identify the case; the optional emissionGridUID keeps the traceability link to the emission inventory the calculation was based on.</ddue:para>
                     </ddue:remarks>
                 </sd:schemaDoc>
             </xsd:appinfo>
@@ -6429,7 +7003,7 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>Region whose air traffic emissions are covered by this assessment case, according to the IM2 region definition (see project teamsite). The region refers to the origin of the emissions, not to the geographical extent of the climate response, which is always global. Allowed values: EU, EU_Outermost, EFTA_UK, restOfWorld, global. (Note: Please contact CPACS support to add additional regions)</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="EU">
@@ -6468,11 +7042,37 @@ cpacs@dlr.de
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
+                    <xsd:element name="flightType">
+                        <xsd:annotation>
+                            <xsd:documentation>Flight type whose air traffic is covered by this assessment case (domestic | international | all). The identifiers domestic and international are those used by the flightType vector of the aggregated results, so that an assessment case can be matched to its aggregated records; use all if the case combines both flight types. The element is mandatory: every assessment case must state the flight type it covers. (Note: Please contact CPACS support to add additional flight types)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringBaseType">
+                                    <xsd:enumeration value="domestic">
+                                        <xsd:annotation>
+                                            <xsd:documentation>Flights whose origin and destination lie in the same region</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:enumeration>
+                                    <xsd:enumeration value="international">
+                                        <xsd:annotation>
+                                            <xsd:documentation>Flights whose origin and destination regions are considered separately, i.e. the full origin-destination grid</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:enumeration>
+                                    <xsd:enumeration value="all">
+                                        <xsd:annotation>
+                                            <xsd:documentation>Domestic and international flights considered together within the same assessment case</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:enumeration>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
                     <xsd:element name="energySource">
                         <xsd:annotation>
                             <xsd:documentation>Energy source assumed for the air traffic of this assessment case (kerosene | saf | hydrogen | electricity | mixed). Use mixed if the case combines several energy sources; the share of each source is then part of the underlying fleet or schedule definition. (Note: Please contact CPACS support to add additional energy sources)</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="kerosene">
@@ -6762,7 +7362,7 @@ cpacs@dlr.de
                         <ddue:para>Climate impact assessment</ddue:para>
                     </ddue:summary>
                     <ddue:remarks>
-                        <ddue:para>The node holds the climate impact results on two levels of detail. The aggregated level is stored directly below this node as parallel semicolon-separated vectors; all these vectors must have the same length and each index position represents one aggregated record. The refined level is stored below assessmentCases, where each assessment case provides the full set of climate metrics and the species-resolved time series.</ddue:para>
+                        <ddue:para>The node holds the climate impact results on two levels of detail. The aggregated level is stored directly below this node as parallel semicolon-separated vectors; all these vectors must have the same length and each index position represents one aggregated record. Both aggregated contributions, co2ClimateImpact and nonCo2ClimateImpact, are given as emitted masses of CO2 equivalent in tonnes [t CO2e], so that the two can be added to obtain the total climate impact of a record. The refined level is stored below assessmentCases, where each assessment case provides the full set of climate metrics and the species-resolved time series.</ddue:para>
                     </ddue:remarks>
                 </sd:schemaDoc>
             </xsd:appinfo>
@@ -6787,7 +7387,7 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>Flight type (domestic, international)</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringVectorBaseType">
                                     <xsd:pattern value="(domestic|international)(;(domestic|international))*"/>
@@ -6799,7 +7399,7 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>Origin region (EU, EU_Outermost, EFTA_UK, restOfWorld)</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringVectorBaseType">
                                     <xsd:pattern value="(EU|EU_Outermost|EFTA_UK|restOfWorld)(;(EU|EU_Outermost|EFTA_UK|restOfWorld))*"/>
@@ -6811,7 +7411,7 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>Destination region (EU, EU_Outermost, EFTA_UK, restOfWorld)</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringVectorBaseType">
                                     <xsd:pattern value="(EU|EU_Outermost|EFTA_UK|restOfWorld)(;(EU|EU_Outermost|EFTA_UK|restOfWorld))*"/>
@@ -6821,18 +7421,18 @@ cpacs@dlr.de
                     </xsd:element>
                     <xsd:element name="co2ClimateImpact" minOccurs="0" type="doubleVectorBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>CO2 climate impact contribution</xsd:documentation>
+                            <xsd:documentation>CO2 climate impact contribution of the aggregated record, expressed as an emitted mass of CO2 equivalent [t CO2e]. Note that the case-resolved co2EquivalentEmissions below assessmentCases carries the same physical quantity in [kg].</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="nonCo2ClimateImpact" minOccurs="0" type="doubleVectorBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>Non-CO2 climate impact contribution</xsd:documentation>
+                            <xsd:documentation>Non-CO2 climate impact contribution of the aggregated record, i.e. the combined effect of the non-CO2 species, converted into an equivalent mass of CO2 [t CO2e]. The conversion uses the Efficacy-weighted Global Warming Potential over a 100-year time horizon (EGWP100), which is the equivalency metric agreed for the aggregated level; where an assessment case exists for the record, its metricType and timeHorizon are expected to be egwp and 100 accordingly. Note that the case-resolved co2EquivalentEmissions carries the same physical quantity in [kg].</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="assessmentCases" minOccurs="0" type="climateCasesType">
                         <xsd:annotation>
                             <xsd:documentation>
-                                Case-resolved climate impact results underlying the aggregated vectors above. Whereas the aggregated records give one CO2 and one non-CO2 value per year, region and scenario type, each assessment case below carries the full set of climate metrics (e.g. ATR, AGWP, AGTP, RF) and the species-resolved radiative forcing and temperature response time series. An assessment case is not restricted to a single schedule and may therefore combine the emissions of several schedules covering different years.
+                                Case-resolved climate impact results underlying the aggregated vectors above. Whereas the aggregated records give one CO2 and one non-CO2 value per year, region and scenario type, each assessment case below carries the full set of climate metrics (e.g. ATR, AGTP, EGWP, RF) and the species-resolved radiative forcing and temperature response time series. An assessment case is not restricted to a single schedule and may therefore combine the emissions of several schedules covering different years.
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
@@ -6890,9 +7490,9 @@ cpacs@dlr.de
                     </xsd:element>
                     <xsd:element name="metricType">
                         <xsd:annotation>
-                            <xsd:documentation>Metric type (atr | agwp | agtp | rf) (Note: Please contact CPACS support to add additional types)</xsd:documentation>
+                            <xsd:documentation>Metric type (atr | agtp | egwp | rf) (Note: Please contact CPACS support to add additional types)</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="atr">
@@ -6900,14 +7500,14 @@ cpacs@dlr.de
                                             <xsd:documentation>Average Temperature Response</xsd:documentation>
                                         </xsd:annotation>
                                     </xsd:enumeration>
-                                    <xsd:enumeration value="agwp">
-                                        <xsd:annotation>
-                                            <xsd:documentation>Absolute Global Warming Potential</xsd:documentation>
-                                        </xsd:annotation>
-                                    </xsd:enumeration>
                                     <xsd:enumeration value="agtp">
                                         <xsd:annotation>
                                             <xsd:documentation>Average Global Temperature Potential</xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:enumeration>
+                                    <xsd:enumeration value="egwp">
+                                        <xsd:annotation>
+                                            <xsd:documentation>Efficacy-weighted Global Warming Potential: Global Warming Potential in which the radiative forcing of each non-CO2 effect is weighted by its efficacy, i.e. by the effectiveness of that forcing in changing global mean surface temperature relative to the same forcing from CO2. Evaluated over a 100-year time horizon (EGWP100), this is the metric used for the aggregated CO2-equivalent contributions of the climate impact assessment.</xsd:documentation>
                                         </xsd:annotation>
                                     </xsd:enumeration>
                                     <xsd:enumeration value="rf">
@@ -6923,7 +7523,7 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>Unit in which the values below metricValues are given (K | kg_co2e/kg_emitted). The unit has to be consistent with the selected metricType: absolute climate responses such as atr and agtp are given in K, whereas emission equivalency factors are given as the dimensionless ratio kg_co2e/kg_emitted. (Note: Please contact CPACS support to add additional units)</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="K">
@@ -7754,7 +8354,7 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>Ideal design volume of the compartment.</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="doubleBaseType">
                                     <xsd:minExclusive value="0"/>
@@ -7766,27 +8366,6 @@ cpacs@dlr.de
                 <xsd:attribute name="uID" type="xsd:ID"/>
             </xsd:extension>
         </xsd:complexContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="complexBaseType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>complexBaseType</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:para>Base type for complex nodes (including external data
-                            attributes)</ddue:para>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:attribute name="creator" use="optional" type="xsd:string"/>
-        <xsd:attribute name="timestamp" use="optional" type="xsd:dateTime"/>
-        <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
-        <xsd:attribute name="externalFileName" type="xsd:string"/>
-        <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
     </xsd:complexType>
 
     <xsd:complexType name="componentCostType">
@@ -8019,15 +8598,6 @@ cpacs@dlr.de
                 <xsd:all>
                     <xsd:element name="name" type="stringBaseType">
                         <xsd:annotation>
-                            <xsd:appinfo>
-                                <sd:schemaDoc>
-                                    <ddue:content>
-                                        <ddue:mediaLink>
-                                            <ddue:image xlink:href="axissystem"/>
-                                        </ddue:mediaLink>
-                                    </ddue:content>
-                                </sd:schemaDoc>
-                            </xsd:appinfo>
                             <xsd:documentation>
                                 Name of the wing componentSegment.
                             </xsd:documentation>
@@ -8339,7 +8909,7 @@ cpacs@dlr.de
                             <xsd:documentation>Defines how to interpret the parameter lapses within the segment: discrete steps (C0 continuity) or linear interpolation (C1 continuity)
                             </xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="discrete"/>
@@ -8450,7 +9020,7 @@ cpacs@dlr.de
                                 Priority setting indicating which constraint is preferred within the segment. If a vector is provided, a constraint profile is defined with respect to the &lt;referenceEndCondition&gt; using the &lt;endConditionRatio&gt; vector.
                             </xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringVectorBaseType">
                                     <xsd:pattern value="(velocity|flightPath)(;(velocity|flightPath))*"/>
@@ -8523,7 +9093,7 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>Rotation around an axis, going from the
                                 leading edge point to the trailing edge point of the inner/outer
-                                border of the control surface. Defaults to 90&#176;, which is
+                                border of the control surface. Defaults to 90°, which is
                                 equivalent to perpendicular on the control surface middle plane.
                             </xsd:documentation>
                         </xsd:annotation>
@@ -8627,7 +9197,7 @@ cpacs@dlr.de
                                 <ddue:listItem>With this total <ddue:legacyItalic>commandInput</ddue:legacyItalic>, each corresponding <ddue:legacyItalic>controlDistributor</ddue:legacyItalic> definition has to be evaluated, in order to get <ddue:legacyItalic>controlParameter</ddue:legacyItalic> settings for a number of <ddue:legacyItalic>controlDevices</ddue:legacyItalic>.</ddue:listItem>
                                 <ddue:listItem>All <ddue:legacyItalic>controlParameter</ddue:legacyItalic> settings for a <ddue:legacyItalic>controlDevice</ddue:legacyItalic>, coming from the <ddue:legacyItalic>configurationUID</ddue:legacyItalic>, from the <ddue:legacyItalic>controlDistributors</ddue:legacyItalic> and from separate <ddue:legacyItalic>controlDevice</ddue:legacyItalic> settings have to be summed up to get a total <ddue:legacyItalic>controlParameter</ddue:legacyItalic> for each controlDevice.</ddue:listItem>
                                 <ddue:listItem>With this total <ddue:legacyItalic>controlParameter</ddue:legacyItalic>, each corresponding <ddue:legacyItalic>controlDevice</ddue:legacyItalic> definition has to be evaluated, in order to find out what the control device finally is doing.</ddue:listItem>
-                                <ddue:listItem>During the summation process (depending on the order of processing within step 1 to 4), <ddue:legacyItalic>commandInputs</ddue:legacyItalic> or <ddue:legacyItalic>controlParameters</ddue:legacyItalic> might exceed the specified limits for that <ddue:legacyItalic>controlDistributor</ddue:legacyItalic> or <ddue:legacyItalic>controlDevices</ddue:legacyItalic>. As an intermediate result, this should be accepted &#8211; however, when it comes to evaluation in step 2 and 4, all <ddue:legacyItalic>commandInputs</ddue:legacyItalic> and <ddue:legacyItalic>controlParameters</ddue:legacyItalic> have to be within the specified limits.</ddue:listItem>
+                                <ddue:listItem>During the summation process (depending on the order of processing within step 1 to 4), <ddue:legacyItalic>commandInputs</ddue:legacyItalic> or <ddue:legacyItalic>controlParameters</ddue:legacyItalic> might exceed the specified limits for that <ddue:legacyItalic>controlDistributor</ddue:legacyItalic> or <ddue:legacyItalic>controlDevices</ddue:legacyItalic>. As an intermediate result, this should be accepted – however, when it comes to evaluation in step 2 and 4, all <ddue:legacyItalic>commandInputs</ddue:legacyItalic> and <ddue:legacyItalic>controlParameters</ddue:legacyItalic> have to be within the specified limits.</ddue:listItem>
                             </ddue:list>
                         </ddue:content>
                     </ddue:remarks>
@@ -8995,7 +9565,7 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>Rotation around an axis, going from the
                                 leading edge point to the trailing edge point of the control
-                                surface. Defaults to 90&#176;, which is equivalent to perpendicular
+                                surface. Defaults to 90°, which is equivalent to perpendicular
                                 on the control surface middle plane.</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
@@ -9003,7 +9573,7 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>Rotation of the airfoil around the control
                                 surface middle plane normal direciotn. Reference point is the
-                                most forward point of the airfoil. Defaults to 90&#176;, which is
+                                most forward point of the airfoil. Defaults to 90°, which is
                                 equivalent to the airfoilplacement in flight direction (along
                                 wings-x axis).</xsd:documentation>
                         </xsd:annotation>
@@ -10159,7 +10729,7 @@ cpacs@dlr.de
                                 of the controlSrufaceTrackTypeType for details.
                             </xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="trackType1"/>
@@ -10176,7 +10746,7 @@ cpacs@dlr.de
                                 of the controlSrufaceTrackTypeType for details.
                             </xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="trackSubType1"/>
@@ -11036,7 +11606,7 @@ cpacs@dlr.de
                             <xsd:documentation>Definition of impact Surface for crash
                                 simulation</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="rigid"/>
@@ -11638,7 +12208,7 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>Rotation of the airfoil around the control
                                 surface middle plane normal direciotn. Reference point is the
-                                most forward point of the airfoil. Defaults to 90&#176;, which is
+                                most forward point of the airfoil. Defaults to 90°, which is
                                 equivalent to the airfoilplacement in flight direction (along
                                 wings-x axis).</xsd:documentation>
                         </xsd:annotation>
@@ -12028,58 +12598,6 @@ cpacs@dlr.de
         </xsd:complexContent>
     </xsd:complexType>
 
-    <xsd:complexType name="dateBaseType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>dateBaseType</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:para>Base type for date nodes (including external data attributes).
-                            This date type is based on the xsd:date definition.
-                            "To specify a time zone, you can either enter a date in UTC time by adding a "Z" behind the date - like this: 2002-09-24Z
-                            or you can specify an offset from the UTC time by adding a positive or negative time behind the date - like this:
-                            2002-09-24-06:00
-                            or
-                            2002-09-24+06:00" (description taken from http://www.w3schools.com/xml/schema_dtypes_date.asp)
-                        </ddue:para>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:simpleContent>
-            <xsd:extension base="xsd:date">
-                <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
-                <xsd:attribute name="externalFileName" type="xsd:string"/>
-                <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
-            </xsd:extension>
-        </xsd:simpleContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="dateTimeBaseType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>dateTimeBaseType</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:para>Base type for dateTime nodes (including external data
-                            attributes)</ddue:para>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:simpleContent>
-            <xsd:extension base="xsd:dateTime">
-                <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
-                <xsd:attribute name="externalFileName" type="xsd:string"/>
-                <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
-            </xsd:extension>
-        </xsd:simpleContent>
-    </xsd:complexType>
-
     <xsd:complexType name="deckComponent2DBaseType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -12221,7 +12739,7 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>Door type (boarding, cargo, evacuation or service)</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="boarding"/>
@@ -12510,7 +13028,7 @@ cpacs@dlr.de
                             <xsd:documentation>The reference point of the deck/cabin. In a
                                 conventional aircraft like the A320, it would be the rear wall
                                 of the cockpit. The transformation is relative to the parent object
-                                defined by &#8220;parentUID&#8221;, which should be the fuselage.
+                                defined by “parentUID”, which should be the fuselage.
                             </xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
@@ -12518,7 +13036,7 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>Deck type: passanger, VIP, cargo or livestock</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="passenger"/>
@@ -12824,7 +13342,7 @@ cpacs@dlr.de
                             <xsd:documentation>optional definition of door type (restricted to pax,
                                 service, emergency, cargo)</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="pax"/>
@@ -12989,7 +13507,7 @@ cpacs@dlr.de
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="side">
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="port"/>
@@ -13116,213 +13634,6 @@ cpacs@dlr.de
                 </xsd:sequence>
             </xsd:extension>
         </xsd:complexContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="doubleArrayBaseType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>Array with semicolon separated values of type double</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:content>
-                            <ddue:para>In <ddue:legacyItalic>CPACS</ddue:legacyItalic> arrays are used to exchange values
-                            in full-factorial parameter spaces, for example to describe the aerodynamic coefficients depending
-                            on Mach number and altitude.
-                            </ddue:para>
-                            <ddue:para>Thus, the dimensions of the array are spanned by the input vectors. See the following
-                            example where two input vectors are defined. For clarification the entries of the array result from
-                            the multiplication of the index values of the corresponding input vectors:</ddue:para>
-                            <ddue:code language="XML" title="Input vectors">
-&lt;inputVector1&gt;1;2;3&lt;/inputVector1&gt;
-&lt;inputVector2&gt;4;5;6;7&lt;/inputVector2&gt;
-                            </ddue:code>
-                            <ddue:code language="XML" title="Resulting 3x4 array">
-&lt;array&gt;4;5;6;7;8;10;12;14;12;15;18;21&lt;/array&gt;
-                            </ddue:code>
-                            <ddue:para>Any entries of type <ddue:legacyItalic>double</ddue:legacyItalic> separated by semicolons are valid, e.g.:</ddue:para>
-                            <ddue:code language="XML" title="Example 1: valid double array">
-&lt;doubleArrayTest&gt;123.456;+123.456;-1.234e56;-.45E-6;NaN;0&lt;/doubleArrayTest&gt;
-                            </ddue:code>
-                            <ddue:code language="XML" title="Example 2: valid double array with only one entry">
-&lt;doubleArrayTest&gt;123.456&lt;/doubleArrayTest&gt;
-                            </ddue:code>
-                            <ddue:code language="XML" title="Example 3: invalid double array due to comma separation">
-&lt;doubleArrayTest&gt;123.456,+1234.456&lt;/doubleArrayTest&gt;
-                            </ddue:code>
-                            <ddue:code language="XML" title="Example 4: invalid double array due to string entry">
-&lt;doubleArrayTest&gt;123.456;mainWingUID&lt;/doubleArrayTest&gt;
-                            </ddue:code>
-                            <ddue:code language="XML" title="Example 5: invalid double array due invalid double values">
-&lt;doubleArrayTest&gt;1234.4E 56;-1.234e5.6&lt;/doubleArrayTest&gt;
-                            </ddue:code>
-                            <ddue:para>
-                                Please note that the syntax of arrays in the current <ddue:legacyItalic>CPACS</ddue:legacyItalic>
-                                version correspond exactly to the syntax of vectors. There is no special character indicating
-                                the dimensions. Thus, the input vectors have to be determined from the documentation of the
-                                corresponding elements and splitting of the one-dimensional vector has to be done manually.
-                            </ddue:para>
-                        </ddue:content>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:simpleContent>
-            <xsd:restriction base="stringArrayBaseType">
-                <xsd:pattern value="((\s+)?[-+]?(\d+)?(\.)?(\d+)?(([eE][-+]?)?\d+)?(\s+)?|(\s+)?(NaN)(\s+)?)(;(((\s+)?[-+]?(\d+)?(\.)?(\d+)?(([eE][-+]?)?\d+)?(\s+)?)|(\s+)?(NaN)(\s+)?))*"/>
-            </xsd:restriction>
-        </xsd:simpleContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="doubleBaseType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>doubleBaseType</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:content>
-                            <ddue:para>Base type for double nodes (including external data
-                                attributes)</ddue:para>
-                            <ddue:para>The double base type can include optional uncertainty
-                                information. The description of uncertainties is placed in
-                                addtional attributes. First, it is described by an attribute
-                                that describes the type of uncertainty function called
-                                functionName. The functionName attribute includes the tag name
-                                of the distribution function which is listened in the table
-                                shown below. Each uncertainty function is further describes by a
-                                set of parameters that are described in the table below.
-                            </ddue:para>
-                            <ddue:mediaLink>
-                                <ddue:image xlink:href="uncertaintyFunctions"/>
-                            </ddue:mediaLink>
-                        </ddue:content>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:simpleContent>
-            <xsd:extension base="xsd:double">
-                <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
-                <xsd:attribute name="externalFileName" type="xsd:string"/>
-                <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
-                <xsd:attribute name="uncertaintyFunctionName" type="uncertaintyFunctionType"/>
-                <xsd:attribute name="mu" type="xsd:double"/>
-                <xsd:attribute name="delta" type="xsd:double"/>
-                <xsd:attribute name="a" type="xsd:double"/>
-                <xsd:attribute name="b" type="xsd:double"/>
-                <xsd:attribute name="c" type="xsd:double"/>
-                <xsd:attribute name="v" type="xsd:double"/>
-                <xsd:attribute name="w" type="xsd:double"/>
-            </xsd:extension>
-        </xsd:simpleContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="doubleConstraintBaseType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>doubleConstraintBaseType</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:content>
-                            <ddue:para>Base type for double nodes including a relational operator attribute indicating valid constraint region</ddue:para>
-                            <ddue:para>The doubleConstraintBaseType extends the doubleBaseType and thus inherits all its attributes.</ddue:para>
-                        </ddue:content>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:simpleContent>
-            <xsd:extension base="doubleBaseType">
-                <xsd:attribute name="relationalOperator" use="required">
-                    <xsd:simpleType>
-                        <xsd:restriction base="xsd:string">
-                            <xsd:enumeration value="lt"/>
-                            <xsd:enumeration value="le"/>
-                            <xsd:enumeration value="eq"/>
-                            <xsd:enumeration value="ne"/>
-                            <xsd:enumeration value="gt"/>
-                            <xsd:enumeration value="ge"/>
-                        </xsd:restriction>
-                    </xsd:simpleType>
-                </xsd:attribute>
-            </xsd:extension>
-        </xsd:simpleContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="doubleVectorBaseType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>Vector with semicolon separated values of type double</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:content>
-                            <ddue:para>Any entries of type <ddue:legacyItalic>double</ddue:legacyItalic> separated by semicolons are permitted, e.g.:</ddue:para>
-                            <ddue:code language="XML" title="Example 1: valid double vector">
-&lt;doubleVectorTest&gt;123.456;+123.456;-1.234e56;-.45E-6;NaN&lt;/doubleVectorTest&gt;
-                               </ddue:code>
-                            <ddue:code language="XML" title="Example 2: valid double vector with only one entry">
-&lt;doubleVectorTest&gt;123.456&lt;/doubleVectorTest&gt;
-                            </ddue:code>
-                            <ddue:code language="XML" title="Example 3: invalid double vector due to comma separation">
-&lt;doubleVectorTest&gt;123.456,+1234.456&lt;/doubleVectorTest&gt;
-                            </ddue:code>
-                            <ddue:code language="XML" title="Example 4: invalid double vector due to string entry">
-&lt;doubleVectorTest&gt;123.456;mainWingUID&lt;/doubleVectorTest&gt;
-                            </ddue:code>
-                            <ddue:code language="XML" title="Example 5: invalid double vector due invalid double values">
-&lt;doubleVectorTest&gt;123.456;1234.4E 56;-1.234e5.6&lt;/doubleVectorTest&gt;
-                            </ddue:code>
-                        </ddue:content>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:simpleContent>
-            <xsd:restriction base="stringVectorBaseType">
-                <xsd:pattern value="((\s+)?[-+]?(\d+)?(\.)?(\d+)?(([eE][-+]?)?\d+)?(\s+)?|(\s+)?(NaN)(\s+)?)(;(((\s+)?[-+]?(\d+)?(\.)?(\d+)?(([eE][-+]?)?\d+)?(\s+)?)|(\s+)?(NaN)(\s+)?))*"/>
-            </xsd:restriction>
-        </xsd:simpleContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="doubleVectorConstraintBaseType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>doubleVectorConstraintBaseType</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:content>
-                            <ddue:para>Base type for double vectors including a relational operator attribute indicating valid constraint region.</ddue:para>
-                            <ddue:para>The doubleVectorConstraintBaseType extends the doubleVectorBaseType and thus inherits all its attributes.</ddue:para>
-                        </ddue:content>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:simpleContent>
-            <xsd:extension base="doubleVectorBaseType">
-                <xsd:attribute name="relationalOperator" use="required">
-                    <xsd:simpleType>
-                        <xsd:restriction base="xsd:string">
-                            <xsd:enumeration value="lt"/>
-                            <xsd:enumeration value="le"/>
-                            <xsd:enumeration value="eq"/>
-                            <xsd:enumeration value="ne"/>
-                            <xsd:enumeration value="gt"/>
-                            <xsd:enumeration value="ge"/>
-                        </xsd:restriction>
-                    </xsd:simpleType>
-                </xsd:attribute>
-            </xsd:extension>
-        </xsd:simpleContent>
     </xsd:complexType>
 
     <xsd:complexType name="dragContributionsType">
@@ -13827,7 +14138,7 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>Time of day of the grid point as hh:mm (vector)</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringVectorBaseType">
                                     <xsd:pattern value="([01][0-9]|2[0-3]):[0-5][0-9](;([01][0-9]|2[0-3]):[0-5][0-9])*"/>
@@ -14341,6 +14652,94 @@ cpacs@dlr.de
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="energyConsumptionAssessmentType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Energy consumption assessment</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>The node holds the energy consumption of the air transport system, broken down by energy carrier. As for the sibling assessments under /cpacs/studies/airTransportSystem, the results are stored as parallel semicolon-separated vectors; all these vectors must have the same length and each index position represents one aggregated record. A record is identified by year, scenario type, flight type, origin region, destination region and energy type, so that the same origin-destination relation appears once per energy carrier.</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+            <xsd:documentation>Energy consumption assessment of the air transport system, resolved by energy carrier.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="name" minOccurs="0" type="stringBaseType"/>
+                    <xsd:element name="description" minOccurs="0" type="stringBaseType"/>
+                    <xsd:element name="year" minOccurs="0" type="posIntVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Year of the aggregated record</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="scenarioType" minOccurs="0" type="stringVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Scenario identifier (e.g. REF, SIM)</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="flightType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Flight type (domestic, international)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringVectorBaseType">
+                                    <xsd:pattern value="(domestic|international)(;(domestic|international))*"/>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="originRegion" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Origin region (EU, EU_Outermost, EFTA_UK, restOfWorld)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringVectorBaseType">
+                                    <xsd:pattern value="(EU|EU_Outermost|EFTA_UK|restOfWorld)(;(EU|EU_Outermost|EFTA_UK|restOfWorld))*"/>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="destinationRegion" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Destination region (EU, EU_Outermost, EFTA_UK, restOfWorld)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringVectorBaseType">
+                                    <xsd:pattern value="(EU|EU_Outermost|EFTA_UK|restOfWorld)(;(EU|EU_Outermost|EFTA_UK|restOfWorld))*"/>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="energyType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Energy carrier the consumption of this record refers to. The carriers are mutually exclusive, so that the records of one year, scenario type and origin-destination relation sum to the total energy consumption of that relation. fossil: conventional fossil kerosene. saf: sustainable aviation fuel of biogenic origin. hydrogen: hydrogen burnt or converted on board as the aircraft fuel. electric: electricity drawn from the grid into on-board batteries. rfnbo: renewable fuel of non-biological origin, i.e. a synthetic drop-in fuel produced from renewable electricity (e-kerosene, power-to-liquid). Note that under EU renewable energy law an RFNBO may also take the form of renewable hydrogen or of a synthetic aviation fuel counting towards a SAF mandate; for the purpose of this node, such quantities are reported under rfnbo and not additionally under hydrogen or saf.</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringVectorBaseType">
+                                    <xsd:pattern value="(fossil|saf|hydrogen|electric|rfnbo)(;(fossil|saf|hydrogen|electric|rfnbo))*"/>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="energyConsumption" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Energy consumption of the energy carrier given by energyType, for the year and origin-destination relation of the record [TJ]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+                <xsd:attribute name="uID" use="required" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="engineAnalysisType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -14512,7 +14911,7 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>Concept of engine</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="2SpoolUnmixedTurbofan"/>
@@ -14535,7 +14934,7 @@ cpacs@dlr.de
                                 it from the front, i.e. from propeller/fan to exhaust
                             </xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="clockwise"/>
@@ -16014,7 +16413,7 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>Indicates the type of the way point.</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringVectorBaseType">
                                     <xsd:pattern value="(flyOver|flyBy)(;(flyOver|flyBy))*"/>
@@ -16346,7 +16745,7 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>Segment Type</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringVectorBaseType">
                                     <xsd:pattern value="(takeOff|climb|cruise|descent|landing|acceleration|ground|range|duration|turn|holding|storeRelease|taxi|warmUp|loiter|massFraction|mass|flightPlan|other)(;(takeOff|climb|cruise|descent|landing|acceleration|ground|range|duration|turn|holding|storeRelease|taxi|warmUp|loiter|massFraction|mass|flightPlan|other))*"/>
@@ -16519,7 +16918,7 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>Contrails</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringVectorBaseType">
                                     <xsd:pattern value="(no|temp|cons)(;(no|temp|cons))*"/>
@@ -17944,7 +18343,7 @@ cpacs@dlr.de
                         <xsd:annotation>
                             <xsd:documentation>Type of energy carrier</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="kerosene"/>
@@ -18214,7 +18613,7 @@ cpacs@dlr.de
                                 and how it is treated by the tools. Possible values:
                                 ("window"|"door"|"ramp")</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="window"/>
@@ -18898,7 +19297,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                 0= C0 (allows sharp edges, default), 2= C2 (defines curvature
                                 continuity)</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="integerBaseType">
                                     <xsd:enumeration value="0"/>
@@ -18913,7 +19312,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                 profiles: 0= no interpolation 1= interpolation of strcutural
                                 profile</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="integerBaseType">
                                     <xsd:enumeration value="0"/>
@@ -19452,7 +19851,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
             <xsd:extension base="complexBaseType">
                 <xsd:all>
                     <xsd:element name="longitude" minOccurs="0">
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:annotation>
                                 <xsd:documentation>Longitude coordinate 0-360</xsd:documentation>
                             </xsd:annotation>
@@ -19464,7 +19863,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         </xsd:complexType>
                     </xsd:element>
                     <xsd:element name="latitude" minOccurs="0">
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:annotation>
                                 <xsd:documentation>Latitude coordinate 0-360</xsd:documentation>
                             </xsd:annotation>
@@ -19476,7 +19875,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         </xsd:complexType>
                     </xsd:element>
                     <xsd:element name="altitude" minOccurs="0">
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:annotation>
                                 <xsd:documentation>Altitude in meters</xsd:documentation>
                             </xsd:annotation>
@@ -19867,7 +20266,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                         previous, C1 to previous, C2 to previous
                                     </xsd:documentation>
                                 </xsd:annotation>
-                                    <xsd:complexType>
+                                <xsd:complexType>
                                     <xsd:simpleContent>
                                         <xsd:restriction base="stringBaseType">
                                             <xsd:enumeration value="C0"/>
@@ -20367,29 +20766,6 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                 </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="integerBaseType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>integerBaseType</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:para>Base type for integer nodes (including external data
-                            attributes)</ddue:para>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:simpleContent>
-            <xsd:extension base="xsd:integer">
-                <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
-                <xsd:attribute name="externalFileName" type="xsd:string"/>
-                <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
-            </xsd:extension>
-        </xsd:simpleContent>
     </xsd:complexType>
 
     <xsd:complexType name="interConnectionStrutAttachmentType">
@@ -22164,7 +22540,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         <xsd:annotation>
                             <xsd:documentation>Type of liner</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="sdof"/>
@@ -22440,7 +22816,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         <xsd:annotation>
                             <xsd:documentation>Parameters describing the shape of the gust</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <!-- TODO (DRL-SR): Are these options clear or do we need further descriptions or illustrations? -->
@@ -22980,6 +23356,94 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         </xsd:complexContent>
     </xsd:complexType>
 
+    <xsd:complexType name="localEmissionsAssessmentType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Local emissions assessment</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>The node holds the emitted mass of the air transport system, broken down by species. As for the sibling assessments under /cpacs/studies/airTransportSystem, the results are stored as parallel semicolon-separated vectors; all these vectors must have the same length and each index position represents one aggregated record. A record is identified by year, scenario type, flight type, origin region, destination region and pollutant, so that the same origin-destination relation appears once per species. The node reports the non-CO2 species only; the CO2 contribution of the air transport system is held by climateImpactAssessment/co2ClimateImpact.</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+            <xsd:documentation>Local emissions assessment of the air transport system, resolved by emitted species.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="name" minOccurs="0" type="stringBaseType"/>
+                    <xsd:element name="description" minOccurs="0" type="stringBaseType"/>
+                    <xsd:element name="year" minOccurs="0" type="posIntVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Year of the aggregated record</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="scenarioType" minOccurs="0" type="stringVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Scenario identifier (e.g. REF, SIM)</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="flightType" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Flight type (domestic, international)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringVectorBaseType">
+                                    <xsd:pattern value="(domestic|international)(;(domestic|international))*"/>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="originRegion" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Origin region (EU, EU_Outermost, EFTA_UK, restOfWorld)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringVectorBaseType">
+                                    <xsd:pattern value="(EU|EU_Outermost|EFTA_UK|restOfWorld)(;(EU|EU_Outermost|EFTA_UK|restOfWorld))*"/>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="destinationRegion" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Destination region (EU, EU_Outermost, EFTA_UK, restOfWorld)</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringVectorBaseType">
+                                    <xsd:pattern value="(EU|EU_Outermost|EFTA_UK|restOfWorld)(;(EU|EU_Outermost|EFTA_UK|restOfWorld))*"/>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="pollutant" minOccurs="0">
+                        <xsd:annotation>
+                            <xsd:documentation>Emitted species the emission of this record refers to (H2O, NOx, SOx, CO, HC, PM). CO2 is deliberately not part of this list: the CO2 contribution of the air transport system is reported by climateImpactAssessment/co2ClimateImpact and must not be duplicated here.</xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:simpleContent>
+                                <xsd:restriction base="stringVectorBaseType">
+                                    <xsd:pattern value="(H2O|NOx|SOx|CO|HC|PM)(;(H2O|NOx|SOx|CO|HC|PM))*"/>
+                                </xsd:restriction>
+                            </xsd:simpleContent>
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="emission" minOccurs="0" type="doubleVectorBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Emitted mass of the species given by pollutant, for the year and origin-destination relation of the record [t]</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+                <xsd:attribute name="uID" use="required" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="logEntryType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -23056,7 +23520,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                 0= C0 (allows sharp edges, default), 2= C2 (defines curvature
                                 continuity)</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="integerBaseType">
                                     <xsd:enumeration value="0"/>
@@ -23071,7 +23535,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                 profiles: 0= no interpolation 1= interpolation of strcutural
                                 profile</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="integerBaseType">
                                     <xsd:enumeration value="0"/>
@@ -23407,11 +23871,11 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                     <ddue:para>
                                         The operation empty mass structure is based on the Airbus Mass
                                         Standard brake down [AIRBUS MASS STANDARD 2008]. The
-                                        operator&#8217;s mass empty (OME) is defined by the sum of the
+                                        operator’s mass empty (OME) is defined by the sum of the
                                         following component masses:
                                         <ddue:list class="bullet">
-                                            <ddue:listItem>operator&#8217;s items</ddue:listItem>
-                                            <ddue:listItem>manufacturer&#8217;s mass empty (MME)
+                                            <ddue:listItem>operator’s items</ddue:listItem>
+                                            <ddue:listItem>manufacturer’s mass empty (MME)
                                             </ddue:listItem>
                                         </ddue:list>
                                     </ddue:para>
@@ -23611,7 +24075,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                 <xsd:annotation>
                                     <xsd:documentation>Predefined ID of the sheet of a standard profile</xsd:documentation>
                                 </xsd:annotation>
-                                    <xsd:complexType>
+                                <xsd:complexType>
                                     <xsd:simpleContent>
                                         <xsd:restriction base="stringBaseType">
                                             <xsd:enumeration value="S1"/>
@@ -25456,14 +25920,14 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                             <ddue:entry>specific performance settings for a <ddue:legacyItalic>segmentBlock</ddue:legacyItalic> or <ddue:legacyItalic>segment</ddue:legacyItalic> (e.g.: a cruise Mach number)</ddue:entry>
                                         </ddue:row>
                                         <ddue:row>
-                                            <ddue:entry>attribute&#160;<ddue:legacyItalic>@relationalOperator</ddue:legacyItalic>
+                                            <ddue:entry>attribute <ddue:legacyItalic>@relationalOperator</ddue:legacyItalic>
                                             </ddue:entry>
                                             <ddue:entry>
                                                 <ddue:para>Indicate how conditions should be interpreted:</ddue:para>
                                                 <ddue:para>
                                                     <ddue:list class="bullet">
                                                         <ddue:listItem>
-                                                            <ddue:legacyItalic>enum: &#8222;lt&#8220;, &#8222;le&#8220;, &#8222;eq&#8220;, &#8222;ne&#8220;, &#8222;ge&#8220;, &#8222;gt&#8220;</ddue:legacyItalic>,</ddue:listItem>
+                                                            <ddue:legacyItalic>enum: „lt“, „le“, „eq“, „ne“, „ge“, „gt“</ddue:legacyItalic>,</ddue:listItem>
                                                         <ddue:listItem>
                                                             <ddue:para>Examples:</ddue:para>
                                                             <ddue:para>
@@ -25521,7 +25985,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                         ]]>
                                     </ddue:code>
                                     <ddue:para>
-                                        The designMission <ddue:legacyItalic>segmentBlock</ddue:legacyItalic> is shown below. It provides a set of five segments, together making up a mission with a range of 1000 [nm] or 1852 [km]. The &#8220;cruise&#8221; segment is the variable segment, which thereby should have a range of: <ddue:math>1852000 &#8211; range(climb) &#8211; range(descent)</ddue:math>, provided the taxiOut and takeOff segments are not providing any range credit. The fuel burned during this <ddue:legacyItalic>segmentBlock</ddue:legacyItalic> should be added to the <ddue:legacyItalic>designFuel</ddue:legacyItalic>, the <ddue:legacyItalic>segmentDirection</ddue:legacyItalic> is provided for illustration purposes.
+                                        The designMission <ddue:legacyItalic>segmentBlock</ddue:legacyItalic> is shown below. It provides a set of five segments, together making up a mission with a range of 1000 [nm] or 1852 [km]. The “cruise” segment is the variable segment, which thereby should have a range of: <ddue:legacyItalic>1852000 – range(climb) – range(descent)</ddue:legacyItalic>, provided the taxiOut and takeOff segments are not providing any range credit. The fuel burned during this <ddue:legacyItalic>segmentBlock</ddue:legacyItalic> should be added to the <ddue:legacyItalic>designFuel</ddue:legacyItalic>, the <ddue:legacyItalic>segmentDirection</ddue:legacyItalic> is provided for illustration purposes.
                                     </ddue:para>
                                     <ddue:code language="XML">
                                         <![CDATA[
@@ -25555,7 +26019,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                         ]]>
                                     </ddue:code>
                                     <ddue:para>
-                                        The first and second segment are providing input for the part of the <ddue:legacyItalic>segmentBlock</ddue:legacyItalic> that doesn&#8217;t need simulation. During the taxiOut phase, 50 [kg] of fuel is burned. The takeOff phase has a duration of 30 [sec].
+                                        The first and second segment are providing input for the part of the <ddue:legacyItalic>segmentBlock</ddue:legacyItalic> that doesn’t need simulation. During the taxiOut phase, 50 [kg] of fuel is burned. The takeOff phase has a duration of 30 [sec].
                                     </ddue:para>
                                     <ddue:code language="XML">
                                         <![CDATA[
@@ -25575,7 +26039,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
 </segment>
                                         ]]>
                                     </ddue:code>
-                                    <ddue:para>The rest of the segments make-up the flying part of the <ddue:legacyItalic>designMission</ddue:legacyItalic>. The climb phase, ending at an altitude of FL330 or 10058.4 [m], provides a constraint-lapse having discrete steps, typical for transport aircraft (a 250 kt / 300 kt / M 0.78 climb profile). Through the <ddue:legacyItalic>referenceEndconditionUID</ddue:legacyItalic> &#8220;altClimb&#8221;, a link to the altitude <ddue:legacyItalic>endCondition</ddue:legacyItalic> of the segment at the basis of this climb profile is provided.</ddue:para>
+                                    <ddue:para>The rest of the segments make-up the flying part of the <ddue:legacyItalic>designMission</ddue:legacyItalic>. The climb phase, ending at an altitude of FL330 or 10058.4 [m], provides a constraint-lapse having discrete steps, typical for transport aircraft (a 250 kt / 300 kt / M 0.78 climb profile). Through the <ddue:legacyItalic>referenceEndconditionUID</ddue:legacyItalic> “altClimb”, a link to the altitude <ddue:legacyItalic>endCondition</ddue:legacyItalic> of the segment at the basis of this climb profile is provided.</ddue:para>
                                     <ddue:para>
                                         <ddue:table>
                                             <ddue:row>
@@ -25595,14 +26059,14 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                             <ddue:row>
                                                 <ddue:entry>0.0 [m]</ddue:entry>
                                                 <ddue:entry>0.303 * 10058.4 = 3047.7 [m]</ddue:entry>
-                                                <ddue:entry>&#8804; 128.61 [m/s]</ddue:entry>
-                                                <ddue:entry>&#8804; 0.78 [-]</ddue:entry>
+                                                <ddue:entry>≤ 128.61 [m/s]</ddue:entry>
+                                                <ddue:entry>≤ 0.78 [-]</ddue:entry>
                                             </ddue:row>
                                             <ddue:row>
                                                 <ddue:entry>0.303 * 10058.4 = 3047.7 [m]</ddue:entry>
                                                 <ddue:entry>10058.4 [m]</ddue:entry>
-                                                <ddue:entry>&#8804; 154.33 [m/s]</ddue:entry>
-                                                <ddue:entry>&#8804; 0.78 [-]</ddue:entry>
+                                                <ddue:entry>≤ 154.33 [m/s]</ddue:entry>
+                                                <ddue:entry>≤ 0.78 [-]</ddue:entry>
                                             </ddue:row>
                                         </ddue:table>
                                     </ddue:para>
@@ -25650,7 +26114,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                         ]]>
                                     </ddue:code>
                                     <ddue:para>
-                                        Two more <ddue:legacyItalic>segmentBlocks</ddue:legacyItalic> make up the mission. The &#8220;reserves&#8221; <ddue:legacyItalic>segmentBlock</ddue:legacyItalic> provides information for the cruise to alternate airport and loitering phase and the corresponding burnt fuel is considered <ddue:legacyItalic>reserveFuel</ddue:legacyItalic>. The mission ends with a landing and taxiIn phase within the &#8220;endPhase&#8221; <ddue:legacyItalic>segmentBlock</ddue:legacyItalic>, of which the burnt fuel is considered <ddue:legacyItalic>additionalFuel</ddue:legacyItalic>. The following then holds: <ddue:legacyItalic>blockFuel</ddue:legacyItalic> = <ddue:legacyItalic>designFuel</ddue:legacyItalic> + <ddue:legacyItalic>additionalFuel</ddue:legacyItalic>.
+                                        Two more <ddue:legacyItalic>segmentBlocks</ddue:legacyItalic> make up the mission. The “reserves” <ddue:legacyItalic>segmentBlock</ddue:legacyItalic> provides information for the cruise to alternate airport and loitering phase and the corresponding burnt fuel is considered <ddue:legacyItalic>reserveFuel</ddue:legacyItalic>. The mission ends with a landing and taxiIn phase within the “endPhase” <ddue:legacyItalic>segmentBlock</ddue:legacyItalic>, of which the burnt fuel is considered <ddue:legacyItalic>additionalFuel</ddue:legacyItalic>. The following then holds: <ddue:legacyItalic>blockFuel</ddue:legacyItalic> = <ddue:legacyItalic>designFuel</ddue:legacyItalic> + <ddue:legacyItalic>additionalFuel</ddue:legacyItalic>.
                                     </ddue:para>
                                 </ddue:content>
                             </ddue:section>
@@ -25803,7 +26267,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             <xsd:documentation>Segment direction. Either 'outbound' or 'inbound'. Only needed for radiusOfAction kind of missions.
                             </xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="inbound"/>
@@ -25826,7 +26290,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             = blockFuel + reserveFuel; designFuel = the fuel of the segmentBlock is part of the design mission)
                             </xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="blockFuel"/>
@@ -25871,7 +26335,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                 <xsd:sequence>
                     <xsd:choice minOccurs="0">
                         <xsd:element name="calibratedAirSpeed">
-                                <xsd:complexType>
+                            <xsd:complexType>
                                 <xsd:annotation>
                                     <xsd:documentation>
                                         Calibrated airspeed at the end of the segment [m/s]
@@ -25885,7 +26349,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             </xsd:complexType>
                         </xsd:element>
                         <xsd:element name="machNumber">
-                                <xsd:complexType>
+                            <xsd:complexType>
                                 <xsd:annotation>
                                     <xsd:documentation>
                                         Mach number at the end of the segment
@@ -25915,7 +26379,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element name="runway">
-                                <xsd:complexType>
+                            <xsd:complexType>
                                 <xsd:annotation>
                                     <xsd:documentation>
                                         Reference to the runway on which the segment ends
@@ -25946,7 +26410,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     </xsd:choice>
                     <xsd:choice minOccurs="0">
                         <xsd:element name="massFraction">
-                                <xsd:complexType>
+                            <xsd:complexType>
                                 <xsd:annotation>
                                     <xsd:documentation>
                                         massFraction ending the segment [-]
@@ -25960,7 +26424,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             </xsd:complexType>
                         </xsd:element>
                         <xsd:element name="fuelFraction">
-                                <xsd:complexType>
+                            <xsd:complexType>
                                 <xsd:annotation>
                                     <xsd:documentation>
                                         massFraction of remaining fuel ending the segment [-]
@@ -25974,7 +26438,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             </xsd:complexType>
                         </xsd:element>
                         <xsd:element name="fuelRemaining">
-                                <xsd:complexType>
+                            <xsd:complexType>
                                 <xsd:annotation>
                                     <xsd:documentation>
                                         Absolute mass of remaining fuel ending the segment [kg]
@@ -25988,7 +26452,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             </xsd:complexType>
                         </xsd:element>
                         <xsd:element name="fuelConsumed">
-                                <xsd:complexType>
+                            <xsd:complexType>
                                 <xsd:annotation>
                                     <xsd:documentation>
                                         Consumed fuel ending the segment [kg]
@@ -26002,7 +26466,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             </xsd:complexType>
                         </xsd:element>
                         <xsd:element name="powerFraction">
-                                <xsd:complexType>
+                            <xsd:complexType>
                                 <xsd:annotation>
                                     <xsd:documentation>
                                         Power fraction of remaining at the end of the segment
@@ -26016,7 +26480,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             </xsd:complexType>
                         </xsd:element>
                         <xsd:element name="powerRemaining">
-                                <xsd:complexType>
+                            <xsd:complexType>
                                 <xsd:annotation>
                                     <xsd:documentation>
                                         Absolute power left ending the segment [W]
@@ -26030,7 +26494,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             </xsd:complexType>
                         </xsd:element>
                         <xsd:element name="powerConsumed">
-                                <xsd:complexType>
+                            <xsd:complexType>
                                 <xsd:annotation>
                                     <xsd:documentation>
                                         Consumed power ending the segment [W]
@@ -26046,7 +26510,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     </xsd:choice>
                     <xsd:choice minOccurs="0">
                         <xsd:element name="heading">
-                                <xsd:complexType>
+                            <xsd:complexType>
                                 <xsd:annotation>
                                     <xsd:documentation>
                                         Flight heading at the end of the segment in compassAngle with reference to true North [deg]
@@ -26060,7 +26524,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             </xsd:complexType>
                         </xsd:element>
                         <xsd:element name="turnAngle">
-                                <xsd:complexType>
+                            <xsd:complexType>
                                 <xsd:annotation>
                                     <xsd:documentation>
                                         Total change of heading angle during segment (a full turn is 360 degrees) [deg]
@@ -26075,7 +26539,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         </xsd:element>
                     </xsd:choice>
                     <xsd:element name="range" minOccurs="0">
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:annotation>
                                 <xsd:documentation>
                                     Flown distance ending the segment
@@ -26090,7 +26554,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     </xsd:element>
                     <xsd:choice>
                         <xsd:element name="duration" minOccurs="0">
-                                <xsd:complexType>
+                            <xsd:complexType>
                                 <xsd:annotation>
                                     <xsd:documentation>
                                         Duration of the segment [hh:mm:ss]
@@ -26104,7 +26568,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             </xsd:complexType>
                         </xsd:element>
                         <xsd:element name="endTimeUTC" minOccurs="0">
-                                <xsd:complexType>
+                            <xsd:complexType>
                                 <xsd:annotation>
                                     <xsd:documentation>
                                         UTC time at end of segment [hh:mm:ss]
@@ -26119,7 +26583,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         </xsd:element>
                     </xsd:choice>
                     <xsd:element name="specificExcessPower" minOccurs="0">
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:annotation>
                                 <xsd:documentation>
                                     Specific excess power at the end of the segment
@@ -26133,7 +26597,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         </xsd:complexType>
                     </xsd:element>
                     <xsd:element name="rateOfClimb" minOccurs="0">
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:annotation>
                                 <xsd:documentation>
                                     Rate of climb ending the segment [m/s]
@@ -26147,7 +26611,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         </xsd:complexType>
                     </xsd:element>
                     <xsd:element name="flightPathAngle" minOccurs="0">
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:annotation>
                                 <xsd:documentation>
                                     Achieved flightPathAngle ending the segment [deg]
@@ -26252,7 +26716,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             <xsd:documentation>Type of the mission segment (takeOff, clime, cruse, ...)
                             </xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="takeOff"/>
@@ -27861,7 +28325,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         <ddue:content>
                             <ddue:para>
                                 The following figure shows the basic setup of the guide curves.
-                                They always start at a given &#950;-position (<ddue:codeInline>fromZeta</ddue:codeInline>) on the profile of the specified start section (<ddue:codeInline>startSectionUID</ddue:codeInline>) and end at the &#950;-position (<ddue:codeInline>toZeta</ddue:codeInline>) on the profile of the subsequent section.
+                                They always start at a given ζ-position (<ddue:codeInline>fromZeta</ddue:codeInline>) on the profile of the specified start section (<ddue:codeInline>startSectionUID</ddue:codeInline>) and end at the ζ-position (<ddue:codeInline>toZeta</ddue:codeInline>) on the profile of the subsequent section.
                                 The relative coordinates of the guide curves are specified in <ddue:codeInline>cpacs/vehicles/profiles/guideCurves</ddue:codeInline> and referenced via its <ddue:codeInline>uID</ddue:codeInline>.
                             </ddue:para>
                             <ddue:mediaLink>
@@ -27871,7 +28335,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                 <ddue:legacyBold>Note</ddue:legacyBold>: Guide curves and profiles must result in a valid curve network.
                             </ddue:para>
                             <ddue:para>
-                                The guide curve points are interpreted as (<ddue:legacyItalic>&#916;r</ddue:legacyItalic> and <ddue:legacyItalic>&#916;x</ddue:legacyItalic>) offsets from a cubic polynomial.
+                                The guide curve points are interpreted as (<ddue:legacyItalic>Δr</ddue:legacyItalic> and <ddue:legacyItalic>Δx</ddue:legacyItalic>) offsets from a cubic polynomial.
                                 This polynomial serves as a baseline for guide curves between segments located on different radial positions with smooth transitions:
                             </ddue:para>
                             <ddue:mediaLink>
@@ -27890,7 +28354,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                 <ddue:row>
                                     <ddue:entry>rX</ddue:entry>
                                     <ddue:entry>
-                                        <ddue:legacyItalic>&#966;</ddue:legacyItalic>
+                                        <ddue:legacyItalic>φ</ddue:legacyItalic>
                                     </ddue:entry>
                                     <ddue:entry>Independent variable normalized to <ddue:legacyItalic>[0,1]</ddue:legacyItalic>
                                     </ddue:entry>
@@ -27898,14 +28362,14 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                 <ddue:row>
                                     <ddue:entry>rY</ddue:entry>
                                     <ddue:entry>
-                                        <ddue:legacyItalic>&#916;x</ddue:legacyItalic>
+                                        <ddue:legacyItalic>Δx</ddue:legacyItalic>
                                     </ddue:entry>
                                     <ddue:entry>Orthogonal offset (translation in <ddue:legacyItalic>x</ddue:legacyItalic>-direction)</ddue:entry>
                                 </ddue:row>
                                 <ddue:row>
                                     <ddue:entry>rZ</ddue:entry>
                                     <ddue:entry>
-                                        <ddue:legacyItalic>&#916;r</ddue:legacyItalic>
+                                        <ddue:legacyItalic>Δr</ddue:legacyItalic>
                                     </ddue:entry>
                                     <ddue:entry>Radial offset</ddue:entry>
                                 </ddue:row>
@@ -28043,7 +28507,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                         <ddue:legacyItalic>x</ddue:legacyItalic>
                                     </ddue:entry>
                                     <ddue:entry>
-                                        <ddue:legacyItalic>&#977;</ddue:legacyItalic>
+                                        <ddue:legacyItalic>ϑ</ddue:legacyItalic>
                                     </ddue:entry>
                                     <ddue:entry>Rotation angle around <ddue:legacyItalic>x</ddue:legacyItalic>
                                     </ddue:entry>
@@ -28079,10 +28543,10 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             <ddue:mediaLink>
                                 <ddue:image xlink:href="nacelle_sections"/>
                             </ddue:mediaLink>
-                            <ddue:para>The first section is not rotated (<ddue:legacyItalic>x=&#977;=0</ddue:legacyItalic>), but shifted vertically in negative direction (<ddue:legacyItalic>y=h=-0.257</ddue:legacyItalic>).
+                            <ddue:para>The first section is not rotated (<ddue:legacyItalic>x=ϑ=0</ddue:legacyItalic>), but shifted vertically in negative direction (<ddue:legacyItalic>y=h=-0.257</ddue:legacyItalic>).
                                 The radial distance is given by <ddue:legacyItalic>z=r=0.365</ddue:legacyItalic>:
                             </ddue:para>
-                            <ddue:code language="XML" title="Upper section at 0&#176;">
+                            <ddue:code language="XML" title="Upper section at 0°">
                                 <![CDATA[
 <section uID="fanCowl_upperSection">
     <name>Upper section</name>
@@ -28102,9 +28566,9 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
 </section>
                                 ]]>
                             </ddue:code>
-                            <ddue:para>The second section is rotated around the <ddue:legacyItalic>x</ddue:legacyItalic>-axis (<ddue:legacyItalic>x=&#977;=120</ddue:legacyItalic>) as well as scaled by a factor of 1.1 in its profile height:
+                            <ddue:para>The second section is rotated around the <ddue:legacyItalic>x</ddue:legacyItalic>-axis (<ddue:legacyItalic>x=ϑ=120</ddue:legacyItalic>) as well as scaled by a factor of 1.1 in its profile height:
                             </ddue:para>
-                            <ddue:code language="XML" title="Inboard section at 120&#176; (identical to outboard section at 240&#176;)">
+                            <ddue:code language="XML" title="Inboard section at 120° (identical to outboard section at 240°)">
                                 <![CDATA[
 <section uID="fanCowl_inboardSection">
     <name>Inboard section</name>
@@ -28124,9 +28588,9 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
 </section>
                                 ]]>
                             </ddue:code>
-                            <ddue:para>The third section is rotated around the <ddue:legacyItalic>x</ddue:legacyItalic>-axis by 180&#176; and scaled by a factor of 0.8 in its profile height:
+                            <ddue:para>The third section is rotated around the <ddue:legacyItalic>x</ddue:legacyItalic>-axis by 180° and scaled by a factor of 0.8 in its profile height:
                             </ddue:para>
-                            <ddue:code language="XML" title="Lower section at 180&#176;">
+                            <ddue:code language="XML" title="Lower section at 180°">
                                 <![CDATA[
 <section uID="fanCowl_lowerSection">
     <name>Lower section</name>
@@ -28333,7 +28797,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         <xsd:annotation>
                             <xsd:documentation>Region (EU, EU_Outermost, EFTA_UK, restOfWorld)</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringVectorBaseType">
                                     <xsd:pattern value="(EU|EU_Outermost|EFTA_UK|restOfWorld)(;(EU|EU_Outermost|EFTA_UK|restOfWorld))*"/>
@@ -28952,29 +29416,29 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         </ddue:para>
                             <ddue:list class="bullet">
                                 <ddue:listItem>
-                                    <ddue:codeInline>1</ddue:codeInline>: seats <strong>01&#8211;19</strong> (e.g., Do228NG)</ddue:listItem>
+                                    <ddue:codeInline>1</ddue:codeInline>: seats <strong>01–19</strong> (e.g., Do228NG)</ddue:listItem>
                                 <ddue:listItem>
-                                    <ddue:codeInline>2</ddue:codeInline>: seats <strong>20&#8211;50</strong> (e.g., ATR42-500)</ddue:listItem>
+                                    <ddue:codeInline>2</ddue:codeInline>: seats <strong>20–50</strong> (e.g., ATR42-500)</ddue:listItem>
                                 <ddue:listItem>
-                                    <ddue:codeInline>3</ddue:codeInline>: seats <strong>51&#8211;70</strong> (e.g., ATR72-600)</ddue:listItem>
+                                    <ddue:codeInline>3</ddue:codeInline>: seats <strong>51–70</strong> (e.g., ATR72-600)</ddue:listItem>
                                 <ddue:listItem>
-                                    <ddue:codeInline>4</ddue:codeInline>: seats <strong>71&#8211;85</strong> (e.g., Dash Q8-400)</ddue:listItem>
+                                    <ddue:codeInline>4</ddue:codeInline>: seats <strong>71–85</strong> (e.g., Dash Q8-400)</ddue:listItem>
                                 <ddue:listItem>
-                                    <ddue:codeInline>5</ddue:codeInline>: seats <strong>86&#8211;100</strong> (e.g., Embraer E190-E2)</ddue:listItem>
+                                    <ddue:codeInline>5</ddue:codeInline>: seats <strong>86–100</strong> (e.g., Embraer E190-E2)</ddue:listItem>
                                 <ddue:listItem>
-                                    <ddue:codeInline>6</ddue:codeInline>: seats <strong>101&#8211;125</strong> (e.g., Embraer E195-E2)</ddue:listItem>
+                                    <ddue:codeInline>6</ddue:codeInline>: seats <strong>101–125</strong> (e.g., Embraer E195-E2)</ddue:listItem>
                                 <ddue:listItem>
-                                    <ddue:codeInline>7</ddue:codeInline>: seats <strong>126&#8211;150</strong> (e.g., Airbus A220-300)</ddue:listItem>
+                                    <ddue:codeInline>7</ddue:codeInline>: seats <strong>126–150</strong> (e.g., Airbus A220-300)</ddue:listItem>
                                 <ddue:listItem>
-                                    <ddue:codeInline>8</ddue:codeInline>: seats <strong>151&#8211;175</strong> (e.g., Airbus A320neo A1)</ddue:listItem>
+                                    <ddue:codeInline>8</ddue:codeInline>: seats <strong>151–175</strong> (e.g., Airbus A320neo A1)</ddue:listItem>
                                 <ddue:listItem>
-                                    <ddue:codeInline>9</ddue:codeInline>: seats <strong>176&#8211;235</strong> (e.g., Airbus A321neo A1)</ddue:listItem>
+                                    <ddue:codeInline>9</ddue:codeInline>: seats <strong>176–235</strong> (e.g., Airbus A321neo A1)</ddue:listItem>
                                 <ddue:listItem>
-                                    <ddue:codeInline>10</ddue:codeInline>: seats <strong>236&#8211;300</strong> (e.g., D300+M)</ddue:listItem>
+                                    <ddue:codeInline>10</ddue:codeInline>: seats <strong>236–300</strong> (e.g., D300+M)</ddue:listItem>
                                 <ddue:listItem>
-                                    <ddue:codeInline>11</ddue:codeInline>: seats <strong>301&#8211;400</strong> (e.g., Airbus A350-900 A1)</ddue:listItem>
+                                    <ddue:codeInline>11</ddue:codeInline>: seats <strong>301–400</strong> (e.g., Airbus A350-900 A1)</ddue:listItem>
                                 <ddue:listItem>
-                                    <ddue:codeInline>12</ddue:codeInline>: seats <strong>401&#8211;500</strong> (e.g., Boeing 777-300ER)</ddue:listItem>
+                                    <ddue:codeInline>12</ddue:codeInline>: seats <strong>401–500</strong> (e.g., Boeing 777-300ER)</ddue:listItem>
                                 <ddue:listItem>
                                     <ddue:codeInline>13</ddue:codeInline>: seats <strong>501-600</strong>
                                 </ddue:listItem>
@@ -29894,7 +30358,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                 Indicates the type of point performance
                             </xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="takeOff"/>
@@ -30272,77 +30736,6 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                 <xsd:attribute name="uID" type="xsd:ID"/>
             </xsd:extension>
         </xsd:complexContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="posExcl0DoubleBaseType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>Positive double values larger than 0</ddue:para>
-                    </ddue:summary>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:simpleContent>
-            <xsd:restriction base="doubleBaseType">
-                <xsd:minExclusive value="0"/>
-            </xsd:restriction>
-        </xsd:simpleContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="posExcl0IntBaseType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>Positive integer values larger than 0</ddue:para>
-                    </ddue:summary>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:simpleContent>
-            <xsd:restriction base="integerBaseType">
-                <xsd:minExclusive value="0"/>
-            </xsd:restriction>
-        </xsd:simpleContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="posIntVectorBaseType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>Vector with semicolon separated positive integer values</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:content>
-                            <ddue:para>Any positive integer values separated by semicolons are permitted, e.g.:</ddue:para>
-                            <ddue:code language="XML" title="Example 1: valid integer vector">
-&lt;intVectorTest&gt;0;1;2;3;4;5&lt;/intVectorTest&gt;
-                            </ddue:code>
-                            <ddue:code language="XML" title="Example 2: valid integer vector with only one entry">
-&lt;intVectorTest&gt;1&lt;/intVectorTest&gt;
-                            </ddue:code>
-                            <ddue:code language="XML" title="Example 3: invalid integer vector due comma separation">
-&lt;intVectorTest&gt;0,1,2,3,4,5&lt;/intVectorTest&gt;
-                            </ddue:code>
-                            <ddue:code language="XML" title="Example 4: invalid integer vector due to invalid integer">
-&lt;intVectorTest&gt;0.;1.;2.&lt;/intVectorTest&gt;
-                            </ddue:code>
-                            <ddue:code language="XML" title="Example 5: invalid integer vector due to negative value">
-&lt;intVectorTest&gt;-1;0;1&lt;/intVectorTest&gt;
-                            </ddue:code>
-                        </ddue:content>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:simpleContent>
-            <xsd:restriction base="stringVectorBaseType">
-                <xsd:pattern value="(\s+)?\d+(([eE][-+]?)?\d+)?(\s+)?(;(\s+)?\d+(([eE][-+]?)?\d+)?(\s+)?)*"/>
-            </xsd:restriction>
-        </xsd:simpleContent>
     </xsd:complexType>
 
     <xsd:complexType name="positioningsType">
@@ -30826,7 +31219,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                         <xsd:documentation>Standard Profile Type, see picture below for
                                             further information.</xsd:documentation>
                                     </xsd:annotation>
-                                        <xsd:complexType>
+                                    <xsd:complexType>
                                         <xsd:simpleContent>
                                             <xsd:restriction base="stringBaseType">
                                                 <xsd:enumeration value="C"/>
@@ -31487,7 +31880,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     <xsd:element name="ribRotation" minOccurs="0" type="pointYType">
                         <xsd:annotation>
                             <xsd:documentation>Ribs can be rotated in the side view. The
-                                defaults to 90&#176;, which equals an orientation along the pylons
+                                defaults to 90°, which equals an orientation along the pylons
                                 z-axis. The angle is meassured around the positive y-direction
                                 of the pylon.</xsd:documentation>
                         </xsd:annotation>
@@ -31510,7 +31903,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         </xsd:element>
                     </xsd:choice>
                     <xsd:element name="ribCrossingBehaviour">
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:annotation>
                                 <xsd:documentation>RibCrossingBehaviour can either be "cross" or
                                     "end". If it is end then ribs will end it they intersect
@@ -31782,7 +32175,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
             <xsd:extension base="complexBaseType">
                 <xsd:all>
                     <xsd:element name="cornerRadius" minOccurs="0">
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:annotation>
                                 <xsd:appinfo>
                                     <sd:schemaDoc>
@@ -32041,7 +32434,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             The approach is currently being tested in practice in order to derive a robust definition of categories in the future.
                             </xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="numerical"/>
@@ -32126,7 +32519,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="checksum" minOccurs="0">
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:extension base="xsd:hexBinary">
                                     <xsd:attribute name="algorithm" use="required" type="checksumAlgorithmType"/>
@@ -32295,7 +32688,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     </ddue:summary>
                     <ddue:remarks>
                         <ddue:para>The rotation around z describes the rotation around the
-                            wings midplane normal axis. The defaults to 90&#176;. The reference
+                            wings midplane normal axis. The defaults to 90°. The reference
                             for the 'zero-angle' of the z-rotation is defined in
                             ribRotationReference.</ddue:para>
                     </ddue:remarks>
@@ -32308,8 +32701,8 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     <xsd:element name="ribRotationReference" minOccurs="0" type="stringBaseType">
                         <xsd:annotation>
                             <xsd:documentation>RotationReference defines the reference for
-                                the z-rotation it is either sparUID, &#8222;LeadingEdge&#8220;,
-                                &#8222;TrailingEdge&#8220;, "globalX", "globalY" or "globalZ".
+                                the z-rotation it is either sparUID, „LeadingEdge“,
+                                „TrailingEdge“, "globalX", "globalY" or "globalZ".
                                 If it is not defined the rotation reference is
                                 the eta-axis (=leading edge, that is projected on the wings
                                 y-z-plane). A z-rotation angle of 90 degrees means, that the rib
@@ -32322,7 +32715,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     <xsd:element name="z" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>The rotation around z describes the rotation
-                                around the wings midplane normal axis. The defaults to 90&#176;. The
+                                around the wings midplane normal axis. The defaults to 90°. The
                                 reference for the 'zero-angle' of the z-rotation is defined in
                                 ribRotationReference.</xsd:documentation>
                         </xsd:annotation>
@@ -32509,7 +32902,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="centerPoint">
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:all>
                                 <xsd:element name="latitude" type="doubleConstraintBaseType"/>
                                 <xsd:element name="longitude" type="doubleConstraintBaseType"/>
@@ -33090,11 +33483,11 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                     <ddue:para>
                                         The operation empty mass structure is based on the Airbus Mass
                                         Standard brake down [AIRBUS MASS STANDARD 2008]. The
-                                        operator&#8217;s mass empty (OME) is defined by the sum of the
+                                        operator’s mass empty (OME) is defined by the sum of the
                                         following component masses:
                                         <ddue:list class="bullet">
-                                            <ddue:listItem>operator&#8217;s items</ddue:listItem>
-                                            <ddue:listItem>manufacturer&#8217;s mass empty (MME)
+                                            <ddue:listItem>operator’s items</ddue:listItem>
+                                            <ddue:listItem>manufacturer’s mass empty (MME)
                                             </ddue:listItem>
                                         </ddue:list>
                                     </ddue:para>
@@ -34315,7 +34708,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                 tangential continuity), 2= C2 (defines curvature continuity)
                                 2=all</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="integerBaseType">
                                     <xsd:enumeration value="0"/>
@@ -34344,7 +34737,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                 tangential continuity), 2= C2 (defines curvature continuity)
                                 2=all</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="integerBaseType">
                                     <xsd:enumeration value="0"/>
@@ -34799,6 +35192,10 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     <ddue:summary>
                         <ddue:para>Social cost-benefit analysis result for a single region</ddue:para>
                     </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>All monetary values below this node, without exception, are given in millions of Euro [MEuro] at the price level stated by the priceLevel node of the assessment case specification. They are net present values, i.e. the stream of future welfare effects discounted to the year given by baseYearForNetPresentValue at the rate given by socialDiscountRate. The netPresentValue prefix is carried by the individual welfare components only; netSocialWelfareImpact does not carry it but is a net present value in exactly the same sense, being the sum of those components.</ddue:para>
+                        <ddue:para>The sign convention is benefit-positive throughout: a positive value denotes a benefit, that is a welfare gain of the assessed scenario relative to the reference scenario, and a negative value denotes a welfare loss. This holds for every node without exception, including those named after costs, where a cost avoided relative to the reference scenario is reported as a positive value and an increase in that cost as a negative one.</ddue:para>
+                    </ddue:remarks>
                 </sd:schemaDoc>
             </xsd:appinfo>
         </xsd:annotation>
@@ -34810,29 +35207,29 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             <xsd:documentation>Region the welfare components of this node are aggregated over. The values form a disjoint partition of the world, so that aggregates are obtained by summation and are not stored.</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="changeInConsumerSurplus" minOccurs="0" type="doubleBaseType">
+                    <xsd:element name="netPresentValueChangeInConsumerSurplus" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>Change in the surplus of air transport users, i.e. the difference between what passengers are willing to pay and what they actually pay [MEuro]. Following the benefit-positive sign convention, a positive value denotes a welfare gain.</xsd:documentation>
+                            <xsd:documentation>Net present value of the change in the surplus of air transport users, i.e. the difference between what passengers are willing to pay and what they actually pay [MEuro]. Following the benefit-positive sign convention, a positive value denotes a welfare gain.</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="changeInNoiseCost" minOccurs="0" type="doubleBaseType">
+                    <xsd:element name="netPresentValueChangeInNoiseCost" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>Change in the cost of aircraft noise exposure borne by the population around airports [MEuro]. Following the benefit-positive sign convention, a positive value denotes a cost avoided relative to the reference scenario and therefore a welfare gain, whereas an increase in this cost is reported as a negative value.</xsd:documentation>
+                            <xsd:documentation>Net present value of the change in the cost of aircraft noise exposure borne by the population around airports [MEuro]. Following the benefit-positive sign convention, a positive value denotes a cost avoided relative to the reference scenario and therefore a welfare gain, whereas an increase in this cost is reported as a negative value.</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="changeInGreenhouseGasCost" minOccurs="0" type="doubleBaseType">
+                    <xsd:element name="netPresentValueChangeInGreenhouseGasCost" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>Change in the cost of greenhouse gas emissions of aviation. The life cycle scope of the accounted emissions is given by the wellToWakeEmissionAssumption node of the specification [MEuro]. Following the benefit-positive sign convention, a positive value denotes a cost avoided relative to the reference scenario and therefore a welfare gain, whereas an increase in this cost is reported as a negative value.</xsd:documentation>
+                            <xsd:documentation>Net present value of the change in the cost of greenhouse gas emissions of aviation. The life cycle scope of the accounted emissions is given by the wellToWakeEmissionAssumption node of the specification [MEuro]. Following the benefit-positive sign convention, a positive value denotes a cost avoided relative to the reference scenario and therefore a welfare gain, whereas an increase in this cost is reported as a negative value.</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="changeInNonCo2ClimateCost" minOccurs="0" type="doubleBaseType">
+                    <xsd:element name="netPresentValueChangeInNonCo2ClimateCost" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>Change in the cost of the climate impact of aviation effects other than carbon dioxide, such as contrail cirrus, nitrogen oxides and water vapour [MEuro]. Following the benefit-positive sign convention, a positive value denotes a cost avoided relative to the reference scenario and therefore a welfare gain, whereas an increase in this cost is reported as a negative value.</xsd:documentation>
+                            <xsd:documentation>Net present value of the change in the cost of the climate impact of aviation effects other than carbon dioxide, such as contrail cirrus, nitrogen oxides and water vapour [MEuro]. Following the benefit-positive sign convention, a positive value denotes a cost avoided relative to the reference scenario and therefore a welfare gain, whereas an increase in this cost is reported as a negative value.</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="netSocialWelfareImpact" type="doubleBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>Resulting overall social welfare balance for this region, obtained by summation of the welfare components reported in this node [MEuro]. No weighting is applied to the components. A positive value denotes a net welfare gain of the assessed scenario relative to the reference scenario</xsd:documentation>
+                            <xsd:documentation>Net present value of the resulting overall social welfare balance for this region, obtained by summation of the welfare components reported in this node [MEuro]. No weighting is applied to the components. A positive value denotes a net welfare gain of the assessed scenario relative to the reference scenario</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:all>
@@ -34901,6 +35298,11 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     <xsd:element name="priceLevel" minOccurs="0" type="posExcl0IntBaseType">
                         <xsd:annotation>
                             <xsd:documentation>Reference year of the price level the monetary values of this assessment case are expressed in, e.g. 2020 for values given in 2020 prices. Note that this is the price base year and not necessarily the year or years the assessment case refers to. Since the price level is stated per assessment case, cases declaring different price levels are not directly comparable and must be deflated to a common year before their results are set against each other.</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="baseYearForNetPresentValue" minOccurs="0" type="posExcl0IntBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>Year to which the stream of future welfare effects of this assessment case is discounted, i.e. the year the net present values reported below regionalResults refer to. Discounting uses the rate given by socialDiscountRate. This is the discounting base year and is independent of priceLevel, which fixes the price level the monetary values are expressed in; the two may but need not coincide. Since the base year is stated per assessment case, cases declaring different base years are not directly comparable and must be discounted to a common year before their results are set against each other.</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:all>
@@ -35764,51 +36166,6 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         </xsd:complexContent>
     </xsd:complexType>
 
-    <xsd:complexType name="stringArrayBaseType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>stringArrayBaseType</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:para>Base type for string array nodes (including maptype
-                            array attribute)</ddue:para>
-                        <ddue:para>DEPRECATED: As of CPACCS version 3.3, the <ddue:legacyItalic>mapType</ddue:legacyItalic> attribute is set to optional to ensure the compatibility of older data records. However, since the type is uniquely defined via the XSD, the attribute is superfluous and will therefore be completely omitted in future versions. </ddue:para>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:simpleContent>
-            <xsd:extension base="stringBaseType">
-                <xsd:attribute name="mapType" fixed="array" type="xsd:string"/>
-            </xsd:extension>
-        </xsd:simpleContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="stringBaseType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>stringBaseType</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:para>Base type for string nodes (including external data
-                            attributes)</ddue:para>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:simpleContent>
-            <xsd:extension base="xsd:string">
-                <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
-                <xsd:attribute name="externalFileName" type="xsd:string"/>
-                <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
-            </xsd:extension>
-        </xsd:simpleContent>
-    </xsd:complexType>
-
     <xsd:complexType name="stringerFramePositionType">
         <xsd:annotation>
             <xsd:appinfo>
@@ -35875,7 +36232,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                 0= C0 (allows sharp edges, default), 2= C2 (defines curvature
                                 continuity)</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="integerBaseType">
                                     <xsd:enumeration value="0"/>
@@ -35890,7 +36247,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                 profiles: 0= no interpolation 1= interpolation of strcutural
                                 profile</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="integerBaseType">
                                     <xsd:enumeration value="0"/>
@@ -35981,93 +36338,6 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                 <xsd:attribute name="uID" use="required" type="xsd:ID"/>
             </xsd:extension>
         </xsd:complexContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="stringUIDBaseType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>stringUIDBaseType</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:para>This is the base type that links to other components. It should always contain a UID.</ddue:para>
-                        <ddue:para>This node has an additional attribute isLink that will be used if a stringBaseType refers to a uID. TIXI can then
-                            perform automatic validation for the existence of the referenced uID. </ddue:para>
-                        <ddue:para>Furthermore this node contains an additional attribute symmetry. The symmetry attribute may take three values: symm, def, full </ddue:para>
-                        <ddue:para>def: The element refers to the geometric component that has a symmetry attribute and refers only to the defined side of the geometric component.</ddue:para>
-                        <ddue:para>symm: The element refers to the geometric component that has a symmetry attribute and refers only to the symmetric side of the geometric component. (Similar to the previous _symm solution)</ddue:para>
-                        <ddue:para>full: The element refers to the geometric component that has a symmetry attribute and refers to the complete component. (This is the default behaviour)</ddue:para>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:simpleContent>
-            <xsd:extension base="xsd:IDREF">
-                <xsd:attribute name="isLink" default="True" type="xsd:string"/>
-                <xsd:attribute name="symmetry">
-                    <xsd:simpleType>
-                        <xsd:restriction base="xsd:string">
-                            <xsd:enumeration value="def"/>
-                            <xsd:enumeration value="symm"/>
-                            <xsd:enumeration value="full"/>
-                        </xsd:restriction>
-                    </xsd:simpleType>
-                </xsd:attribute>
-            </xsd:extension>
-        </xsd:simpleContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="stringVectorBaseType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>stringVectorBaseType</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:content>
-                            <ddue:para>Base type for string vector nodes</ddue:para>
-                            <ddue:para>The vector base type can include optional uncertainty
-                                information. The description of uncertainties is placed in
-                                addtional attributes. First, it is described by an attribute that
-                                describes the type of uncertainty function called functionName.
-                                The functionName attribute includes the tag name of the
-                                distribution function which is listened in the table shown below.
-                                Each uncertainty function is further describes by a set of
-                                parameters that are described in the table below.</ddue:para>
-                            <ddue:para>If the uncertainty values change for the elements of
-                                the vector than the attribute may be written as a list of values
-                                separated by semicolons</ddue:para>
-                            <ddue:para>DEPRECATED: As of <ddue:legacyItalic>CPACS</ddue:legacyItalic>
-                                version 3.3, the <ddue:legacyItalic>mapType</ddue:legacyItalic>
-                                attribute is set to optional to ensure the compatibility of older data sets.
-                                However, since the type is uniquely defined via the XSD, the attribute is superfluous
-                                and will therefore be completely omitted in the next major release (Note: requires
-                                TiXI &gt;= 3.3). Please contact the <ddue:legacyItalic>CPACS</ddue:legacyItalic> team
-                                if for any reason you see a long-term need for the <ddue:legacyItalic>mapType</ddue:legacyItalic>
-                                attribute.</ddue:para>
-                            <ddue:mediaLink>
-                                <ddue:image xlink:href="uncertaintyFunctions"/>
-                            </ddue:mediaLink>
-                        </ddue:content>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:simpleContent>
-            <xsd:extension base="stringBaseType">
-                <xsd:attribute name="mapType" fixed="vector" type="xsd:string"/>
-                <xsd:attribute name="uncertaintyFunctionName" type="uncertaintyFunctionType"/>
-                <xsd:attribute name="mu" type="xsd:string"/>
-                <xsd:attribute name="delta" type="xsd:string"/>
-                <xsd:attribute name="a" type="xsd:string"/>
-                <xsd:attribute name="b" type="xsd:string"/>
-                <xsd:attribute name="c" type="xsd:string"/>
-                <xsd:attribute name="v" type="xsd:string"/>
-                <xsd:attribute name="w" type="xsd:string"/>
-            </xsd:extension>
-        </xsd:simpleContent>
     </xsd:complexType>
 
     <xsd:complexType name="structuralElementsType">
@@ -36597,7 +36867,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="lowerHeightFraction">
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:annotation>
                                 <xsd:documentation>Fraction of height of the lower semi-ellipse relative to the total height</xsd:documentation>
                             </xsd:annotation>
@@ -36773,7 +37043,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                                 'Type1' and 'Type2' (see documentation)
                             </xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="Type1"/>
@@ -36960,68 +37230,6 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                 </xsd:sequence>
             </xsd:extension>
         </xsd:complexContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="timeBaseType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>timeBaseType</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:para>Base type for time nodes (including external data attributes)
-                            This time type is based on the xsd:time definition.
-                            "To specify a time zone, you can either enter a time in UTC time by adding a "Z" behind the time - like this: 09:30:10Z
-                            or you can specify an offset from the UTC time by adding a positive or negative time behind the time - like this:
-                            09:30:10-06:00
-                            or
-                            09:30:10+06:00" (description taken from http://www.w3schools.com/xml/schema_dtypes_date.asp)</ddue:para>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:simpleContent>
-            <xsd:extension base="xsd:time">
-                <xsd:attribute name="externalDataNodePath" type="xsd:string"/>
-                <xsd:attribute name="externalFileName" type="xsd:string"/>
-                <xsd:attribute name="externalDataDirectory" type="xsd:string"/>
-            </xsd:extension>
-        </xsd:simpleContent>
-    </xsd:complexType>
-
-    <xsd:complexType name="timeConstraintBaseType">
-        <xsd:annotation>
-            <xsd:appinfo>
-                <sd:schemaDoc>
-                    <ddue:summary>
-                        <ddue:para>timeConstraintBaseType</ddue:para>
-                    </ddue:summary>
-                    <ddue:remarks>
-                        <ddue:content>
-                            <ddue:para>Base type for time nodes including a relational operator attribute indicating valid constraint region</ddue:para>
-                            <ddue:para>The timeConstraintBaseType extends the timeBaseType and thus inherits all its attributes.</ddue:para>
-                        </ddue:content>
-                    </ddue:remarks>
-                </sd:schemaDoc>
-            </xsd:appinfo>
-        </xsd:annotation>
-        <xsd:simpleContent>
-            <xsd:extension base="timeBaseType">
-                <xsd:attribute name="relationalOperator" use="required">
-                    <xsd:simpleType>
-                        <xsd:restriction base="xsd:string">
-                            <xsd:enumeration value="lt"/>
-                            <xsd:enumeration value="le"/>
-                            <xsd:enumeration value="eq"/>
-                            <xsd:enumeration value="ne"/>
-                            <xsd:enumeration value="gt"/>
-                            <xsd:enumeration value="ge"/>
-                        </xsd:restriction>
-                    </xsd:simpleType>
-                </xsd:attribute>
-            </xsd:extension>
-        </xsd:simpleContent>
     </xsd:complexType>
 
     <xsd:complexType name="toolspecificType">
@@ -37295,7 +37503,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
             <xsd:extension base="complexBaseType">
                 <xsd:all>
                     <xsd:element name="name">
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="P1"/>
@@ -37457,7 +37665,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
             <xsd:extension base="complexBaseType">
                 <xsd:all>
                     <xsd:element name="name">
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringBaseType">
                                     <xsd:enumeration value="strut1"/>
@@ -37506,7 +37714,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         <xsd:annotation>
                             <xsd:documentation>Flight type (domestic, international)</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringVectorBaseType">
                                     <xsd:pattern value="(domestic|international)(;(domestic|international))*"/>
@@ -37518,7 +37726,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         <xsd:annotation>
                             <xsd:documentation>Origin region (EU, EU_Outermost, EFTA_UK, restOfWorld)</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringVectorBaseType">
                                     <xsd:pattern value="(EU|EU_Outermost|EFTA_UK|restOfWorld)(;(EU|EU_Outermost|EFTA_UK|restOfWorld))*"/>
@@ -37530,7 +37738,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         <xsd:annotation>
                             <xsd:documentation>Destination region (EU, EU_Outermost, EFTA_UK, restOfWorld)</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringVectorBaseType">
                                     <xsd:pattern value="(EU|EU_Outermost|EFTA_UK|restOfWorld)(;(EU|EU_Outermost|EFTA_UK|restOfWorld))*"/>
@@ -38424,7 +38632,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             <xsd:documentation>defines which condition(s) are variable within the segment (must be one of the defined
                             endConditions for the segmentBlock)</xsd:documentation>
                         </xsd:annotation>
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:simpleContent>
                                 <xsd:restriction base="stringVectorBaseType">
                                     <xsd:pattern value="(CAS|machNumber|positionXYZ|positionGeo|runway|massFraction|fuelFraction|fuelRemaining|fuelConsumed|heading|turnAngle|range|range/x|range/y|range/z|positionXYZ/x|positionXYZ/y|positionXYZ/z|positionGeo/latitude|positionGeo/longitude|positionGeo/altitude|duration|endTimeUTC|specificExcessPower|rateOfClimb|flightPathAngle)(;(CAS|machNumber|positionXYZ|positionGeo|runway|massFraction|fuelFraction|fuelRemaining|fuelConsumed|heading|turnAngle|range|range/x|range/y|range/z|positionXYZ/x|positionXYZ/y|positionXYZ/z|positionGeo/latitude|positionGeo/longitude|positionGeo/altitude|duration|endTimeUTC|specificExcessPower|rateOfClimb|flightPathAngle))*"/>
@@ -38866,7 +39074,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         direction. Default: 0.0deg.
                     </xsd:documentation>
                 </xsd:annotation>
-                    <xsd:complexType>
+                <xsd:complexType>
                     <xsd:simpleContent>
                         <xsd:restriction base="doubleBaseType">
                             <xsd:minInclusive value="0"/>
@@ -39316,9 +39524,9 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     <ddue:summary>
                         <ddue:para>Definition of the landing gear wheel.</ddue:para>
                     </ddue:summary>
-                    <ddue:content>
+                    <ddue:remarks>
                         <ddue:para>The center plane of the wheel is located on the end point of the axle.</ddue:para>
-                    </ddue:content>
+                    </ddue:remarks>
                 </sd:schemaDoc>
             </xsd:appinfo>
         </xsd:annotation>
@@ -39580,7 +39788,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             <ddue:para>A cell defines a special region of the wing. Within
                                 this region skin and stringer properties can be defined that
                                 differer from the properties of the rest of the wing. In general
-                                a cell is defined by defining four borders &#226;&#8364;&#8220; the cell leading
+                                a cell is defined by defining four borders â€“ the cell leading
                                 and trailing edge and the inner border and the outer border.
                                 Those borders can either be defined by using eta/xsi coordinates
                                 or by referencing to spars and ribs. Mixed definitions (e.g.
@@ -40107,7 +40315,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             <ddue:para>Position definition by using cells:</ddue:para>
                             <ddue:para>A cell defines a special region of the wing. Within
                                 this region the cell properties are defined. In general a cell
-                                is defined by defining four borders &#226;&#8364;&#8220; the cell leading and
+                                is defined by defining four borders â€“ the cell leading and
                                 trailing edge and the inner border and the outer border. Those
                                 borders can either be defined by using eta/xsi coordinates or by
                                 referencing to spars and ribs. Mixed definitions (e.g. forward
@@ -40202,10 +40410,10 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             <xsd:documentation>WING: The Rotation along the x describes a
                                 rotation around a line, that is defined by the intersection of
                                 the rib with the wing middle plane (orientated from leading to
-                                trailing edge). This angle defaults to 90&#176; which means, that the
+                                trailing edge). This angle defaults to 90° which means, that the
                                 rib is perpendicular on the wings middle plane. PYLON: The
                                 Rotation along the z describes a rotation around the pylons
-                                z-axis (= rotation in top view). This angle defaults to 90&#176;
+                                z-axis (= rotation in top view). This angle defaults to 90°
                                 which means, that the rib is perpendicular to the pylons x-axis.
                             </xsd:documentation>
                         </xsd:annotation>
@@ -40264,13 +40472,13 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             <xsd:documentation>WING: The Rotation along the x describes a
                                 rotation around a line, that is defined by the intersection of
                                 the rib with the wing middle plane (orientated from leading to
-                                trailing edge). This angle defaults to 90&#176; which means, that the
+                                trailing edge). This angle defaults to 90° which means, that the
                                 rib is perpendicular on the wings middle plane. The rotation
                                 angle is defined at the intersection point of the rib with the
                                 ribReference line. The rib itself is allways straight and not
                                 twisted. PYLON: The Rotation along the z describes a rotation
                                 around the pylons z-axis (= rotation in top view). This angle
-                                defaults to 90&#176; which means, that the rib is perpendicular to
+                                defaults to 90° which means, that the rib is perpendicular to
                                 the pylons x-axis.</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
@@ -40618,7 +40826,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="ribCrossingBehaviour">
-                            <xsd:complexType>
+                        <xsd:complexType>
                             <xsd:annotation>
                                 <xsd:documentation>
                                     RibCrossingBehaviour can either be 'cross' or 'end'. If it is set to'end' the ribs
@@ -41474,5 +41682,4 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
-
 </xsd:schema>
