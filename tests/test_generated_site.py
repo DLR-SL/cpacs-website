@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 import unittest
 from html.parser import HTMLParser
 from pathlib import Path
@@ -143,6 +144,22 @@ class GeneratedSiteTests(unittest.TestCase):
             with self.subTest(release=release):
                 single = OUTPUT / "documentation" / release / "cpacs-doc" / "cpacs-doc.html"
                 self.assertFalse(single.exists(), "single file built for a superseded release")
+
+    def test_root_error_page_hands_every_viewer_address_to_its_router(self) -> None:
+        """GitHub Pages serves the root 404.html only, so every address the
+        schema viewer routes on has to be recognised there and handed to the
+        router beside the documentation. The segments are read from the
+        generator's router rather than listed here: a view the generator adds
+        later fails this test instead of ending on "Page not found"."""
+        router = (
+            OUTPUT / "documentation" / "CPACS_3_5_1_Docs" / "cpacs-doc" / "404.html"
+        ).read_text(encoding="utf-8")
+        segments = re.findall(r'var \w+_SEGMENT = "(/[a-z]+/)"', router)
+        self.assertIn("/tree/", segments, "the generator's router names no segments")
+        handover = (OUTPUT / "404.html").read_text(encoding="utf-8")
+        for segment in segments:
+            with self.subTest(segment=segment):
+                self.assertIn(f'"{segment}"', handover)
 
     def test_generated_html_contains_no_build_placeholders_or_local_paths(self) -> None:
         forbidden = ("{filename}", "{static}", "file://", "d:\\rce\\plugins")

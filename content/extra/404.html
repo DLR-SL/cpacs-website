@@ -17,10 +17,18 @@
   // are not files and reach the site as a miss. Its own router sits beside the
   // documentation it belongs to, but GitHub Pages serves the error document of
   // the site root only, never a nested one -- this page stands in for it.
-  var TREE_SEGMENT = "/tree/";
+  // One segment per view the viewer offers: the tree, and the same tree drawn
+  // as a diagram. Whichever comes first names the view, the rule the viewer
+  // applies itself, so an element that happens to be called "diagram" deep in
+  // a tree path stays a tree path.
+  var SEGMENTS = ["/tree/", "/diagram/"];
 
   var path = window.location.pathname;
-  var index = path.indexOf(TREE_SEGMENT);
+  var index = -1;
+  for (var i = 0; i < SEGMENTS.length; i++) {
+    var at = path.indexOf(SEGMENTS[i]);
+    if (at !== -1 && (index === -1 || at < index)) index = at;
+  }
   if (index === -1) return;
 
   // Same origin by construction: the address is this page's own, and only the
