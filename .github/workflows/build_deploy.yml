@@ -50,7 +50,12 @@ jobs:
           path: output
 
   deploy:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    # A manual run deploys too: a new cpacs-doc release changes the
+    # documentation without a commit here, and is published by starting the
+    # workflow on main.
+    if: >-
+      (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+      && github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10

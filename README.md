@@ -65,7 +65,10 @@ reported for review.
 
 Pull requests build and validate the website without deploying it. A successful
 push to `main` uploads the generated `output/` directory as a GitHub Pages
-artifact and deploys it.
+artifact and deploys it. So does a manual run of the workflow on `main`
+(**Actions → Build and deploy CPACS website → Run workflow**, or
+`gh workflow run build_deploy.yml --ref main`), which is how a new cpacs-doc
+release reaches the site without a commit here.
 
 The canonical site URL is `https://www.cpacs.de`. Keep the custom domain set in
 **Repository settings → Pages** and retain `content/extra/CNAME` with the value
