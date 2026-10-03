@@ -91,9 +91,11 @@ below `addContent/` and are copied into the generated site by `scripts/site.py`.
 The documentation of the current release is not stored in this repository. It is
 rendered on every build by `scripts/documentation.py` from two upstream sources:
 
-* [cpacs-doc](https://github.com/DLR-SL/cpacs-doc) - the generator, taken from
-  its default branch and deliberately not pinned, so the published pages always
-  come out of the current generator.
+* [cpacs-doc](https://github.com/DLR-SL/cpacs-doc) - the generator, at its
+  newest release (a `v1.2.3` tag), so the published pages come out of the
+  current generator without a commit here, but only out of a state its
+  maintainers released. `CPACS_DOC_REF=main` builds with the unreleased
+  generator instead, as a preview.
 * [CPACS](https://github.com/DLR-SL/CPACS) - schema and documentation media,
   taken from the release tag named in `DOCUMENTATION` in that script.
 
@@ -104,9 +106,10 @@ both the browsable pages and the self-contained `cpacs-doc.html`, the way the
 sandcastle directory holds both its HTML and its `.chm`.
 
 Both checkouts are cached below `.cache/` and are not committed. The pinned CPACS
-tag is fetched once; the generator is refreshed on every build. When a fetch
-fails and a cached checkout exists, the build continues on it and prints a
-warning. Delete `.cache/` to start over.
+tag is fetched once, and so is each generator release; every build asks for the
+newest release and fetches the generator again only when there is a new one.
+When a fetch fails and a cached checkout exists, the build continues on it and
+prints a warning. Delete `.cache/` to start over.
 
 Add a release by extending `DOCUMENTATION` in `scripts/documentation.py`. The
 sandcastle output below `addContent/documentation/` belongs to the previous

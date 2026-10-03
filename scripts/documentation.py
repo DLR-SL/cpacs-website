@@ -5,8 +5,9 @@ The rendered documentation is not kept in this repository. It is produced on
 every build from two upstream sources, so the published pages always come out
 of the current generator instead of a snapshot somebody once committed:
 
-* https://github.com/DLR-SL/cpacs-doc - the generator, taken from its default
-  branch, deliberately unpinned.
+* https://github.com/DLR-SL/cpacs-doc - the generator, at its newest release
+  (`generator_ref`), so a release of the generator reaches every published
+  documentation set without a commit here.
 * https://github.com/DLR-SL/CPACS - schema and documentation media, taken from
   the release tag the documentation belongs to.
 
@@ -18,6 +19,7 @@ The CPACS checkout is sparse and blobless: only ``schema/`` and
 from __future__ import annotations
 
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -30,7 +32,8 @@ TOOL_DIR = CACHE_DIR / "cpacs-doc"
 SOURCE_DIR = CACHE_DIR / "cpacs"
 
 TOOL_URL = "https://github.com/DLR-SL/cpacs-doc.git"
-TOOL_REF = os.environ.get("CPACS_DOC_REF", "main")
+# A plain release tag; release candidates and other tags are not published.
+RELEASE_TAG = re.compile(r"v(\d+(?:\.\d+)*)")
 SOURCE_URL = "https://github.com/DLR-SL/CPACS.git"
 SOURCE_PATHS = ("schema", "documentation")
 
@@ -61,7 +64,7 @@ class Documentation:
 
 
 # The published documentation sets. A release tag is pinned; the generator that
-# renders it is not, which is the point of building here at all.
+# renders it follows its own releases, which is the point of building here at all.
 DOCUMENTATION = (
     Documentation(directory="CPACS_3_5_1_Docs", ref="v3.5.1", single=True),
     Documentation(directory="CPACS_3_5_0_Docs", ref="v3.5", tolerate_errors=True),
@@ -131,6 +134,54 @@ def _sync(
     return path
 
 
+def _list_release_tags() -> list[str]:
+    output = subprocess.run(
+        ["git", "ls-remote", "--tags", "--refs", TOOL_URL, "v*"],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout
+    return [line.rsplit("refs/tags/", 1)[-1] for line in output.splitlines() if line.strip()]
+
+
+def _cached_tool_ref() -> str | None:
+    stamp = TOOL_DIR / REF_STAMP
+    return stamp.read_text(encoding="utf-8") if stamp.is_file() else None
+
+
+def generator_ref(environ=os.environ, list_tags=_list_release_tags, cached=_cached_tool_ref):
+    """The cpacs-doc ref to build with, and whether it is pinned.
+
+    The newest release, so that improvements to the generator reach every
+    published documentation set without a commit here, but only once they have
+    been released: a push to the generator's default branch is not a decision
+    to publish. ``CPACS_DOC_REF`` names any other ref, ``main`` for a preview.
+    """
+
+    if environ.get("CPACS_DOC_REF"):
+        return environ["CPACS_DOC_REF"], False
+
+    try:
+        names = list_tags()
+    except subprocess.CalledProcessError:
+        ref = cached()
+        if ref is None:
+            raise
+        print(
+            f"warning: the releases of {TOOL_URL} could not be listed; "
+            f"building with the cached {ref}",
+            file=sys.stderr,
+        )
+        return ref, True
+
+    releases = [name for name in names if RELEASE_TAG.fullmatch(name)]
+    if not releases:
+        raise SystemExit(f"{TOOL_URL} has no release tag (v1.2.3) to build with")
+    newest = max(releases, key=lambda name: tuple(int(part) for part in name[1:].split(".")))
+    return newest, True
+
+
 def _uv() -> str:
     executable = shutil.which("uv")
     if executable is None:
@@ -157,7 +208,9 @@ def _generator_environment() -> dict[str, str]:
 def generate(output_dir: Path) -> None:
     """Render every configured documentation set below ``output_dir``."""
 
-    tool = _sync(TOOL_URL, TOOL_DIR, TOOL_REF, pinned=False)
+    tool_ref, pinned = generator_ref()
+    print(f"cpacs-doc {tool_ref}")
+    tool = _sync(TOOL_URL, TOOL_DIR, tool_ref, pinned=pinned)
     converter = tool / "tools" / "convert_media_catalogue.py"
 
     for documentation in DOCUMENTATION:
