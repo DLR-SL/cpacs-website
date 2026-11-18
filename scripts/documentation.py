@@ -71,6 +71,14 @@ DOCUMENTATION = (
     Documentation(directory="CPACS_3_4_0_Docs", ref="v3.4", tolerate_errors=True),
 )
 
+# Each release above is also compared with the one listed after it, and the
+# changes are drawn on the diagram by `cpacs-doc diff`: below
+# documentation/<directory>/cpacs-doc/changes/ of the newer release, linked
+# from the documentation page. A rename the generator only suspects can be
+# confirmed or rejected in renames/<ref>.toml (format: see cpacs-doc diff).
+CHANGES_DIR = "changes"
+RENAMES_DIR = ROOT / "renames"
+
 
 def _git(*arguments: str, cwd: Path) -> None:
     subprocess.run(["git", *arguments], cwd=cwd, check=True)
@@ -261,6 +269,51 @@ def generate(output_dir: Path) -> None:
                 str(source / "schema" / "cpacs_schema.xsd"),
                 "-o",
                 str(target),
+                *options,
+            ],
+            cwd=ROOT,
+            env=_generator_environment(),
+            check=True,
+        )
+
+    changes(tool, output_dir)
+
+
+def _version(ref: str) -> str:
+    return ref[1:] if ref.startswith("v") else ref
+
+
+def changes(tool: Path, output_dir: Path) -> None:
+    """Compare each release with the one before it.
+
+    The diff needs the generator release that brings `cpacs-doc diff` (v0.1.3).
+    Both schemas are already checked out by the documentation builds above.
+    """
+
+    for newer, older in zip(DOCUMENTATION, DOCUMENTATION[1:]):
+        target = output_dir / "documentation" / newer.directory / "cpacs-doc" / CHANGES_DIR
+        options = []
+        renames = RENAMES_DIR / f"{newer.ref}.toml"
+        if renames.is_file():
+            options += ["--renames", str(renames)]
+        subprocess.run(
+            [
+                _uv(),
+                "run",
+                "--no-config",
+                "--project",
+                str(tool),
+                "--locked",
+                "cpacs-doc",
+                "diff",
+                str(SOURCE_DIR / older.ref / "schema" / "cpacs_schema.xsd"),
+                str(SOURCE_DIR / newer.ref / "schema" / "cpacs_schema.xsd"),
+                "-o",
+                str(target),
+                "--old-label",
+                f"CPACS {_version(older.ref)}",
+                "--new-label",
+                f"CPACS {_version(newer.ref)}",
                 *options,
             ],
             cwd=ROOT,
