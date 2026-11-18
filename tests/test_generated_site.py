@@ -145,6 +145,16 @@ class GeneratedSiteTests(unittest.TestCase):
                 single = OUTPUT / "documentation" / release / "cpacs-doc" / "cpacs-doc.html"
                 self.assertFalse(single.exists(), "single file built for a superseded release")
 
+    def test_changes_between_releases_are_generated(self) -> None:
+        """Each generated release but the oldest is compared with the one before it."""
+        for release in ("CPACS_3_5_1_Docs", "CPACS_3_5_0_Docs"):
+            changes = OUTPUT / "documentation" / release / "cpacs-doc" / "changes"
+            for relative in ("diff.html", "report.md", "diff.json"):
+                with self.subTest(release=release, path=relative):
+                    self.assertTrue((changes / relative).is_file(), relative)
+        oldest = OUTPUT / "documentation" / "CPACS_3_4_0_Docs" / "cpacs-doc" / "changes"
+        self.assertFalse(oldest.exists(), "the oldest release has nothing to be compared with")
+
     def test_root_error_page_hands_every_viewer_address_to_its_router(self) -> None:
         """GitHub Pages serves the root 404.html only, so every address the
         schema viewer routes on has to be recognised there and handed to the

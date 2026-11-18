@@ -114,6 +114,15 @@ newest release and fetches the generator again only when there is a new one.
 When a fetch fails and a cached checkout exists, the build continues on it and
 prints a warning. Delete `.cache/` to start over.
 
+Each release is also compared with the one listed after it in `DOCUMENTATION`:
+`cpacs-doc diff` draws the changes on the diagram into
+`output/documentation/<release>/cpacs-doc/changes/diff.html` (with `report.md`,
+`summary.md` and `diff.json` beside it), linked from the documentation page as
+"Changes". A rename
+the generator only suspects can be decided in `renames/<tag>.toml` (see the
+cpacs-doc README). The step from the latest release to `develop` is published by
+the CPACS repository itself, at <https://dlr-sl.github.io/CPACS/diff/diff.html>.
+
 Add a release by extending `DOCUMENTATION` in `scripts/documentation.py`. The
 sandcastle output below `addContent/documentation/` belongs to the previous
 documentation system and stays committed, because it cannot be regenerated here.

@@ -48,6 +48,7 @@ The example is also simply motivating to work on, and we think cases of this siz
 ## Relevant links
 
 - [Release notes on GitHub](https://github.com/DLR-SL/CPACS/releases/tag/v3.5.1) and the [3.5.1 project board](https://github.com/orgs/DLR-SL/projects/3)
+- [What changed since 3.5](https://cpacs.de/documentation/CPACS_3_5_1_Docs/cpacs-doc/changes/diff.html), node by node, with the changes that need existing datasets adapted
 - [Download](https://dlr-sl.github.io/cpacs-website/pages/get-cpacs.html)
 - [Documentation](https://cpacs.de/pages/documentation.html)
 - [TiGL v3.5.0](https://github.com/DLR-SC/tigl/releases/tag/v3.5.0)
